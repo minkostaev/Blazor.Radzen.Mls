@@ -1,0 +1,66 @@
+﻿@if (IsComboNotButton)
+{
+    <RadzenDropDown Value="@_theme" Data=@_themes TValue="string"
+                    ValueChanged="@((string val) => DropDown_ValueChanged(val))" />
+}
+else
+{
+    <RadzenSplitButton AlwaysOpenPopup=true Text="@_btnText"
+                       Click=@(args => SplBtn_Click(args, "SplitButton1"))>
+        <ChildContent>
+            @for (int i = 0; i < _themes.Length; i++)
+            {
+                <RadzenSplitButtonItem Text="@_themes[i]" Value="@i.ToString()" />
+            }
+        </ChildContent>
+    </RadzenSplitButton>
+}
+
+@code {
+
+    [Parameter]
+    public bool IsComboNotButton { get; set; }
+
+    private string _theme = "";
+    private string _btnText = "Theme: default";
+
+    // free radzen themes names
+    private string[] _themes = ["default", "standard", "software", "humanistic", "dark", "material"];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _theme = await jsRuntime.InvokeAsync<string>("getRadzenTheme");
+        _btnText = "Theme: " + _theme;
+    }
+
+    private async Task DropDown_ValueChanged(string val)
+    {
+        await jsRuntime.InvokeVoidAsync("setRadzenTheme", val);
+    }
+
+    private async Task SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
+    {
+        if (item != null)
+        {
+            await jsRuntime.InvokeVoidAsync("setRadzenTheme", item.Text);
+            _btnText = "Theme: " + item.Text;
+        }
+    }
+
+}
+
+@* requirements: *@
+@* @inject IJSRuntime jsRuntime *@
+@* function setRadzenTheme(val) {
+    let links = document.head.getElementsByTagName('link');
+    for (let li of links) {
+        if (li.href.includes('_content/Radzen.Blazor/css/')) {
+            let css = li.href.split('/').slice(-1)[0];
+            let newLink = li.href.replace(css, val + '-base.css');
+            li.href = newLink;
+        }
+    }
+} *@
+@* in index.html
+<link rel="stylesheet" href="_content/Radzen.Blazor/css/default-base.css">
+<script src="js/myRadzen.js"></script> - js code is in here *@

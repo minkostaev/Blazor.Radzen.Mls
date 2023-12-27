@@ -1,6 +1,6 @@
 {
-  "name": "Blazor.Radzen.Mls",
-  "short_name": "Blazor.Radzen.Mls",
+  "name": "BlazorRadzenMls",
+  "short_name": "BlazorRadzenMls",
   "id": "./",
   "start_url": "./",
   "display": "standalone",

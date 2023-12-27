@@ -1,4 +1,4 @@
-using Blazor.Radzen.Mls;
+using BlazorRadzenMls;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

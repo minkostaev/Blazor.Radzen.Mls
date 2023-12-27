@@ -1,16 +1,38 @@
-﻿@inherits LayoutComponentBase
+﻿@using BlazorRadzenMls.Components
+
+@inherits LayoutComponentBase
+
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
+    <div class="sidebar" style="@_sidebarStyle">
+       @*  <NavMenu /> *@
+        <RadzenNavMenus />
     </div>
 
     <main>
+        
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+
+            <RadzenToggleButton Icon="line_weight" ToggleIcon="code" ButtonStyle="ButtonStyle.Primary"
+                                Shade="Shade.Darker" ToggleShade="Shade.Lighter" 
+                                Style="left: -20px;" @bind-Value="@_sidebarVisible" />
+
+            <RadzenThemes />
+
+            @* <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a> *@
+
         </div>
 
         <article class="content px-4">
             @Body
         </article>
+
     </main>
 </div>
+
+@code {
+
+    private bool _sidebarVisible = true;
+
+    private string _sidebarStyle => _sidebarVisible ? "display: block;" : "display: none;";
+
+}

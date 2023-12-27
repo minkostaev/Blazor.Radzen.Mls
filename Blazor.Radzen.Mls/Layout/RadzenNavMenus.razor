@@ -1,0 +1,40 @@
+﻿<RadzenPanelMenu DisplayStyle="@_displayStyle" ShowArrow="@_isShowArrow" Multiple="@_multiple">
+    <RadzenPanelMenuItem Text="Home" Path="" Icon="home"></RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Text="Blazor" Icon="bug_report">
+        <RadzenPanelMenuItem Text="Counter" Path="counter" Icon="done" />
+        <RadzenPanelMenuItem Text="Weather" Path="weather" Icon="backup" />
+    </RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Text="Radzen" Icon="extension">
+        <RadzenPanelMenuItem Text="Icons" Path="icons" Icon="perm_media" />
+    </RadzenPanelMenuItem>
+
+    <RadzenPanelMenuItem Text="Menu Options" Icon="build">
+
+        <RadzenCheckBox @bind-Value=@_multiple Name="CheckBox1" TValue="bool" />
+        <RadzenLabel Text="Allow multiple expand" Component="CheckBox1" />
+
+        <RadzenRadioButtonList @bind-Value=@_displayStyle Orientation="Orientation.Vertical" TValue="MenuItemDisplayStyle">
+            <Items>
+                <RadzenRadioButtonListItem Text="IconAndText" Value="MenuItemDisplayStyle.IconAndText" />
+                <RadzenRadioButtonListItem Text="Icon" Value="MenuItemDisplayStyle.Icon" />
+                <RadzenRadioButtonListItem Text="Text" Value="MenuItemDisplayStyle.Text" />
+            </Items>
+        </RadzenRadioButtonList>
+
+        <RadzenCheckBox @bind-Value=@_isShowArrow Name="CheckBox2" TValue="bool" />
+        <RadzenLabel Text="Show Arrow" Component="CheckBox2" />
+
+    </RadzenPanelMenuItem>
+</RadzenPanelMenu>
+
+@* <RadzenButton Variant="Variant.Text" Text="Primary" Shade="Shade.Lighter" ButtonStyle="ButtonStyle.Primary" /> *@
+
+@code {
+
+    private MenuItemDisplayStyle _displayStyle = MenuItemDisplayStyle.IconAndText;
+
+    private bool _isShowArrow = true;
+
+    private bool _multiple;
+
+}
