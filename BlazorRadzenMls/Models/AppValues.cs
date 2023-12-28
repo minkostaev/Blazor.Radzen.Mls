@@ -10,9 +10,9 @@ public static class AppValues
     public const string RolesManager = "admin, manager";
     public const string RolesAdmin = "admin";
 
-    public const string PageBase = "analysis";
-    public const string PageBalanceSheet = "balancesheet";
-    public const string PageInlineViewer = "inlineviewer";
-    public const string PagePivotViewer = "pivotviewer";
+    //public const string PageBase = "analysis";
+    public const string PageIcons = "icons";
+    //public const string PageInlineViewer = "inlineviewer";
+    //public const string PagePivotViewer = "pivotviewer";
 
 }

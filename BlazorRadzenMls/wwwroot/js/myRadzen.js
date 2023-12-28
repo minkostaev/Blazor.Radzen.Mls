@@ -19,3 +19,9 @@ function setRadzenTheme(val) {
         }
     }
 }
+
+function reload() {
+    //window.location.href = urlWithRndQueryParam(url);
+    // This is to ensure reload with url's having '#'
+    window.location.reload();
+}

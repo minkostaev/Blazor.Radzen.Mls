@@ -1,0 +1,12 @@
+﻿<RadzenButton Text="Refresh" ButtonStyle="ButtonStyle.Primary" Click="@Btn_Click" />
+
+@code {
+    
+    //https://stackoverflow.com/questions/2099201/javascript-hard-refresh-of-current-page
+    
+    private async Task Btn_Click()
+    {
+        await jsRuntime.InvokeVoidAsync("reload");
+    }
+
+}
