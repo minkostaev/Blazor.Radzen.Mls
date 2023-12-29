@@ -20,8 +20,17 @@ function setRadzenTheme(val) {
     }
 }
 
-function reload() {
-    //window.location.href = urlWithRndQueryParam(url);
-    // This is to ensure reload with url's having '#'
-    window.location.reload();
+async function getVersion() {
+    const response = await fetch(`/sample-data/ver.txt`);
+    const resData = await response.text();
+    return resData;
+}
+
+async function reload() {
+    const keys = await caches.keys();
+    for (let cch of keys) {
+        await caches.delete(cch);
+    }
+    location.replace(location.origin);
+    //window.location.reload(true);
 }

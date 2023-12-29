@@ -1,0 +1,43 @@
+﻿<RadzenSplitButton AlwaysOpenPopup=true Text="@_btnText"
+                   Click=@(args => SplBtn_Click(args, "SplitButton1"))>
+    <ChildContent>
+        @for (int i = 0; i < _themes.Length; i++)
+        {
+            <RadzenSplitButtonItem Text="@_themes[i]" Value="@i.ToString()" />
+        }
+    </ChildContent>
+</RadzenSplitButton>
+
+@code {
+    private string? _btnText;
+
+    private string[] _themes = ["English", "Bulgarian"];
+
+    protected override void OnInitialized()
+    {
+        langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("bg-BG"));
+        _btnText = langService.Keys["welcome"] + " Български";
+    }
+
+    private void SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
+    {
+        if (item != null)
+        {
+            switch (item.Value)
+            {
+                case "0":
+                    langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+                    _btnText = langService.Keys["welcome"] + " Bulgarian";
+                    break;
+                case "1":
+                    langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("bg-BG"));
+                    _btnText = langService.Keys["welcome"] + " Български";
+                    break;
+                default:
+                    langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+                    break;
+            }
+        }
+    }
+
+}
