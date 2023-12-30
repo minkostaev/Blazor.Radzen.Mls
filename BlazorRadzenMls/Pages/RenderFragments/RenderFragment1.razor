@@ -1,0 +1,20 @@
+﻿@childContent
+
+@code {
+
+    private string textContent = "Welcome to your new Blazor app.";
+
+    private RenderFragment? childContent { get; set; }
+
+    private RenderFragment AddContent() => builder =>
+    {
+        builder.AddContent(1, textContent);
+    };
+
+
+    protected override void OnInitialized()
+    {
+        childContent = AddContent();
+    }
+
+}

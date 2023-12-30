@@ -1,0 +1,47 @@
+﻿@page "/renderfragment"
+
+<PageTitle>Render Fragment [Title]</PageTitle>
+
+<h1>Render Fragment [H1]</h1>
+
+<RenderFragment1></RenderFragment1>
+
+<div>
+    @CustomRender
+</div>
+
+<button @onclick="RenderComponent">
+    @_buttonText
+</button>
+
+@code {
+
+    private string _buttonText = "Create components";
+
+    private RenderFragment? CustomRender { get; set; }
+
+    private RenderFragment CreateComponent() => builder =>
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            builder.OpenComponent(0, typeof(Component1));
+            builder.AddAttribute(1, "RenderParameter", "Component " + i);
+            builder.CloseComponent();
+        }
+    };
+
+    private void RenderComponent()
+    {
+        if (CustomRender == null)
+        {
+            CustomRender = CreateComponent();
+            _buttonText = "Clear";
+        }
+        else
+        {
+            CustomRender = null;
+            _buttonText = "Create components";
+        }
+    }
+
+}

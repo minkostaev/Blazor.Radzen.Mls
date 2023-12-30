@@ -1,5 +1,6 @@
 ﻿@page "/"
 
+@using BlazorRadzenMls.Components
 @using BlazorRadzenMls.Models
 
 <PageTitle>Home</PageTitle>
@@ -11,3 +12,11 @@
 Welcome to your new app.
 
 <div>app version: @AppValues.Version</div>
+
+<InputText @bind-Value="@_name" />
+
+<Parametri Name="@_name" />
+
+@code {
+    private string? _name { get; set; }
+}

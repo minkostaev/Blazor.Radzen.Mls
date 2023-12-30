@@ -1,0 +1,17 @@
+﻿@inject NavigationManager NavigationManager
+
+<h3>@Name</h3>
+
+@code {
+
+    [Parameter]
+    //[SupplyParameterFromQuery(Name = "id")]
+    public string? Name { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        ;
+        //NavigationManager.NavigateTo($"/aa/{Name}");
+    }
+
+}
