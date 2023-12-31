@@ -1,9 +1,9 @@
-﻿@if (IsComboNotButton)
+﻿@if (IsComboNotButton == true)
 {
     <RadzenDropDown Value="@_theme" Data=@_themes TValue="string"
                     ValueChanged="@((string val) => DropDown_ValueChanged(val))" />
 }
-else
+else if (IsComboNotButton == false)
 {
     <RadzenSplitButton AlwaysOpenPopup=true Text="@_btnText"
                        Click=@(args => SplBtn_Click(args, "SplitButton1"))>
@@ -15,22 +15,125 @@ else
         </ChildContent>
     </RadzenSplitButton>
 }
+else
+{
+    <RadzenLabel Text=@_themeLbl class="rz-color-success-dark" Style="font-weight: bold;" />
+
+    <RadzenToggleButton @bind-Value=@isDefault Text="default" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
+                        Style="margin-right: -3px; margin-bottom: 1px;" />
+    <RadzenToggleButton @bind-Value=@isStandard Text="standard" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
+                        Style="margin-right: -3px; margin-bottom: 1px;" />
+    <RadzenToggleButton @bind-Value=@isSoftware Text="software" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
+                        Style="margin-right: -3px; margin-bottom: 1px;" />
+    <RadzenToggleButton @bind-Value=@isHumanistic Text="humanistic" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
+                        Style="margin-right: -3px; margin-bottom: 1px;" />
+    <RadzenToggleButton @bind-Value=@isDark Text="dark" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
+                        Style="margin-right: -3px; margin-bottom: 1px;" />
+    <RadzenToggleButton @bind-Value=@isMaterial Text="material" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
+                        Style="margin-right: -3px; margin-bottom: 1px;" />
+}
 
 @code {
-    
-    [Parameter]
-    public bool IsComboNotButton { get; set; }
 
-    private string _theme = "";
-    private string _btnText = "Theme: default";
+    [Parameter]
+    public bool? IsComboNotButton { get; set; }
+
+    private string _themeLbl => langService.Keys["Theme"] + ": ";
+    private string? _btnText;
 
     // free radzen themes names
     private string[] _themes = ["default", "standard", "software", "humanistic", "dark", "material"];
+    private string? _theme;
 
-    protected override async Task OnInitializedAsync()
+    private bool _isDefault;
+    private bool isDefault
     {
-        _theme = await jsRuntime.InvokeAsync<string>("getRadzenTheme");
-        _btnText = "Theme: " + _theme;
+        get { return _isDefault; }
+        set
+        {
+            _isDefault = true;
+            _isStandard = false;
+            _isSoftware = false;
+            _isHumanistic = false;
+            _isDark = false;
+            _isMaterial = false;
+            jsRuntime.InvokeVoidAsync("setRadzenTheme", "default");
+        }
+    }
+    private bool _isStandard;
+    private bool isStandard
+    {
+        get { return _isStandard; }
+        set
+        {
+            _isDefault = false;
+            _isStandard = true;
+            _isSoftware = false;
+            _isHumanistic = false;
+            _isDark = false;
+            _isMaterial = false;
+            jsRuntime.InvokeVoidAsync("setRadzenTheme", "standard");
+        }
+    }
+    private bool _isSoftware;
+    private bool isSoftware
+    {
+        get { return _isSoftware; }
+        set
+        {
+            _isDefault = false;
+            _isStandard = false;
+            _isSoftware = true;
+            _isHumanistic = false;
+            _isDark = false;
+            _isMaterial = false;
+            jsRuntime.InvokeVoidAsync("setRadzenTheme", "software");
+        }
+    }
+    private bool _isHumanistic;
+    private bool isHumanistic
+    {
+        get { return _isHumanistic; }
+        set
+        {
+            _isDefault = false;
+            _isStandard = false;
+            _isSoftware = false;
+            _isHumanistic = true;
+            _isDark = false;
+            _isMaterial = false;
+            jsRuntime.InvokeVoidAsync("setRadzenTheme", "humanistic");
+        }
+    }
+    private bool _isDark;
+    private bool isDark
+    {
+        get { return _isDark; }
+        set
+        {
+            _isDefault = false;
+            _isStandard = false;
+            _isSoftware = false;
+            _isHumanistic = false;
+            _isDark = true;
+            _isMaterial = false;
+            jsRuntime.InvokeVoidAsync("setRadzenTheme", "dark");
+        }
+    }
+    private bool _isMaterial;
+    private bool isMaterial
+    {
+        get { return _isMaterial; }
+        set
+        {
+            _isDefault = false;
+            _isStandard = false;
+            _isSoftware = false;
+            _isHumanistic = false;
+            _isDark = false;
+            _isMaterial = true;
+            jsRuntime.InvokeVoidAsync("setRadzenTheme", "material");
+        }
     }
 
     private async Task DropDown_ValueChanged(string val)
@@ -43,8 +146,27 @@ else
         if (item != null)
         {
             await jsRuntime.InvokeVoidAsync("setRadzenTheme", item.Text);
-            _btnText = "Theme: " + item.Text;
+            _btnText = _themeLbl + item.Text;
         }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _theme = await jsRuntime.InvokeAsync<string>("getRadzenTheme");
+        _btnText = _themeLbl + _theme;
+
+        if (_theme == _themes[0])
+            _isDefault = true;
+        else if (_theme == _themes[1])
+            _isStandard = true;
+        else if (_theme == _themes[2])
+            _isSoftware = true;
+        else if (_theme == _themes[3])
+            _isHumanistic = true;
+        else if (_theme == _themes[4])
+            _isDark = true;
+        else if (_theme == _themes[5])
+            _isMaterial = true;
     }
 
 }

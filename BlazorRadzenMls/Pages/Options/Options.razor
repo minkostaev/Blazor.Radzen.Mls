@@ -2,20 +2,19 @@
 
 @using BlazorRadzenMls.Components
 
-<h3>Site options</h3>
+<RadzenText Text="Site options" TextStyle="TextStyle.H4" class="rz-color-primary" />
 
-<div style="margin-bottom: 10px;">
-    <RadzenThemes />
-</div>
-
-<div style="margin-bottom: 10px;">
-    <LanguageSelector />
-</div>
-
-<div style="margin-bottom: 10px;">
+<RadzenCard class="rz-background-color-base-300 rz-my-3">
     <RefreshLink />
-</div>
+</RadzenCard>
 
+<RadzenCard class="rz-background-color-base-300 rz-mb-3">
+    <RadzenThemes />
+</RadzenCard>
+
+<RadzenCard class="rz-background-color-base-300 rz-mb-3">
+    <LanguageSelector />
+</RadzenCard>
 
 @code {
 

@@ -1,43 +1,92 @@
-﻿<RadzenSplitButton AlwaysOpenPopup=true Text="@_btnText"
-                   Click=@(args => SplBtn_Click(args, "SplitButton1"))>
-    <ChildContent>
-        @for (int i = 0; i < _themes.Length; i++)
-        {
-            <RadzenSplitButtonItem Text="@_themes[i]" Value="@i.ToString()" />
-        }
-    </ChildContent>
-</RadzenSplitButton>
+﻿@if (IsComboNotBar)
+{
+    <RadzenSplitButton AlwaysOpenPopup=true Text="@_btnText"
+                       Click=@(args => SplBtn_Click(args, "SplitButton1"))>
+        <ChildContent>
+            @for (int i = 0; i < _languages.Length; i++)
+            {
+                <RadzenSplitButtonItem Text="@_languages[i]" Value="@i.ToString()" />
+            }
+        </ChildContent>
+    </RadzenSplitButton>
+}
+else
+{
+    <RadzenLabel Text=@_languageLbl />
+    @* flgs - https://icons8.com/icon/set/flags/fluency *@
+    <RadzenSelectBar Value=@_language TValue="string" ValueChanged=@(args => Language_ValueChanged(args))>
+        <Items>
+            @for (int i = 0; i < _languages.Length; i++)
+            {
+                <RadzenSelectBarItem Text=@langService.Keys[_languages[i]] Value=@_languages[i]
+                                     Image="@GetImagePath(_languages[i])" ImageStyle="zoom: 35%; margin-right: 20px;" />
+            }
+        </Items>
+    </RadzenSelectBar>
+}
 
 @code {
-    private string? _btnText;
 
-    private string[] _themes = ["English", "Bulgarian"];
+    [Parameter]
+    public bool IsComboNotBar { get; set; }
 
-    protected override void OnInitialized()
+    private string[] _languages = ["english", "bulgarian"];
+
+    private string? _language;
+
+    private string GetImagePath(string lang)
     {
-        langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("bg-BG"));
-        _btnText = langService.Keys["welcome"] + " Български";
+        string fileName = "";
+        if (lang == _languages[0])
+        {
+            fileName = "usa";
+        }
+        else if (lang == _languages[1])
+        {
+            fileName = "bulgaria";
+        }
+        return $"images/{fileName}-48.png";
     }
+    private string _languageLbl => langService.Keys["Language"] + ": ";
+
+    private string _btnText => _languageLbl + langService.Keys[_language];
 
     private void SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
     {
+        _language = item.Text;
         if (item != null)
         {
             switch (item.Value)
             {
                 case "0":
                     langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
-                    _btnText = langService.Keys["welcome"] + " Bulgarian";
                     break;
                 case "1":
                     langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("bg-BG"));
-                    _btnText = langService.Keys["welcome"] + " Български";
                     break;
                 default:
                     langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
                     break;
             }
         }
+    }
+
+    private void Language_ValueChanged(string language)
+    {
+        _language = language;
+        if (_language == _languages[0])
+        {
+            langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+        }
+        else if (_language == _languages[1])
+        {
+            langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("bg-BG"));
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        _language = _languages[0];
     }
 
 }
