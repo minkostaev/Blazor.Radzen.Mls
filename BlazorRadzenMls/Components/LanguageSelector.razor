@@ -12,17 +12,12 @@
 }
 else
 {
-    <RadzenLabel Text=@_languageLbl />
-    @* flgs - https://icons8.com/icon/set/flags/fluency *@
-    <RadzenSelectBar Value=@_language TValue="string" ValueChanged=@(args => Language_ValueChanged(args))>
-        <Items>
-            @for (int i = 0; i < _languages.Length; i++)
-            {
-                <RadzenSelectBarItem Text=@langService.Keys[_languages[i]] Value=@_languages[i]
-                                     Image="@GetImagePath(_languages[i])" ImageStyle="zoom: 35%; margin-right: 20px;" />
-            }
-        </Items>
-    </RadzenSelectBar>
+    <RadzenLabel Text=@_languageLbl class="rz-color-success-dark" Style="font-weight: bold;" />
+    
+    <RadzenToggleButton @bind-Value=@isEnglish Text=@langService.Keys["english"] ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
+                        Style="margin-right: -3px; margin-bottom: 1px;" Image="@GetImagePath("english")" />
+    <RadzenToggleButton @bind-Value=@isBulgarian Text=@langService.Keys["bulgarian"] ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
+                        Style="margin-right: -3px; margin-bottom: 1px;" Image="@GetImagePath("bulgarian")" />
 }
 
 @code {
@@ -30,10 +25,35 @@ else
     [Parameter]
     public bool IsComboNotBar { get; set; }
 
+    // flgs - https://icons8.com/icon/set/flags/fluency
     private string[] _languages = ["english", "bulgarian"];
-
     private string? _language;
 
+    private bool _isEnglish;
+    private bool isEnglish
+    {
+        get { return _isEnglish; }
+        set
+        {
+            _isEnglish = true;
+            _isBulgarian = false;
+            Language_ValueChanged("english");
+        }
+    }
+    private bool _isBulgarian;
+    private bool isBulgarian
+    {
+        get { return _isBulgarian; }
+        set
+        {
+            _isEnglish = false;
+            _isBulgarian = true;
+            Language_ValueChanged("bulgarian");
+        }
+    }
+
+    private string _languageLbl => langService.Keys["Language"] + ": ";
+    private string _btnText => _languageLbl + langService.Keys[_language];
     private string GetImagePath(string lang)
     {
         string fileName = "";
@@ -47,9 +67,6 @@ else
         }
         return $"images/{fileName}-48.png";
     }
-    private string _languageLbl => langService.Keys["Language"] + ": ";
-
-    private string _btnText => _languageLbl + langService.Keys[_language];
 
     private void SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
     {
@@ -87,6 +104,14 @@ else
     protected override void OnInitialized()
     {
         _language = _languages[0];
+        if (_language == _languages[0])
+        {
+            _isEnglish = true;
+        }
+        else if (_language == _languages[1])
+        {
+            _isBulgarian = true;
+        }
     }
 
 }

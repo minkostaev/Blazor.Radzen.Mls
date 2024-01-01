@@ -1,18 +1,35 @@
-﻿<RadzenButton Text="Refresh" ButtonStyle="ButtonStyle.Secondary" Click="@Btn_Click" />
-<RadzenButton Text="@_aa" ButtonStyle="ButtonStyle.Info" Click="@Btn_Click1" />
+﻿@using BlazorRadzenMls.Models
+
+@inject HttpClient Http
+
+<RadzenLabel Text=@_currentVersion class="rz-color-success-dark" Style="font-weight: bold;" />
+
+@if (_needUpdate)
+{
+    <RadzenLabel Text=@_updateVersion class="rz-color-danger-dark" Style="font-weight: bold;" />
+}
+
+<RadzenButton Text="@_btnLablel" ButtonStyle="ButtonStyle.Warning" Click="@Btn_Click" />
 
 @code {
-    private string? _aa;
-    //https://stackoverflow.com/questions/2099201/javascript-hard-refresh-of-current-page
-    
+
+    private bool _needUpdate => (AppValues.Version.StartsWith(_version)) ? false : true;
+
+    private string _version = "";
+
+    private string _currentVersion => langService.Keys["Current_version_is"] + ": " + AppValues.Version;
+    private string _updateVersion => langService.Keys["Update_version_available"] + ": " + _version;
+    private string _btnLablel => _needUpdate ? langService.Keys["Update"] : langService.Keys["Refresh"];
+
     private async Task Btn_Click()
     {
         await jsRuntime.InvokeVoidAsync("reload");
     }
 
-    private async Task Btn_Click1()
+    protected override async Task OnInitializedAsync()
     {
-        _aa = await jsRuntime.InvokeAsync<string>("getVersion");
+        _version = await Http.GetStringAsync("sample-data/ver.txt");
+        //_version = await jsRuntime.InvokeAsync<string>("getVersion");
     }
 
 }
