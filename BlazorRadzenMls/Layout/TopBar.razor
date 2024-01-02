@@ -1,0 +1,55 @@
+﻿@using System.Timers;
+@using BlazorRadzenMls.Models
+
+<RadzenLink Path="">
+    <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
+                  Icon="home" IconColor="@Colors.Series8" Style="font-weight: 1000;" />
+</RadzenLink>
+
+<RadzenLink Path="options">
+    <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
+                  Icon="build" IconColor="@Colors.Series8" Style="font-weight: 1000;" class=@_className />
+</RadzenLink>
+
+<RadzenLink Path="">
+    <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
+                  Icon="account_box" IconColor="@Colors.Series8" Style="font-weight: 1000;" />
+</RadzenLink>
+
+@code {
+    
+    private static Timer? _timer;
+
+    private string _version = "";
+    private bool _needUpdate => (AppValues.Version.StartsWith(_version)) ? false : true;
+
+    private string _className = "";
+
+    protected override void OnInitialized()
+    {
+        _timer = new Timer(10000);//10 sec
+        _timer.Enabled = true;
+        _timer.Elapsed += async delegate
+        {
+            //_version = await Http.GetStringAsync("sample-data/ver.txt");
+            _version = await jsRuntime.InvokeAsync<string>("getVersion");
+            if (_needUpdate)
+            {
+                if (_className != "rz-background-color-danger-lighter")
+                {
+                    _className = "rz-background-color-danger-lighter";
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+            else
+            {
+                if (_className != "")
+                {
+                    _className = "";
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+        };
+    }
+
+}

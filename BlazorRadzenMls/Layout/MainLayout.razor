@@ -6,14 +6,7 @@
     <RadzenHeader>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
             <RadzenSidebarToggle Click="@(() => sidebarExpanded = !sidebarExpanded)" />
-            @* <RadzenLabel Text="Header" /> *@
-            @* <RadzenThemes />
-            <RefreshLink />
-            <LanguageSelector /> *@
-
-            <RadzenLink Path=""><RadzenIcon Icon="home" IconColor="@Colors.Primary" Style="font-weight: 1000;" /></RadzenLink>
-            <RadzenLink Path="options"><RadzenIcon Icon="build" IconColor="@Colors.Primary" Style="font-weight: 1000;" /></RadzenLink>
-
+            <TopBar />
         </RadzenStack>
     </RadzenHeader>
     <RadzenSidebar @bind-Expanded="@sidebarExpanded">
