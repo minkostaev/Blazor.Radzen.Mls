@@ -30,6 +30,9 @@
     {
         _version = await Http.GetStringAsync("sample-data/ver.txt");
         //_version = await jsRuntime.InvokeAsync<string>("getVersion");
+
+        appState.RefreshEvent += Refresh_Event;
     }
+    private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

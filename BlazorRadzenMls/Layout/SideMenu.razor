@@ -4,7 +4,7 @@
         <RadzenPanelMenuItem Text="Counter" Path="counter" Icon="done" />
         <RadzenPanelMenuItem Text="Weather" Path="weather" Icon="backup" />
         <RadzenPanelMenuItem Text="Renderfragment" Path="renderfragment" Icon="dashboard" />
-        <RadzenPanelMenuItem Text="Options" Path="options" Icon="build" />
+        <RadzenPanelMenuItem Text="@langService.Keys["Options"]" Path="options" Icon="build" />
     </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Radzen" Icon="extension">
         <RadzenPanelMenuItem Text="Icons" Path="icons" Icon="perm_media" />
@@ -14,7 +14,7 @@
 
         <RadzenCheckBox @bind-Value=@_multiple Name="CheckBox1" TValue="bool" />
         <RadzenLabel Text="Allow multiple expand" Component="CheckBox1" />
-
+        
         <RadzenRadioButtonList @bind-Value=@_displayStyle Orientation="Orientation.Vertical" TValue="MenuItemDisplayStyle">
             <Items>
                 <RadzenRadioButtonListItem Text="IconAndText" Value="MenuItemDisplayStyle.IconAndText" />
@@ -29,8 +29,6 @@
     </RadzenPanelMenuItem>
 </RadzenPanelMenu>
 
-@* <RadzenButton Variant="Variant.Text" Text="Primary" Shade="Shade.Lighter" ButtonStyle="ButtonStyle.Primary" /> *@
-
 @code {
 
     private MenuItemDisplayStyle _displayStyle = MenuItemDisplayStyle.IconAndText;
@@ -38,5 +36,11 @@
     private bool _isShowArrow = true;
 
     private bool _multiple;
+
+    protected override void OnInitialized()
+    {
+        appState.RefreshEvent += Refresh_Event;
+    }
+    private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

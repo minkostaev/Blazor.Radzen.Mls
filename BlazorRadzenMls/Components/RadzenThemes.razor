@@ -167,7 +167,10 @@ else
             _isDark = true;
         else if (_theme == _themes[5])
             _isMaterial = true;
+
+        appState.RefreshEvent += Refresh_Event;
     }
+    private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }
 

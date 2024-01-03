@@ -16,14 +16,26 @@
                   Icon="account_box" IconColor="@Colors.Series8" Style="font-weight: 1000;" />
 </RadzenLink>
 
+<RadzenLink Path="https://github.com/minkostaev/Blazor.Radzen.Mls" target="_blank" >
+    <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
+                  Icon="description" IconColor="@Colors.Series8" Style="font-weight: 1000;"
+                  MouseEnter="@(args => ShowTooltip(args) )" />
+</RadzenLink>
+
 @code {
-    
+
     private static Timer? _timer;
 
     private string _version = "";
     private bool _needUpdate => (AppValues.Version.StartsWith(_version)) ? false : true;
 
     private string _className = "";
+
+    private void ShowTooltip(ElementReference elementReference)
+    {
+        var options = new TooltipOptions() { Position = TooltipPosition.Bottom };
+        tooltipService.Open(elementReference, "GitHub", options);
+    }
 
     protected override void OnInitialized()
     {
@@ -50,6 +62,8 @@
                 }
             }
         };
+        appState.RefreshEvent += Refresh_Event;
     }
+    private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

@@ -99,6 +99,7 @@ else
         {
             langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("bg-BG"));
         }
+        appState.RefreshPage("LanguageChanged");
     }
 
     protected override void OnInitialized()
