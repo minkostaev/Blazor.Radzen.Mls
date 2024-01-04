@@ -14,10 +14,14 @@ else
 {
     <RadzenLabel Text=@_languageLbl class="rz-color-success-dark" Style="font-weight: bold;" />
     
-    <RadzenToggleButton @bind-Value=@isEnglish Text=@langService.Keys["english"] ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
-                        Style="margin-right: -3px; margin-bottom: 1px;" Image="@GetImagePath("english")" />
-    <RadzenToggleButton @bind-Value=@isBulgarian Text=@langService.Keys["bulgarian"] ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
-                        Style="margin-right: -3px; margin-bottom: 1px;" Image="@GetImagePath("bulgarian")" />
+    <div>
+        <RadzenToggleButton @bind-Value=@isEnglish Text=@langService.Keys["english"] Image="@GetImagePath("english")"
+                            ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+    </div>
+    <div>
+        <RadzenToggleButton @bind-Value=@isBulgarian Text=@langService.Keys["bulgarian"] Image="@GetImagePath("bulgarian")"
+                            ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+    </div>
 }
 
 @code {
@@ -113,6 +117,9 @@ else
         {
             _isBulgarian = true;
         }
+
+        appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

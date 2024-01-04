@@ -1,0 +1,36 @@
+﻿@page "/dog"
+
+<PageTitle>random dog</PageTitle>
+
+<RadzenStack AlignItems="AlignItems.Center" >
+
+    <RadzenImage Click="@Dog_Request" Path="@_imgUrl" Style="width: 100%;" AlternateText="community" />
+
+</RadzenStack>
+
+@code {
+
+    private string? _imgUrl;
+    private HttpClient? _client;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _client = new HttpClient();
+        await Dog_Request();
+    }
+
+    private async Task Dog_Request()
+    {
+        var dog = new Dog();
+        if (_client != null)//https://dog.ceo/dog-api/
+            dog = await _client.GetFromJsonAsync<Dog>("https://dog.ceo/api/breeds/image/random");
+        _imgUrl = dog?.message;
+    }
+
+    class Dog
+    {
+        public string? message { get; set; }
+        public string? status { get; set; }
+    }
+
+}

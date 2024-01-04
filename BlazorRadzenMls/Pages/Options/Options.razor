@@ -2,6 +2,8 @@
 
 @using BlazorRadzenMls.Components
 
+<PageTitle>options</PageTitle>
+
 <RadzenText Text="@langService.Keys["Site_options"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
 
 <RadzenCard class="rz-background-color-base-300 rz-my-3">
@@ -20,8 +22,8 @@
 
     protected override void OnInitialized()
     {
-        appState.RefreshEvent += Refresh_Event;
+        appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
-    private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

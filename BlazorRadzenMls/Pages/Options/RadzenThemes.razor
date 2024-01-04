@@ -19,18 +19,31 @@ else
 {
     <RadzenLabel Text=@_themeLbl class="rz-color-success-dark" Style="font-weight: bold;" />
 
-    <RadzenToggleButton @bind-Value=@isDefault Text="default" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
-                        Style="margin-right: -3px; margin-bottom: 1px;" />
-    <RadzenToggleButton @bind-Value=@isStandard Text="standard" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
-                        Style="margin-right: -3px; margin-bottom: 1px;" />
-    <RadzenToggleButton @bind-Value=@isSoftware Text="software" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
-                        Style="margin-right: -3px; margin-bottom: 1px;" />
-    <RadzenToggleButton @bind-Value=@isHumanistic Text="humanistic" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
-                        Style="margin-right: -3px; margin-bottom: 1px;" />
-    <RadzenToggleButton @bind-Value=@isDark Text="dark" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
-                        Style="margin-right: -3px; margin-bottom: 1px;" />
-    <RadzenToggleButton @bind-Value=@isMaterial Text="material" ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger"
-                        Style="margin-right: -3px; margin-bottom: 1px;" />
+    <div>
+        <RadzenToggleButton @bind-Value=@isDefault Text="default"
+                            ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+    </div>
+    <div>
+        <RadzenToggleButton @bind-Value=@isStandard Text="standard"
+                            ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+    </div>
+    <div>
+        <RadzenToggleButton @bind-Value=@isSoftware Text="software"
+                            ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+    </div>
+    <div>
+        <RadzenToggleButton @bind-Value=@isHumanistic Text="humanistic"
+                            ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+    </div>
+    <div>
+        <RadzenToggleButton @bind-Value=@isDark Text="dark"
+                            ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+    </div>
+    <div>
+        <RadzenToggleButton @bind-Value=@isMaterial Text="material"
+                            ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+    </div>
+    
 }
 
 @code {
@@ -57,7 +70,7 @@ else
             _isHumanistic = false;
             _isDark = false;
             _isMaterial = false;
-            jsRuntime.InvokeVoidAsync("setRadzenTheme", "default");
+            Task.FromResult(DropDown_ValueChanged("default"));
         }
     }
     private bool _isStandard;
@@ -72,7 +85,7 @@ else
             _isHumanistic = false;
             _isDark = false;
             _isMaterial = false;
-            jsRuntime.InvokeVoidAsync("setRadzenTheme", "standard");
+            Task.FromResult(DropDown_ValueChanged("standard"));
         }
     }
     private bool _isSoftware;
@@ -87,7 +100,7 @@ else
             _isHumanistic = false;
             _isDark = false;
             _isMaterial = false;
-            jsRuntime.InvokeVoidAsync("setRadzenTheme", "software");
+            Task.FromResult(DropDown_ValueChanged("software"));
         }
     }
     private bool _isHumanistic;
@@ -102,7 +115,7 @@ else
             _isHumanistic = true;
             _isDark = false;
             _isMaterial = false;
-            jsRuntime.InvokeVoidAsync("setRadzenTheme", "humanistic");
+            Task.FromResult(DropDown_ValueChanged("humanistic"));
         }
     }
     private bool _isDark;
@@ -117,7 +130,7 @@ else
             _isHumanistic = false;
             _isDark = true;
             _isMaterial = false;
-            jsRuntime.InvokeVoidAsync("setRadzenTheme", "dark");
+            Task.FromResult(DropDown_ValueChanged("dark"));
         }
     }
     private bool _isMaterial;
@@ -132,27 +145,30 @@ else
             _isHumanistic = false;
             _isDark = false;
             _isMaterial = true;
-            jsRuntime.InvokeVoidAsync("setRadzenTheme", "material");
+            Task.FromResult(DropDown_ValueChanged("material"));
         }
     }
 
     private async Task DropDown_ValueChanged(string val)
     {
-        await jsRuntime.InvokeVoidAsync("setRadzenTheme", val);
+        try { await jsRuntime.InvokeVoidAsync("setRadzenTheme", val); }
+        catch { Console.WriteLine("js method error"); }
     }
 
     private async Task SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
     {
         if (item != null)
         {
-            await jsRuntime.InvokeVoidAsync("setRadzenTheme", item.Text);
+            await DropDown_ValueChanged(item.Text);
             _btnText = _themeLbl + item.Text;
         }
     }
 
     protected override async Task OnInitializedAsync()
     {
-        _theme = await jsRuntime.InvokeAsync<string>("getRadzenTheme");
+        try { _theme = await jsRuntime.InvokeAsync<string>("getRadzenTheme"); }
+        catch { _isDefault = true; Console.WriteLine("js method error"); }
+
         _btnText = _themeLbl + _theme;
 
         if (_theme == _themes[0])
@@ -168,9 +184,9 @@ else
         else if (_theme == _themes[5])
             _isMaterial = true;
 
-        appState.RefreshEvent += Refresh_Event;
+        appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
-    private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }
 

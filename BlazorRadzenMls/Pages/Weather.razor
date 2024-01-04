@@ -1,5 +1,4 @@
 ﻿@page "/weather"
-@inject HttpClient Http
 
 <PageTitle>Weather</PageTitle>
 
@@ -37,22 +36,20 @@ else
 }
 
 @code {
-    
+
     private WeatherForecast[]? forecasts;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        try { forecasts = await httpLocal.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json"); }
+        catch { Console.WriteLine("weather.json is missing"); }
     }
 
     public class WeatherForecast
     {
         public DateOnly Date { get; set; }
-
         public int TemperatureC { get; set; }
-
         public string? Summary { get; set; }
-
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
     }
 
