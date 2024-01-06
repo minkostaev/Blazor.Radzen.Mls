@@ -5,6 +5,7 @@
         <RadzenPanelMenuItem Text="Weather" Path="weather" Icon="backup" />
         <RadzenPanelMenuItem Text="Renderfragment" Path="renderfragment" Icon="dashboard" />
         <RadzenPanelMenuItem Text="@langService.Keys["Options"]" Path="options" Icon="build" />
+        <RadzenPanelMenuItem Text="Random Dog" Path="dog" Icon="gif" />
     </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Radzen" Icon="extension">
         <RadzenPanelMenuItem Text="Icons" Path="icons" Icon="perm_media" />
@@ -27,6 +28,7 @@
         <RadzenLabel Text="Show Arrow" Component="CheckBox2" />
 
     </RadzenPanelMenuItem>
+
 </RadzenPanelMenu>
 
 @code {
@@ -39,8 +41,9 @@
 
     protected override void OnInitialized()
     {
-        appState.RefreshEvent += Refresh_Event;
+
+        appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
-    private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

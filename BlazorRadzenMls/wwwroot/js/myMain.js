@@ -9,7 +9,7 @@ async function reload() {
 }
 
 async function getVersion() {
-    const response = await fetch(`/sample-data/version.txt`);
+    const response = await fetch(`/data/version.txt`);
     const resData = await response.text();
     return resData;
 }

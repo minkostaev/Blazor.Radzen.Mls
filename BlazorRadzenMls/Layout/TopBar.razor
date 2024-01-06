@@ -43,7 +43,7 @@
         _timer.Enabled = true;
         _timer.Elapsed += async delegate
         {
-            //_version = await Http.GetStringAsync("sample-data/ver.txt");
+            //_version = await Http.GetStringAsync("data/ver.txt");
             _version = await jsRuntime.InvokeAsync<string>("getVersion");
             if (_needUpdate)
             {
@@ -62,8 +62,9 @@
                 }
             }
         };
-        appState.RefreshEvent += Refresh_Event;
+
+        appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
-    private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

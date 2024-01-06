@@ -24,7 +24,7 @@
     protected override async Task OnInitializedAsync()
     {
         //_version = await jsRuntime.InvokeAsync<string>("getVersion");
-        try { _version = await httpLocal.GetStringAsync("sample-data/version.txt"); }
+        try { _version = await httpLocal.GetStringAsync("data/version.txt"); }
         catch { _version = "0.0.0.0"; }
 
         appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;

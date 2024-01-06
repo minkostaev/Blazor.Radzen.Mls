@@ -41,7 +41,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try { forecasts = await httpLocal.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json"); }
+        try { forecasts = await httpLocal.GetFromJsonAsync<WeatherForecast[]>("data/weather.json"); }
         catch { Console.WriteLine("weather.json is missing"); }
     }
 
