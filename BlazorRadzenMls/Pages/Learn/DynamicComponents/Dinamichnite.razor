@@ -1,0 +1,39 @@
+﻿@page "/dinamichnite"
+
+@using BlazorRadzenMls.Components
+
+<h3>Dinamichnite</h3>
+
+@foreach (var panel in Panels)
+{
+    <div>
+        <h1>
+            @panel.Title
+        </h1>
+        <div>
+            <DynamicComponent Type="@panel.Component" Parameters="@panel.Parameters" />
+        </div>
+    </div>
+}
+
+@code {
+
+    private List<Panel> Panels { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        Panels = new List<Panel>
+        {
+            new Panel { Title = "Counter", Component = typeof(Counter) },
+            new Panel { Title = "Weather", Component = typeof(Weather) },
+            new Panel { Title = "Parametri", Component = typeof(Parametri), Parameters = new Dictionary<string, object> { ["Name"] = "NNamme" } }
+        };
+    }
+
+    private class Panel
+    {
+        public string? Title { get; set; }
+        public Type? Component { get; set; }
+        public Dictionary<string, object> Parameters { get; set; } = new();
+    }
+}

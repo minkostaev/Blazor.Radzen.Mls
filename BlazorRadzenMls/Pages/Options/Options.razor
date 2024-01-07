@@ -1,8 +1,10 @@
-﻿@page "/options"
+﻿@attribute [Route(AppValues.PageOptions)]
+@* @page "/options" *@
 
 @using BlazorRadzenMls.Components
+@using BlazorRadzenMls.Models
 
-<PageTitle>options</PageTitle>
+<PageTitle>@AppValues.PageOptions</PageTitle>
 
 <RadzenText Text="@langService.Keys["Site_options"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
 

@@ -13,12 +13,12 @@
 else
 {
     <RadzenLabel Text=@_languageLbl class="rz-color-success-dark" Style="font-weight: bold;" />
-    
-    <div>
+
+    <div class="myRadzenToggleButton">
         <RadzenToggleButton @bind-Value=@isEnglish Text=@langService.Keys["english"] Image="@GetImagePath("english")"
                             ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
     </div>
-    <div>
+    <div class="myRadzenToggleButton">
         <RadzenToggleButton @bind-Value=@isBulgarian Text=@langService.Keys["bulgarian"] Image="@GetImagePath("bulgarian")"
                             ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
     </div>

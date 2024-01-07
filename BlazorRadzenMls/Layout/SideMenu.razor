@@ -1,14 +1,31 @@
-﻿<RadzenPanelMenu DisplayStyle="@_displayStyle" ShowArrow="@_isShowArrow" Multiple="@_multiple">
+﻿@using BlazorRadzenMls.Models
+
+<RadzenPanelMenu DisplayStyle="@_displayStyle" ShowArrow="@_isShowArrow" Multiple="@_multiple">
     <RadzenPanelMenuItem Text="Home" Path="" Icon="home"></RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Text="Radzen" Icon="extension">
+
+        <RadzenPanelMenuItem Text="Icons" Path="@AppValues.PageIcons" Icon="perm_media" />
+
+    </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Blazor" Icon="bug_report">
+        
+        <RadzenPanelMenuItem Text="@langService.Keys["Options"]" Path="@AppValues.PageOptions" Icon="build" />
+        
+    </RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Text="Learn" Icon="extension">
+
         <RadzenPanelMenuItem Text="Counter" Path="counter" Icon="done" />
         <RadzenPanelMenuItem Text="Weather" Path="weather" Icon="backup" />
-        <RadzenPanelMenuItem Text="Renderfragment" Path="renderfragment" Icon="dashboard" />
-        <RadzenPanelMenuItem Text="@langService.Keys["Options"]" Path="options" Icon="build" />
-        <RadzenPanelMenuItem Text="Random Dog" Path="dog" Icon="gif" />
+        <RadzenPanelMenuItem Text="Render Fragment" Path="renderfragment" Icon="dashboard" />
+        <RadzenPanelMenuItem Text="Dynamic Component" Path="dinamichnite" Icon="dashboard" />
+        <RadzenPanelMenuItem Text="Error Boundaries" Path="errorboundaries" Icon="dashboard" />
+
     </RadzenPanelMenuItem>
-    <RadzenPanelMenuItem Text="Radzen" Icon="extension">
-        <RadzenPanelMenuItem Text="Icons" Path="icons" Icon="perm_media" />
+
+    <RadzenPanelMenuItem Text="Api" Icon="http">
+
+        <RadzenPanelMenuItem Text="Random Dog" Path="@AppValues.PageDogs" Icon="gif" />
+
     </RadzenPanelMenuItem>
 
     <RadzenPanelMenuItem Text="Menu Options" Icon="build">

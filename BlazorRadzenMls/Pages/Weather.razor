@@ -44,6 +44,14 @@ else
         try { forecasts = await httpLocal.GetFromJsonAsync<WeatherForecast[]>("data/weather.json"); }
         catch { Console.WriteLine("weather.json is missing"); }
     }
+    protected override void OnParametersSet()
+    {
+
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        
+    }
 
     public class WeatherForecast
     {

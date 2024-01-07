@@ -1,0 +1,22 @@
+﻿@page "/errorboundaries"
+
+<h3>ErrorBoundaries</h3>
+
+<ErrorBoundary>
+    <ChildContent>
+        @foreach (var a in ForceError)
+        {
+            <b>content</b>
+        }
+    </ChildContent>
+    <ErrorContent>
+        ErrorBoundary works
+    </ErrorContent>
+</ErrorBoundary>
+
+
+@code {
+
+    private List<string> ForceError;
+
+}

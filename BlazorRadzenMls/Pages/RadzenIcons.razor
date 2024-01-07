@@ -1,7 +1,9 @@
-﻿@*@page "/icons"*@
-@attribute [Route(AppValues.PageIcons)]
+﻿@attribute [Route(AppValues.PageIcons)]
+@*@page "/icons"*@
 
 @using BlazorRadzenMls.Models
+
+<PageTitle>@AppValues.PageIcons</PageTitle>
 
 <RadzenStack Orientation="Orientation.Horizontal" Wrap="FlexWrap.Wrap" Class="icon-preview">
 
@@ -16,7 +18,7 @@
         <RadzenIcon Icon="dialpad" IconColor="purple" Style="font-weight: 1000;" />
         <RadzenLabel Text="dialpad" class="rz-color-success-dark" Style="font-size: 0.85rem;" />
     </div>
-
+    
 </RadzenStack>
 
 <style>
