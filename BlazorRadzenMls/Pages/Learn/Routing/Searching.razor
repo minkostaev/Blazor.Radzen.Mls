@@ -1,0 +1,17 @@
+﻿@page "/search"
+
+<h3>Search</h3>
+
+<p>Search intent: First name: @FirstName Last name: @LastName</p>
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? FirstName { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? LastName { get; set; }
+
+    //   /search?firstname=Claudio&lastname=Bernasconi
+}

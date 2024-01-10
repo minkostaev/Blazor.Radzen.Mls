@@ -28,6 +28,9 @@
         if (_client != null)//https://dog.ceo/dog-api/
             dog = await _client.GetFromJsonAsync<Dog>("https://dog.ceo/api/breeds/image/random");
         _imgUrl = dog?.message;
+
+        try { await jsRuntime.InvokeVoidAsync("changeBodyContentPadding"); }//"removeBodyContentPadding"); }
+        catch { Console.WriteLine("js method error"); }
     }
 
     class Dog

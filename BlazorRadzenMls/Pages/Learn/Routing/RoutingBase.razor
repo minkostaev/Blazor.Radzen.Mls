@@ -1,0 +1,20 @@
+﻿@page "/route"
+
+<PageTitle>Route Parameter 1</PageTitle>
+
+<h1>Route input</h1>
+
+<InputText @bind-Value="@_name" />
+
+<NavLink class="nav-link" href=@_urlName Match="NavLinkMatch.All">
+    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> route
+</NavLink>
+
+<NavLink class="nav-link" href="search?firstname=Claudio&lastname=Bernasconi" Match="NavLinkMatch.All">
+    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> search
+</NavLink>
+
+@code {
+    private string? _name { get; set; }
+    private string? _urlName => "route/" + _name;
+}

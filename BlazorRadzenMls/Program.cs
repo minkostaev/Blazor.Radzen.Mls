@@ -24,3 +24,16 @@ builder.Services.AddLanguageContainer<EmbeddedResourceKeysProvider>(Assembly.Get
 builder.Services.AddScoped<AppState>();
 
 await builder.Build().RunAsync();
+
+// to see
+//https://blazor-university.com/
+
+// Built-in Components:
+// App
+// Router
+// DynamicComponent
+// ErrorBoundary
+// NavMenu
+// NavLink
+
+// EditForm

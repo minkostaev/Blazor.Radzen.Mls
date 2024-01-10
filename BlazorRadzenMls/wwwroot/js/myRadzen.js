@@ -19,3 +19,18 @@ function setRadzenTheme(val) {
         }
     }
 }
+
+function removeBodyContentPadding() {
+    let bodyDiv = document.getElementById('myRadzenBody');
+    bodyDiv.style.padding = 0;
+}
+function changeBodyContentPadding() {
+    let bodyDiv = document.getElementById('myRadzenBody');
+    if (bodyDiv.classList.contains("my-rz-body")) {
+        bodyDiv.classList.remove('my-rz-body');
+        return true;
+    } else {
+        bodyDiv.classList.add('my-rz-body');
+        return false;
+    }
+}

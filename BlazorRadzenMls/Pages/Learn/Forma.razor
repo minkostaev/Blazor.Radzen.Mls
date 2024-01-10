@@ -1,0 +1,23 @@
+﻿<h3>Forma</h3>
+
+<EditForm Model="@person" >
+    <InputText id="blazor-error-ui" @bind-Value="@person.Name" >
+
+    </InputText>
+    <button type="submit" >Save</button>
+</EditForm>
+
+@code {
+
+    private Person person { get; set; } = new Person();
+
+
+
+
+    private class Person
+    {
+        public string? Name { get; set; }
+        public string? Summary { get; set; }
+        public string? Neshto { get; set; }
+    }
+}

@@ -1,5 +1,5 @@
-html, body {
-    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+/*html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 h1:focus {
@@ -35,7 +35,7 @@ a, .btn-link {
 .validation-message {
     color: red;
 }
-
+*/
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -97,7 +97,28 @@ a, .btn-link {
     .loading-progress-text:after {
         content: var(--blazor-load-percentage-text, "Loading");
     }
-
+/*
 code {
     color: #c02d76;
 }
+*/
+
+
+/*@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-bar {
+    width: 140px;
+    height: 140px;
+    border: 8px solid #3498db;
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+}*/
