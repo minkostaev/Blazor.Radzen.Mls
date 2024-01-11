@@ -8,7 +8,6 @@ function getRadzenTheme() {
         }
     }
 }
-
 function setRadzenTheme(val) {
     let links = document.head.getElementsByTagName('link');
     for (let li of links) {

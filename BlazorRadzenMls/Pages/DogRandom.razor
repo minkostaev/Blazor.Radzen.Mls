@@ -1,5 +1,4 @@
 ﻿@attribute [Route(AppValues.PageDogs)]
-@* @page "/dog" *@
 
 @using BlazorRadzenMls.Models
 
@@ -13,6 +12,7 @@
 
 @code {
 
+    private string? _requestUri => "https://dog.ceo/api/breeds/image/random";
     private string? _imgUrl;
     private HttpClient? _client;
 
@@ -26,14 +26,14 @@
     {
         var dog = new Dog();
         if (_client != null)//https://dog.ceo/dog-api/
-            dog = await _client.GetFromJsonAsync<Dog>("https://dog.ceo/api/breeds/image/random");
+            dog = await _client.GetFromJsonAsync<Dog>(_requestUri);
         _imgUrl = dog?.message;
 
-        try { await jsRuntime.InvokeVoidAsync("changeBodyContentPadding"); }//"removeBodyContentPadding"); }
+        try { await jsRuntime.InvokeVoidAsync("removeBodyContentPadding"); }//changeBodyContentPadding
         catch { Console.WriteLine("js method error"); }
     }
 
-    class Dog
+    private class Dog
     {
         public string? message { get; set; }
         public string? status { get; set; }

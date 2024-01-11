@@ -1,11 +1,10 @@
 ﻿@attribute [Route(AppValues.PageIcons)]
-@*@page "/icons"*@
 
 @using BlazorRadzenMls.Models
 
 <PageTitle>@AppValues.PageIcons</PageTitle>
 
-<RadzenStack Orientation="Orientation.Horizontal" Wrap="FlexWrap.Wrap" Class="icon-preview">
+<RadzenStack Orientation="Orientation.Horizontal" Wrap="FlexWrap.Wrap">
 
     @foreach (string icon in iconNames)
     {
@@ -20,16 +19,6 @@
     </div>
     
 </RadzenStack>
-
-<style>
-    .icon-preview div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-        width: 120px;
-    }
-</style>
 
 @code {
 

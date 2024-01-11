@@ -1,0 +1,12 @@
+﻿@FirstFruit
+
+<CascadingValue Value="@FirstFruit" Name="FirstFruit">
+    <CascadingValue Value="@SecondFruit" Name="SecondFruit">
+        <CascadingChild />
+    </CascadingValue>
+</CascadingValue>
+
+@code {
+    string FirstFruit { get; set; } = "Apple";
+    string SecondFruit { get; set; } = "Banana";
+}

@@ -19,12 +19,12 @@
     private string _updateVersion => langService.Keys["Update_version_available"] + ": " + _version;
     private string _btnLablel => _needUpdate ? langService.Keys["Update"] : langService.Keys["Refresh"];
 
-    // private async Task Btn_Click()
-    // {
-    //     try { await jsRuntime.InvokeVoidAsync("reload"); }
-    //     catch { Console.WriteLine("js reload error"); }
-    // }
-    private void Btn_Click() { navigationManager.Refresh(true); }
+    private async Task Btn_Click()
+    {
+        try { await jsRuntime.InvokeVoidAsync("reload"); }
+        catch { Console.WriteLine("js reload error"); }
+    }
+    //private void Btn_Click() { navigationManager.Refresh(true); }
 
     protected override async Task OnInitializedAsync()
     {

@@ -1,23 +1,20 @@
 ﻿@page "/"
 
-@using BlazorRadzenMls.Components
 @using BlazorRadzenMls.Models
+@using BlazorRadzenMls.Pages.Learn.Parameters
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Blazor Radzen Mls</PageTitle>
 
-<h1>Hello, world!</h1>
-
-<RadzenText Text="@langService.Keys["Site_options"]" TextStyle="TextStyle.H1" class="rz-color-primary" />
-
-<h1>@langService.Keys["hello_world"]</h1>
-
-Welcome to your new app.
+@* <RadzenText Text="@langService.Keys["Site_options"]" TextStyle="TextStyle.H1" class="rz-color-primary" /> *@
+<RadzenText Text="Title to do" TextStyle="TextStyle.H1" class="rz-color-primary" />
 
 <div>app version: @AppValues.Version</div>
 
 <InputText @bind-Value="@_name" />
 
 <Parametri Name="@_name" />
+
+<BlazorRadzenMls.Pages.Learn.Parameters.CascadingPage />
 
 @code {
 
