@@ -29,7 +29,7 @@
             dog = await _client.GetFromJsonAsync<Dog>(_requestUri);
         _imgUrl = dog?.message;
 
-        try { await jsRuntime.InvokeVoidAsync("removeBodyContentPadding"); }//changeBodyContentPadding
+        try { await __js.InvokeVoidAsync("removeBodyContentPadding"); }//changeBodyContentPadding
         catch { Console.WriteLine("js method error"); }
     }
 

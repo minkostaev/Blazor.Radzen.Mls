@@ -3,22 +3,22 @@
 
 <RadzenLink Path="">
     <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-                  Icon="home" IconColor="@Colors.Series8" Style="font-weight: 1000;" />
+                  Icon="home" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 1.55rem;" />
 </RadzenLink>
 
-<RadzenLink Path="options">
+<RadzenLink Path="@AppValues.PageOptions">
     <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-                  Icon="build" IconColor="@Colors.Series8" Style="font-weight: 1000;" class=@_className />
+                  Icon="build" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 1.55rem;" class=@_className />
 </RadzenLink>
 
 <RadzenLink Path="">
     <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-                  Icon="account_box" IconColor="@Colors.Series8" Style="font-weight: 1000;" />
+                  Icon="account_box" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 1.55rem;" />
 </RadzenLink>
 
 <RadzenLink Path="https://github.com/minkostaev/Blazor.Radzen.Mls" target="_blank" >
     <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-                  Icon="description" IconColor="@Colors.Series8" Style="font-weight: 1000;"
+                  Icon="description" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 1.55rem;"
                   MouseEnter="@(args => ShowTooltip(args) )" />
 </RadzenLink>
 
@@ -34,7 +34,7 @@
     private void ShowTooltip(ElementReference elementReference)
     {
         var options = new TooltipOptions() { Position = TooltipPosition.Bottom };
-        tooltipService.Open(elementReference, "GitHub", options);
+        __tooltip.Open(elementReference, "GitHub", options);
     }
 
     protected override void OnInitialized()
@@ -44,7 +44,7 @@
         _timer.Elapsed += async delegate
         {
             //_version = await Http.GetStringAsync("data/ver.txt");
-            _version = await jsRuntime.InvokeAsync<string>("getVersion");
+            _version = await __js.InvokeAsync<string>("getVersion");
             if (_needUpdate)
             {
                 if (_className != "rz-background-color-danger-lighter")
@@ -63,7 +63,7 @@
             }
         };
 
-        appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 

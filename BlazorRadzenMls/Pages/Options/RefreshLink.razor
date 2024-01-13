@@ -1,4 +1,6 @@
-﻿@using BlazorRadzenMls.Models
+﻿@page "/refresh"
+
+@using BlazorRadzenMls.Models
 
 <RadzenLabel Text=@_currentVersion class="rz-color-success-dark" Style="font-weight: bold;" />
 
@@ -7,7 +9,8 @@
     <RadzenLabel Text=@_updateVersion class="rz-color-danger-dark" Style="font-weight: bold;" />
 }
 
-<RadzenButton Text="@_btnLablel" ButtonStyle="ButtonStyle.Warning" Click="@Btn_Click" />
+<RadzenButton Text="@_btnLablel" Icon="autorenew"
+              ButtonStyle="ButtonStyle.Warning" Click="@Btn_Click" />
 
 @code {
 
@@ -15,13 +18,13 @@
 
     private bool _needUpdate => (AppValues.Version.StartsWith(_version)) ? false : true;
 
-    private string _currentVersion => langService.Keys["Current_version_is"] + ": " + AppValues.Version;
-    private string _updateVersion => langService.Keys["Update_version_available"] + ": " + _version;
-    private string _btnLablel => _needUpdate ? langService.Keys["Update"] : langService.Keys["Refresh"];
+    private string _currentVersion => __lang.Keys["Current_version_is"] + ": " + AppValues.Version;
+    private string _updateVersion => __lang.Keys["Update_version_available"] + ": " + _version;
+    private string _btnLablel => _needUpdate ? __lang.Keys["Update"] : __lang.Keys["Refresh"];
 
     private async Task Btn_Click()
     {
-        try { await jsRuntime.InvokeVoidAsync("reload"); }
+        try { await __js.InvokeVoidAsync("reload"); }
         catch { Console.WriteLine("js reload error"); }
     }
     //private void Btn_Click() { navigationManager.Refresh(true); }
@@ -29,10 +32,10 @@
     protected override async Task OnInitializedAsync()
     {
         //_version = await jsRuntime.InvokeAsync<string>("getVersion");
-        try { _version = await httpLocal.GetStringAsync("data/version.txt"); }
+        try { _version = await __http.GetStringAsync("data/version.txt"); }
         catch { _version = "0.0.0.0"; }
         
-        appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 

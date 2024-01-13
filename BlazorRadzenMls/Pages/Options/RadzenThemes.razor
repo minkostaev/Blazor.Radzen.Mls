@@ -1,4 +1,6 @@
-﻿@if (IsComboNotButton == true)
+﻿@page "/themes"
+
+@if (IsComboNotButton == true)
 {
     <RadzenDropDown Value="@_theme" Data=@_themes TValue="string"
                     ValueChanged="@((string val) => DropDown_ValueChanged(val))" />
@@ -51,7 +53,7 @@ else
     [Parameter]
     public bool? IsComboNotButton { get; set; }
 
-    private string _themeLbl => langService.Keys["Theme"] + ": ";
+    private string _themeLbl => __lang.Keys["Theme"] + ": ";
     private string? _btnText;
 
     // free radzen themes names
@@ -151,7 +153,7 @@ else
 
     private async Task DropDown_ValueChanged(string val)
     {
-        try { await jsRuntime.InvokeVoidAsync("setRadzenTheme", val); }
+        try { await __js.InvokeVoidAsync("setRadzenTheme", val); }
         catch { Console.WriteLine("js method error"); }
     }
 
@@ -166,7 +168,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try { _theme = await jsRuntime.InvokeAsync<string>("getRadzenTheme"); }
+        try { _theme = await __js.InvokeAsync<string>("getRadzenTheme"); }
         catch { _isDefault = true; Console.WriteLine("js method error"); }
 
         _btnText = _themeLbl + _theme;
@@ -184,7 +186,7 @@ else
         else if (_theme == _themes[5])
             _isMaterial = true;
 
-        appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
     

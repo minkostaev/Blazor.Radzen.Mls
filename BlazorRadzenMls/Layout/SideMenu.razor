@@ -9,18 +9,17 @@
     </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Blazor" Icon="bug_report">
         
-        <RadzenPanelMenuItem Text="@langService.Keys["Options"]" Path="@AppValues.PageOptions" Icon="build" />
+        <RadzenPanelMenuItem Text="@__lang.Keys["Options"]" Path="@AppValues.PageOptions" Icon="build" />
         
     </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Learn" Icon="extension">
 
-        <RadzenPanelMenuItem Text="Counter" Path="counter" Icon="done" />
         <RadzenPanelMenuItem Text="Weather" Path="weather" Icon="backup" />
         <RadzenPanelMenuItem Text="Render Fragment" Path="renderfragment" Icon="dashboard" />
-        <RadzenPanelMenuItem Text="Dynamic Component" Path="dinamichnite" Icon="dashboard" />
+        <RadzenPanelMenuItem Text="Dynamic Component" Path="dinamichnite" Icon="done" />
         <RadzenPanelMenuItem Text="Error Boundaries" Path="errorboundaries" Icon="dashboard" />
-        <RadzenPanelMenuItem Text="Routing" Path="route" Icon="dashboard" />
-        <RadzenPanelMenuItem Text="StateHasChanged" Path="shc" Icon="dashboard" />
+        <RadzenPanelMenuItem Text="Routing" Path="route" Icon="open_in_browser" />
+        <RadzenPanelMenuItem Text="StateHasChanged" Path="shc" Icon="autorenew" />
 
     </RadzenPanelMenuItem>
 
@@ -61,7 +60,7 @@
     protected override void OnInitialized()
     {
 
-        appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 

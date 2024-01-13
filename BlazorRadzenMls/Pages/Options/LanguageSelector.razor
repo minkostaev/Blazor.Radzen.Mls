@@ -1,4 +1,6 @@
-﻿@if (IsComboNotBar)
+﻿@page "/language"
+
+@if (IsComboNotBar)
 {
     <RadzenSplitButton AlwaysOpenPopup=true Text="@_btnText"
                        Click=@(args => SplBtn_Click(args, "SplitButton1"))>
@@ -15,11 +17,11 @@ else
     <RadzenLabel Text=@_languageLbl class="rz-color-success-dark" Style="font-weight: bold;" />
 
     <div class="myRadzenToggleButton">
-        <RadzenToggleButton @bind-Value=@isEnglish Text=@langService.Keys["English"] Image="@GetImagePath("english")"
+        <RadzenToggleButton @bind-Value=@isEnglish Text=@__lang.Keys["English"] Image="@GetImagePath("english")"
                             ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
     </div>
     <div class="myRadzenToggleButton">
-        <RadzenToggleButton @bind-Value=@isBulgarian Text=@langService.Keys["Bulgarian"] Image="@GetImagePath("bulgarian")"
+        <RadzenToggleButton @bind-Value=@isBulgarian Text=@__lang.Keys["Bulgarian"] Image="@GetImagePath("bulgarian")"
                             ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
     </div>
 }
@@ -56,8 +58,8 @@ else
         }
     }
 
-    private string _languageLbl => langService.Keys["Language"] + ": ";
-    private string _btnText => _languageLbl + langService.Keys[_language];
+    private string _languageLbl => __lang.Keys["Language"] + ": ";
+    private string _btnText => _languageLbl + __lang.Keys[_language];
     private string GetImagePath(string lang)
     {
         string fileName = "";
@@ -80,13 +82,13 @@ else
             switch (item.Value)
             {
                 case "0":
-                    langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+                    __lang.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
                     break;
                 case "1":
-                    langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("bg-BG"));
+                    __lang.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("bg-BG"));
                     break;
                 default:
-                    langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+                    __lang.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
                     break;
             }
         }
@@ -94,21 +96,21 @@ else
 
     private void Language_ValueChanged(string language)
     {
-        _language = language;
+        _language = __state.Language = language;
         if (_language == _languages[0])
         {
-            langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+            __lang.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
         }
         else if (_language == _languages[1])
         {
-            langService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("bg-BG"));
+            __lang.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("bg-BG"));
         }
-        appState.RefreshPage("LanguageChanged");
+        __state.RefreshPage("LanguageChanged");
     }
 
     protected override void OnInitialized()
     {
-        _language = _languages[0];
+        _language = (string.IsNullOrWhiteSpace(__state.Language)) ? _languages[0] : __state.Language;
         if (_language == _languages[0])
         {
             _isEnglish = true;
@@ -118,7 +120,7 @@ else
             _isBulgarian = true;
         }
 
-        appState.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 

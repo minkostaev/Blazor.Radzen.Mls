@@ -8,13 +8,19 @@
 @* <RadzenText Text="@langService.Keys["Site_options"]" TextStyle="TextStyle.H1" class="rz-color-primary" /> *@
 <RadzenText Text="Title to do" TextStyle="TextStyle.H1" class="rz-color-primary" />
 
+<RadzenText Text="This site uses:" TextStyle="TextStyle.Body1" class="rz-color-primary" />
+
+<RadzenText Text="Radzen.Blazor" TextStyle="TextStyle.Body2" class="rz-color-primary" />
+
+<RadzenText Text="AKSoftware.Localization.MultiLanguages" TextStyle="TextStyle.Body2" class="rz-color-primary" />
+
 <div>app version: @AppValues.Version</div>
 
 <InputText @bind-Value="@_name" />
 
 <Parametri Name="@_name" />
 
-<BlazorRadzenMls.Pages.Learn.Parameters.CascadingPage />
+<CascadingPage />
 
 @code {
 
