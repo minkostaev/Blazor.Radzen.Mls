@@ -1,0 +1,32 @@
+﻿@if (!string.IsNullOrEmpty(Link1))
+{
+    <RadzenLink Path="@Link1" Target="_blank">
+        <div style="display: inline-block;">
+            <RadzenIcon Icon="@Icon1" Style="display: inline-block;" />
+            <RadzenText Text="@Text1" TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block;" />
+        </div>
+    </RadzenLink>
+}
+else
+{
+    <RadzenText Text="@Text1" TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block;" />
+}
+<RadzenLink Path="@Link2" Target="_blank">
+    <RadzenImage Path="images/github.svg" Style="width: 20px; height: 20px; margin-left: 8px;" AlternateText="nuget" />
+</RadzenLink>
+
+@code {
+
+    [Parameter]
+    public string? Link1 { get; set; }
+
+    [Parameter]
+    public string? Icon1 { get; set; }
+
+    [Parameter]
+    public string? Text1 { get; set; }
+
+    [Parameter]
+    public string? Link2 { get; set; }
+
+}
