@@ -1,6 +1,9 @@
 ﻿@page "/refresh"
 
+@* @implements IDisposable *@
+
 @using BlazorRadzenMls.Models
+@using System.Timers
 
 <RadzenLabel Text=@_currentVersion class="rz-color-success-dark" Style="font-weight: bold;" />
 
@@ -10,7 +13,7 @@
 }
 
 <RadzenButton Text="@_btnLablel" Icon="autorenew"
-              ButtonStyle="ButtonStyle.Warning" Click="@Btn_Click" />
+              ButtonStyle="ButtonStyle.Warning" Click="@ReloadApp" />
 
 @code {
 
@@ -22,21 +25,42 @@
     private string _updateVersion => __lang.Keys["Update_version_available"] + ": " + _version;
     private string _btnLablel => _needUpdate ? __lang.Keys["Update"] : __lang.Keys["Refresh"];
 
-    private async Task Btn_Click()
+    private async Task ReloadApp()
     {
         try { await __js.InvokeVoidAsync("reload"); }
         catch { Console.WriteLine("js reload error"); }
     }
-    //private void Btn_Click() { navigationManager.Refresh(true); }
+    //private void ReloadApp() { navigationManager.Refresh(true); }
 
-    protected override async Task OnInitializedAsync()
+    // private async Task GetVersion()
+    // {
+    //     //_version = await __js.InvokeAsync<string>("getVersion");
+    //     try { _version = await __http.GetStringAsync("data/version.txt"); }
+    //     catch { _version = "0.0.0.0"; }
+    // }
+
+    protected override void OnInitialized()
     {
-        //_version = await jsRuntime.InvokeAsync<string>("getVersion");
-        try { _version = await __http.GetStringAsync("data/version.txt"); }
-        catch { _version = "0.0.0.0"; }
-        
+        //await GetVersion();
+
+        var versionChecking = new VersionChecking(__http);
+        _version = versionChecking.Version;
+        versionChecking.TimerTick += delegate
+        {
+            _version = versionChecking.Version;
+        };
+
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+
+
+    //private static Timer? _timer;
+
+    // public void Dispose()
+    // {
+    //     _timer.Stop();
+    //     _timer.Dispose();
+    // }
 
 }

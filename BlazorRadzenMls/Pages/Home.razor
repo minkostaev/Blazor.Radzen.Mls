@@ -5,22 +5,31 @@
 
 <PageTitle>Blazor Radzen Mls</PageTitle>
 
-@* <RadzenText Text="@langService.Keys["Site_options"]" TextStyle="TextStyle.H1" class="rz-color-primary" /> *@
-<RadzenText Text="Title to do" TextStyle="TextStyle.H1" class="rz-color-primary" />
+@* @__lang.Keys["Title to do"] *@
+<RadzenText Text="This is my personal site for experiments" TextStyle="TextStyle.H4" class="rz-color-primary" />
 
-<RadzenText Text="This site uses:" TextStyle="TextStyle.Body1" class="rz-color-primary" />
+<ShoutOutLinks Link1="" Icon1=""
+               Text1="You can see in this repo: " Link2="https://github.com/minkostaev/Blazor.Radzen.Mls" />
+               
+<br />
+<br />
 
-<RadzenText Text="Radzen.Blazor" TextStyle="TextStyle.Body2" class="rz-color-primary" />
+<RadzenText Text="This site uses:" TextStyle="TextStyle.H5" class="rz-color-primary" />
 
-<RadzenText Text="AKSoftware.Localization.MultiLanguages" TextStyle="TextStyle.Body2" class="rz-color-primary" />
+<ShoutOutLinks Link1="https://blazor.radzen.com/" Icon1="language"
+               Text1="Radzen.Blazor" Link2="https://github.com/radzenhq/radzen-blazor" />
 
-<div>app version: @AppValues.Version</div>
+<br />
+
+<ShoutOutLinks Link1="https://akmultilanguages.azurewebsites.net/" Icon1="language"
+               Text1="AKSoftware.Localization.MultiLanguages" Link2="https://github.com/aksoftware98/multilanguages" />
+
+<br />
+<br />
 
 <InputText @bind-Value="@_name" />
 
 <Parametri Name="@_name" />
-
-<CascadingPage />
 
 @code {
 
