@@ -1,6 +1,10 @@
 ﻿@page "/shc"
 
+@* @implements IDisposable *@
+
 @using System.Threading
+
+
 
 <div>
     Timer: @count
@@ -24,5 +28,11 @@
                 StateHasChanged();
         }, null, 500, 500);
     }
+
+    // public void Dispose()
+    // {
+    //     _timer.Stop();
+    //     _timer.Dispose();
+    // }
 
 }

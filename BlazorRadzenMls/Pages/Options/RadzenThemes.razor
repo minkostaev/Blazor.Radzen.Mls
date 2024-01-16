@@ -2,7 +2,7 @@
 
 @if (IsComboNotButton == true)
 {
-    <RadzenDropDown Value="@_theme" Data=@_themes TValue="string"
+    <RadzenDropDown Value="@_theme" Data=@RadzenTheming.Themes TValue="string"
                     ValueChanged="@((string val) => DropDown_ValueChanged(val))" />
 }
 else if (IsComboNotButton == false)
@@ -10,9 +10,9 @@ else if (IsComboNotButton == false)
     <RadzenSplitButton AlwaysOpenPopup=true Text="@_btnText"
                        Click=@(args => SplBtn_Click(args, "SplitButton1"))>
         <ChildContent>
-            @for (int i = 0; i < _themes.Length; i++)
+            @for (int i = 0; i < RadzenTheming.Themes.Length; i++)
             {
-                <RadzenSplitButtonItem Text="@_themes[i]" Value="@i.ToString()" />
+                <RadzenSplitButtonItem Text="@RadzenTheming.Themes[i]" Value="@i.ToString()" />
             }
         </ChildContent>
     </RadzenSplitButton>
@@ -57,7 +57,7 @@ else
     private string? _btnText;
 
     // free radzen themes names
-    private string[] _themes = ["default", "standard", "software", "humanistic", "dark", "material"];
+    //private string[] _themes = ["default", "standard", "software", "humanistic", "dark", "material"];
     private string? _theme;
 
     private bool _isDefault;
@@ -153,8 +153,9 @@ else
 
     private async Task DropDown_ValueChanged(string val)
     {
-        try { await __js.InvokeVoidAsync("setRadzenTheme", val); }
-        catch { Console.WriteLine("js method error"); }
+        // try { await __js.InvokeVoidAsync("setRadzenTheme", val); }
+        // catch { Console.WriteLine("js method error"); }
+        await RadzenTheming.SetTheme(__js, val);
     }
 
     private async Task SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
@@ -166,24 +167,29 @@ else
         }
     }
 
+    //private RadzenTheming? _themeService;
+
     protected override async Task OnInitializedAsync()
     {
-        try { _theme = await __js.InvokeAsync<string>("getRadzenTheme"); }
-        catch { _isDefault = true; Console.WriteLine("js method error"); }
-
+        // var changing = new ThemeChanging(__js);
+        // await changing.Initialize;
+        // _theme = changing.Theme;
+        
+        _theme = await RadzenTheming.GetTheme(__js);
+        
         _btnText = _themeLbl + _theme;
 
-        if (_theme == _themes[0])
+        if (_theme == RadzenTheming.Themes[0])
             _isDefault = true;
-        else if (_theme == _themes[1])
+        else if (_theme == RadzenTheming.Themes[1])
             _isStandard = true;
-        else if (_theme == _themes[2])
+        else if (_theme == RadzenTheming.Themes[2])
             _isSoftware = true;
-        else if (_theme == _themes[3])
+        else if (_theme == RadzenTheming.Themes[3])
             _isHumanistic = true;
-        else if (_theme == _themes[4])
+        else if (_theme == RadzenTheming.Themes[4])
             _isDark = true;
-        else if (_theme == _themes[5])
+        else if (_theme == RadzenTheming.Themes[5])
             _isMaterial = true;
 
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
@@ -191,19 +197,3 @@ else
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
     
 }
-
-@* requirements: *@
-@* @inject IJSRuntime jsRuntime *@
-@* function setRadzenTheme(val) {
-    let links = document.head.getElementsByTagName('link');
-    for (let li of links) {
-        if (li.href.includes('_content/Radzen.Blazor/css/')) {
-            let css = li.href.split('/').slice(-1)[0];
-            let newLink = li.href.replace(css, val + '-base.css');
-            li.href = newLink;
-        }
-    }
-} *@
-@* in index.html
-<link rel="stylesheet" href="_content/Radzen.Blazor/css/default-base.css">
-<script src="js/myRadzen.js"></script> - js code is in here *@

@@ -31,7 +31,7 @@ public class VersionChecking
     }
     private async Task GetVersion(HttpClient http)
     {
-        try { Version = await http.GetStringAsync("data/version.txt"); }
+        try { Version = await http.GetStringAsync(_versionFile); }
         catch { Version = "0.0.0.0"; Console.WriteLine("Error with HttpClient"); }
     }
     private async Task GetVersion(IJSRuntime js)
@@ -40,7 +40,8 @@ public class VersionChecking
         catch { Version = "0.0.0.0"; Console.WriteLine("Error with IJSRuntime"); }
     }
 
-    private static Timer? _timer;
+    private const string _versionFile = "data/version.txt";
+    private Timer? _timer;
 
     // public
 
