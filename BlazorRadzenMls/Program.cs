@@ -1,12 +1,11 @@
-using AKSoftware.Localization.MultiLanguages;
-using AKSoftware.Localization.MultiLanguages.Providers;
-using Radzen;
 using BlazorRadzenMls;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using System.Reflection;
 using System.Globalization;
+using System.Reflection;
+using AKSoftware.Localization.MultiLanguages;
+using Radzen;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -25,15 +24,3 @@ builder.Services.AddLanguageContainer(Assembly.GetExecutingAssembly(), CultureIn
 builder.Services.AddScoped<AppState>();
 
 await builder.Build().RunAsync();
-// to see
-//https://blazor-university.com/
-
-// Built-in Components:
-// App
-// Router
-// DynamicComponent
-// ErrorBoundary
-// NavMenu
-// NavLink
-
-// EditForm

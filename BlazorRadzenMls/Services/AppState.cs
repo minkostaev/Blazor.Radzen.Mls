@@ -12,3 +12,15 @@ public class AppState
     public string? Theme { get; set; }
 
 }
+// to see
+//https://blazor-university.com/
+
+// Built-in Components:
+// App
+// Router
+// DynamicComponent
+// ErrorBoundary
+// NavMenu
+// NavLink
+
+// EditForm

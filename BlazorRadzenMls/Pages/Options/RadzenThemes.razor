@@ -2,8 +2,8 @@
 
 @if (IsComboNotButton == true)
 {
-    <RadzenDropDown Value="@_theme" Data=@RadzenTheming.Themes TValue="string"
-                    ValueChanged="@((string val) => DropDown_ValueChanged(val))" />
+    <RadzenDropDown Value="@__state.Theme" Data=@RadzenTheming.Themes TValue="string"
+                    ValueChanged="@((string val) => SetTheme(val))" />
 }
 else if (IsComboNotButton == false)
 {
@@ -53,12 +53,8 @@ else
     [Parameter]
     public bool? IsComboNotButton { get; set; }
 
-    private string _themeLbl => __lang.Keys["Theme"] + ": ";
+    private string _themeLbl => __lang["Theme"] + ": ";
     private string? _btnText;
-
-    // free radzen themes names
-    //private string[] _themes = ["default", "standard", "software", "humanistic", "dark", "material"];
-    private string? _theme;
 
     private bool _isDefault;
     private bool isDefault
@@ -72,7 +68,7 @@ else
             _isHumanistic = false;
             _isDark = false;
             _isMaterial = false;
-            Task.FromResult(DropDown_ValueChanged("default"));
+            SetTheme("default");
         }
     }
     private bool _isStandard;
@@ -87,7 +83,7 @@ else
             _isHumanistic = false;
             _isDark = false;
             _isMaterial = false;
-            Task.FromResult(DropDown_ValueChanged("standard"));
+            SetTheme("standard");
         }
     }
     private bool _isSoftware;
@@ -102,7 +98,7 @@ else
             _isHumanistic = false;
             _isDark = false;
             _isMaterial = false;
-            Task.FromResult(DropDown_ValueChanged("software"));
+            SetTheme("software");
         }
     }
     private bool _isHumanistic;
@@ -117,7 +113,7 @@ else
             _isHumanistic = true;
             _isDark = false;
             _isMaterial = false;
-            Task.FromResult(DropDown_ValueChanged("humanistic"));
+            SetTheme("humanistic");
         }
     }
     private bool _isDark;
@@ -132,7 +128,7 @@ else
             _isHumanistic = false;
             _isDark = true;
             _isMaterial = false;
-            Task.FromResult(DropDown_ValueChanged("dark"));
+            SetTheme("dark");
         }
     }
     private bool _isMaterial;
@@ -147,49 +143,42 @@ else
             _isHumanistic = false;
             _isDark = false;
             _isMaterial = true;
-            Task.FromResult(DropDown_ValueChanged("material"));
+            SetTheme("material");
         }
     }
 
-    private async Task DropDown_ValueChanged(string val)
+    private void SetTheme(string themeName)
     {
-        // try { await __js.InvokeVoidAsync("setRadzenTheme", val); }
-        // catch { Console.WriteLine("js method error"); }
-        await RadzenTheming.SetTheme(__js, val);
+        __state.Theme = themeName;
+        Task.FromResult(RadzenTheming.SetTheme(__js, themeName));
     }
 
-    private async Task SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
+    private void SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
     {
         if (item != null)
         {
-            await DropDown_ValueChanged(item.Text);
+            SetTheme(item.Text);
             _btnText = _themeLbl + item.Text;
         }
     }
 
-    //private RadzenTheming? _themeService;
-
     protected override async Task OnInitializedAsync()
     {
-        // var changing = new ThemeChanging(__js);
-        // await changing.Initialize;
-        // _theme = changing.Theme;
+        __state.Theme = await RadzenTheming.GetTheme(__js);
         
-        _theme = await RadzenTheming.GetTheme(__js);
-        
-        _btnText = _themeLbl + _theme;
+        _btnText = _themeLbl + __state.Theme;
 
-        if (_theme == RadzenTheming.Themes[0])
+        if (__state.Theme == RadzenTheming.Themes[0])
             _isDefault = true;
-        else if (_theme == RadzenTheming.Themes[1])
+        else if (__state.Theme == RadzenTheming.Themes[1])
             _isStandard = true;
-        else if (_theme == RadzenTheming.Themes[2])
+        else if (__state.Theme == RadzenTheming.Themes[2])
             _isSoftware = true;
-        else if (_theme == RadzenTheming.Themes[3])
+        else if (__state.Theme == RadzenTheming.Themes[3])
             _isHumanistic = true;
-        else if (_theme == RadzenTheming.Themes[4])
+        else if (__state.Theme == RadzenTheming.Themes[4])
             _isDark = true;
-        else if (_theme == RadzenTheming.Themes[5])
+        else if (__state.Theme == RadzenTheming.Themes[5])
             _isMaterial = true;
 
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;

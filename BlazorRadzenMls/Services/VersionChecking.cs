@@ -6,15 +6,21 @@ using System.Timers;
 
 public class VersionChecking
 {
+    public Task Initialize { get; }// !!! await !!!
+    public bool Initiated { get; protected set; }// optional
+
     public VersionChecking(IJSRuntime js)
     {
-        _ = GetVersion(js);
         SetTimer(js);
+        Initialize = GetVersion(js);
+        //Task.FromResult(GetVersion(js)); // doesn't work well enough
+        Initiated = true;
     }
     public VersionChecking(HttpClient http)
     {
-        _ = GetVersion(http);
         SetTimer(http);
+        Initialize = GetVersion(http);
+        Initiated = true;
     }
 
     private void SetTimer(object injection)
@@ -29,6 +35,7 @@ public class VersionChecking
             TimerTick?.Invoke(_timer, EventArgs.Empty);
         };
     }
+    
     private async Task GetVersion(HttpClient http)
     {
         try { Version = await http.GetStringAsync(_versionFile); }
@@ -47,6 +54,16 @@ public class VersionChecking
 
     public event EventHandler? TimerTick;
     public string Version { get; set; } = "";
-    public bool NeedUpdate => !AppValues.Version.StartsWith(Version);
+    //public bool NeedUpdate => !AppValues.Version.StartsWith(Version);
+    public bool NeedUpdate
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(AppValues.Version))
+                return !AppValues.Version.StartsWith(Version);
+            else
+                return true;
+        }
+    }
 
 }

@@ -27,21 +27,3 @@ public class ThemeChanging
     public string? Theme { get; set; }
 
 }
-//requirements:
-//@inject IJSRuntime jsRuntime
-//function setRadzenTheme(val)
-//{
-//    let links = document.head.getElementsByTagName('link');
-//    for (let li of links)
-//    {
-//        if (li.href.includes('_content/Radzen.Blazor/css/'))
-//        {
-//            let css = li.href.split('/').slice(-1)[0];
-//            let newLink = li.href.replace(css, val + '-base.css');
-//            li.href = newLink;
-//        }
-//    }
-//}
-//in index.html
-//<link rel="stylesheet" href="_content/Radzen.Blazor/css/default-base.css">
-//<script src = "js/myRadzen.js" ></ script > -js code is in here
