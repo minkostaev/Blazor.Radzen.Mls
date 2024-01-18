@@ -1,0 +1,24 @@
+﻿@page "/color"
+
+<RadzenRow>
+    
+    <RadzenColumn>
+        <RadzenText TextStyle="TextStyle.H6" Style=@style Class="rz-mt-4 rz-mt-md-12">Choose T-Shirt color</RadzenText>
+        <RadzenColorPicker @bind-Value=@color ShowHSV=true ShowRGBA=true ShowColors=true ShowButton=false Change="OnChange" />
+    </RadzenColumn>
+</RadzenRow>
+
+
+@code {
+
+    private string? style;
+
+    string color;// = "rgb(68, 58, 110)";
+
+    private void OnChange(string value)
+    {
+        style = "color: " + color;
+        Console.WriteLine($"Value changed to: {value}");
+    }
+
+}

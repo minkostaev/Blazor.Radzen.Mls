@@ -28,6 +28,7 @@
     {
         _version = new VersionReload(__http);
         await _version.Initialize;
+        StateHasChanged();
         _version.TimerTick += delegate
         {
             if (_version.NeedUpdate)

@@ -15,6 +15,14 @@
                         ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
 </div>
 
+<div>
+    <RadzenCheckBox Value="@__state.MenuArrow" @onclick="ArrowsChange" />
+    <RadzenLabel Text="Show Arrows" class="rz-color-success-dark" @onclick="ArrowsChange" />
+
+    <RadzenCheckBox Value="@__state.MenuMultiple" @onclick="MultipleChange" Style="margin-left: 16px;" />
+    <RadzenLabel Text="Open Multiples" class="rz-color-success-dark" @onclick="MultipleChange" />
+</div>
+
 @code {
 
     private string _menuLbl => __lang["Menu"] + ": ";
@@ -57,6 +65,17 @@
             __state.MenuStyle = MenuItemDisplayStyle.Icon;
             __state.RefreshPage("Menu");
         }
+    }
+
+    private void ArrowsChange()
+    {
+        __state.MenuArrow = !__state.MenuArrow;
+        __state.RefreshPage("Menu Arrows");
+    }
+    private void MultipleChange()
+    {
+        __state.MenuMultiple = !__state.MenuMultiple;
+        __state.RefreshPage("Menu Multiples");
     }
 
     protected override void OnInitialized()

@@ -12,7 +12,7 @@
 
         </RadzenStack>
     </RadzenHeader>
-    <RadzenSidebar @bind-Expanded="@sidebarExpanded">
+    <RadzenSidebar @bind-Expanded="@sidebarExpanded" Style="@__state.SidebarWidth">
         <SideMenu />
     </RadzenSidebar>
     <RadzenBody id="myRadzenBody">
@@ -25,5 +25,12 @@
 @code {
 
     private bool sidebarExpanded = true;
+
+    protected override void OnInitialized()
+    {
+
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+    }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

@@ -1,10 +1,13 @@
 ﻿@using BlazorRadzenMls.Models
 
-<RadzenPanelMenu DisplayStyle="@__state.MenuStyle" ShowArrow="@_isShowArrow" Multiple="@_multiple">
-    <RadzenPanelMenuItem Text="Home" Path="" Icon="home"></RadzenPanelMenuItem>
+<RadzenPanelMenu DisplayStyle="@__state.MenuStyle" ShowArrow="@__state.MenuArrow" Multiple="@__state.MenuMultiple" >
+    <RadzenPanelMenuItem Text="Home" Path="" Icon="home">
+
+    </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Radzen" Icon="extension">
 
         <RadzenPanelMenuItem Text="Icons" Path="@AppValues.PageIcons" Icon="perm_media" />
+        <RadzenPanelMenuItem Text="Color" Path="color" Icon="perm_media" />
 
     </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Blazor" Icon="bug_report">
@@ -23,40 +26,14 @@
         <RadzenPanelMenuItem Text="Cascading" Path="cascading" Icon="autorenew" />
 
     </RadzenPanelMenuItem>
-
     <RadzenPanelMenuItem Text="Api" Icon="http">
 
         <RadzenPanelMenuItem Text="Random Dog" Path="@AppValues.PageDogs" Icon="gif" />
 
     </RadzenPanelMenuItem>
-
-    <RadzenPanelMenuItem Text="Menu Options" Icon="build">
-
-        <RadzenCheckBox @bind-Value=@_multiple Name="CheckBox1" TValue="bool" />
-        <RadzenLabel Text="Allow multiple expand" Component="CheckBox1" />
-        
-        <RadzenRadioButtonList @bind-Value=@__state.MenuStyle Orientation="Orientation.Vertical" TValue="MenuItemDisplayStyle">
-            <Items>
-                <RadzenRadioButtonListItem Text="IconAndText" Value="MenuItemDisplayStyle.IconAndText" />
-                <RadzenRadioButtonListItem Text="Icon" Value="MenuItemDisplayStyle.Icon" />
-                <RadzenRadioButtonListItem Text="Text" Value="MenuItemDisplayStyle.Text" />
-            </Items>
-        </RadzenRadioButtonList>
-
-        <RadzenCheckBox @bind-Value=@_isShowArrow Name="CheckBox2" TValue="bool" />
-        <RadzenLabel Text="Show Arrow" Component="CheckBox2" />
-
-    </RadzenPanelMenuItem>
-
 </RadzenPanelMenu>
 
 @code {
-
-    //private MenuItemDisplayStyle _displayStyle = MenuItemDisplayStyle.IconAndText;
-
-    private bool _isShowArrow = true;
-
-    private bool _multiple;
 
     protected override void OnInitialized()
     {
