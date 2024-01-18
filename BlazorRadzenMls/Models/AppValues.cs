@@ -4,7 +4,12 @@ using System.Reflection;
 
 public static class AppValues
 {
-    public static string? Version => Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+    private static string? Version => Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+    public static string VersionClient => (string.IsNullOrEmpty(Version)) ? "0.0.0.0" : Version;
+
+    public const string PageIcons = "Icons";
+    public const string PageDogs = "Dogs";
+    public const string PageOptions = "Options";
 
     public static string GitHubMy => "https://github.com/minkostaev/Blazor.Radzen.Mls";
     public static string GitHubRadzen => "https://github.com/radzenhq/radzen-blazor";
@@ -14,8 +19,19 @@ public static class AppValues
     //public const string RolesManager = "admin, manager";
     //public const string RolesAdmin = "admin";
 
-    public const string PageIcons = "Icons";
-    public const string PageDogs = "Dogs";
-    public const string PageOptions = "Options";
-
 }
+// to see
+//https://blazor-university.com/
+
+// Built-in Components:
+// App
+// Router
+// DynamicComponent
+// ErrorBoundary
+// NavMenu
+// NavLink
+
+// EditForm
+
+//StateHasChanged();
+//await InvokeAsync(StateHasChanged);

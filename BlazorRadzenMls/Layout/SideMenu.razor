@@ -1,6 +1,6 @@
 ﻿@using BlazorRadzenMls.Models
 
-<RadzenPanelMenu DisplayStyle="@_displayStyle" ShowArrow="@_isShowArrow" Multiple="@_multiple">
+<RadzenPanelMenu DisplayStyle="@__state.MenuStyle" ShowArrow="@_isShowArrow" Multiple="@_multiple">
     <RadzenPanelMenuItem Text="Home" Path="" Icon="home"></RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Radzen" Icon="extension">
 
@@ -35,7 +35,7 @@
         <RadzenCheckBox @bind-Value=@_multiple Name="CheckBox1" TValue="bool" />
         <RadzenLabel Text="Allow multiple expand" Component="CheckBox1" />
         
-        <RadzenRadioButtonList @bind-Value=@_displayStyle Orientation="Orientation.Vertical" TValue="MenuItemDisplayStyle">
+        <RadzenRadioButtonList @bind-Value=@__state.MenuStyle Orientation="Orientation.Vertical" TValue="MenuItemDisplayStyle">
             <Items>
                 <RadzenRadioButtonListItem Text="IconAndText" Value="MenuItemDisplayStyle.IconAndText" />
                 <RadzenRadioButtonListItem Text="Icon" Value="MenuItemDisplayStyle.Icon" />
@@ -52,7 +52,7 @@
 
 @code {
 
-    private MenuItemDisplayStyle _displayStyle = MenuItemDisplayStyle.IconAndText;
+    //private MenuItemDisplayStyle _displayStyle = MenuItemDisplayStyle.IconAndText;
 
     private bool _isShowArrow = true;
 

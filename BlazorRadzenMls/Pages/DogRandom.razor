@@ -6,7 +6,7 @@
 
 <RadzenStack AlignItems="AlignItems.Center" >
 
-    <RadzenImage Click="@Dog_Request" Path="@_imgUrl" Style="width: 100%;" AlternateText="community" />
+    <RadzenImage Click="@Dog_Request" Path="@_imgUrl" Style="width: 100%;" AlternateText="dog image" />
 
 </RadzenStack>
 
@@ -26,7 +26,10 @@
     {
         var dog = new Dog();
         if (_client != null)//https://dog.ceo/dog-api/
-            dog = await _client.GetFromJsonAsync<Dog>(_requestUri);
+        {
+            try { dog = await _client.GetFromJsonAsync<Dog>(_requestUri); }
+            catch { Console.WriteLine("HttpClient error"); }
+        }
         _imgUrl = dog?.message;
         
         try { await __js.InvokeVoidAsync("removeBodyContentPadding"); }//changeBodyContentPadding

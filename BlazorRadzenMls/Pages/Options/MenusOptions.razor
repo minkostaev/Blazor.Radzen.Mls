@@ -1,0 +1,84 @@
+﻿@page "/sidemenu"
+
+<RadzenLabel Text=@_menuLbl class="rz-color-success-dark" Style="font-weight: bold;" />
+
+<div class="myRadzenToggleButton">
+    <RadzenToggleButton @bind-Value=@isTextIcon Text=@__lang["Text"] Icon="view_list" IconColor="@Colors.Series5"
+                        ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+</div>
+<div class="myRadzenToggleButton">
+    <RadzenToggleButton @bind-Value=@Text Text=@__lang["Text"]
+                        ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+</div>
+<div class="myRadzenToggleButton">
+    <RadzenToggleButton @bind-Value=@isIcon Icon="group_work" IconColor="@Colors.Series5"
+                        ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+</div>
+
+@code {
+
+    private string _menuLbl => __lang["Menu"] + ": ";
+
+    private bool _isTextIcon;
+    private bool isTextIcon
+    {
+        get { return _isTextIcon; }
+        set
+        {
+            _isTextIcon = true;
+            _isText = false;
+            _isIcon = false;
+            __state.MenuStyle = MenuItemDisplayStyle.IconAndText;
+            __state.RefreshPage("Menu");
+        }
+    }
+    private bool _isText;
+    private bool Text
+    {
+        get { return _isText; }
+        set
+        {
+            _isTextIcon = false;
+            _isText = true;
+            _isIcon = false;
+            __state.MenuStyle = MenuItemDisplayStyle.Text;
+            __state.RefreshPage("Menu");
+        }
+    }
+    private bool _isIcon;
+    private bool isIcon
+    {
+        get { return _isIcon; }
+        set
+        {
+            _isTextIcon = false;
+            _isText = false;
+            _isIcon = true;
+            __state.MenuStyle = MenuItemDisplayStyle.Icon;
+            __state.RefreshPage("Menu");
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        switch (__state.MenuStyle)
+        {
+            case MenuItemDisplayStyle.IconAndText:
+                _isTextIcon = true;
+                break;
+            case MenuItemDisplayStyle.Text:
+                _isText = true;
+                break;
+            case MenuItemDisplayStyle.Icon:
+                _isIcon = true;
+                break;
+            default:
+                _isTextIcon = true;
+                break;
+        }
+
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+    }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+
+}

@@ -4,24 +4,26 @@ using BlazorRadzenMls.Models;
 using Microsoft.JSInterop;
 using System.Timers;
 
-public class VersionChecking
+public class VersionReload
 {
     public Task Initialize { get; }// !!! await !!!
     public bool Initiated { get; protected set; }// optional
 
-    public VersionChecking(IJSRuntime js)
+    public VersionReload(IJSRuntime js)
     {
         SetTimer(js);
         Initialize = GetVersion(js);
-        //Task.FromResult(GetVersion(js)); // doesn't work well enough
+        //Task.FromResult(GetVersion(js)); // doesn't work good enough
         Initiated = true;
     }
-    public VersionChecking(HttpClient http)
+    public VersionReload(HttpClient http)
     {
         SetTimer(http);
         Initialize = GetVersion(http);
         Initiated = true;
     }
+
+    // private
 
     private void SetTimer(object injection)
     {
@@ -54,16 +56,17 @@ public class VersionChecking
 
     public event EventHandler? TimerTick;
     public string Version { get; set; } = "";
-    //public bool NeedUpdate => !AppValues.Version.StartsWith(Version);
-    public bool NeedUpdate
+    public bool NeedUpdate => !AppValues.VersionClient.StartsWith(Version);
+
+    /// <summary>
+    /// Calls js method that hard reload the site
+    /// </summary>
+    /// <param name="js">JS Runtime injection</param>
+    /// <returns></returns>
+    public static async Task Reload(IJSRuntime js)
     {
-        get
-        {
-            if (!string.IsNullOrEmpty(AppValues.Version))
-                return !AppValues.Version.StartsWith(Version);
-            else
-                return true;
-        }
+        try { await js.InvokeVoidAsync("reload"); }
+        catch { Console.WriteLine("js reload error"); }
     }
 
 }

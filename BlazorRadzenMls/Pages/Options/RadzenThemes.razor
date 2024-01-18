@@ -165,7 +165,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         __state.Theme = await RadzenTheming.GetTheme(__js);
-        
+
         _btnText = _themeLbl + __state.Theme;
 
         if (__state.Theme == RadzenTheming.Themes[0])
@@ -184,5 +184,5 @@ else
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
-    
+
 }

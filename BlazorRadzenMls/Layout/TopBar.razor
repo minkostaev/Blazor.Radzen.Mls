@@ -32,18 +32,20 @@
         __tooltip.Open(elementReference, "GitHub", options);
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        var versionChecking = new VersionChecking(__http);
-        versionChecking.TimerTick += delegate
+        var version = new VersionReload(__http);
+        await version.Initialize;
+        __state.VersionServer = version.Version;
+        version.TimerTick += delegate
         {
-            if (versionChecking.NeedUpdate)
+            if (version.NeedUpdate)
             {
+                __state.VersionServer = version.Version;
                 if (_className != "rz-background-color-danger-lighter")
                 {
                     _className = "rz-background-color-danger-lighter";
                     StateHasChanged();
-                    //await InvokeAsync(StateHasChanged);
                 }
             }
             else
@@ -52,7 +54,6 @@
                 {
                     _className = "";
                     StateHasChanged();
-                    //await InvokeAsync(StateHasChanged);
                 }
             }
         };
