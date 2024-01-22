@@ -1,13 +1,14 @@
 ﻿@using BlazorRadzenMls.Models
 
 <RadzenPanelMenu DisplayStyle="@__state.MenuStyle" ShowArrow="@__state.MenuArrow" Multiple="@__state.MenuMultiple" >
-    <RadzenPanelMenuItem Text="Home" Path="" Icon="home">
+    <RadzenPanelMenuItem Text="Home" Path="" Image="icon-128.png">
 
     </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Radzen" Icon="extension">
 
         <RadzenPanelMenuItem Text="Icons" Path="@AppValues.PageIcons" Icon="perm_media" />
         <RadzenPanelMenuItem Text="Color" Path="color" Icon="perm_media" />
+        <RadzenPanelMenuItem Text="Input Files" Path="upload" Icon="perm_media" />
 
     </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Blazor" Icon="bug_report">

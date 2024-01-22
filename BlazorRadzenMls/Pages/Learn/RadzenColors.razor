@@ -1,13 +1,11 @@
 ﻿@page "/color"
 
 <RadzenRow>
-    
     <RadzenColumn>
         <RadzenText TextStyle="TextStyle.H6" Style=@style Class="rz-mt-4 rz-mt-md-12">Choose T-Shirt color</RadzenText>
         <RadzenColorPicker @bind-Value=@color ShowHSV=true ShowRGBA=true ShowColors=true ShowButton=false Change="OnChange" />
     </RadzenColumn>
 </RadzenRow>
-
 
 @code {
 
@@ -20,5 +18,6 @@
         style = "color: " + color;
         Console.WriteLine($"Value changed to: {value}");
     }
+
 
 }

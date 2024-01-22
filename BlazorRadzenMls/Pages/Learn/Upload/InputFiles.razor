@@ -1,0 +1,32 @@
+﻿@page "/upload"
+
+@if (byteArr != null)
+{
+    <RadzenImage Path="@($"data:image/jpeg;base64,{Convert.ToBase64String(byteArr)}")" AlternateText="logo" Style="width: 200px; height: 200px;" />
+}
+
+<div class="file-uploader">
+    <InputFile style="display: none;" id="fileInput" OnChange="@OnInputFileChange" />
+    <label for="fileInput" class="custom-button">
+        <span>Choose</span>
+    </label>
+</div>
+
+@code {
+
+    private string? byteStr { get; set; }
+    private byte[]? byteArr { get; set; }
+    private async Task OnInputFileChange(InputFileChangeEventArgs args)
+    {
+        byteArr = await GetContentAsync(args.File);
+        //byteStr = "data:image/png;base64," + Convert.ToBase64String(qq.ToArray(), 0, qq.ToArray().Length);
+    }
+    private async Task<byte[]> GetContentAsync(IBrowserFile file)
+    {
+        await using var stream = file.OpenReadStream(long.MaxValue);
+        var content = new byte[file.Size];
+        await stream.ReadAsync(content, 0, content.Length);
+        return content;
+    }
+
+}

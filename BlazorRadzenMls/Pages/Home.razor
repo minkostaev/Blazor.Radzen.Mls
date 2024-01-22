@@ -8,23 +8,22 @@
 @* @__lang["Title to do"] *@
 <RadzenText Text="This is my personal site for experiments" TextStyle="TextStyle.H4" class="rz-color-primary" />
 
-<ShoutOutLinks Link1="" Icon1=""
-               Text1="You can see it in this repo: " Link2="@AppValues.GitHubMy" />
-               
-<br />
+<div style="padding-bottom: 12px;">
+    <ShoutOutLinks Link1="" Icon1=""
+                   Text1="You can see it in this repo: " Link2="@AppValues.GitHubMy" />
+</div>
 
-<RadzenText Text="This site uses:" TextStyle="TextStyle.H5" class="rz-color-primary" />
+<div>
+    <RadzenText Text="This site uses:" TextStyle="TextStyle.H5" class="rz-color-primary" />
 
-<ShoutOutLinks Link1="https://blazor.radzen.com/" Icon1="language"
-               Text1="Radzen.Blazor" Link2="@AppValues.GitHubRadzen" />
+    <ShoutOutLinks Link1="https://blazor.radzen.com/" Icon1="language"
+                   Text1="Radzen.Blazor" Link2="@AppValues.GitHubRadzen" />
+</div>
 
-<br />
-
-<ShoutOutLinks Link1="https://akmultilanguages.azurewebsites.net/" Icon1="language"
-               Text1="AKSoftware.Localization.MultiLanguages" Link2="@AppValues.GitHubAKSoftware" />
-
-<br />
-<br />
+<div style="padding-bottom: 12px;">
+    <ShoutOutLinks Link1="https://akmultilanguages.azurewebsites.net/" Icon1="language"
+                   Text1="AKSoftware.Localization.MultiLanguages" Link2="@AppValues.GitHubAKSoftware" />
+</div>
 
 <InputText @bind-Value="@_name" />
 
