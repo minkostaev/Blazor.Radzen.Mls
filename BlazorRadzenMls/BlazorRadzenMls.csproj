@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-    <Version>1.0.21</Version>
+    <Version>1.0.22</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
-    <PackageReference Include="Radzen.Blazor" Version="4.24.1" />
+    <PackageReference Include="Radzen.Blazor" Version="4.24.2" />
   </ItemGroup>
 
   <ItemGroup>

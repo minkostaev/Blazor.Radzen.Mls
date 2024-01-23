@@ -2,16 +2,15 @@
 
 <RadzenRow>
     <RadzenColumn>
-        <RadzenText TextStyle="TextStyle.H6" Style=@style Class="rz-mt-4 rz-mt-md-12">Choose T-Shirt color</RadzenText>
+        <RadzenText TextStyle="TextStyle.H4" Style=@style>Choose T-Shirt color</RadzenText>
         <RadzenColorPicker @bind-Value=@color ShowHSV=true ShowRGBA=true ShowColors=true ShowButton=false Change="OnChange" />
     </RadzenColumn>
 </RadzenRow>
 
 @code {
 
-    private string? style;
-
-    string color;// = "rgb(68, 58, 110)";
+    private string color { get; set; } = "rgb(255, 40, 0)";
+    private string? style { get; set; }
 
     private void OnChange(string value)
     {
@@ -19,5 +18,9 @@
         Console.WriteLine($"Value changed to: {value}");
     }
 
+    protected override void OnInitialized()
+    {
+        style = "color: " + color;
+    }
 
 }

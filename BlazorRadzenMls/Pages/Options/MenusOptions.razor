@@ -1,5 +1,9 @@
 ﻿@page "/sidemenu"
 
+@using BlazorRadzenMls.Layout.Second
+
+@layout SecondLayout
+
 <RadzenLabel Text=@_menuLbl class="rz-color-success-dark" Style="font-weight: bold;" />
 
 <div class="myRadzenToggleButton">
@@ -16,16 +20,16 @@
 </div>
 
 <div>
-    <RadzenCheckBox Value="@__state.MenuArrow" @onclick="ArrowsChange" />
-    <RadzenLabel Text="Show Arrows" class="rz-color-success-dark" @onclick="ArrowsChange" />
+    <RadzenCheckBox Value="@__state.MenuArrow" @onclick="ArrowsChange" Style="margin: 10px 0 0 0;" />
+    <RadzenLabel Text=@__lang["Show_arrows"] class="rz-color-success-dark" @onclick="ArrowsChange" Style="margin: 10px 0 0 0;" />
 
-    <RadzenCheckBox Value="@__state.MenuMultiple" @onclick="MultipleChange" Style="margin-left: 16px;" />
-    <RadzenLabel Text="Open Multiples" class="rz-color-success-dark" @onclick="MultipleChange" />
+    <RadzenCheckBox Value="@__state.MenuMultiple" @onclick="MultipleChange" Style="margin: 10px 0 0 20px;" />
+    <RadzenLabel Text=@__lang["Open_multiples"] class="rz-color-success-dark" @onclick="MultipleChange" Style="margin: 10px 0 0 0;" />
 </div>
 
 @code {
 
-    private string _menuLbl => __lang["Menu"] + ": ";
+    private string _menuLbl => $"{__lang["Menu"]}: ";
 
     private bool _isTextIcon;
     private bool isTextIcon
@@ -37,7 +41,7 @@
             _isText = false;
             _isIcon = false;
             __state.MenuStyle = MenuItemDisplayStyle.IconAndText;
-            __state.RefreshPage("Menu");
+            __state.RefreshPage("Menu text icon");
         }
     }
     private bool _isText;
@@ -50,7 +54,7 @@
             _isText = true;
             _isIcon = false;
             __state.MenuStyle = MenuItemDisplayStyle.Text;
-            __state.RefreshPage("Menu");
+            __state.RefreshPage("Menu text");
         }
     }
     private bool _isIcon;
@@ -63,19 +67,19 @@
             _isText = false;
             _isIcon = true;
             __state.MenuStyle = MenuItemDisplayStyle.Icon;
-            __state.RefreshPage("Menu");
+            __state.RefreshPage("Menu icon");
         }
     }
 
     private void ArrowsChange()
     {
         __state.MenuArrow = !__state.MenuArrow;
-        __state.RefreshPage("Menu Arrows");
+        __state.RefreshPage("Menu arrows");
     }
     private void MultipleChange()
     {
         __state.MenuMultiple = !__state.MenuMultiple;
-        __state.RefreshPage("Menu Multiples");
+        __state.RefreshPage("Menu multiples");
     }
 
     protected override void OnInitialized()

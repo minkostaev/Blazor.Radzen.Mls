@@ -7,10 +7,11 @@ public class AppState
 {
     public AppState()
     {
+        VersionServer = "0.0.0.0";
         MenuStyle = MenuItemDisplayStyle.IconAndText;
     }
 
-    public string VersionServer { get; set; } = "0.0.0.0";
+    public string VersionServer { get; set; }
 
     public event EventHandler? RefreshEvent;
     public void RefreshPage(string e) { RefreshEvent?.Invoke(e, EventArgs.Empty); }
@@ -48,5 +49,13 @@ public class AppState
     }
     public bool MenuArrow { get; set; } = true;
     public bool MenuMultiple { get; set; } = true;
+
+    //public string ReplaceFirst(string text, string oldValue, string newValue)
+    //{
+    //    int position = text.IndexOf(oldValue);
+    //    if (position < 0) { return text; }
+    //    text = text.Substring(0, position) + newValue + text.Substring(position + oldValue.Length);
+    //    return text;
+    //}
 
 }
