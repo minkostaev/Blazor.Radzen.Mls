@@ -1,0 +1,33 @@
+﻿@* @using Microsoft.AspNetCore.Components.Authorization *@
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@inject SignOutSessionStateManager SignOutManager
+
+<AuthorizeView>
+    <Authorized>
+        <h4>
+            Hello, @context.User.Identity.Name!
+            <a class="text-decoration-none d-inline-block" href="#" @onclick="BeginSignOut">Log out</a>
+        </h4>
+    </Authorized>
+    <NotAuthorized>
+        <h4>
+            <a class="text-decoration-none" href="authentication/login">Log in</a>
+        </h4>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+    private async Task BeginSignOut(MouseEventArgs args)
+    {
+        //await __js.InvokeVoidAsync("sessionStorage.clear");
+        //NavigationManager.NavigateTo($"{your_auth0_authority}/v2/logout?client_id={your_auth0_client_id}&returnTo={uri_to_redirect_back_to}");
+
+        await SignOutManager.SetSignOutState();
+        __nav.NavigateTo("authentication/logout");
+
+        //__nav.NavigateToLogout("authentication/logout", __nav.BaseUri);
+    }
+
+}
