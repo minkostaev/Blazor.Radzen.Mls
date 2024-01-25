@@ -11,9 +11,12 @@ else
 {
     <RadzenText Text="@Text1" TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block;" />
 }
-<RadzenLink Path="@Link2" Target="_blank">
-    <RadzenImage Path="images/github.svg" Style="width: 20px; height: 20px; margin-left: 8px;" AlternateText="nuget" />
-</RadzenLink>
+@if (!string.IsNullOrEmpty(Link2))
+{
+    <RadzenLink Path="@Link2" Target="_blank">
+        <RadzenImage Path="images/github.svg" Style="width: 20px; height: 20px; margin-left: 8px;" AlternateText="nuget" />
+    </RadzenLink>
+}
 
 @code {
 

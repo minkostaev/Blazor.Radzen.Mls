@@ -1,12 +1,11 @@
+using AKSoftware.Localization.MultiLanguages;
 using BlazorRadzenMls;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Radzen;
 using System.Globalization;
 using System.Reflection;
-using AKSoftware.Localization.MultiLanguages;
-using Radzen;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

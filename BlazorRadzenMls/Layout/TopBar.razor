@@ -1,28 +1,27 @@
 ﻿@using System.Timers;
+@using BlazorRadzenMls.Auth
 @using BlazorRadzenMls.Models
 
 <RadzenLink Path="">
     <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-                  Icon="home" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 1.55rem;" />
+                  Icon="home" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;" />
 </RadzenLink>
 
 <RadzenLink Path="@AppValues.PageOptions">
     <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-                  Icon="build" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 1.55rem;" class=@_className />
-</RadzenLink>
-
-<RadzenLink Path="">
-    <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-                  Icon="account_box" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 1.55rem;" />
+                  Icon="build" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;" class=@_className />
 </RadzenLink>
 
 <RadzenLink Path="@AppValues.GitHubMy" target="_blank" >
     <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-                  Icon="description" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 1.55rem;"
+                  Icon="description" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;"
                   MouseEnter="@(args => ShowTooltip(args) )" />
 </RadzenLink>
 
-<BlazorRadzenMls.Pages.AuthenticationStatus />
+<div style="margin-left: auto;">
+    <MenuGravatar />
+</div>
+
 
 @code {
 

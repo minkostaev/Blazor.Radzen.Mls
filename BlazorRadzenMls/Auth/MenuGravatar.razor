@@ -1,0 +1,18 @@
+﻿@using BlazorRadzenMls.Models
+
+<RadzenProfileMenu>
+    <Template>
+        <RadzenIcon Icon="account_box" IconColor="@Colors.Series8" Style="font-size: 30px; vertical-align: bottom;" />
+    </Template>
+    <ChildContent>
+        <RadzenProfileMenuItem Text="User" Path="user" Icon="account_circle"></RadzenProfileMenuItem>
+        <RadzenProfileMenuItem Text="Menu" Path="@AppValues.PageOptions" Icon="line_weight"></RadzenProfileMenuItem>
+        @* <RadzenProfileMenuItem Text="FileInput" Path="fileinput" Icon="attach_file"></RadzenProfileMenuItem>
+        <RadzenProfileMenuItem Text="Dialog" Path="dialog" Icon="perm_media"></RadzenProfileMenuItem>
+        <RadzenProfileMenuItem Text="Notification" Path="notification" Icon="announcement"></RadzenProfileMenuItem> *@
+    </ChildContent>
+</RadzenProfileMenu>
+
+@code {
+
+}

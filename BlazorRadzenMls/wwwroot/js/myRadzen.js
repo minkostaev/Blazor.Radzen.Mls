@@ -33,3 +33,14 @@ function changeBodyContentPadding() {
         return false;
     }
 }
+
+function changeSidebarToggleStyle(id, fontSize, fontWeight) {
+    let tggBtn = document.getElementById(id);
+    let i = tggBtn.getElementsByTagName('i')[0];
+    if (fontSize != null) {
+        i.style.fontSize = fontSize;
+    }
+    if (fontWeight != null) {
+        i.style.fontWeight = fontWeight;
+    }
+}

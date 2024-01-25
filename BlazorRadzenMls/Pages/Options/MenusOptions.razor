@@ -20,11 +20,17 @@
 </div>
 
 <div>
-    <RadzenCheckBox Value="@__state.MenuArrow" @onclick="ArrowsChange" Style="margin: 10px 0 0 0;" />
-    <RadzenLabel Text=@__lang["Show_arrows"] class="rz-color-success-dark" @onclick="ArrowsChange" Style="margin: 10px 0 0 0;" />
+    <label>
+        <RadzenCheckBox Value="@__state.MenuArrow" @onclick="ArrowsChange" Style="margin: 10px 0 0 0;" />
+        <RadzenLabel Text=@__lang["Show_arrows"] @onclick="ArrowsChange"
+                     class="rz-color-success-dark" Style="margin: 10px 20px 0 0;" />
+    </label>
 
-    <RadzenCheckBox Value="@__state.MenuMultiple" @onclick="MultipleChange" Style="margin: 10px 0 0 20px;" />
-    <RadzenLabel Text=@__lang["Open_multiples"] class="rz-color-success-dark" @onclick="MultipleChange" Style="margin: 10px 0 0 0;" />
+    <label>
+        <RadzenCheckBox Value="@__state.MenuMultiple" @onclick="MultipleChange" Style="margin: 10px 0 0 0;" />
+        <RadzenLabel Text=@__lang["Open_multiples"] @onclick="MultipleChange"
+                     class="rz-color-success-dark" Style="margin: 10px 0 0 0;" />
+    </label>
 </div>
 
 @code {

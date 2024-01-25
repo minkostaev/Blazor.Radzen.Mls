@@ -1,7 +1,6 @@
-﻿@* @using Microsoft.AspNetCore.Components.Authorization *@
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+﻿@* @using Microsoft.AspNetCore.Components.WebAssembly.Authentication *@
 
-@inject SignOutSessionStateManager SignOutManager
+@* @inject SignOutSessionStateManager SignOutManager *@
 
 <AuthorizeView>
     <Authorized>
@@ -21,10 +20,10 @@
 
     private async Task BeginSignOut(MouseEventArgs args)
     {
-        //await __js.InvokeVoidAsync("sessionStorage.clear");
+        await __js.InvokeVoidAsync("sessionStorage.clear");
         //NavigationManager.NavigateTo($"{your_auth0_authority}/v2/logout?client_id={your_auth0_client_id}&returnTo={uri_to_redirect_back_to}");
 
-        await SignOutManager.SetSignOutState();
+        // await SignOutManager.SetSignOutState();
         __nav.NavigateTo("authentication/logout");
 
         //__nav.NavigateToLogout("authentication/logout", __nav.BaseUri);
