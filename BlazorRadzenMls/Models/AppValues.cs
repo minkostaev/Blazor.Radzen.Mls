@@ -14,6 +14,7 @@ public static class AppValues
     public static string GitHubMy => "https://github.com/minkostaev/Blazor.Radzen.Mls";
     public static string GitHubRadzen => "https://github.com/radzenhq/radzen-blazor";
     public static string GitHubAKSoftware => "https://github.com/aksoftware98/multilanguages";
+    public static string GitHubAuth0 => "https://github.com/auth0";
 
     //public const string RolesAll = "admin, manager, user";
     //public const string RolesManager = "admin, manager";
