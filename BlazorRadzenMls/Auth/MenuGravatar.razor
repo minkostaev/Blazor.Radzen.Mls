@@ -1,4 +1,5 @@
 ﻿@using BlazorRadzenMls.Models
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 <RadzenProfileMenu>
     <Template>
@@ -43,7 +44,7 @@
         userName = user?.Identity?.Name;
     }
 
-    private void SignIn() { __nav.NavigateTo("authentication/login"); }
+    private void SignIn() { __nav.NavigateToLogin("authentication/login"); }
     private async Task SignOut()
     {
         await __js.InvokeVoidAsync("sessionStorage.clear");
