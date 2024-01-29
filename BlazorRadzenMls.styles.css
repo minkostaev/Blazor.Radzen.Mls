@@ -1,0 +1,29 @@
+/* /Pages/Learn/Upload/InputFiles.razor.rz.scp.css */
+ .file-uploader[b-e0jcobmx42] {
+     position: relative;
+     display: inline-block;
+ } 
+
+.custom-button[b-e0jcobmx42] {
+    display: inline-block;
+    cursor: pointer;
+    padding: 4px 8px;
+    border: 1px solid #007bff;
+    color: #007bff;
+    background-color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+    .custom-button:hover[b-e0jcobmx42] {
+        background-color: #007bff;
+        color: #fff;
+    }
+/* /Pages/RadzenIcons.razor.rz.scp.css */
+div[b-8hrfp578xb] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 120px;
+}
