@@ -15,20 +15,20 @@ This site uses:
 
 ## How to publish on GitHub
 
-1. Add *new branch* to the repo for the site
-2. In GitHub site go to *Settings -> Pages* and select the *new branch*
-3. Add empty file to root repo named: *.nojekyll*
-4. Add file to root repo named: *.gitattributes*
+1. Add **new branch** to the repo for the site
+2. In GitHub site go to **Settings -> Pages** and select the *new branch*
+3. Add empty file to root repo named: **.nojekyll**
+4. Add file to root repo named: **.gitattributes**
 ```
 * binary
 ```
-5. Publish to local *Folder*
-6. Copy all content from *wwwroot* folder to repo root
-7. Change file *index.html*
+5. Publish to local **Folder**
+6. Copy all content from **wwwroot** folder to repo root
+7. Change file **index.html**
 ```
 <base href="/repo name/" />
 ```
-8. Make a copy of *index.html* with name *404.html*
-9. Add empty file to root named: *.nojekyll*
+8. Make a copy of **index.html** with name **404.html**
+9. Add empty file to root named: **.nojekyll**
 
 [credit to this video](https://www.youtube.com/watch?v=nNxII6jvPvQ&t)
