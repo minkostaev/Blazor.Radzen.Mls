@@ -26,7 +26,7 @@ This site uses:
 6. Copy all content from *wwwroot* folder to repo root
 7. Change file *index.html*
 ```
-<base href="/you repo nmae/" />
+<base href="/repo name/" />
 ```
 8. Make a copy of *index.html* with name *404.html*
 9. Add empty file to root named: *.nojekyll*
