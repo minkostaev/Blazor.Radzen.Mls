@@ -31,4 +31,4 @@ This site uses:
 8. Make a copy of **index.html** with name **404.html**
 9. Add empty file to root named: **.nojekyll**
 
-[credit to this video](https://www.youtube.com/watch?v=nNxII6jvPvQ&t)
+[more on this video](https://www.youtube.com/watch?v=nNxII6jvPvQ&t)
