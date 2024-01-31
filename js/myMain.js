@@ -4,7 +4,7 @@ async function reload() {
     for (let cch of keys) {
         await caches.delete(cch);
     }
-    location.replace(location.origin);
+    location.replace(location.href);//origin
     //window.location.reload(true);
 }
 
