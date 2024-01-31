@@ -2,7 +2,9 @@
 
 My Blazor helper project that uses Radzen
 
-[SITE Link](https://polite-sand-0874cf403-preview.westeurope.4.azurestaticapps.net/)
+[SITE Link on Azure](https://polite-sand-0874cf403-preview.westeurope.4.azurestaticapps.net/)
+
+[SITE Link on GitHub](https://minkostaev.github.io/Blazor.Radzen.Mls/)
 
 This site uses:
 
