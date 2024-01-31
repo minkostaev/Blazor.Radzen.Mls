@@ -16,7 +16,7 @@ This site uses:
 ## How to publish on GitHub
 
 1. Add **new branch** to the repo for the site
-2. In GitHub site go to **Settings -> Pages** and select the *new branch*
+2. In GitHub site go to **Settings -> Pages** and select the **new branch**
 3. Add empty file to root repo named: **.nojekyll**
 4. Add file to root repo named: **.gitattributes**
 ```
