@@ -22,6 +22,7 @@ builder.Services.AddOidcAuthentication(options =>
 //    client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
 //    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["API_Prefix"] ?? builder.HostEnvironment.BaseAddress) });
 
 // https://blazor.radzen.com/
 // this is required for: Dialog, Notification, ContextMenu and Tooltip
