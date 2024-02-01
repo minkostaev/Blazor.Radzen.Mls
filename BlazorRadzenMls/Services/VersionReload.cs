@@ -40,7 +40,7 @@ public class VersionReload
     
     private async Task GetVersion(HttpClient http)
     {
-        try { Version = await http.GetStringAsync(_versionFile); }
+        try { Version = await http.GetStringAsync(_versionFile); Version = Version.Trim(); }
         catch { Version = "0.0.0.0"; Console.WriteLine("Error with HttpClient"); }
     }
     private async Task GetVersion(IJSRuntime js)
