@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-qs\/pe9x+typFAZAjmnUTHwH2xqOFgssUWQZyXdqjNfA=",
+      "hash": "sha256-RyvaBcorHCy44uQkpUe3e0KfKEsETcxAafVBRsVEZ1I=",
       "url": "404.html"
     },
     {
@@ -21,7 +21,7 @@
       "url": "css\/myRadzen.css"
     },
     {
-      "hash": "sha256-EgQnBXN0GHVtdUtVU2M97cqU04O+lr+1tTHwL9Yh\/qg=",
+      "hash": "sha256-ZV+f20E5n4VKgbLVhv+ePiQVrYh5NklcO6jg65R24kY=",
       "url": "data\/version.txt"
     },
     {
@@ -61,7 +61,7 @@
       "url": "images\/usa-48.png"
     },
     {
-      "hash": "sha256-qs\/pe9x+typFAZAjmnUTHwH2xqOFgssUWQZyXdqjNfA=",
+      "hash": "sha256-RyvaBcorHCy44uQkpUe3e0KfKEsETcxAafVBRsVEZ1I=",
       "url": "index.html"
     },
     {
@@ -75,6 +75,14 @@
     {
       "hash": "sha256-Y7nU0JXZ\/YNYRNCzGytAgMv93RouMey+cv6E3EEIZys=",
       "url": "manifest.webmanifest"
+    },
+    {
+      "hash": "sha256-7cBbsJn95tQrfbXljzMKKztfiXuh4dz+ghmREvqFNxw=",
+      "url": "netlify.toml"
+    },
+    {
+      "hash": "sha256-fJOl9O6wXKojim1NwQrPW+KQvv4M+LhvNKrxQ3jeOgs=",
+      "url": "staticwebapp.config.json"
     },
     {
       "hash": "sha256-I4LggERZ\/f+YpdIbmQq\/DkpppLSwVDlVHxq6Yvx\/QAc=",
@@ -109,7 +117,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-9BTkyuT4QFGTugRz2lpMPYeCVzD1hofgKt1G7t1ensY=",
+      "hash": "sha256-nNGHU5RJ3GwV0Eg9jQUAjS7i4PEoDbjJK8fsxdRBy4Y=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -117,7 +125,7 @@
       "url": "_framework\/AKSoftware.Localization.MultiLanguages.wasm"
     },
     {
-      "hash": "sha256-RHkkKIOIYAELwaV1JYzBTnc9lstSrA34L3XBYZenqc8=",
+      "hash": "sha256-Xw26BvSvBouyWAeMBe0ZMJ266o\/3LrlgkkrsTFRxfB4=",
       "url": "_framework\/BlazorRadzenMls.wasm"
     },
     {
@@ -397,8 +405,12 @@
       "url": "appsettings.GitHub.json"
     },
     {
-      "hash": "sha256-FLVHYrHR6L3JZ8MKeFf5E6qSoZ0B\/puszqIOcPfTUxc=",
+      "hash": "sha256-ZSGaRZC\/L5+HfSn5vOzJOWYSkfLDN86mgFC3uxMx\/mY=",
       "url": "appsettings.json"
+    },
+    {
+      "hash": "sha256-FLVHYrHR6L3JZ8MKeFf5E6qSoZ0B\/puszqIOcPfTUxc=",
+      "url": "appsettings.Render.json"
     },
     {
       "hash": "sha256-fwyToEkdUULCcqw9BoeY8LpvLU1kSE33Qvpek05XHco=",
@@ -581,5 +593,5 @@
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "sqCiYUV2"
+  "version": "GOMPMWfe"
 };
