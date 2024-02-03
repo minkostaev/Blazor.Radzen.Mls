@@ -21,7 +21,7 @@
       "url": "css\/myRadzen.css"
     },
     {
-      "hash": "sha256-EgQnBXN0GHVtdUtVU2M97cqU04O+lr+1tTHwL9Yh\/qg=",
+      "hash": "sha256-ZV+f20E5n4VKgbLVhv+ePiQVrYh5NklcO6jg65R24kY=",
       "url": "data\/version.txt"
     },
     {
@@ -77,6 +77,14 @@
       "url": "manifest.webmanifest"
     },
     {
+      "hash": "sha256-7cBbsJn95tQrfbXljzMKKztfiXuh4dz+ghmREvqFNxw=",
+      "url": "netlify.toml"
+    },
+    {
+      "hash": "sha256-fJOl9O6wXKojim1NwQrPW+KQvv4M+LhvNKrxQ3jeOgs=",
+      "url": "staticwebapp.config.json"
+    },
+    {
       "hash": "sha256-I4LggERZ\/f+YpdIbmQq\/DkpppLSwVDlVHxq6Yvx\/QAc=",
       "url": "_framework\/blazor.webassembly.js"
     },
@@ -109,7 +117,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-9BTkyuT4QFGTugRz2lpMPYeCVzD1hofgKt1G7t1ensY=",
+      "hash": "sha256-33ZV8dAQgZEBfEnkHlK9PaRxGFgChbBLZUJqVEVCGmE=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -117,7 +125,7 @@
       "url": "_framework\/AKSoftware.Localization.MultiLanguages.wasm"
     },
     {
-      "hash": "sha256-RHkkKIOIYAELwaV1JYzBTnc9lstSrA34L3XBYZenqc8=",
+      "hash": "sha256-N+644tvYkEwRk2ym\/8H9NcwV3nlED\/6RDPHqa2gI1zE=",
       "url": "_framework\/BlazorRadzenMls.wasm"
     },
     {
@@ -401,6 +409,10 @@
       "url": "appsettings.json"
     },
     {
+      "hash": "sha256-FLVHYrHR6L3JZ8MKeFf5E6qSoZ0B\/puszqIOcPfTUxc=",
+      "url": "appsettings.Render.json"
+    },
+    {
       "hash": "sha256-fwyToEkdUULCcqw9BoeY8LpvLU1kSE33Qvpek05XHco=",
       "url": "BlazorRadzenMls.styles.css"
     },
@@ -581,5 +593,5 @@
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "sqCiYUV2"
+  "version": "\/fXQT64T"
 };
