@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-hUPF92YaV32Eeax8t5ordcljvnH1IXk6uBwRhhpNHXc=",
+      "hash": "sha256-zpLgZbT4D6JM3LoiwtM2BXH\/oJPu4Tx0581K+gNO7K8=",
       "url": "404.html"
     },
     {
@@ -65,7 +65,7 @@
       "url": "images\/usa-48.png"
     },
     {
-      "hash": "sha256-hUPF92YaV32Eeax8t5ordcljvnH1IXk6uBwRhhpNHXc=",
+      "hash": "sha256-zpLgZbT4D6JM3LoiwtM2BXH\/oJPu4Tx0581K+gNO7K8=",
       "url": "index.html"
     },
     {
@@ -597,5 +597,5 @@
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "4NjavX5j"
+  "version": "o9c7fInN"
 };
