@@ -26,13 +26,27 @@
 </head>
 
 <body><!--class="rz-default-scrollbars"-->
+    <script>
+        let base = document.head.getElementsByTagName('base')[0];
+        if (base.href.includes('.github.io')) { // github domain fix
+            base.href = base.href + 'Blazor.Radzen.Mls/';
+        }
+    </script>
+
     <div id="app">
-        <!--<div class="loading-bar"></div>-->
-        <svg class="loading-progress">
+
+        <!--<svg class="loading-progress">
             <circle r="40%" cx="50%" cy="50%" />
             <circle r="40%" cx="50%" cy="50%" />
         </svg>
-        <div class="loading-progress-text"></div>
+        <div class="loading-progress-text"></div>-->
+        <!--<div class="d-flex justify-content-center">-->
+        
+        <div class="loader">Loading...</div>
+        <!--<div class="spinner-grow text-primary" style="margin: 22px;" />
+        <div class="spinner-grow text-info" style="margin: 22px;" />
+        <div class="spinner-grow text-success" style="margin: 22px;" />-->
+        
     </div>
 
     <div id="blazor-error-ui">
@@ -40,6 +54,7 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
+
     <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>

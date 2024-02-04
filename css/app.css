@@ -1,3 +1,5 @@
+@import url("loaders.css");
+
 h1:focus {
     outline: none;
 }
@@ -33,7 +35,7 @@ h1:focus {
         content: "An error has occurred."
     }
 
-.loading-progress {
+/*.loading-progress {
     position: relative;
     display: block;
     width: 8rem;
@@ -53,9 +55,9 @@ h1:focus {
             stroke: #1b6ec2;
             stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
             transition: stroke-dasharray 0.05s ease-in-out;
-        }
+        }*/
 
-.loading-progress-text {
+/*.loading-progress-text {
     position: absolute;
     text-align: center;
     font-weight: bold;
@@ -64,25 +66,5 @@ h1:focus {
 
     .loading-progress-text:after {
         content: var(--blazor-load-percentage-text, "Loading");
-    }
+    }*/
 
-
-
-/*@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.loading-bar {
-    width: 140px;
-    height: 140px;
-    border: 8px solid #3498db;
-    border-top: 4px solid transparent;
-    border-radius: 50%;
-    animation: rotate 1s linear infinite;
-}*/
