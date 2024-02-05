@@ -1,0 +1,4 @@
+https://projects.lukehaas.me/css-loaders/
+https://getbootstrap.com/docs/4.2/components/spinners/
+https://css-loaders.com/factory/
+https://cssloaders.github.io/
