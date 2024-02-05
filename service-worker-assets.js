@@ -101,7 +101,7 @@
       "url": "index.html"
     },
     {
-      "hash": "sha256-gF5mpiAnIFhrZC0RZn866UFh+Vid7ot67L1N0Qd2YMs=",
+      "hash": "sha256-SVbIYW+UuY59P1LZl6kr0OndraMFV5zlg0E+od0ZbBU=",
       "url": "js\/myMain.js"
     },
     {
@@ -625,5 +625,5 @@
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "gTL3Nr\/V"
+  "version": "ecGSyrrR"
 };
