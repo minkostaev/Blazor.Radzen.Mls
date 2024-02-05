@@ -10,13 +10,12 @@ function addLoaderCss() {
 
 async function reload() {
     const keys = await caches.keys();
-    const i = keys.length;// for debug (delete)
     for (let cch of keys) {
+        console.log(cch);// temp to check what is deleted
         await caches.delete(cch);
     }
     location.replace(location.href);//origin
     //window.location.reload(true);
-    console.log(i);// for debug (delete)
 }
 
 async function getVersion() {
