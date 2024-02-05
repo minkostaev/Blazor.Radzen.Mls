@@ -97,7 +97,7 @@
       "url": "images\/usa-48.png"
     },
     {
-      "hash": "sha256-qTorIqIthTQnp5oOZom7E1S\/oAbedsCUJNMa4x9zTyY=",
+      "hash": "sha256-di1MPGNs\/0Uh9C37zUttpGawWCfao\/TaY8er0KRz\/EE=",
       "url": "index.html"
     },
     {
@@ -629,5 +629,5 @@
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "tdPNS97u"
+  "version": "ouo+Szlw"
 };
