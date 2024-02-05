@@ -1,11 +1,11 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-qqwTzK+mbwuZjyeH1ScijeL6aOLV9BmOnwaNgfTRBwk=",
+      "hash": "sha256-ARzWI+eGo6yHjygaku2h4UaPd2536an4rwCw3+xQTXI=",
       "url": "404.html"
     },
     {
-      "hash": "sha256-wnGY1cTRNq1JHrAuXmQEjJdo5tx\/E6okcga4\/mdU188=",
+      "hash": "sha256-XATseA5pKU+Q9u2hXIXtPniX+WZY6Bcvq8uVJUcgKBA=",
       "url": "css\/app.css"
     },
     {
@@ -57,7 +57,7 @@
       "url": "css\/myRadzen.css"
     },
     {
-      "hash": "sha256-nla4EJmhDR2NpIAhmGfByfJe7Opu\/gWB7n4gH\/YiRYU=",
+      "hash": "sha256-lo4N9ONDPTnH7QPPv7UKzD3q0cY\/wYUE+dnScRiHZsQ=",
       "url": "data\/version.txt"
     },
     {
@@ -97,11 +97,11 @@
       "url": "images\/usa-48.png"
     },
     {
-      "hash": "sha256-qqwTzK+mbwuZjyeH1ScijeL6aOLV9BmOnwaNgfTRBwk=",
+      "hash": "sha256-ARzWI+eGo6yHjygaku2h4UaPd2536an4rwCw3+xQTXI=",
       "url": "index.html"
     },
     {
-      "hash": "sha256-XT1mhSeF7vPMvWDQmzim0lUedbEwcE+j0nXOEpEBJ80=",
+      "hash": "sha256-9kdQ8lWqE7v4A0VE97IWgj7\/oo+Dd0W5pJIlKhUoVLw=",
       "url": "js\/myMain.js"
     },
     {
@@ -117,7 +117,7 @@
       "url": "netlify.toml"
     },
     {
-      "hash": "sha256-o4rEBS+8jYb3tNbJDjlzB4XsBknh7bqv+VCaWyC0qhY=",
+      "hash": "sha256-RiguXnbShNnE6tiZcO1HTbkwsQ+L1yKdAwHxgeq7iM0=",
       "url": "staticwebapp.config.json"
     },
     {
@@ -153,7 +153,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-ar3nM4Yntupnv6mPVMB+X6ndWzqH3Q\/NqUws+e5iVSg=",
+      "hash": "sha256-iSgNmM5PBUFIRCKo2ZVdTT1G9MAyl7mfH5\/FgSOWz80=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -161,7 +161,7 @@
       "url": "_framework\/AKSoftware.Localization.MultiLanguages.wasm"
     },
     {
-      "hash": "sha256-u1M3lFXCfjg8qBtRFRrWLXHAJd+keDU94YpdiL8+S60=",
+      "hash": "sha256-yUd2R2qtRR2zVLK\/lAzHFFh4aADyA7ezkGVxLcLrXBQ=",
       "url": "_framework\/BlazorRadzenMls.wasm"
     },
     {
@@ -629,5 +629,5 @@
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "SvLIrV59"
+  "version": "sjCZ\/Bku"
 };

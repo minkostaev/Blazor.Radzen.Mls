@@ -29,6 +29,5 @@ This site uses:
 <base href="/repo name/" />
 ```
 8. Make a copy of **index.html** with name **404.html**
-9. Add empty file to root named: **.nojekyll**
 
 [more on this video](https://www.youtube.com/watch?v=nNxII6jvPvQ&t)
