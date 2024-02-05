@@ -1,12 +1,4 @@
 addLoaderCss();
-gitHub('/Blazor.Radzen.Mls/');// pass your repo name here
-
-function gitHub(addAfterDomain) {// GitHub method to help with publish
-    let base = document.head.getElementsByTagName('base')[0];
-    if (base.href.includes('.github.io')) {
-        base.href = base.href + addAfterDomain;// github domain fix
-    }
-}
 
 function addLoaderCss() {
     const num = Math.floor((Math.random() * 8) + 1);

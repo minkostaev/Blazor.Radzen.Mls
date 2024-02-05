@@ -2,25 +2,50 @@
 
 <h3>Error Boundaries</h3>
 
-<ErrorBoundary>
+<ErrorBoundary @ref="errorBoundary">
     <ChildContent>
-        @foreach (var a in ForceError)
-        {
-            <b>content</b>
-        }
+        <button class="btn btn-info" @onclick="@(() => i = 1)">Error inside ErrorBoundary</button>
+        @list[i]
     </ChildContent>
-    <ErrorContent>
-        ErrorBoundary works
+    <ErrorContent Context="Exception">
+        <div class="alert alert-primary">
+            <p>ErrorBoundary works!!!</p>
+            <h3>@Exception.GetType()</h3>
+            <h3>@Exception.Message</h3>
+            <button class="btn btn-info" @onclick="@BtnRecover_click">Clear</button>
+        </div>
     </ErrorContent>
 </ErrorBoundary>
 
+<br />
+<br />
+
+<div>
+    <button @onclick="BtnException_click">Error outside ErrorBoundary</button>
+</div>
+
 @code {
 
-    private List<string> ForceError { get; set; } = new List<string>();
+    private ErrorBoundary? errorBoundary;
+
+    private int i;
+    private List<string> list = new List<string>();
 
     protected override void OnInitialized()
     {
-        //ForceError = null;// force error
+        errorBoundary = new ErrorBoundary();
+        list.Add("intem0");
+    }
+
+    private void BtnException_click()
+    {
+        throw new ArgumentException("Test exception");
+    }
+
+    private void BtnRecover_click()
+    {
+        i = 0;
+        errorBoundary?.Recover();
     }
 
 }
