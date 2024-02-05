@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-icTSBKPKg4M6TjCSe3FHXMfAeUlDME1NlOnWAQGZVzU=",
+      "hash": "sha256-lDpwYYwbLV3+lAoYLszeq2W3Z+aFVDypv5X2evliRPY=",
       "url": "404.html"
     },
     {
@@ -97,11 +97,11 @@
       "url": "images\/usa-48.png"
     },
     {
-      "hash": "sha256-di1MPGNs\/0Uh9C37zUttpGawWCfao\/TaY8er0KRz\/EE=",
+      "hash": "sha256-lDpwYYwbLV3+lAoYLszeq2W3Z+aFVDypv5X2evliRPY=",
       "url": "index.html"
     },
     {
-      "hash": "sha256-XT1mhSeF7vPMvWDQmzim0lUedbEwcE+j0nXOEpEBJ80=",
+      "hash": "sha256-gF5mpiAnIFhrZC0RZn866UFh+Vid7ot67L1N0Qd2YMs=",
       "url": "js\/myMain.js"
     },
     {
@@ -115,10 +115,6 @@
     {
       "hash": "sha256-7cBbsJn95tQrfbXljzMKKztfiXuh4dz+ghmREvqFNxw=",
       "url": "netlify.toml"
-    },
-    {
-      "hash": "sha256-o4rEBS+8jYb3tNbJDjlzB4XsBknh7bqv+VCaWyC0qhY=",
-      "url": "staticwebapp.config.json"
     },
     {
       "hash": "sha256-I4LggERZ\/f+YpdIbmQq\/DkpppLSwVDlVHxq6Yvx\/QAc=",
@@ -629,5 +625,5 @@
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "ouo+Szlw"
+  "version": "gTL3Nr\/V"
 };

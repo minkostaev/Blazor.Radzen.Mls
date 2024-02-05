@@ -4,7 +4,7 @@ addLoaderCss();
 //function gitHub(addAfterDomain) {// GitHub method to help with publish
 //    let base = document.head.getElementsByTagName('base')[0];
 //    if (base.href.includes('.github.io')) {
-//        base.href = base.href + addAfterDomain;// github domain fix
+//        base.href = addAfterDomain;// github domain fix
 //    }
 //}
 
