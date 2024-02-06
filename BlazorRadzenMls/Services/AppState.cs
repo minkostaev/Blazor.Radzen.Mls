@@ -1,5 +1,7 @@
 ﻿namespace BlazorRadzenMls.Services;
 
+using Blazored.LocalStorage;
+using BlazorRadzenMls.Models;
 using Radzen;
 using System;
 
@@ -8,6 +10,7 @@ public class AppState
     public AppState()
     {
         VersionServer = "0.0.0.0";
+        SiteOptions = new AppOptions();
         MenuStyle = MenuItemDisplayStyle.IconAndText;
     }
 
@@ -16,7 +19,14 @@ public class AppState
     public event EventHandler? RefreshEvent;
     public void RefreshPage(string e) { RefreshEvent?.Invoke(e, EventArgs.Empty); }
 
-    public string? Language { get; set; }
+    public AppOptions SiteOptions { get; set; }
+    public async Task SaveAppOptions(ILocalStorageService local)
+    { await local.SetItemAsync("AppOptions", SiteOptions); }
+    public async Task LoadAppOptions(ILocalStorageService local)
+    {
+        var props = await local.GetItemAsync<AppOptions>("AppOptions");
+        SiteOptions = props ?? new AppOptions();
+    }
 
     public string? Theme { get; set; }
 

@@ -1,4 +1,5 @@
 using AKSoftware.Localization.MultiLanguages;
+using Blazored.LocalStorage;
 using BlazorRadzenMls;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components.Web;
@@ -29,6 +30,11 @@ builder.Services.AddOidcAuthentication(options =>
     {
         builder.Configuration.Bind("Auth0Render", options.ProviderOptions);
     }
+    else if (builder.HostEnvironment.BaseAddress.Contains(".netlify.app"))
+    {
+        builder.Configuration.Bind("Auth0Netlify", options.ProviderOptions);
+    }
+    //
     options.ProviderOptions.ResponseType = "code";
     //options.ProviderOptions.AdditionalProviderParameters.Add("audience", builder.Configuration["Auth0:ClientId"]);
 });
@@ -46,6 +52,10 @@ builder.Services.AddRadzenComponents();
 // https://akmultilanguages.azurewebsites.net/
 //builder.Services.AddLanguageContainer<EmbeddedResourceKeysProvider>(Assembly.GetExecutingAssembly(), "Languages");
 builder.Services.AddLanguageContainer(Assembly.GetExecutingAssembly(), CultureInfo.GetCultureInfo("en-US"), "Languages");
+
+// https://github.com/Blazored/LocalStorage
+builder.Services.AddBlazoredLocalStorage();
+//builder.Services.AddBlazoredLocalStorageAsSingleton();
 
 builder.Services.AddScoped<AppState>();
 

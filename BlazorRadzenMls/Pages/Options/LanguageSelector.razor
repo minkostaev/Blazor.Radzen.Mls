@@ -34,10 +34,16 @@ else
     [Parameter]
     public bool IsComboNotBar { get; set; }
 
+    private string? appLanguage
+    {
+        get { return __state.SiteOptions.Language; }
+        set { __state.SiteOptions.Language = value; Task.FromResult(__state.SaveAppOptions(__local)); }
+    }
+
     private LanguageChanging? _lang { get; set; }
 
     private string _languageLbl => __lang["Language"] + ": ";
-    private string _btnText => _languageLbl + __lang[__state.Language];
+    private string _btnText => _languageLbl + __lang[appLanguage];
 
     private bool _isEnglish;
     private bool isEnglish
@@ -83,20 +89,20 @@ else
 
     private void Language_ValueChanged(string? language)
     {
-        __state.Language = language;
-        _lang?.ChangeLanguage(__lang, __state.Language);
+        appLanguage = language;
+        _lang?.ChangeLanguage(__lang, appLanguage);
         __state.RefreshPage("LanguageChanged");
     }
 
     protected override void OnInitialized()
     {
         _lang = new LanguageChanging();
-        if (string.IsNullOrWhiteSpace(__state.Language))
-            __state.Language = _lang.en_US.Value;
+        if (string.IsNullOrWhiteSpace(appLanguage))
+            appLanguage = _lang.en_US.Value;
 
-        if (__state.Language == _lang.en_US.Value)
+        if (appLanguage == _lang.en_US.Value)
             _isEnglish = true;
-        else if (__state.Language == _lang.bg_BG.Value)
+        else if (appLanguage == _lang.bg_BG.Value)
             _isBulgarian = true;
         
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;

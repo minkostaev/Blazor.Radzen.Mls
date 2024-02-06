@@ -23,5 +23,6 @@
 @using Radzen.Blazor
 @inject TooltipService __tooltip
 
-@using  AKSoftware.Localization.MultiLanguages
-@inject ILanguageContainerService __lang
+@inject AKSoftware.Localization.MultiLanguages.ILanguageContainerService __lang
+
+@inject Blazored.LocalStorage.ILocalStorageService __local

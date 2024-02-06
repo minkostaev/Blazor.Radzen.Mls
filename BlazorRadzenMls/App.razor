@@ -33,3 +33,10 @@
         </Navigating>
     </Router>
 </CascadingAuthenticationState>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await __state.LoadAppOptions(__local);
+    }
+}
