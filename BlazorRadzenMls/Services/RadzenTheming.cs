@@ -11,8 +11,10 @@ public static class RadzenTheming
         catch { Console.WriteLine("js method error"); return string.Empty; }
     }
 
-    public static async Task SetTheme(IJSRuntime js, string val)
+    public static async Task SetTheme(IJSRuntime js, string? val)
     {
+        if (!Themes.Contains(val))
+            val = Themes[0];
         try { await js.InvokeVoidAsync("setRadzenTheme", val); }
         catch { Console.WriteLine("js method error"); }
     }

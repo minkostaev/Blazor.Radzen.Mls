@@ -2,6 +2,17 @@
 
 public class AppOptions
 {
+    public AppOptions()
+    {
+        Menu = new MenuOptions
+        {
+            Arrow = true,
+            Multiple = true,
+            MenuStyle = Radzen.MenuItemDisplayStyle.IconAndText
+        };
+    }
+    public static string? Name => typeof(AppOptions).Name;
     public string? Language { get; set; }
     public string? Theme { get; set; }
+    public MenuOptions Menu { get; set; }
 }

@@ -2,7 +2,6 @@
 
 using Blazored.LocalStorage;
 using BlazorRadzenMls.Models;
-using Radzen;
 using System;
 
 public class AppState
@@ -11,7 +10,6 @@ public class AppState
     {
         VersionServer = "0.0.0.0";
         SiteOptions = new AppOptions();
-        MenuStyle = MenuItemDisplayStyle.IconAndText;
     }
 
     public string VersionServer { get; set; }
@@ -21,44 +19,12 @@ public class AppState
 
     public AppOptions SiteOptions { get; set; }
     public async Task SaveAppOptions(ILocalStorageService local)
-    { await local.SetItemAsync("AppOptions", SiteOptions); }
+    { await local.SetItemAsync(AppOptions.Name, SiteOptions); }
     public async Task LoadAppOptions(ILocalStorageService local)
     {
-        var props = await local.GetItemAsync<AppOptions>("AppOptions");
+        var props = await local.GetItemAsync<AppOptions>(AppOptions.Name);
         SiteOptions = props ?? new AppOptions();
     }
-
-    public string? Theme { get; set; }
-
-    public string? SidebarWidth { get; private set; }
-    public MenuItemDisplayStyle _menuStyle;
-    public MenuItemDisplayStyle MenuStyle
-    {
-        get
-        {
-            return _menuStyle;
-        }
-        set
-        {
-            switch (value)
-            {
-                case MenuItemDisplayStyle.IconAndText:
-                    SidebarWidth = string.Empty;
-                    break;
-                case MenuItemDisplayStyle.Text:
-                    SidebarWidth = "width: 220px;";
-                    break;
-                case MenuItemDisplayStyle.Icon:
-                    SidebarWidth = "width: 80px;";
-                    break;
-                default:
-                    break;
-            }
-            _menuStyle = value;
-        }
-    }
-    public bool MenuArrow { get; set; } = true;
-    public bool MenuMultiple { get; set; } = true;
 
     //public string ReplaceFirst(string text, string oldValue, string newValue)
     //{

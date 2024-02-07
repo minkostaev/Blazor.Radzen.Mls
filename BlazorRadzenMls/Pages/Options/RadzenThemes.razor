@@ -56,7 +56,8 @@ else
     private string? appTheme
     {
         get { return __state.SiteOptions.Theme; }
-        set { __state.SiteOptions.Theme = value; Task.FromResult(__state.SaveAppOptions(__local)); }
+        set { __state.SiteOptions.Theme = value;
+            Task.FromResult(__state.SaveAppOptions(__local)); }
     }
 
     private string _themeLbl => __lang["Theme"] + ": ";
@@ -170,7 +171,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        appTheme = await RadzenTheming.GetTheme(__js);
+        if (string.IsNullOrWhiteSpace(appTheme))
+            appTheme = await RadzenTheming.GetTheme(__js);
 
         _btnText = _themeLbl + appTheme;
 
@@ -186,6 +188,8 @@ else
             _isDark = true;
         else if (appTheme == RadzenTheming.Themes[5])
             _isMaterial = true;
+        else
+            _isDefault = true;
 
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }

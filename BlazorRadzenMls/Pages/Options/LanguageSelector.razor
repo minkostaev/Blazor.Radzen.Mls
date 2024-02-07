@@ -37,7 +37,8 @@ else
     private string? appLanguage
     {
         get { return __state.SiteOptions.Language; }
-        set { __state.SiteOptions.Language = value; Task.FromResult(__state.SaveAppOptions(__local)); }
+        set { __state.SiteOptions.Language = value;
+            Task.FromResult(__state.SaveAppOptions(__local)); }
     }
 
     private LanguageChanging? _lang { get; set; }
@@ -104,6 +105,8 @@ else
             _isEnglish = true;
         else if (appLanguage == _lang.bg_BG.Value)
             _isBulgarian = true;
+        else
+            _isEnglish = true;
         
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }

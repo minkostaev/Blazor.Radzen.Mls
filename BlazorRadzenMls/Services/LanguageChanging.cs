@@ -28,9 +28,8 @@ public class LanguageChanging
         }
         if (string.IsNullOrEmpty(id))
             id = "en-US";
-        lang.SetLanguage(CultureInfo.GetCultureInfo(id));
+        lang?.SetLanguage(CultureInfo.GetCultureInfo(id));
     }
-    
 
 }
 // https://akmultilanguages.azurewebsites.net/

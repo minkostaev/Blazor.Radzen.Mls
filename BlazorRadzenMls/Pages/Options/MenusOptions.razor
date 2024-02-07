@@ -1,6 +1,7 @@
 ﻿@page "/sidemenu"
 
 @using BlazorRadzenMls.Layout.Second
+@using BlazorRadzenMls.Models
 
 @layout SecondLayout
 
@@ -21,13 +22,13 @@
 
 <div>
     <label>
-        <RadzenCheckBox Value="@__state.MenuArrow" @onclick="ArrowsChange" Style="margin: 10px 0 0 0;" />
+        <RadzenCheckBox Value="@appMenuArrow" @onclick="ArrowsChange" Style="margin: 10px 0 0 0;" />
         <RadzenLabel Text=@__lang["Show_arrows"] @onclick="ArrowsChange"
                      class="rz-color-success-dark" Style="margin: 10px 20px 0 0;" />
     </label>
 
     <label>
-        <RadzenCheckBox Value="@__state.MenuMultiple" @onclick="MultipleChange" Style="margin: 10px 0 0 0;" />
+        <RadzenCheckBox Value="@appMenuMultiple" @onclick="MultipleChange" Style="margin: 10px 0 0 0;" />
         <RadzenLabel Text=@__lang["Open_multiples"] @onclick="MultipleChange"
                      class="rz-color-success-dark" Style="margin: 10px 0 0 0;" />
     </label>
@@ -35,6 +36,25 @@
 
 @code {
 
+    private MenuItemDisplayStyle appMenuStyle
+    {
+        get { return __state.SiteOptions.Menu.MenuStyle; }
+        set { __state.SiteOptions.Menu.MenuStyle = value;
+            Task.FromResult(__state.SaveAppOptions(__local)); }
+    }
+    private bool appMenuMultiple
+    {
+        get { return __state.SiteOptions.Menu.Multiple; }
+        set { __state.SiteOptions.Menu.Multiple = value;
+            Task.FromResult(__state.SaveAppOptions(__local)); }
+    }
+    private bool appMenuArrow
+    {
+        get { return __state.SiteOptions.Menu.Arrow; }
+        set { __state.SiteOptions.Menu.Arrow = value;
+            Task.FromResult(__state.SaveAppOptions(__local)); }
+    }
+    
     private string _menuLbl => $"{__lang["Menu"]}: ";
 
     private bool _isTextIcon;
@@ -46,7 +66,7 @@
             _isTextIcon = true;
             _isText = false;
             _isIcon = false;
-            __state.MenuStyle = MenuItemDisplayStyle.IconAndText;
+            appMenuStyle = MenuItemDisplayStyle.IconAndText;
             __state.RefreshPage("Menu text icon");
         }
     }
@@ -59,7 +79,7 @@
             _isTextIcon = false;
             _isText = true;
             _isIcon = false;
-            __state.MenuStyle = MenuItemDisplayStyle.Text;
+            appMenuStyle = MenuItemDisplayStyle.Text;
             __state.RefreshPage("Menu text");
         }
     }
@@ -72,25 +92,25 @@
             _isTextIcon = false;
             _isText = false;
             _isIcon = true;
-            __state.MenuStyle = MenuItemDisplayStyle.Icon;
+            appMenuStyle = MenuItemDisplayStyle.Icon;
             __state.RefreshPage("Menu icon");
         }
     }
 
     private void ArrowsChange()
     {
-        __state.MenuArrow = !__state.MenuArrow;
+        appMenuArrow = !appMenuArrow;
         __state.RefreshPage("Menu arrows");
     }
     private void MultipleChange()
     {
-        __state.MenuMultiple = !__state.MenuMultiple;
+        appMenuMultiple = !appMenuMultiple;
         __state.RefreshPage("Menu multiples");
     }
 
     protected override void OnInitialized()
     {
-        switch (__state.MenuStyle)
+        switch (appMenuStyle)
         {
             case MenuItemDisplayStyle.IconAndText:
                 _isTextIcon = true;

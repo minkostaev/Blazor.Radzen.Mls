@@ -4,6 +4,7 @@
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <Authorizing>
                     <p>Determining session state, please wait...</p>
+                    <div class="loader">Loading...</div>
                 </Authorizing>
                 <NotAuthorized>
                     NO USER
@@ -29,7 +30,7 @@
             </LayoutView>
         </NotFound>
         <Navigating>
-            <p>Page is loading ...</p>
+            <div class="loader">Loading...</div>
         </Navigating>
     </Router>
 </CascadingAuthenticationState>
@@ -38,5 +39,10 @@
     protected override async Task OnInitializedAsync()
     {
         await __state.LoadAppOptions(__local);
+        var lang = new LanguageChanging();
+        lang?.ChangeLanguage(__lang, __state.SiteOptions.Language);
+        await RadzenTheming.SetTheme(__js, __state.SiteOptions.Theme);
+        
+        __state.RefreshPage("App.razor");//await InvokeAsync(StateHasChanged);
     }
 }
