@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Minko">
+    <title>Blazor Radzen Mls</title>
+    <base href="/" />
+    <script>let base = document.head.getElementsByTagName('base')[0];
+        if (base.href.includes('.github.io')) { // github domain fix
+            base.href = '/Blazor.Radzen.Mls/'; }</script>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link href="BlazorRadzenMls.styles.css" rel="stylesheet" /><!--css isolation-->
+    <link href="manifest.webmanifest" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="256x256" href="icon-256.png" />
+    <link rel="apple-touch-icon" sizes="128x128" href="icon-128.png" />
+    <!--Radzen-->
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/default-base.css">
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+    <link rel="stylesheet" href="css/myRadzen.css"><!--my custom addition on Radzen-->
+    <script src="js/myRadzen.js"></script><!--my custom addition on Radzen-->
+
+    <script src="js/myMain.js"></script>
+
+</head>
+
+<body><!--class="rz-default-scrollbars"-->
+    <div id="app">
+        <div class="loader">Loading...</div>
+        <!--<div class="spinner-grow text-primary" style="margin: 22px;" />
+        <div class="spinner-grow text-info" style="margin: 22px;" />
+        <div class="spinner-grow text-success" style="margin: 22px;" />-->
+    </div>
+
+    <div id="blazor-error-ui">
+        <a href="" class="reload">🗘</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+</body>
+
+</html>
