@@ -3,7 +3,7 @@
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <Authorizing>
-                    <p>Determining session state, please wait...</p>
+                    <RadzenLabel Text="Getting user information, please wait." class="rz-color-success-dark" />
                     <div class="loader">Loading...</div>
                 </Authorizing>
                 <NotAuthorized>
@@ -25,8 +25,8 @@
         <NotFound>
             <PageTitle>Not found</PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                @* <p role="alert">Sorry, there's nothing at this address.</p> *@
-                <img alt="404" src="/images/browser-404.svg" />
+                <RadzenLabel Text="This address doesn't have content." class="rz-color-success-dark" />
+                <img alt="404" src="/images/browser-404.svg" style="width: 100%; height: 90%;" />
             </LayoutView>
         </NotFound>
         <Navigating>
@@ -39,10 +39,17 @@
     protected override async Task OnInitializedAsync()
     {
         await __state.LoadAppOptions(__local);
-        var lang = new LanguageChanging();
-        lang?.ChangeLanguage(__lang, __state.SiteOptions.Language);
+        MultiLanguage.ChangeLanguage(__lang, __state.SiteOptions.Language);
         await RadzenTheming.SetTheme(__js, __state.SiteOptions.Theme);
-        
+        __nav.LocationChanged += async (object? sender, LocationChangedEventArgs e) =>
+        {
+            ///string navigationMethod = e.IsNavigationIntercepted ? "HTML" : "code";
+            ///Console.WriteLine($"Notified of navigation via {navigationMethod} to {e.Location}");
+            __state.SiteOptions.Page = e.Location.Substring(__nav.BaseUri.Length);
+            await __state.SaveAppOptions(__local);
+            __state.RefreshPage("__nav.LocationChanged");
+        };
+
         __state.RefreshPage("App.razor");//await InvokeAsync(StateHasChanged);
     }
 }

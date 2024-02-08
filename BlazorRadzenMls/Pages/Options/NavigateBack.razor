@@ -1,0 +1,35 @@
+﻿
+<RadzenLabel Text="Continue your previous work in " class="rz-color-success-dark" Style="font-weight: bold;" />
+
+<RadzenButton Text="@btnText" Icon="assignment_return"
+              ButtonStyle="ButtonStyle.Info" Click="@btn_Navigate" />
+
+<RadzenLabel Text="@restOfTheLink" class="rz-color-success-dark" Style="font-weight: bold;" />
+
+@code {
+
+    private string? btnText;
+    private string? restOfTheLink;
+
+    private void btn_Navigate()
+    {
+        if (!string.IsNullOrWhiteSpace(__state.SiteOptions.Page))
+            __nav.NavigateTo(__state.SiteOptions.Page);
+    }
+
+    protected override void OnInitialized()
+    {
+        var pageLinks = __state.SiteOptions.Page?.Split("/");
+        if (pageLinks?.Length == 1)
+            btnText = pageLinks[0];
+        else if (pageLinks?.Length > 1)
+        {
+            btnText = pageLinks[0];
+            restOfTheLink = __state.SiteOptions.Page?.Substring(btnText.Length);
+        }
+
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+    }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+
+}

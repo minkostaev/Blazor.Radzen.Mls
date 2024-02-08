@@ -8,45 +8,48 @@
 @* @__lang["Title to do"] *@
 <RadzenText Text="This is my personal site for experiments" TextStyle="TextStyle.H4" class="rz-color-primary" />
 
-<div style="padding-bottom: 12px;">
+<RadzenCard class="rz-background-color-base-300 rz-mb-3 rz-shadow-4">
     <div>
         <RadzenText Text="This is Blazor WebAssembly App with "
                     TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block;" />
         <RadzenText Text="PWA -" MouseEnter="@(args => ShowTooltip(args))"
-                    TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block;" />
+                    TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block; font-style: italic; text-decoration: underline;" />
         <RadzenText Text=" option to install and work offline!"
                     TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block;" />
     </div>
-
     <ShoutOutLinks Link1="" Icon1=""
                    Text1="You can see it in this repo: " Link2="@AppValues.GitHubMy" />
-</div>
+</RadzenCard>
 
-<div>
-    <RadzenText Text="This site uses:" TextStyle="TextStyle.H5" class="rz-color-primary" />
+<RadzenCard class="rz-background-color-base-300 rz-mb-3 rz-shadow-4">
+    <div>
+        <RadzenText Text="The site uses:" TextStyle="TextStyle.H5" class="rz-color-primary" />
 
-    <ShoutOutLinks Link1="https://blazor.radzen.com/" Icon1="language"
-                   Text1="Radzen.Blazor" Link2="@AppValues.GitHubRadzen" />
-</div>
+        <ShoutOutLinks Link1="https://blazor.radzen.com/" Icon1="language"
+                       Text1="Radzen.Blazor" Link2="@AppValues.GitHubRadzen" />
+    </div>
+    <div>
+        <ShoutOutLinks Link1="https://akmultilanguages.azurewebsites.net/" Icon1="language"
+                       Text1="AKSoftware.Localization.MultiLanguages" Link2="@AppValues.GitHubAKSoftware" />
+    </div>
+    <div>
+        <ShoutOutLinks Link1="https://github.com/Blazored/LocalStorage" Icon1="language"
+                       Text1="LocalStorage" Link2="@AppValues.GitHubBlazored" />
+    </div>
+    <div>
+        <ShoutOutLinks Link1="https://auth0.com/" Icon1="language"
+                       Text1="Auth0 by Okta" Link2="@AppValues.GitHubAuth0" />
+    </div>
+</RadzenCard>
 
-<div>
-    <ShoutOutLinks Link1="https://akmultilanguages.azurewebsites.net/" Icon1="language"
-                   Text1="AKSoftware.Localization.MultiLanguages" Link2="@AppValues.GitHubAKSoftware" />
-</div>
-
-<div style="padding-bottom: 12px;">
-    <ShoutOutLinks Link1="https://auth0.com/" Icon1="language"
-                   Text1="Auth0 by Okta" Link2="@AppValues.GitHubAuth0" />
-</div>
-
-<InputText @bind-Value="@_name" />
-
-<Parametri Name="@_name" />
+@if (!string.IsNullOrWhiteSpace(__state.SiteOptions.Page))
+{
+    <RadzenCard class="rz-background-color-base-300 rz-mb-3 rz-shadow-4">
+        <BlazorRadzenMls.Pages.Options.NavigateBack />    
+    </RadzenCard>
+}
 
 @code {
-
-    private string? _name { get; set; }
-
 
     private void ShowTooltip(ElementReference elementReference)
     {
@@ -54,5 +57,10 @@
         __tooltip.Open(elementReference, "Progressive Web Application", options);
     }
 
+    protected override void OnInitialized()
+    {
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+    }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

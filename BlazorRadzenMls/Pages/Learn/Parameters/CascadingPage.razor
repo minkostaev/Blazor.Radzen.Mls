@@ -8,7 +8,15 @@
     </CascadingValue>
 </CascadingValue>
 
+<br />
+<br />
+<InputText @bind-Value="@_name" />
+
+<Parametri Name="@_name" />
+
 @code {
+    private string? _name { get; set; }
+
     string FirstFruit { get; set; } = "Apple";
     string SecondFruit { get; set; } = "Banana";
 }

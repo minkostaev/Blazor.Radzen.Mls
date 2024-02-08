@@ -16,7 +16,8 @@
         
         <AuthorizeView>
             <Authorized>
-                <RadzenText Text=@userName TextStyle="TextStyle.Body1" class="rz-color-primary" Style="margin: 10px;font-weight: bold;" />
+                <RadzenText Text=@userName TextStyle="TextStyle.Body1" class="rz-color-primary"
+                Style="margin: 10px; max-width: 300px; overflow: hidden; text-overflow: ellipsis;" />
                 <RadzenButton Text="Logout" Click="SignOut" Icon="highlight_off" Style="width: 100%;" />
             </Authorized>
             <NotAuthorized>

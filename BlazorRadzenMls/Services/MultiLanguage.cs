@@ -3,21 +3,25 @@
 using AKSoftware.Localization.MultiLanguages;
 using System.Globalization;
 
-public class LanguageChanging
+public static class MultiLanguage
 {
-    public LanguageChanging()
+    public static IDictionary<string, string>? Languages
     {
-        Languages = new Dictionary<string, string>();
-        Languages.Add(en_US);
-        Languages.Add(bg_BG);
+        get
+        {
+            return new Dictionary<string, string>
+            {
+                { en_US.Key, en_US.Value },
+                { bg_BG.Key, bg_BG.Value }
+            };
+        }
     }
-    public IDictionary<string, string>? Languages { get; set; }
     // flgs - https://icons8.com/icon/set/flags/fluency
-    public KeyValuePair<string, string> en_US = new("en-US", "english");
-    public KeyValuePair<string, string> bg_BG = new("bg-BG", "bulgarian");
+    public static readonly KeyValuePair<string, string> en_US = new("en-US", "english");
+    public static readonly KeyValuePair<string, string> bg_BG = new("bg-BG", "bulgarian");
+    
 
-
-    public void ChangeLanguage(ILanguageContainerService lang, string? language)
+    public static void ChangeLanguage(ILanguageContainerService lang, string? language)
     {
         string id = string.Empty;
         if (Languages != null)
