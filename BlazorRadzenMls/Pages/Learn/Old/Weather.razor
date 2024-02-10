@@ -39,18 +39,20 @@ else
 
 @code {
 
-    private string? _requestUri => "http://www.apito.somee.com/weatherforecasta";
+    // do to
+    private string? _requestUri => "https://www.apito.somee.com/weatherforecasta";
+    //private string? _requestUri => "https://localhost:7088/weatherforecasta";
     private HttpClient? _client;
-    private async Task Dog_Request()
+    private async Task GetFromMyApi()
     {
         if (_client != null)
         {
-            object? aa;
-            try { aa = await _client.GetFromJsonAsync<WeatherForecast[]>(_requestUri); }
+            //object? result;
+            try { forecasts = await _client.GetFromJsonAsync<WeatherForecast[]>(_requestUri); }
             catch { Console.WriteLine("HttpClient error"); }
         }
     }
-
+    //--
 
 
     private WeatherForecast[]? forecasts;
@@ -58,9 +60,9 @@ else
     protected override async Task OnInitializedAsync()
     {
         _client = new HttpClient();
-        try { forecasts = await __http.GetFromJsonAsync<WeatherForecast[]>("data/weather.json"); }
-        catch { Console.WriteLine("weather.json is missing"); }
-        await Dog_Request();
+        //try { forecasts = await __http.GetFromJsonAsync<WeatherForecast[]>("data/weather.json"); }
+        //catch { Console.WriteLine("weather.json is missing"); }
+        await GetFromMyApi();
     }
     protected override void OnParametersSet()
     {

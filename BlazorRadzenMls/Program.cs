@@ -17,10 +17,10 @@ builder.Services.AddOidcAuthentication(options =>
     string appSetIt = builder.HostEnvironment.BaseAddress;
     if (appSetIt.Contains(".github.io"))
         appSetIt = "Auth0GitHub";
-    else if (appSetIt.Contains(".github.io"))
-        appSetIt = "Auth0GitHub";
-    else if (appSetIt.Contains(".github.io"))
-        appSetIt = "Auth0GitHub";
+    else if (appSetIt.Contains(".onrender.com"))
+        appSetIt = "Auth0Render";
+    else if (appSetIt.Contains(".netlify.app"))
+        appSetIt = "Auth0Netlify";
     else
         appSetIt = "Auth0";
     builder.Configuration.Bind(appSetIt, options.ProviderOptions);//"Auth0"
