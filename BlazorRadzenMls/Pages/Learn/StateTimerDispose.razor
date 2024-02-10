@@ -1,10 +1,10 @@
 ﻿@page "/shc"
 
-@* @implements IDisposable *@
+@implements IDisposable
 
 @using System.Threading
 
-
+<h2>StateHasChanged + Dispose</h2>
 
 <div>
     Timer: @count
@@ -16,12 +16,13 @@
 
 @code {
 
-    private int count;
+    private int count { get; set; }
     private bool useState { get; set; }
+    private Timer? timer { get; set; }
 
     protected override void OnInitialized()
     {
-        _ = new Timer(_ =>
+        timer = new Timer(_ =>
         {
             count++;
             if (useState)
@@ -29,10 +30,10 @@
         }, null, 500, 500);
     }
 
-    // public void Dispose()
-    // {
-    //     _timer.Stop();
-    //     _timer.Dispose();
-    // }
+    public void Dispose()
+    {
+        //timer.Stop();
+        timer?.Dispose();
+    }
 
 }

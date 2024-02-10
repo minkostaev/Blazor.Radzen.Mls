@@ -5,12 +5,9 @@
     <RadzenSplitButton AlwaysOpenPopup=true Text="@_btnText"
                        Click=@(args => SplBtn_Click(args, "SplitButton1"))>
         <ChildContent>
-            @if (MultiLanguage.Languages != null)
+            @foreach (var i in MultiLanguage.Languages)
             {
-                @foreach (var i in MultiLanguage.Languages)
-                {
-                    <RadzenSplitButtonItem Text="@__lang[i.Value]" Value="@i.Value" />
-                }
+                <RadzenSplitButtonItem Text="@__lang[i.Value]" Value="@i.Value" />
             }
         </ChildContent>
     </RadzenSplitButton>

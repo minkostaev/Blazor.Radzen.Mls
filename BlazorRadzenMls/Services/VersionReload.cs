@@ -13,7 +13,7 @@ public class VersionReload
     {
         SetTimer(js);
         Initialize = GetVersion(js);
-        //Task.FromResult(GetVersion(js)); // doesn't work good enough
+        ///Task.FromResult(GetVersion(js)); // doesn't work good enough
         Initiated = true;
     }
     public VersionReload(HttpClient http)

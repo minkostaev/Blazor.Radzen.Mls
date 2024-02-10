@@ -5,7 +5,7 @@ using System.Globalization;
 
 public static class MultiLanguage
 {
-    public static IDictionary<string, string>? Languages
+    public static IDictionary<string, string> Languages
     {
         get
         {

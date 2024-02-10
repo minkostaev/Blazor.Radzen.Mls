@@ -14,27 +14,16 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddOidcAuthentication(options =>
 {
-    if (builder.HostEnvironment.BaseAddress.Contains("localhost"))
-    {
-        builder.Configuration.Bind("Auth0", options.ProviderOptions);
-    }
-    else if (builder.HostEnvironment.BaseAddress.Contains(".azurestaticapps.net"))
-    {
-        builder.Configuration.Bind("Auth0Azure", options.ProviderOptions);
-    }
-    else if (builder.HostEnvironment.BaseAddress.Contains(".github.io"))
-    {
-        builder.Configuration.Bind("Auth0GitHub", options.ProviderOptions);
-    }
-    else if (builder.HostEnvironment.BaseAddress.Contains(".onrender.com"))
-    {
-        builder.Configuration.Bind("Auth0Render", options.ProviderOptions);
-    }
-    else if (builder.HostEnvironment.BaseAddress.Contains(".netlify.app"))
-    {
-        builder.Configuration.Bind("Auth0Netlify", options.ProviderOptions);
-    }
-    //
+    string appSetIt = builder.HostEnvironment.BaseAddress;
+    if (appSetIt.Contains(".github.io"))
+        appSetIt = "Auth0GitHub";
+    else if (appSetIt.Contains(".github.io"))
+        appSetIt = "Auth0GitHub";
+    else if (appSetIt.Contains(".github.io"))
+        appSetIt = "Auth0GitHub";
+    else
+        appSetIt = "Auth0";
+    builder.Configuration.Bind(appSetIt, options.ProviderOptions);//"Auth0"
     options.ProviderOptions.ResponseType = "code";
     //options.ProviderOptions.AdditionalProviderParameters.Add("audience", builder.Configuration["Auth0:ClientId"]);
 });
