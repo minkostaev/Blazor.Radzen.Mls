@@ -57,7 +57,7 @@
       "url": "css\/myRadzen.css"
     },
     {
-      "hash": "sha256-F5TYmbxtO3M5wY\/4wmInDrmDDcvfBkNQUWqGz+J45y4=",
+      "hash": "sha256-V8q8U7mDutF9x26+a88mmUvoyYm1zcJCRgZBGiWBUOg=",
       "url": "data\/version.txt"
     },
     {
@@ -153,7 +153,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-LpXEefW9aDh4d5Jd69yTbC7o0mUQ6mh66mrI+EHqiLQ=",
+      "hash": "sha256-TpLE3kePKGPIxNXS3K97Cyo8bPb+yFved26AYsgxjyM=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -161,11 +161,11 @@
       "url": "_framework\/AKSoftware.Localization.MultiLanguages.wasm"
     },
     {
-      "hash": "sha256-xHBGFCMjDjvvTwtMvgaMBNmQk9JdVhGmws2\/GMZlxrI=",
+      "hash": "sha256-OaMAAd5n7ORfyur5e3QIyEVKJ76MKIvwbg7\/icnnYcU=",
       "url": "_framework\/Blazored.LocalStorage.wasm"
     },
     {
-      "hash": "sha256-iSIXa81oG9LZvbVgjkFp9ZUgtiV8zf0cUes+bXs3DCk=",
+      "hash": "sha256-w6aQjWP5FiYV3x1hf7XYQiHkGzra3lw2oRnlQSrr6MU=",
       "url": "_framework\/BlazorRadzenMls.wasm"
     },
     {
@@ -221,7 +221,7 @@
       "url": "_framework\/Microsoft.Extensions.Configuration.wasm"
     },
     {
-      "hash": "sha256-de1\/gS1jGQlkE2DTVgCsqIhJ0rDs1ewIR7X1fu7ilWg=",
+      "hash": "sha256-AalgZVn9BSrAi2+UNFTlKJFobOZtR2p5RJKT4y2GQTI=",
       "url": "_framework\/Microsoft.Extensions.DependencyInjection.Abstractions.wasm"
     },
     {
@@ -353,7 +353,7 @@
       "url": "_framework\/System.ObjectModel.wasm"
     },
     {
-      "hash": "sha256-mVX+phdloh2BSyOTvLzRQ2HfMksjSY6rw9zlHqrIJ5w=",
+      "hash": "sha256-JNDno7cYODky9QN5YA77I9j3QKvBHZytZ2Kg+\/8W6f4=",
       "url": "_framework\/System.Private.CoreLib.wasm"
     },
     {
@@ -393,7 +393,7 @@
       "url": "_framework\/System.Runtime.Serialization.Primitives.wasm"
     },
     {
-      "hash": "sha256-IE6Kqk1evaMTfWxnrvmi\/YKSyShFfa6kj21ivhYy+oY=",
+      "hash": "sha256-4HRSlmQgHWAgeArgZw7VhRZIjk+gncG\/De0yucSwYNo=",
       "url": "_framework\/System.Runtime.wasm"
     },
     {
@@ -633,5 +633,5 @@
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "Dn7pXeNa"
+  "version": "h18uxRn6"
 };
