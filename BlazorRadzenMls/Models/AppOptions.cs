@@ -11,7 +11,7 @@ public class AppOptions
             MenuStyle = Radzen.MenuItemDisplayStyle.IconAndText
         };
     }
-    public static string? Name => typeof(AppOptions).Name;
+    public static string Name => typeof(AppOptions).Name;
     public string? Page { get; set; }
     public string? Language { get; set; }
     public string? Theme { get; set; }

@@ -4,7 +4,10 @@
 <RadzenButton Text="@btnText" Icon="assignment_return"
               ButtonStyle="ButtonStyle.Info" Click="@btn_Navigate" />
 
-<RadzenLabel Text="@restOfTheLink" class="rz-color-success-dark" Style="font-weight: bold;" />
+@if (!string.IsNullOrWhiteSpace(restOfTheLink))
+{
+    <RadzenLabel Text="@restOfTheLink" class="rz-color-success-dark" Style="font-weight: bold;" />
+}
 
 @code {
 

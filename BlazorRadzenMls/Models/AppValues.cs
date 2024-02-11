@@ -21,6 +21,18 @@ public static class AppValues
     //public const string RolesManager = "admin, manager";
     //public const string RolesAdmin = "admin";
 
+    public static string GetAuth0(string address)
+    {
+        if (address.Contains(".github.io"))
+            return "Auth0GitHub";
+        else if (address.Contains(".onrender.com"))
+            return "Auth0Render";
+        else if (address.Contains(".netlify.app"))
+            return "Auth0Netlify";
+        else
+            return "Auth0";
+    }
+
 }
 // to see
 //https://blazor-university.com/

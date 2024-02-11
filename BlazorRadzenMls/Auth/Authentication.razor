@@ -1,40 +1,33 @@
 ﻿@page "/authentication/{action}"
 
+@using BlazorRadzenMls.Models
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
-<RemoteAuthenticatorView Action="@Action" >
+<RemoteAuthenticatorView Action="@Action" />
+@* <RemoteAuthenticatorView Action="@Action" >
     <LogOut>
         @{
             var authority = __config["Auth0:Authority"];
             var clientId = __config["Auth0:ClientId"];
-
             __nav.NavigateTo($"{authority}/v2/logout?client_id={clientId}");
         }
     </LogOut>
-</RemoteAuthenticatorView>
+</RemoteAuthenticatorView> *@
 
 @code {
 
-    [Parameter] public string? Action { get; set; }
+    [Parameter]
+    public string? Action { get; set; }
 
-    // protected override void OnInitialized()
-    // {
-    //     if (Action == "logout")
-    //     {
-    //         var authority = __config["Auth0:Authority"];
-    //         var clientId = __config["Auth0:ClientId"];
-    //         __nav.NavigateTo($"{authority}/v2/logout?client_id={clientId}");
-    //     }
-    // }
-
-    // @page "/authentication/{action}"
-
-    // @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-    // <RemoteAuthenticatorView Action="@Action" />
-
-    // @code {
-    //     [Parameter] public string? Action { get; set; }
-    // }
-
+    protected override void OnInitialized()
+    {
+        if (Action?.ToLower() == "logout")
+        {
+            string auth0 = AppValues.GetAuth0(__nav.BaseUri);
+            var authority = __config[$"{auth0}:Authority"];
+            var clientId = __config[$"{auth0}:ClientId"];
+            __nav.NavigateTo($"{authority}/v2/logout?client_id={clientId}");
+        }
+    }
 
 }

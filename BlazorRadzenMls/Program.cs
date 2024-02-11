@@ -1,6 +1,7 @@
 using AKSoftware.Localization.MultiLanguages;
 using Blazored.LocalStorage;
 using BlazorRadzenMls;
+using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -14,16 +15,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddOidcAuthentication(options =>
 {
-    string appSetIt = builder.HostEnvironment.BaseAddress;
-    if (appSetIt.Contains(".github.io"))
-        appSetIt = "Auth0GitHub";
-    else if (appSetIt.Contains(".onrender.com"))
-        appSetIt = "Auth0Render";
-    else if (appSetIt.Contains(".netlify.app"))
-        appSetIt = "Auth0Netlify";
-    else
-        appSetIt = "Auth0";
-    builder.Configuration.Bind(appSetIt, options.ProviderOptions);//"Auth0"
+    builder.Configuration.Bind(AppValues.GetAuth0(builder.HostEnvironment.BaseAddress), options.ProviderOptions);//"Auth0"
     options.ProviderOptions.ResponseType = "code";
     //options.ProviderOptions.AdditionalProviderParameters.Add("audience", builder.Configuration["Auth0:ClientId"]);
 });
