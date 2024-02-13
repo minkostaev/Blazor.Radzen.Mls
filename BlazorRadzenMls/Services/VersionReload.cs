@@ -45,7 +45,7 @@ public class VersionReload
     }
     private async Task GetVersion(IJSRuntime js)
     {
-        try { Version = await js.InvokeAsync<string>("getVersion"); }
+        try { Version = await js.InvokeAsync<string>("getVersion"); Version = Version.Trim(); }
         catch { Version = "0.0.0.0"; Console.WriteLine("Error with IJSRuntime"); }
     }
 

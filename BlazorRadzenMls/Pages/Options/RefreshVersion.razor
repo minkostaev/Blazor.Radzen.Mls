@@ -26,7 +26,7 @@
 
     protected override async void OnInitialized()
     {
-        _version = new VersionReload(__http);
+        _version = new VersionReload(__js);
         await _version.Initialize;
         StateHasChanged();
         _version.TimerTick += delegate
