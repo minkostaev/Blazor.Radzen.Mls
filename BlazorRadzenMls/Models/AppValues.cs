@@ -1,5 +1,6 @@
 ﻿namespace BlazorRadzenMls.Models;
 
+using Microsoft.AspNetCore.Components;
 using System.Reflection;
 
 public static class AppValues
@@ -31,6 +32,17 @@ public static class AppValues
             return "Auth0Netlify";
         else
             return "Auth0";
+    }
+    public static string GetGitHubSub(NavigationManager nav)
+    {
+        if (nav.BaseUri.Contains(".github."))
+        {
+            string subPage = nav.Uri[nav.BaseUri.Length..];
+            var words = subPage.Split("/");
+            if (words.Length > 0)
+                return words[0];
+        }
+        return string.Empty;
     }
 
 }

@@ -9,14 +9,14 @@ public class VersionReload
     public Task Initialize { get; }// !!! await !!!
     public bool Initiated { get; protected set; }// optional
 
-    public VersionReload(IJSRuntime js)
+    public VersionReload(IJSRuntime js, string afterDomain = "")
     {
         SetTimer(js);
         Initialize = GetVersion(js);
         ///Task.FromResult(GetVersion(js)); // doesn't work good enough
         Initiated = true;
     }
-    public VersionReload(HttpClient http)
+    public VersionReload(HttpClient http, string afterDomain = "")
     {
         SetTimer(http);
         Initialize = GetVersion(http);
@@ -38,18 +38,18 @@ public class VersionReload
         };
     }
     
-    private async Task GetVersion(HttpClient http)
+    private async Task GetVersion(HttpClient http, string afterDomain = "")
     {
-        try { Version = await http.GetStringAsync(_versionFile); Version = Version.Trim(); }
+        try { Version = await http.GetStringAsync(afterDomain + _versionFile); Version = Version.Trim(); }
         catch { Version = "0.0.0.0"; Console.WriteLine("Error with HttpClient"); }
     }
-    private async Task GetVersion(IJSRuntime js)
+    private async Task GetVersion(IJSRuntime js, string afterDomain = "")
     {
-        try { Version = await js.InvokeAsync<string>("getVersion"); Version = Version.Trim(); }
+        try { Version = await js.InvokeAsync<string>("getVersion", afterDomain + _versionFile); Version = Version.Trim(); }
         catch { Version = "0.0.0.0"; Console.WriteLine("Error with IJSRuntime"); }
     }
 
-    private const string _versionFile = "data/version.txt";
+    private const string _versionFile = "/data/version.txt";
     private Timer? _timer;
 
     // public

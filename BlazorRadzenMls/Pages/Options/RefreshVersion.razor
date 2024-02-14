@@ -26,7 +26,7 @@
 
     protected override async void OnInitialized()
     {
-        _version = new VersionReload(__js);
+        _version = new VersionReload(__js, AppValues.GetGitHubSub(__nav));
         await _version.Initialize;
         StateHasChanged();
         _version.TimerTick += delegate

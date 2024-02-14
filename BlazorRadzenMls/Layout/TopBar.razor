@@ -35,7 +35,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var version = new VersionReload(__js);
+        var version = new VersionReload(__js, AppValues.GetGitHubSub(__nav));
         await version.Initialize;
         __state.VersionServer = version.Version;
         version.TimerTick += delegate
