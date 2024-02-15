@@ -3,19 +3,19 @@
 using Blazored.LocalStorage;
 using BlazorRadzenMls.Models;
 using System;
+using System.Timers;
 
 public class AppState
 {
     public AppState()
     {
+        Timer = new Timer(10000) { Enabled = true };//10 sec
         VersionServer = "0.0.0.0";
         SiteOptions = new AppOptions();
     }
 
+    public Timer Timer { get; set; }
     public string VersionServer { get; set; }
-
-    public event EventHandler? RefreshEvent;
-    public void RefreshPage(string e) { RefreshEvent?.Invoke(e, EventArgs.Empty); }
 
     public AppOptions SiteOptions { get; set; }
     public async Task SaveAppOptions(ILocalStorageService local)
@@ -25,6 +25,9 @@ public class AppState
         var props = await local.GetItemAsync<AppOptions>(AppOptions.Name);
         SiteOptions = props ?? new AppOptions();
     }
+
+    public event EventHandler? RefreshEvent;
+    public void RefreshPage(string e) { RefreshEvent?.Invoke(e, EventArgs.Empty); }
 
     //public string ReplaceFirst(string text, string oldValue, string newValue)
     //{

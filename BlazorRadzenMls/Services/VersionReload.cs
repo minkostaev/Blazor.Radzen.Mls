@@ -46,7 +46,7 @@ public class VersionReload
     private async Task GetVersion(IJSRuntime js, string afterDomain = "")
     {
         try { Version = await js.InvokeAsync<string>("getVersion", afterDomain + _versionFile); Version = Version.Trim(); }
-        catch { Version = "0.0.0.0"; Console.WriteLine("Error with IJSRuntime"); }
+        catch (Exception ex) { Version = "0.0.0.0"; Console.WriteLine("Error with IJSRuntime"); Console.WriteLine(ex.Message); }
     }
 
     private const string _versionFile = "/data/version.txt";

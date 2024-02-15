@@ -35,6 +35,8 @@
                 StateHasChanged();
         };
 
+        (string ver, bool isNew) = await VersionReload2.IsVersionNew(__js, __nav);
+
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
