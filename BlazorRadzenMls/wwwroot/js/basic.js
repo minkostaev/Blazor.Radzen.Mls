@@ -19,15 +19,14 @@ async function reload() {
     //window.location.reload(true);
 }
 
-//async function getVersion() {
-//    const response = await fetch(`/data/version.txt`);
-//    const resData = await response.text();
-//    return resData;
-//}
-
-async function getVersion(path) {
+async function fetchJson(path) {
     const response = await fetch(path);
     const resData = await response.json();
+    return resData;
+}
+async function fetchText(path) {
+    const response = await fetch(path);
+    const resData = await response.text();
     return resData;
 }
 

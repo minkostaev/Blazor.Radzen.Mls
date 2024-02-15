@@ -19,7 +19,7 @@ public static class VersionReload2
         {
             string param = AppValues.GetGitHubSub(nav) + "/data/version.txt";
             Console.WriteLine(param);
-            version = await js.InvokeAsync<string>("getVersion", param);
+            version = await js.InvokeAsync<string>("fetchText", param);
             version = version.Trim();
         }
         catch (Exception ex)
