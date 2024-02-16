@@ -15,31 +15,20 @@
 
 @code {
 
-    //private VersionReload? _version { get; set; }
-
     private string _currentVersion => __lang["Current_version_is"] + ": " + AppValues.VersionClient;
     private string _updateVersion => __lang["Update_version_available"] + ": " + version;
     private string _btnLablel => isNew ? __lang["Update"] : __lang["Refresh"];
 
-    private async Task ReloadApp() { await VersionReload2.Reload(__js); }
+    private async Task ReloadApp() { await VersionReload.Reload(__js); }
     //private void ReloadApp() { navigationManager.Refresh(true); }
 
     private string? version { get; set; }
     private bool isNew { get; set; }
 
-    private async Task VersionStatus() => (version, isNew) = await VersionReload2.IsVersionNew(__js, __nav);
+    private async Task VersionStatus() => (version, isNew) = await VersionReload.IsVersionNew(__js, __nav);
 
     protected override async void OnInitialized()
     {
-        // _version = new VersionReload(__js, AppValues.GetGitHubSub(__nav));
-        // await _version.Initialize;
-        // StateHasChanged();
-        // _version.TimerTick += delegate
-        // {
-        //     if (_version.NeedUpdate)
-        //         StateHasChanged();
-        // };
-
         await VersionStatus();
         __state.Timer.Elapsed += async delegate
         {
@@ -47,8 +36,6 @@
             if (isNew)
                 StateHasChanged();
         };
-
-        //(string version, bool isNew) = await VersionReload2.IsVersionNew(__js, __nav);
 
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }

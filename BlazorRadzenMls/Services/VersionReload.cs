@@ -1,62 +1,34 @@
 ﻿namespace BlazorRadzenMls.Services;
 
 using BlazorRadzenMls.Models;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System.Timers;
 
-public class VersionReload
+public static class VersionReload
 {
-    public Task Initialize { get; }// !!! await !!!
-    public bool Initiated { get; protected set; }// optional
-
-    public VersionReload(IJSRuntime js, string afterDomain = "")
+    /// <summary>
+    /// Calls js method that returns version number and determine whether is new or not
+    /// </summary>
+    /// <param name="js">JS Runtime injection</param>
+    /// <param name="nav">NavigationManager injection</param>
+    /// <returns></returns>
+    public static async Task<(string, bool)> IsVersionNew(IJSRuntime js, NavigationManager nav)
     {
-        SetTimer(js);
-        Initialize = GetVersion(js);
-        ///Task.FromResult(GetVersion(js)); // doesn't work good enough
-        Initiated = true;
-    }
-    public VersionReload(HttpClient http, string afterDomain = "")
-    {
-        SetTimer(http);
-        Initialize = GetVersion(http);
-        Initiated = true;
-    }
-
-    // private
-
-    private void SetTimer(object injection)
-    {
-        _timer = new Timer(10000) { Enabled = true };//10 sec
-        _timer.Elapsed += async delegate
+        string version = "0.0.0.0";
+        try
         {
-            if (injection is HttpClient http)
-                await GetVersion(http);
-            else if (injection is IJSRuntime js)
-                await GetVersion(js);
-            TimerTick?.Invoke(_timer, EventArgs.Empty);
-        };
+            string param = AppValues.GetGitHubSub(nav) + "/data/version.txt";
+            version = await js.InvokeAsync<string>("fetchText", param);
+            version = version.Trim();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error with IJSRuntime");
+            Console.WriteLine(ex.Message);
+        }
+        bool needUpdate = !AppValues.VersionClient.StartsWith(version);
+        return (version, needUpdate);
     }
-    
-    private async Task GetVersion(HttpClient http, string afterDomain = "")
-    {
-        try { Version = await http.GetStringAsync(afterDomain + _versionFile); Version = Version.Trim(); }
-        catch { Version = "0.0.0.0"; Console.WriteLine("Error with HttpClient"); }
-    }
-    private async Task GetVersion(IJSRuntime js, string afterDomain = "")
-    {
-        try { Version = await js.InvokeAsync<string>("getVersion", afterDomain + _versionFile); Version = Version.Trim(); }
-        catch (Exception ex) { Version = "0.0.0.0"; Console.WriteLine("Error with IJSRuntime"); Console.WriteLine(ex.Message); }
-    }
-
-    private const string _versionFile = "/data/version.txt";
-    private Timer? _timer;
-
-    // public
-
-    public event EventHandler? TimerTick;
-    public string Version { get; set; } = "";
-    public bool NeedUpdate => !AppValues.VersionClient.StartsWith(Version);
 
     /// <summary>
     /// Calls js method that hard reload the site
@@ -65,8 +37,15 @@ public class VersionReload
     /// <returns></returns>
     public static async Task Reload(IJSRuntime js)
     {
-        try { await js.InvokeVoidAsync("reload"); }
-        catch { Console.WriteLine("js reload error"); }
+        try
+        {
+            await js.InvokeVoidAsync("reload");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("js reload error");
+            Console.WriteLine(ex.Message);
+        }
     }
 
 }

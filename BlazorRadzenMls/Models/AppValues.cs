@@ -17,6 +17,7 @@ public static class AppValues
     public static string GitHubAKSoftware => "https://github.com/aksoftware98/multilanguages";
     public static string GitHubBlazored => "https://github.com/Blazored";
     public static string GitHubAuth0 => "https://github.com/auth0";
+    public static string GitHubDomain => ".github.io";
 
     //public const string RolesAll = "admin, manager, user";
     //public const string RolesManager = "admin, manager";
@@ -24,7 +25,7 @@ public static class AppValues
 
     public static string GetAuth0(string address)
     {
-        if (address.Contains(".github.io"))
+        if (address.Contains(GitHubDomain))
             return "Auth0GitHub";
         else if (address.Contains(".onrender.com"))
             return "Auth0Render";
@@ -35,12 +36,17 @@ public static class AppValues
     }
     public static string GetGitHubSub(NavigationManager nav)
     {
-        if (nav.BaseUri.Contains(".github."))
+        if (nav.BaseUri.Contains(GitHubDomain))
         {
-            string subPage = nav.Uri[nav.BaseUri.Length..];
-            var words = subPage.Split("/");
-            if (words.Length > 0)
-                return words[0];
+            var words = nav.BaseUri.Split("/");
+            bool isGitHub = false;
+            foreach (var word in words)
+            {
+                if (isGitHub)
+                    return "/" + word;
+                if (word.Contains(GitHubDomain))
+                    isGitHub = true;
+            }
         }
         return string.Empty;
     }
