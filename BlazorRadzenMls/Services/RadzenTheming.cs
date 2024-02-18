@@ -1,5 +1,6 @@
 ﻿namespace BlazorRadzenMls.Services;
 
+using BlazorRadzenMls.Models;
 using Microsoft.JSInterop;
 
 public static class RadzenTheming
@@ -17,7 +18,7 @@ public static class RadzenTheming
         }
         catch (Exception ex)
         {
-            Console.WriteLine("js method error");
+            Console.WriteLine(AppValues.JsErrorString("getRadzenTheme", "GetTheme"));
             Console.WriteLine(ex.Message);
             return string.Empty;
         }
@@ -29,7 +30,7 @@ public static class RadzenTheming
     /// <param name="js">JS Runtime injection</param>
     /// <param name="val">theme name</param>
     /// <returns></returns>
-    public static async Task SetTheme(IJSRuntime js, string? val)
+    public static async Task<bool> SetTheme(IJSRuntime js, string? val)
     {
         if (!Themes.Contains(val))
         {
@@ -38,11 +39,13 @@ public static class RadzenTheming
         try
         {
             await js.InvokeVoidAsync("setRadzenTheme", val);
+            return true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine("js method error");
+            Console.WriteLine(AppValues.JsErrorString("setRadzenTheme", "SetTheme"));
             Console.WriteLine(ex.Message);
+            return false;
         }
     }
 

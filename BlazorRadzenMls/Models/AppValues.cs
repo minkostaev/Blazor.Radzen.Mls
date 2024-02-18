@@ -50,6 +50,8 @@ public static class AppValues
         }
         return string.Empty;
     }
+    public static string JsErrorString(string jsMethod, string cMethod = "")
+        => $"error: js -> {jsMethod} | {cMethod}";
 
 }
 // to see

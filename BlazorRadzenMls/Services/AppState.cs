@@ -28,7 +28,8 @@ public class AppState
     }
 
     public event EventHandler? RefreshEvent;
-    public void RefreshPage(string e) { RefreshEvent?.Invoke(e, EventArgs.Empty); }
+    public void RefreshPage(string e)
+    { RefreshEvent?.Invoke(e, EventArgs.Empty); Console.WriteLine(e); }
 
     //public string ReplaceFirst(string text, string oldValue, string newValue)
     //{

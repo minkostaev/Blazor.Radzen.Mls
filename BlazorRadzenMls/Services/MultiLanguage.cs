@@ -23,11 +23,11 @@ public static class MultiLanguage
     /// <summary>
     /// Change Language
     /// </summary>
-    /// <param name="lang">Language Service injection</param>
+    /// <param name="langService">Language Service injection</param>
     /// <param name="language">Language code (ex: en-US)</param>
-    public static bool ChangeLanguage(ILanguageContainerService lang, string? language)
+    public static bool ChangeLanguage(ILanguageContainerService langService, string? language)
     {
-        if (lang.CurrentCulture.Name == language)
+        if (langService.CurrentCulture.Name == language)
             return false;
         string id = string.Empty;
         bool success = false;
@@ -44,7 +44,7 @@ public static class MultiLanguage
         {
             id = "en-US";
         }
-        lang?.SetLanguage(CultureInfo.GetCultureInfo(id));
+        langService?.SetLanguage(CultureInfo.GetCultureInfo(id));
         return success;
     }
 }

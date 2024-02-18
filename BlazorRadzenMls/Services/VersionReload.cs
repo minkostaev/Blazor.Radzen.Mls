@@ -23,7 +23,7 @@ public static class VersionReload
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Error with IJSRuntime");
+            Console.WriteLine(AppValues.JsErrorString("fetchText", "IsVersionNew"));
             Console.WriteLine(ex.Message);
         }
         bool needUpdate = !AppValues.VersionClient.StartsWith(version);
@@ -35,16 +35,18 @@ public static class VersionReload
     /// </summary>
     /// <param name="js">JS Runtime injection</param>
     /// <returns></returns>
-    public static async Task Reload(IJSRuntime js)
+    public static async Task<bool> Reload(IJSRuntime js)
     {
         try
         {
             await js.InvokeVoidAsync("reload");
+            return true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine("js reload error");
+            Console.WriteLine(AppValues.JsErrorString("reload", "Reload"));
             Console.WriteLine(ex.Message);
+            return false;
         }
     }
 

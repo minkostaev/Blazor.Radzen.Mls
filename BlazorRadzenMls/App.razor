@@ -36,32 +36,35 @@
 </CascadingAuthenticationState>
 
 @code {
+
     protected override async Task OnInitializedAsync()
     {
         await __state.LoadAppOptions(__local);
-        MultiLanguage.ChangeLanguage(__lang, __state.SiteOptions.Language);
         await RadzenTheming.SetTheme(__js, __state.SiteOptions.Theme);
+        MultiLanguage.ChangeLanguage(__lang, __state.SiteOptions.Language);
+        
         __nav.LocationChanged += async (object? sender, LocationChangedEventArgs e) =>
         {
             ///string navigationMethod = e.IsNavigationIntercepted ? "HTML" : "code";
             ///Console.WriteLine($"Notified of navigation via {navigationMethod} to {e.Location}");
             __state.SiteOptions.Page = e.Location.Substring(__nav.BaseUri.Length);
             await __state.SaveAppOptions(__local);
-            __state.RefreshPage("__nav.LocationChanged");
+            //__state.RefreshPage("__nav.LocationChanged");// *delete*
         };
 
-        // __state.Timer.Elapsed += async delegate
-        // {
-        //     (__state.VersionServer, __state.NeedUpdate) = await VersionReload.IsVersionNew(__js, __nav);
-        //     if (__state.NeedUpdate)
-        //     {
-        //         if (__state.NeedUpdate)
-        //         {
-        //             StateHasChanged();
-        //         }
-        //     }
-        // };
+        __state.Timer.Elapsed += async delegate
+        {
+            (__state.VersionServer, __state.NeedUpdate) = await VersionReload.IsVersionNew(__js, __nav);
+            if (__state.NeedUpdate)
+            {
+                if (__state.NeedUpdate)
+                {
+                    __state.RefreshPage("App.razor -> Timer -> NeedUpdate");
+                }
+            }
+        };
 
-        __state.RefreshPage("App.razor");//await InvokeAsync(StateHasChanged);
+        __state.RefreshPage("App.razor -> OnInitializedAsync");//await InvokeAsync(StateHasChanged);
     }
+
 }
