@@ -37,10 +37,9 @@
     {
         __state.Timer.Elapsed += async delegate
         {
-            (string version, bool isNew) = await VersionReload.IsVersionNew(__js, __nav);
-            if (isNew)
+            (__state.VersionServer, __state.NeedUpdate) = await VersionReload.IsVersionNew(__js, __nav);
+            if (__state.NeedUpdate)
             {
-                __state.VersionServer = version;
                 if (_className != "rz-background-color-danger-lighter")
                 {
                     _className = "rz-background-color-danger-lighter";

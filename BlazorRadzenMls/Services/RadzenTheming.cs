@@ -4,24 +4,50 @@ using Microsoft.JSInterop;
 
 public static class RadzenTheming
 {
-
+    /// <summary>
+    /// Get current radzen theme name
+    /// </summary>
+    /// <param name="js">JS Runtime injection</param>
+    /// <returns></returns>
     public static async Task<string> GetTheme(IJSRuntime js)
     {
-        try { return await js.InvokeAsync<string>("getRadzenTheme"); }
-        catch { Console.WriteLine("js method error"); return string.Empty; }
+        try
+        {
+            return await js.InvokeAsync<string>("getRadzenTheme");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("js method error");
+            Console.WriteLine(ex.Message);
+            return string.Empty;
+        }
     }
 
+    /// <summary>
+    /// Set radzen theme
+    /// </summary>
+    /// <param name="js">JS Runtime injection</param>
+    /// <param name="val">theme name</param>
+    /// <returns></returns>
     public static async Task SetTheme(IJSRuntime js, string? val)
     {
         if (!Themes.Contains(val))
+        {
             val = Themes[0];
-        try { await js.InvokeVoidAsync("setRadzenTheme", val); }
-        catch { Console.WriteLine("js method error"); }
+        }
+        try
+        {
+            await js.InvokeVoidAsync("setRadzenTheme", val);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("js method error");
+            Console.WriteLine(ex.Message);
+        }
     }
 
-    // free radzen themes names
+    // available radzen themes names
     public static string[] Themes => ["default", "standard", "software", "humanistic", "dark", "material"];
-
 }
 //requirements:
 //@inject IJSRuntime jsRuntime
@@ -40,4 +66,4 @@ public static class RadzenTheming
 //}
 //in index.html
 //<link rel="stylesheet" href="_content/Radzen.Blazor/css/default-base.css">
-//<script src = "js/myRadzen.js" ></ script > -js code is in here
+//<script src="js/customRadzen.js"></script> -js code is in here

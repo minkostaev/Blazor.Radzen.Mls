@@ -16,6 +16,7 @@ public class AppState
 
     public Timer Timer { get; set; }
     public string VersionServer { get; set; }
+    public bool NeedUpdate { get; set; }
 
     public AppOptions SiteOptions { get; set; }
     public async Task SaveAppOptions(ILocalStorageService local)

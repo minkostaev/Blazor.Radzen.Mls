@@ -19,22 +19,34 @@ public static class MultiLanguage
     // flgs - https://icons8.com/icon/set/flags/fluency
     public static readonly KeyValuePair<string, string> en_US = new("en-US", "english");
     public static readonly KeyValuePair<string, string> bg_BG = new("bg-BG", "bulgarian");
-    
 
-    public static void ChangeLanguage(ILanguageContainerService lang, string? language)
+    /// <summary>
+    /// Change Language
+    /// </summary>
+    /// <param name="lang">Language Service injection</param>
+    /// <param name="language">Language code (ex: en-US)</param>
+    public static bool ChangeLanguage(ILanguageContainerService lang, string? language)
     {
+        if (lang.CurrentCulture.Name == language)
+            return false;
         string id = string.Empty;
+        bool success = false;
         if (Languages != null)
         {
             id = Languages.FirstOrDefault(x => x.Value == language).Key;
             if (Languages.Count > 0 && (string.IsNullOrEmpty(id)))
+            {
                 id = Languages.FirstOrDefault().Key;
+                success = true;
+            }
         }
         if (string.IsNullOrEmpty(id))
+        {
             id = "en-US";
+        }
         lang?.SetLanguage(CultureInfo.GetCultureInfo(id));
+        return success;
     }
-
 }
 // https://akmultilanguages.azurewebsites.net/
 
