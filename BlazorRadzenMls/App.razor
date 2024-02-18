@@ -50,17 +50,17 @@
             __state.RefreshPage("__nav.LocationChanged");
         };
 
-        __state.Timer.Elapsed += async delegate
-        {
-            (__state.VersionServer, __state.NeedUpdate) = await VersionReload.IsVersionNew(__js, __nav);
-            if (__state.NeedUpdate)
-            {
-                if (__state.NeedUpdate)
-                {
-                    StateHasChanged();
-                }
-            }
-        };
+        // __state.Timer.Elapsed += async delegate
+        // {
+        //     (__state.VersionServer, __state.NeedUpdate) = await VersionReload.IsVersionNew(__js, __nav);
+        //     if (__state.NeedUpdate)
+        //     {
+        //         if (__state.NeedUpdate)
+        //         {
+        //             StateHasChanged();
+        //         }
+        //     }
+        // };
 
         __state.RefreshPage("App.razor");//await InvokeAsync(StateHasChanged);
     }
