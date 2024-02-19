@@ -1,6 +1,8 @@
 ﻿@page "/weather"
 
-@* @layout SecondLayout *@
+@using BlazorRadzenMls.Layout.Third
+
+@layout ThirdLayout
 
 <PageTitle>Weather</PageTitle>
 
@@ -36,6 +38,10 @@ else
         </tbody>
     </table>
 }
+
+<NavLink class="nav-link" href="">
+    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Home
+</NavLink>
 
 @code {
 

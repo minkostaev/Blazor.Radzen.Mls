@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+
+@* this is required for: Dialog, Notification, ContextMenu and Tooltip *@
+<RadzenComponents />
+
+<div style="display: flex; flex-direction: column; height: 100%;">
+    <div style="flex-shrink: 0;">
+        header</div>
+    <div style="flex: 1 0 auto; display: flex;">
+        <div style="flex-shrink: 0;">menu ddddddddd</div>
+        <div style="flex: 1 0 auto;">
+            @Body</div>
+    </div>
+    <div style="flex-shrink: 0;">
+        footer</div>
+</div>
+
+
+@code {
+
+}
+
+<style>
+    html, body, #app {
+        height: 100%;
+    }
+</style>

@@ -10,8 +10,8 @@ function addLoaderCss() {
 
 async function reload() {
     const keys = await caches.keys();
+    console.log('BLAZOR cache deleted: ' + keys.length);
     for (let cch of keys) {
-        console.log('BLAZOR cache deleted:');
         console.log(cch);// temp to check what is deleted
         await caches.delete(cch);
     }
