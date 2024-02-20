@@ -1,6 +1,7 @@
 using AKSoftware.Localization.MultiLanguages;
 using Blazored.LocalStorage;
 using BlazorRadzenMls;
+using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components.Web;
@@ -25,6 +26,14 @@ builder.Services.AddOidcAuthentication(options =>
 //    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["API_Prefix"] ?? builder.HostEnvironment.BaseAddress) });
+
+builder.Services.AddHttpClient("ApitoSomee", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["Endpoints:ApitoSomee"]!);
+    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    //client.Timeout = TimeSpan.FromMinutes(3);
+});//.AddHttpMessageHandler<LocalTokenHandler>();
+builder.Services.AddScoped<IApito, Apito>();
 
 // https://blazor.radzen.com/
 // this is required for: Dialog, Notification, ContextMenu and Tooltip

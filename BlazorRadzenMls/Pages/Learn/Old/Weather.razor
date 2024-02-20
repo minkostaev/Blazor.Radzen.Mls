@@ -1,6 +1,9 @@
 ﻿@page "/weather"
 
+@using BlazorRadzenMls.Contracts
 @using BlazorRadzenMls.Layout.Third
+
+@inject IApito apito
 
 @layout ThirdLayout
 
@@ -51,12 +54,13 @@ else
     private HttpClient? _client;
     private async Task GetFromMyApi()
     {
-        if (_client != null)
-        {
-            //object? result;
-            try { forecasts = await _client.GetFromJsonAsync<WeatherForecast[]>(_requestUri); }
-            catch { Console.WriteLine("HttpClient error"); }
-        }
+        // if (_client != null)
+        // {
+        //     //object? result;
+        //     try { forecasts = await _client.GetFromJsonAsync<WeatherForecast[]>(_requestUri); }
+        //     catch { Console.WriteLine("HttpClient error"); }
+        // }
+        forecasts = await apito.GetSomethingAsync();
     }
     //--
 
@@ -70,21 +74,13 @@ else
         //catch { Console.WriteLine("weather.json is missing"); }
         await GetFromMyApi();
     }
-    protected override void OnParametersSet()
-    {
 
-    }
-    protected override void OnAfterRender(bool firstRender)
-    {
-        
-    }
-
-    private class WeatherForecast
-    {
-        public DateOnly Date { get; set; }
-        public int TemperatureC { get; set; }
-        public string? Summary { get; set; }
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-    }
+    // private class WeatherForecast
+    // {
+    //     public DateOnly Date { get; set; }
+    //     public int TemperatureC { get; set; }
+    //     public string? Summary { get; set; }
+    //     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    // }
 
 }
