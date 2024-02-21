@@ -7,11 +7,6 @@
                   Icon="home" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;" />
 </RadzenLink>
 
-<RadzenLink Path="@AppValues.PageOptions">
-    <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-                  Icon="build" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;" class=@_className />
-</RadzenLink>
-
 <RadzenLink Path="@AppValues.GitHubMy" target="_blank" >
     <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
                   Icon="description" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;"
@@ -31,8 +26,6 @@
 
 @code {
 
-    private string _className = "";
-
     private void ShowTooltip(ElementReference elementReference)
     {
         var options = new TooltipOptions() { Position = TooltipPosition.Bottom };
@@ -41,27 +34,7 @@
 
     protected override void OnInitialized()
     {
-        // __state.Timer.Elapsed += async delegate
-        // {
-        //     (__state.VersionServer, __state.NeedUpdate) = await VersionReload.IsVersionNew(__js, __nav);
-            if (__state.NeedUpdate)
-            {
-                if (_className != "rz-background-color-danger-lighter")
-                {
-                    _className = "rz-background-color-danger-lighter";
-                    //StateHasChanged();
-                }
-            }
-            else
-            {
-                if (_className != "")
-                {
-                    _className = "";
-                    //StateHasChanged();
-                }
-            }
-        //};
-
+        
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
