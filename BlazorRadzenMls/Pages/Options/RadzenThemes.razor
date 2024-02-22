@@ -57,7 +57,7 @@ else
     {
         get { return __state.SiteOptions.Theme; }
         set { __state.SiteOptions.Theme = value;
-            Task.FromResult(__state.SaveAppOptions(__local)); }
+            Task.FromResult(__state.SaveAppOptions()); }
     }
 
     private string _themeLbl => __lang["Theme"] + ": ";

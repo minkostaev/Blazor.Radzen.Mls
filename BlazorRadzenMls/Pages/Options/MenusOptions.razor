@@ -39,19 +39,19 @@
     {
         get { return __state.SiteOptions.Menu.MenuStyle; }
         set { __state.SiteOptions.Menu.MenuStyle = value;
-            Task.FromResult(__state.SaveAppOptions(__local)); }
+            Task.FromResult(__state.SaveAppOptions()); }
     }
     private bool appMenuMultiple
     {
         get { return __state.SiteOptions.Menu.Multiple; }
         set { __state.SiteOptions.Menu.Multiple = value;
-            Task.FromResult(__state.SaveAppOptions(__local)); }
+            Task.FromResult(__state.SaveAppOptions()); }
     }
     private bool appMenuArrow
     {
         get { return __state.SiteOptions.Menu.Arrow; }
         set { __state.SiteOptions.Menu.Arrow = value;
-            Task.FromResult(__state.SaveAppOptions(__local)); }
+            Task.FromResult(__state.SaveAppOptions()); }
     }
     
     private string _menuLbl => $"{__lang["Menu"]}: ";

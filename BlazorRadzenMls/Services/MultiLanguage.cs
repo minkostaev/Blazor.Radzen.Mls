@@ -3,31 +3,35 @@
 using AKSoftware.Localization.MultiLanguages;
 using System.Globalization;
 
-public static class MultiLanguage
+public class MultiLanguage
 {
-    public static IDictionary<string, string> Languages
+    private readonly ILanguageContainerService _languageService;
+    private readonly AppState _appState;
+    public MultiLanguage(ILanguageContainerService languageService, AppState appState)
     {
-        get
+        _languageService = languageService;
+        _appState = appState;
+        Languages = new Dictionary<string, string>
         {
-            return new Dictionary<string, string>
-            {
-                { en_US.Key, en_US.Value },
-                { bg_BG.Key, bg_BG.Value }
-            };
-        }
+            { en_US.Key, en_US.Value },
+            { bg_BG.Key, bg_BG.Value }
+        };
     }
+
+    public IDictionary<string, string> Languages { get; private set; }
     // flgs - https://icons8.com/icon/set/flags/fluency
-    public static readonly KeyValuePair<string, string> en_US = new("en-US", "english");
-    public static readonly KeyValuePair<string, string> bg_BG = new("bg-BG", "bulgarian");
+    public readonly KeyValuePair<string, string> en_US = new("en-US", "english");
+    public readonly KeyValuePair<string, string> bg_BG = new("bg-BG", "bulgarian");
 
     /// <summary>
     /// Change Language
     /// </summary>
-    /// <param name="langService">Language Service injection</param>
     /// <param name="language">Language code (ex: en-US)</param>
-    public static bool ChangeLanguage(ILanguageContainerService langService, string? language)
+    /// <param name="saveLocal"></param>
+    /// <returns></returns>
+    public async Task<bool> ChangeLanguage(string? language, bool saveLocal = false)
     {
-        if (langService.CurrentCulture.Name == language)
+        if (_languageService.CurrentCulture.Name == language)
             return false;
         string id = string.Empty;
         bool success = false;
@@ -44,7 +48,14 @@ public static class MultiLanguage
         {
             id = "en-US";
         }
-        langService?.SetLanguage(CultureInfo.GetCultureInfo(id));
+        _languageService?.SetLanguage(CultureInfo.GetCultureInfo(id));
+        #region AppState
+        _appState.SiteOptions.Language = Languages?[id];
+        if (saveLocal)
+        {
+            await _appState.SaveAppOptions();
+        }
+        #endregion
         return success;
     }
 }

@@ -7,8 +7,10 @@ using System.Timers;
 
 public class AppState
 {
-    public AppState()
+    private readonly ILocalStorageService _localStorage;
+    public AppState(ILocalStorageService localStorage)
     {
+        _localStorage = localStorage;
         Timer = new Timer(10000) { Enabled = true };//10 sec
         VersionServer = "0.0.0.0";
         SiteOptions = new AppOptions();
@@ -19,11 +21,11 @@ public class AppState
     public bool NeedUpdate { get; set; }
 
     public AppOptions SiteOptions { get; set; }
-    public async Task SaveAppOptions(ILocalStorageService local)
-    { await local.SetItemAsync(AppOptions.Name, SiteOptions); }
-    public async Task LoadAppOptions(ILocalStorageService local)
+    public async Task SaveAppOptions()
+    { await _localStorage.SetItemAsync(AppOptions.Name, SiteOptions); }
+    public async Task LoadAppOptions()
     {
-        var props = await local.GetItemAsync<AppOptions>(AppOptions.Name);
+        var props = await _localStorage.GetItemAsync<AppOptions>(AppOptions.Name);
         SiteOptions = props ?? new AppOptions();
     }
 

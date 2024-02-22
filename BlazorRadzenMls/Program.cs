@@ -48,5 +48,6 @@ builder.Services.AddBlazoredLocalStorage();
 //builder.Services.AddBlazoredLocalStorageAsSingleton();
 
 builder.Services.AddScoped<AppState>();
+builder.Services.AddScoped<MultiLanguage>();
 
 await builder.Build().RunAsync();

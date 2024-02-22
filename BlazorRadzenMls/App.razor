@@ -39,17 +39,17 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await __state.LoadAppOptions(__local);
+        await __state.LoadAppOptions();
         await RadzenTheming.SetTheme(__js, __state.SiteOptions.Theme);
-        MultiLanguage.ChangeLanguage(__lang, __state.SiteOptions.Language);
-
+        await __ml.ChangeLanguage(__state.SiteOptions.Language);
+        
         __nav.LocationChanged += async (object? sender, LocationChangedEventArgs e) =>
         {
             ///string navigationMethod = e.IsNavigationIntercepted ? "HTML" : "code";
             ///Console.WriteLine($"Notified of navigation via {navigationMethod} to {e.Location}");
             string page = e.Location.Substring(__nav.BaseUri.Length);
             __state.SiteOptions.Page = page;
-            await __state.SaveAppOptions(__local);
+            await __state.SaveAppOptions();
             if (string.IsNullOrEmpty(page))
             {//update home page
                 __state.RefreshPage("App.razor -> __nav.LocationChanged");

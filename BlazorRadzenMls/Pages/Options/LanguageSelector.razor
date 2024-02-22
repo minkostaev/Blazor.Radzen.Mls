@@ -5,7 +5,7 @@
     <RadzenSplitButton AlwaysOpenPopup=true Text="@_btnText"
                        Click=@(args => SplBtn_Click(args, "SplitButton1"))>
         <ChildContent>
-            @foreach (var i in MultiLanguage.Languages)
+            @foreach (var i in __ml.Languages)
             {
                 <RadzenSplitButtonItem Text="@__lang[i.Value]" Value="@i.Value" />
             }
@@ -31,15 +31,15 @@ else
     [Parameter]
     public bool IsComboNotBar { get; set; }
 
-    private string? appLanguage
-    {
-        get { return __state.SiteOptions.Language; }
-        set { __state.SiteOptions.Language = value;
-            Task.FromResult(__state.SaveAppOptions(__local)); }
-    }
+    // private string? appLanguage
+    // {
+    //     get { return __state.SiteOptions.Language; }
+    //     set { __state.SiteOptions.Language = value;
+    //         Task.FromResult(__state.SaveAppOptions()); }
+    // }
 
     private string _languageLbl => __lang["Language"] + ": ";
-    private string _btnText => _languageLbl + __lang[appLanguage];
+    private string _btnText => _languageLbl + __lang[__state.SiteOptions.Language];
 
     private bool _isEnglish;
     private bool isEnglish
@@ -49,7 +49,7 @@ else
         {
             _isEnglish = true;
             _isBulgarian = false;
-            Language_ValueChanged(MultiLanguage.en_US.Value);
+            Task.FromResult(Language_ValueChanged(__ml.en_US.Value));
         }
     }
     private bool _isBulgarian;
@@ -60,18 +60,18 @@ else
         {
             _isEnglish = false;
             _isBulgarian = true;
-            Language_ValueChanged(MultiLanguage.bg_BG.Value);
+            Task.FromResult(Language_ValueChanged(__ml.bg_BG.Value));
         }
     }
 
     private string GetImagePath(string language)
     {
         string fileName = string.Empty;
-        if (language == MultiLanguage.en_US.Value)
+        if (language == __ml.en_US.Value)
         {
             fileName = "usa";
         }
-        else if (language == MultiLanguage.bg_BG.Value)
+        else if (language == __ml.bg_BG.Value)
         {
             fileName = "bulgaria";
         }
@@ -83,21 +83,21 @@ else
         Language_ValueChanged(item.Value);
     }
 
-    private void Language_ValueChanged(string? language)
+    private async Task Language_ValueChanged(string? language)
     {
-        appLanguage = language;
-        MultiLanguage.ChangeLanguage(__lang, appLanguage);
+        __state.SiteOptions.Language = language;
+        await __ml.ChangeLanguage(__state.SiteOptions.Language, true);
         __state.RefreshPage("LanguageSelector.razor -> LanguageChanged");
     }
 
     protected override void OnInitialized()
     {
-        if (string.IsNullOrWhiteSpace(appLanguage))
-            appLanguage = MultiLanguage.en_US.Value;
+        if (string.IsNullOrWhiteSpace(__state.SiteOptions.Language))
+            __state.SiteOptions.Language = __ml.en_US.Value;
 
-        if (appLanguage == MultiLanguage.en_US.Value)
+        if (__state.SiteOptions.Language == __ml.en_US.Value)
             _isEnglish = true;
-        else if (appLanguage == MultiLanguage.bg_BG.Value)
+        else if (__state.SiteOptions.Language == __ml.bg_BG.Value)
             _isBulgarian = true;
         else
             _isEnglish = true;
