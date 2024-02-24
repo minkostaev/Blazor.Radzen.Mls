@@ -1,6 +1,7 @@
 ﻿namespace BlazorRadzenMls.Services;
 
 using AKSoftware.Localization.MultiLanguages;
+using BlazorRadzenMls.Contracts;
 using System.Globalization;
 
 public class MultiLanguage
@@ -22,6 +23,8 @@ public class MultiLanguage
     // flgs - https://icons8.com/icon/set/flags/fluency
     public readonly KeyValuePair<string, string> en_US = new("en-US", "english");
     public readonly KeyValuePair<string, string> bg_BG = new("bg-BG", "bulgarian");
+
+    public string Get(string key) { return _languageService[key]; }
 
     /// <summary>
     /// Change Language

@@ -40,7 +40,8 @@
     protected override async Task OnInitializedAsync()
     {
         await __state.LoadAppOptions();
-        await RadzenTheming.SetTheme(__js, __state.SiteOptions.Theme);
+        //await RadzenTheming.SetTheme(__js, __state.SiteOptions.Theme);
+        await __radTheme.SetTheme(__state.SiteOptions.Theme);
         await __ml.ChangeLanguage(__state.SiteOptions.Language);
         
         __nav.LocationChanged += async (object? sender, LocationChangedEventArgs e) =>

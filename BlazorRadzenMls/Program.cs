@@ -49,5 +49,6 @@ builder.Services.AddBlazoredLocalStorage();
 
 builder.Services.AddScoped<AppState>();
 builder.Services.AddScoped<MultiLanguage>();
+builder.Services.AddScoped<RadzenTheming>();
 
 await builder.Build().RunAsync();

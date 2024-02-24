@@ -31,13 +31,6 @@ else
     [Parameter]
     public bool IsComboNotBar { get; set; }
 
-    // private string? appLanguage
-    // {
-    //     get { return __state.SiteOptions.Language; }
-    //     set { __state.SiteOptions.Language = value;
-    //         Task.FromResult(__state.SaveAppOptions()); }
-    // }
-
     private string _languageLbl => __lang["Language"] + ": ";
     private string _btnText => _languageLbl + __lang[__state.SiteOptions.Language];
 
@@ -78,15 +71,14 @@ else
         return $"images/{fileName}-48.png";
     }
 
-    private void SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
+    private async Task SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
     {
-        Language_ValueChanged(item.Value);
+        await Language_ValueChanged(item.Value);
     }
 
     private async Task Language_ValueChanged(string? language)
     {
-        __state.SiteOptions.Language = language;
-        await __ml.ChangeLanguage(__state.SiteOptions.Language, true);
+        await __ml.ChangeLanguage(language, true);
         __state.RefreshPage("LanguageSelector.razor -> LanguageChanged");
     }
 

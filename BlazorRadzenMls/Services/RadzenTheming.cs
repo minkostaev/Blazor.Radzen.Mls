@@ -3,18 +3,31 @@
 using BlazorRadzenMls.Models;
 using Microsoft.JSInterop;
 
-public static class RadzenTheming
+public class RadzenTheming
 {
+    private readonly IJSRuntime _IJSRuntime;
+    private readonly AppState _appState;
+    public RadzenTheming(IJSRuntime IJSRuntime, AppState appState)
+    {
+        _IJSRuntime = IJSRuntime;
+        _appState = appState;
+        Themes = ["default", "standard", "software", "humanistic", "dark", "material"];
+    }
+
+    /// <summary>
+    /// Available radzen themes names
+    /// </summary>
+    public string[] Themes { get; private set; }
+
     /// <summary>
     /// Get current radzen theme name
     /// </summary>
-    /// <param name="js">JS Runtime injection</param>
-    /// <returns></returns>
-    public static async Task<string> GetTheme(IJSRuntime js)
+    /// <returns>Theme name</returns>
+    public async Task<string> GetTheme()
     {
         try
         {
-            return await js.InvokeAsync<string>("getRadzenTheme");
+            return await _IJSRuntime.InvokeAsync<string>("getRadzenTheme");
         }
         catch (Exception ex)
         {
@@ -27,30 +40,35 @@ public static class RadzenTheming
     /// <summary>
     /// Set radzen theme
     /// </summary>
-    /// <param name="js">JS Runtime injection</param>
-    /// <param name="val">theme name</param>
-    /// <returns></returns>
-    public static async Task<bool> SetTheme(IJSRuntime js, string? val)
+    /// <param name="name">Themes name</param>
+    /// <returns>The success ot theme change</returns>
+    public async Task<bool> SetTheme(string? name, bool saveLocal = false)
     {
-        if (!Themes.Contains(val))
+        if (!Themes.Contains(name))
         {
-            val = Themes[0];
+            name = Themes.FirstOrDefault();
         }
+        bool success;
         try
         {
-            await js.InvokeVoidAsync("setRadzenTheme", val);
-            return true;
+            await _IJSRuntime.InvokeVoidAsync("setRadzenTheme", name);
+            success = true;
         }
         catch (Exception ex)
         {
             Console.WriteLine(AppValues.JsErrorString("setRadzenTheme", "SetTheme"));
             Console.WriteLine(ex.Message);
-            return false;
+            success = false;
         }
+        #region AppState
+        _appState.SiteOptions.Theme = name;
+        if (saveLocal && success)
+        {
+            await _appState.SaveAppOptions();
+        }
+        #endregion
+        return success;
     }
-
-    // available radzen themes names
-    public static string[] Themes => ["default", "standard", "software", "humanistic", "dark", "material"];
 }
 //requirements:
 //@inject IJSRuntime jsRuntime
