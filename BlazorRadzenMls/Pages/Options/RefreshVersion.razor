@@ -11,7 +11,7 @@
 }
 
 <RadzenButton Text="@_btnLablel" Icon="autorenew"
-              ButtonStyle="ButtonStyle.Warning" Click="@ReloadApp" />
+              ButtonStyle="ButtonStyle.Warning" Click="@__verRe.Reload" />
 
 @code {
 
@@ -19,24 +19,9 @@
     private string _updateVersion => __lang["Update_version_available"] + ": " + __state.VersionServer;
     private string _btnLablel => __state.NeedUpdate ? __lang["Update"] : __lang["Refresh"];
 
-    private async Task ReloadApp() { await VersionReload.Reload(__js); }
-    //private void ReloadApp() { navigationManager.Refresh(true); }
-
-    //private string? version { get; set; }
-    //private bool isNew { get; set; }
-
-    //private async Task VersionStatus() => (version, isNew) = await VersionReload.IsVersionNew(__js, __nav);
-
     protected override async void OnInitialized()
     {
-        (__state.VersionServer, __state.NeedUpdate) = await VersionReload.IsVersionNew(__js, __nav);
-        // await VersionStatus();
-        // __state.Timer.Elapsed += async delegate
-        // {
-        //     await VersionStatus();
-        //     if (isNew)
-        //         StateHasChanged();
-        // };
+        await __verRe.CheckVersion();
         
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }

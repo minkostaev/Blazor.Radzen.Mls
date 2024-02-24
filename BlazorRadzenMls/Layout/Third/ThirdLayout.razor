@@ -3,8 +3,9 @@
 @* this is required for: Dialog, Notification, ContextMenu and Tooltip *@
 <RadzenComponents />
 
-<div style="display: flex; flex-direction: column; height: 100%;">
-    <div style="flex-shrink: 0;">
+<div style="display: flex; flex-direction: column; min-height: 100%;">
+@* <div class="container"> *@
+    @* <div style="flex-shrink: 0;">
         header</div>
     <div style="flex: 1 0 auto; display: flex;">
         <div style="flex-shrink: 0;">menu ddddddddd</div>
@@ -12,7 +13,22 @@
             @Body</div>
     </div>
     <div style="flex-shrink: 0;">
-        footer</div>
+        footer</div> *@
+    <header>
+        <h1>Header</h1>
+    </header>
+    <div class="main-content">
+        <div class="sidebar">
+            <h2>Sidebar</h2>
+            <p>This is the sidebar content.</p>
+        </div>
+        <div class="content">
+            @Body
+        </div>
+    </div>
+    <footer>
+        <h3>Footer</h3>
+    </footer>
 </div>
 
 
@@ -24,5 +40,41 @@
     html, body, #app {
         height: 100%;
         /* min-height: 100vh; */
+    }
+
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+    }
+
+    .main-content {
+        display: flex;
+        flex: 1;
+    }
+
+    .sidebar {
+        background-color: #f4f4f4;
+        max-width: 200px;
+        padding: 20px;
+    }
+
+    .content {
+        flex: 1;
+        padding: 20px;
+    }
+
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        margin-top: auto;
     }
 </style>

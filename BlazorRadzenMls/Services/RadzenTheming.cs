@@ -25,6 +25,13 @@ public class RadzenTheming
     /// <returns>Theme name</returns>
     public async Task<string> GetTheme()
     {
+        #region AppState
+        if (!string.IsNullOrEmpty(_appState.SiteOptions.Theme)
+            && Themes.Contains(_appState.SiteOptions.Theme))
+        {
+            return _appState.SiteOptions.Theme;
+        }
+        #endregion
         try
         {
             return await _IJSRuntime.InvokeAsync<string>("getRadzenTheme");
@@ -41,7 +48,7 @@ public class RadzenTheming
     /// Set radzen theme
     /// </summary>
     /// <param name="name">Themes name</param>
-    /// <returns>The success ot theme change</returns>
+    /// <returns>The success of theme change</returns>
     public async Task<bool> SetTheme(string? name, bool saveLocal = false)
     {
         if (!Themes.Contains(name))

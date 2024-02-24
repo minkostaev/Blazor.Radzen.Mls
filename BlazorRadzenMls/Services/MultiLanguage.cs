@@ -1,7 +1,6 @@
 ﻿namespace BlazorRadzenMls.Services;
 
 using AKSoftware.Localization.MultiLanguages;
-using BlazorRadzenMls.Contracts;
 using System.Globalization;
 
 public class MultiLanguage

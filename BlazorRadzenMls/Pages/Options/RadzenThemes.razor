@@ -53,10 +53,7 @@ else
     [Parameter]
     public bool? IsComboNotButton { get; set; }
 
-    private string? appTheme
-    {
-        get { return __state.SiteOptions.Theme; }
-    }
+    private string? appTheme { get { return __state.SiteOptions.Theme; } }
 
     private string _themeLbl => __lang["Theme"] + ": ";
     private string? _btnText;
@@ -154,8 +151,6 @@ else
 
     private void SetTheme(string themeName)
     {
-        //appTheme = themeName;
-        //Task.FromResult(RadzenTheming.SetTheme(__js, themeName));
         Task.FromResult(__radTheme.SetTheme(themeName, true));
     }
 
@@ -170,8 +165,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        //if (string.IsNullOrWhiteSpace(appTheme))
-        //    appTheme = await RadzenTheming.GetTheme(__js);
         await __radTheme.GetTheme();
 
         _btnText = _themeLbl + appTheme;

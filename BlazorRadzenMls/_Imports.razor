@@ -16,6 +16,7 @@
 @inject IJSRuntime __js
 @using BlazorRadzenMls
 @using BlazorRadzenMls.Layout
+@using BlazorRadzenMls.Contracts
 @using BlazorRadzenMls.Services
 @inject AppState __state
 
@@ -26,5 +27,6 @@
 
 @inject AKSoftware.Localization.MultiLanguages.ILanguageContainerService __lang
 @inject MultiLanguage __ml
+@inject IVersionReload __verRe
 
 @* @inject Blazored.LocalStorage.ILocalStorageService __local *@
