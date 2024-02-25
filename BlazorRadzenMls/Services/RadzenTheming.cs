@@ -1,9 +1,10 @@
 ﻿namespace BlazorRadzenMls.Services;
 
+using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Models;
 using Microsoft.JSInterop;
 
-public class RadzenTheming
+public class RadzenTheming : IRadzenTheming
 {
     private readonly IJSRuntime _IJSRuntime;
     private readonly AppState _appState;
@@ -17,7 +18,7 @@ public class RadzenTheming
     /// <summary>
     /// Available radzen themes names
     /// </summary>
-    public string[] Themes { get; private set; }
+    public string[] Themes { get; set; }
 
     /// <summary>
     /// Get current radzen theme name

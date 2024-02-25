@@ -58,7 +58,6 @@
 
         __state.Timer.Elapsed += async delegate
         {
-            //(__state.VersionServer, __state.NeedUpdate) = await VersionReload.IsVersionNew(__js, __nav);
             await __verRe.CheckVersion();
             if (__state.NeedUpdate)
             {
