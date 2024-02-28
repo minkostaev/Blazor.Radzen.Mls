@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "BlazorRadzenMls",
   "resources": {
-    "hash": "sha256-bqY0/LSb1cTKwKPx7Tl3GX4QJAuAycpzCRE3bh17bZ4=",
+    "hash": "sha256-gDv/JJCgzeBybG0hT5+tbJcFVNl0pfdNm+vY2194X3A=",
     "jsModuleNative": {
       "dotnet.native.8.0.2.88p1s7r52c.js": "sha256-gPMK16QWoJSTxorlZJqcVtbBRTniIQWlLsJN2O4cJHg="
     },
@@ -19,7 +19,7 @@
     "assembly": {
       "AKSoftware.Localization.MultiLanguages.wasm": "sha256-oGwKi8ogfjmix9bsfGuscqbLmZvkTODlmUsgGMdT+to=",
       "Blazored.LocalStorage.wasm": "sha256-OaMAAd5n7ORfyur5e3QIyEVKJ76MKIvwbg7/icnnYcU=",
-      "BlazorRadzenMls.wasm": "sha256-p0N32tZBOB2Tvu53C8faFdlODdnY/J7Rp+rupZv15HA=",
+      "BlazorRadzenMls.wasm": "sha256-y2sJGdIkixqHo46GBclysoUOEm0Nh90P9sD+ZAzzVSI=",
       "Microsoft.AspNetCore.Authorization.wasm": "sha256-WzYk8W6wXxTyK/z+WDW4ja65SmfAZUQpN2qdRY+sfkc=",
       "Microsoft.AspNetCore.Components.Authorization.wasm": "sha256-k2S9Q1R9qZdK7aTDAJrNlC91hk8W+Fgk58LL4zNGs3c=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-dfhGD9X0hXg1J/OdZXetmRd+cgh0QRORCN1f+5RvkZE=",
@@ -45,7 +45,7 @@
       "Microsoft.JSInterop.wasm": "sha256-oeMC0yTkWvynra4dts2LpuZJDPk5JgR2aj2QvcjzMhY=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-2qBJkLnOCr4py2S0peps0cFo0z3Ew9OVwGYodtvAVkk=",
       "netstandard.wasm": "sha256-EiAc/NMYhrYwLcRea2CEtm8MCSsAWbrCtSzIalg5F4Q=",
-      "Radzen.Blazor.wasm": "sha256-+N//Jz0ZJK2Ikp1yhBMkzGesbBlvRF5JZXAT2TviOvE=",
+      "Radzen.Blazor.wasm": "sha256-uPgzpIPpW1tjYKkpEWfYIXUdiBLLHrh2XABp7it30jY=",
       "System.Collections.Concurrent.wasm": "sha256-pqlM99dvhiCKPVXGCPKMVLHgiLnDM4uOSHU65XfG0jU=",
       "System.Collections.Immutable.wasm": "sha256-A6j2ZPjaQVHkg3KqgTtPgv0BugnzKR10Y5LOKjgTZC8=",
       "System.Collections.NonGeneric.wasm": "sha256-YlzkqI50sgpJhyf5G+4apG+SNMSXe7Qww1/8d8D6f7w=",
@@ -61,7 +61,7 @@
       "System.Diagnostics.TraceSource.wasm": "sha256-6IYEPfvcTtwrrKzGmCzpwrJiKLCSankQeVp0vp+lBVM=",
       "System.IO.MemoryMappedFiles.wasm": "sha256-7xq+8u9SV+KWtAG4szS1unyTuqY47MEkTHU9AkEzHCo=",
       "System.Linq.Dynamic.Core.wasm": "sha256-zY4O55eQ9gC1F0jl4MFsfpX6oCP3eabUwmK1PIrgx3Q=",
-      "System.Linq.Expressions.wasm": "sha256-Qo7TYXxwQDmrqHKJo4XbvJYqGxOSWhOAP6z5/s/xbE0=",
+      "System.Linq.Expressions.wasm": "sha256-LhtzV0e9XanQ/w8xTeCSnq9VG3RkLTIMd87KQkP305c=",
       "System.Linq.Queryable.wasm": "sha256-XOPlVlvyF0u7zFyAAVk9PWJazw0wZREM+qkStUSd3Ws=",
       "System.Linq.wasm": "sha256-sJyWVfxo5ECeacwMNEBxfJaY7NzOgWb11nL09ECXxzQ=",
       "System.Memory.wasm": "sha256-+LHgMdWYaSoLa2U4rqnKWCc2mA++RxYgAaUvntjjejY=",
@@ -97,8 +97,9 @@
   "linkerEnabled": true,
   "appsettings": [
     "../appsettings.Development.json",
-    "../appsettings.GitHub.json",
+    "../appsettings.Github.json",
     "../appsettings.json",
+    "../appsettings.Netlify.json",
     "../appsettings.Render.json"
   ],
   "globalizationMode": "sharded",

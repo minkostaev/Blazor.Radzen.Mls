@@ -1,7 +1,7 @@
 addLoaderCss();
 
 function addLoaderCss() {
-    const num = Math.floor((Math.random() * 8) + 1);
+    const num = Math.floor((Math.random() * 6) + 1);
     const linkLoader = document.createElement('link');
     linkLoader.rel = 'stylesheet';
     linkLoader.href = `css/loaders/load${num}.css`;
