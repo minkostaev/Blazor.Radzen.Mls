@@ -2,6 +2,7 @@ using AKSoftware.Localization.MultiLanguages;
 using Blazored.LocalStorage;
 using BlazorRadzenMls;
 using BlazorRadzenMls.Contracts;
+using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -13,9 +14,12 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+AppValues.Environment = enviroment ?? "NULL";
+
 builder.Services.AddOidcAuthentication(options =>
 {
-    builder.Configuration.Bind("Auth0", options.ProviderOptions);
+    builder.Configuration.Bind(AppValues.GetAuth0(builder.HostEnvironment.BaseAddress), options.ProviderOptions);//"Auth0"
     options.ProviderOptions.ResponseType = "code";
     //options.ProviderOptions.AdditionalProviderParameters.Add("audience", builder.Configuration["Auth0:ClientId"]);
 });

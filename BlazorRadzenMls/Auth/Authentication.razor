@@ -23,8 +23,9 @@
     {
         if (Action?.ToLower() == "logout")
         {
-            var authority = __config[$"Auth0:Authority"];
-            var clientId = __config[$"Auth0:ClientId"];
+            string auth0 = AppValues.GetAuth0(__nav.BaseUri);
+            var authority = __config[$"{auth0}:Authority"];
+            var clientId = __config[$"{auth0}:ClientId"];
             __nav.NavigateTo($"{authority}/v2/logout?client_id={clientId}");
         }
     }

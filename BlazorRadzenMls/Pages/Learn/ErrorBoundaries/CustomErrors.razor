@@ -1,0 +1,72 @@
+﻿@page "/errorboundaries2"
+
+@using BlazorRadzenMls.CustomComponents
+@using BlazorRadzenMls.Models
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+
+@inject IWebAssemblyHostEnvironment env
+
+<h3>Error Boundaries</h3>
+
+<CustomErrorBoundary @ref="errorBoundary">
+    <ChildContent>
+        <button class="btn btn-info" @onclick="@(() => i = 1)">Error inside ErrorBoundary</button>
+        @list[i]
+    </ChildContent>
+    <ErrorContent Context="Exception">
+        <div class="alert alert-primary">
+            <p>ErrorBoundary works!!!</p>
+            <h3>@Exception.GetType()</h3>
+            <h3>@Exception.Message</h3>
+            <button class="btn btn-info" @onclick="@BtnRecover_click">Clear</button>
+        </div>
+    </ErrorContent>
+</CustomErrorBoundary>
+
+<br />
+<h1>Environment: <b>@env.Environment</b>  @AppValues.Environment</h1>
+<br />
+
+<div>
+    <button @onclick="BtnException_click">Error outside ErrorBoundary</button>
+</div>
+
+PPP: @Environment
+
+@code {
+
+    private CustomErrorBoundary? errorBoundary;
+
+    private int i;
+    private List<string> list = new List<string>();
+
+    private string? Environment { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        errorBoundary = new CustomErrorBoundary();
+        list.Add("intem0");
+
+        try
+        {
+            Environment = await __js.InvokeAsync<string>("getEnvironment");
+        }
+        catch (Exception ex)
+        {
+            Environment = ex.Message;
+        }
+
+    }
+
+    private void BtnException_click()
+    {
+        throw new ArgumentException("Test exception");
+    }
+
+    private void BtnRecover_click()
+    {
+        i = 0;
+        errorBoundary?.Recover();
+    }
+
+}
