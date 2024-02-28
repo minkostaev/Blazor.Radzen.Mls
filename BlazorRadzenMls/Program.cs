@@ -2,7 +2,6 @@ using AKSoftware.Localization.MultiLanguages;
 using Blazored.LocalStorage;
 using BlazorRadzenMls;
 using BlazorRadzenMls.Contracts;
-using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -16,7 +15,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddOidcAuthentication(options =>
 {
-    builder.Configuration.Bind(AppValues.GetAuth0(builder.HostEnvironment.BaseAddress), options.ProviderOptions);//"Auth0"
+    builder.Configuration.Bind("Auth0", options.ProviderOptions);
     options.ProviderOptions.ResponseType = "code";
     //options.ProviderOptions.AdditionalProviderParameters.Add("audience", builder.Configuration["Auth0:ClientId"]);
 });
