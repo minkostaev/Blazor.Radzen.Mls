@@ -1,0 +1,67 @@
+﻿@page "/information"
+
+@using BlazorRadzenMls.Models
+
+<PageTitle>App Information</PageTitle>
+
+<RadzenText Text="@__lang["App Information"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
+
+<RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4">
+    <RadzenLabel Text="@__lang["Host Environment:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@__env.Environment" class="rz-color-primary" Style="font-weight: bold;" />
+    <br />
+    <RadzenLabel Text="@__lang["Authentication Configuration:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@AppValues.GetAuth0(__env.BaseAddress)" class="rz-color-primary" Style="font-weight: bold;" />
+    <br />
+    <RadzenLink Icon="list" Path="appsettings.json" Text="appsettings.json" />
+    <br />
+    <RadzenLink Icon="list" Path="appsettings.Development.json" Text="appsettings.Development.json" />
+    <br />
+    <RadzenLabel Text="@__lang["Base Address:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@__env.BaseAddress" class="rz-color-primary" Style="font-weight: bold;" />
+    <br />
+    <RadzenLabel Text="@__lang["Base Uri:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@__nav.BaseUri" class="rz-color-primary" Style="font-weight: bold;" />
+    <br />
+    <RadzenLabel Text="@__lang["Uri:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@__nav.Uri" class="rz-color-primary" Style="font-weight: bold;" />
+    <br />
+    <RadzenLabel Text="@__lang["History Entry State:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@__nav.HistoryEntryState" class="rz-color-primary" Style="font-weight: bold;" />
+    <br />
+    <RadzenLabel Text="@__lang["Version Client:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@AppValues.VersionClient" class="rz-color-primary" Style="font-weight: bold;" />
+    <RadzenLabel Text="@__lang["(project's version)"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <br />
+    <RadzenLabel Text="@__lang["Version Server:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@__state.VersionServer" class="rz-color-primary" Style="font-weight: bold;" />
+    <RadzenLabel Text="@__lang["(custom created for version checking)"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <br />
+    <RadzenLink Icon="offline_pin" Path="data/version.txt" Text="version.txt" />
+    <br />
+    <RadzenLabel Text="@__lang["Current Culture:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@currentCulture" class="rz-color-primary" Style="font-weight: bold;" />
+    <br />
+    <RadzenLabel Text="@__lang["Language Culture:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@__lang.CurrentCulture.Name" class="rz-color-primary" Style="font-weight: bold;" />
+    <br />
+    <RadzenLabel Text="@__lang["Theme Name:"]" class="rz-color-success-dark" Style="font-weight: bold;" />
+    <RadzenLabel Text="@theme" class="rz-color-primary" Style="font-weight: bold;" />
+</RadzenCard>
+
+@code {
+
+    private string currentCulture => System.Globalization.CultureInfo.CurrentCulture.Name;
+    private string? theme { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        theme = await __radTheme.GetTheme();
+
+        //
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+    }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+
+
+}

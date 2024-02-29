@@ -6,11 +6,11 @@
 
 @inject IWebAssemblyHostEnvironment env
 
-<h3>Error Boundaries</h3>
+<h3>Custom Error Boundaries</h3>
 
 <CustomErrorBoundary @ref="errorBoundary">
     <ChildContent>
-        <button class="btn btn-info" @onclick="@(() => i = 1)">Error inside ErrorBoundary</button>
+        <button class="btn btn-info" @onclick="@(() => i = 1)">Custom Error inside ErrorBoundary</button>
         @list[i]
     </ChildContent>
     <ErrorContent Context="Exception">
@@ -22,10 +22,6 @@
         </div>
     </ErrorContent>
 </CustomErrorBoundary>
-
-<br />
-<h1>Environment: <b>@env.Environment</b>  @AppValues.Environment</h1>
-<br />
 
 <div>
     <button @onclick="BtnException_click">Error outside ErrorBoundary</button>

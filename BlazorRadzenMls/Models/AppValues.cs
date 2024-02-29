@@ -23,8 +23,6 @@ public static class AppValues
     //public const string RolesManager = "admin, manager";
     //public const string RolesAdmin = "admin";
 
-    public static string? Environment { get; set; }
-
     public static string GetAuth0(string address)
     {
         if (address.Contains(GitHubDomain))

@@ -42,7 +42,8 @@
         await __state.LoadAppOptions();
         await __radTheme.SetTheme(__state.SiteOptions.Theme);
         await __ml.ChangeLanguage(__state.SiteOptions.Language);
-        
+        await __verRe.CheckVersion();
+
         __nav.LocationChanged += async (object? sender, LocationChangedEventArgs e) =>
         {
             ///string navigationMethod = e.IsNavigationIntercepted ? "HTML" : "code";

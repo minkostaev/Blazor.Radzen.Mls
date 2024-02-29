@@ -14,12 +14,10 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-AppValues.Environment = enviroment ?? "NULL";
-
 builder.Services.AddOidcAuthentication(options =>
 {
-    builder.Configuration.Bind(AppValues.GetAuth0(builder.HostEnvironment.BaseAddress), options.ProviderOptions);//"Auth0"
+    string authConfig = "Authentication:" + AppValues.GetAuth0(builder.HostEnvironment.BaseAddress);
+    builder.Configuration.Bind(authConfig, options.ProviderOptions);//"Auth0"
     options.ProviderOptions.ResponseType = "code";
     //options.ProviderOptions.AdditionalProviderParameters.Add("audience", builder.Configuration["Auth0:ClientId"]);
 });
