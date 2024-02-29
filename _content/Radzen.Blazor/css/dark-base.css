@@ -11150,13 +11150,14 @@ ul.rz-profile-menu .rz-navigation-item-icon-children {
   color: var(--rz-profile-menu-toggle-button-color);
 }
 ul.rz-profile-menu .rz-navigation-menu {
+  list-style: none;
+  overflow: hidden;
+  position: absolute;
+  margin-bottom: 0;
+  padding: var(--rz-context-menu-padding);
   border-radius: var(--rz-profile-menu-border-radius);
   background-color: var(--rz-profile-menu-background-color);
   box-shadow: var(--rz-context-menu-box-shadow);
-  overflow: hidden;
-  margin-bottom: 0;
-  padding: var(--rz-context-menu-padding);
-  position: absolute;
   text-align: left;
   top: calc(100% - 2px);
   min-width: 100%;
@@ -12676,7 +12677,7 @@ a:focus-visible .rz-fieldset-toggler {
   box-shadow: var(--rz-datepicker-calendar-today-box-shadow);
   border-radius: var(--rz-datepicker-calendar-today-border-radius);
 }
-.rz-datepicker-calendar td .rz-state-default:hover {
+.rz-datepicker-calendar td .rz-state-default.rz-state-focused, .rz-datepicker-calendar td .rz-state-default:hover {
   text-decoration: none;
   color: var(--rz-datepicker-calendar-hover-color);
   background-color: var(--rz-datepicker-calendar-hover-background-color);
@@ -12689,7 +12690,8 @@ a:focus-visible .rz-fieldset-toggler {
   padding: var(--rz-datepicker-calendar-padding);
   box-shadow: none;
 }
-.rz-datepicker-calendar td .rz-state-active:hover,
+.rz-datepicker-calendar td .rz-state-active.rz-state-focused, .rz-datepicker-calendar td .rz-state-active:hover,
+.rz-datepicker-calendar td .rz-state-active.rz-datepicker-today.rz-state-focused,
 .rz-datepicker-calendar td .rz-state-active.rz-datepicker-today:hover {
   color: var(--rz-datepicker-calendar-selected-hover-color);
   background-color: var(--rz-datepicker-calendar-selected-hover-background-color);

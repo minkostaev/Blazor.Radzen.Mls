@@ -31,7 +31,3 @@ async function fetchText(path) {
 //function getTest() {
 //    return location.href;
 //}
-
-function getEnvironment() {
-    return process.env.ASPNETCORE_ENVIRONMENT;//Environment;
-}
