@@ -28,6 +28,33 @@ async function fetchText(path) {
     return resData;
 }
 
-//function getTest() {
-//    return location.href;
-//}
+function getLocation(prop) {
+    switch (prop) {
+        case 'hash':
+            return location.hash;
+        case 'host':
+            return location.host;
+        case 'hostname':
+            return location.hostname;
+        case 'href':
+            return location.href;
+        case 'origin':
+            return location.origin;
+        case 'pathname':
+            return location.pathname;
+        case 'port':
+            return location.port;
+        case 'protocol':
+            return location.protocol;
+        case 'search':
+            return location.search;
+        default:
+            return location;
+    }
+}
+
+async function getIp() {
+    const response = await fetch('https://jsonip.com/');
+    const data = await response.json();
+    return data.ip;
+}
