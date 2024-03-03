@@ -1,14 +1,10 @@
-using AKSoftware.Localization.MultiLanguages;
-using Blazored.LocalStorage;
 using BlazorRadzenMls;
 using BlazorRadzenMls.Contracts;
+using BlazorRadzenMls.Extensions;
 using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Radzen;
-using System.Globalization;
-using System.Reflection;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -36,21 +32,7 @@ builder.Services.AddHttpClient("ApitoSomee", client =>
 });//.AddHttpMessageHandler<LocalTokenHandler>();
 builder.Services.AddScoped<IApito, Apito>();
 
-// https://blazor.radzen.com/
-// this is required for: Dialog, Notification, ContextMenu and Tooltip
-builder.Services.AddRadzenComponents();
-
-// https://akmultilanguages.azurewebsites.net/
-//builder.Services.AddLanguageContainer<EmbeddedResourceKeysProvider>(Assembly.GetExecutingAssembly(), "Languages");
-builder.Services.AddLanguageContainer(Assembly.GetExecutingAssembly(), CultureInfo.GetCultureInfo("en-US"), "Languages");
-
-// https://github.com/Blazored/LocalStorage
-builder.Services.AddBlazoredLocalStorage();
-//builder.Services.AddBlazoredLocalStorageAsSingleton();
-
-builder.Services.AddScoped<AppState>();
-builder.Services.AddScoped<MultiLanguage>();
-builder.Services.AddScoped<IRadzenTheming, RadzenTheming>();
-builder.Services.AddScoped<IVersionReload, VersionReload>();
+builder.Services.AddExternalLibraries();//extension
+builder.Services.AddOwnServices();//extension
 
 await builder.Build().RunAsync();

@@ -8,7 +8,6 @@ public class CustomErrorBoundary : ErrorBoundary
 {
     [Inject]
     private IWebAssemblyHostEnvironment? Env { get; set; }
-
     protected override Task OnErrorAsync(Exception exception)
     {
         if (Env == null || Env.IsDevelopment())
@@ -17,5 +16,4 @@ public class CustomErrorBoundary : ErrorBoundary
         }
         return Task.CompletedTask;
     }
-
 }

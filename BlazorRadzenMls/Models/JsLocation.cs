@@ -49,6 +49,11 @@ public class JsLocation
     public string? Protocol { get; set; }
     public string? Search { get; set; }
 }
+// use it like this:
+//jsLocation = new JsLocation(__js);
+//await jsLocation.Initialize!;
+
+// js code:
 //function getLocation(prop)
 //{
 //    switch (prop)
