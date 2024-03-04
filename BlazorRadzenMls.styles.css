@@ -1,3 +1,23 @@
+/* /Layout/FixedPosition/FixedBody.razor.rz.scp.css */
+.header-fixed[b-fejvar2y2m], .footer-fixed[b-fejvar2y2m] {
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    height: var(--header-fixed-height);
+}
+
+.footer-fixed[b-fejvar2y2m] {
+    bottom: 0;
+    height: var(--footer-fixed-height);
+}
+
+.header-blank[b-fejvar2y2m] {
+    height: var(--header-fixed-height);
+}
+.footer-blank[b-fejvar2y2m] {
+    height: var(--footer-fixed-height);
+}
 /* /Pages/Learn/Upload/InputFiles.razor.rz.scp.css */
  .file-uploader[b-e0jcobmx42] {
      position: relative;

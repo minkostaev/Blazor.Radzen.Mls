@@ -1,4 +1,4 @@
 ﻿:root {
-    --clr-body-bgrd: black;
-    --clr-site-bgrd: blue;
+    --header-fixed-height: 54px;
+    --footer-fixed-height: 22px;
 }

@@ -1,9 +1,8 @@
-/*@import url('loaders.css');*/
+@import url('variables.css');
 
 h1:focus {
     outline: none;
 }
-
 
 
 #blazor-error-ui {
