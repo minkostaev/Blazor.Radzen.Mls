@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+
+@* this is required for: Dialog, Notification, ContextMenu and Tooltip *@
+<RadzenComponents />
+
+<div class="header-fixed">
+
+    @* <NavLink class="nav-link" href="" style="display: inline-block;">
+        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Home
+    </NavLink>
+    header *@
+
+    <FixedHeader />
+
+</div>
+
+<div>
+    <div class="header-blank"></div>
+    @Body
+    <div class="footer-blank"></div>
+</div>
+
+<div class="footer-fixed">
+    &copy; 2024
+</div>

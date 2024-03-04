@@ -1,11 +1,11 @@
 ﻿@page "/weather"
 
 @using BlazorRadzenMls.Contracts
-@using BlazorRadzenMls.Layout.Third
+@using BlazorRadzenMls.Layout.FixedPosition
 
 @inject IApito apito
 
-@layout ThirdLayout
+@layout FixedBody
 
 <PageTitle>Weather</PageTitle>
 
@@ -45,6 +45,8 @@ else
 <NavLink class="nav-link" href="">
     <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Home
 </NavLink>
+
+<RadzenImage Path="images/box.jpg" AlternateText="css box" />
 
 @code {
 

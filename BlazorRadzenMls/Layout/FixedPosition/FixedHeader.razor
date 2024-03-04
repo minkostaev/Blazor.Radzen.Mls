@@ -1,6 +1,14 @@
 ﻿@using BlazorRadzenMls.Auth
 @using BlazorRadzenMls.Models
 
+<RadzenToggleButton @bind-Value=@isEnglish Icon="menu" Style="font-weight: 1000; font-size: 30px;"
+                    ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
+
+<RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
+              Icon="menu" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;" />
+
+<MenuGravatar />
+
 <RadzenLink Path="">
     <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
                   Icon="home" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;" />
@@ -19,11 +27,9 @@
                   MouseEnter="@(args => ShowTooltip(args))" />
 </RadzenLink>
 
-<div style="margin-left: auto;">
-    <MenuGravatar />
-</div>
-
 @code {
+
+    private bool isEnglish;
 
     private void ShowTooltip(ElementReference elementReference)
     {
@@ -33,7 +39,7 @@
 
     protected override void OnInitialized()
     {
-        
+
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
