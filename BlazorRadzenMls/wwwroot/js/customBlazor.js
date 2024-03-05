@@ -58,3 +58,7 @@ async function getIp() {
     const data = await response.json();
     return data.ip;
 }
+
+function scrollToTop() {
+    document.documentElement.scrollTop = 0;
+}

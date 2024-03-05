@@ -1,13 +1,6 @@
-﻿@using BlazorRadzenMls.Auth
-@using BlazorRadzenMls.Models
+﻿@using BlazorRadzenMls.Models
 
-<RadzenToggleButton @bind-Value=@isEnglish Icon="menu" Style="font-weight: 1000; font-size: 30px;"
-                    ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
-
-<RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-              Icon="menu" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;" />
-
-<MenuGravatar />
+<GravatarMenuRight />
 
 <RadzenLink Path="">
     <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
@@ -19,12 +12,6 @@
                   Icon="build" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;" />
     <RadzenIcon Icon="warning" IconColor="red" Visible="@__state.NeedUpdate"
                 Style="font-size: 16px; position: absolute; top: 26px; left: 10px; z-index: -1;" />
-</RadzenLink>
-
-<RadzenLink Path="@AppValues.GitHubMy" target="_blank" >
-    <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
-                  Icon="description" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;"
-                  MouseEnter="@(args => ShowTooltip(args))" />
 </RadzenLink>
 
 @code {
