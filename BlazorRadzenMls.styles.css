@@ -1,6 +1,6 @@
 /* /Layout/FixedPosition/FixedBody.razor.rz.scp.css */
 .header-fixed[b-fejvar2y2m], .footer-fixed[b-fejvar2y2m] {
-    background-color: #333;
+    background-color: rgb(48, 68, 95);
     color: #fff;
     position: fixed;
     width: 100%;
