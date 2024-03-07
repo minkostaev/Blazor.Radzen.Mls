@@ -4,6 +4,7 @@ using Radzen;
 
 public class MenuOptions
 {
+    public bool SidebarExpanded { get; set; }
     public bool Arrow { get; set; }
     public bool Multiple { get; set; }
     private MenuItemDisplayStyle _menuStyle;
@@ -18,7 +19,7 @@ public class MenuOptions
             switch (value)
             {
                 case MenuItemDisplayStyle.IconAndText:
-                    SidebarWidth = string.Empty;
+                    SidebarWidth = "width: 250px;";
                     break;
                 case MenuItemDisplayStyle.Text:
                     SidebarWidth = "width: 220px;";
