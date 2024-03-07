@@ -18071,6 +18071,9 @@ a:focus-visible .rz-fieldset-toggler {
 .rz-datepicker-calendar .rz-datepicker-other-month {
   opacity: 0.5;
 }
+.rz-datepicker-calendar .rz-datepicker-week-number {
+  opacity: 0.5;
+}
 
 .rz-datepicker-footer {
   position: relative;
