@@ -1,11 +1,20 @@
-addLoaderCss();
+const cssRoot = document.querySelector(':root');
+cssRoot.style.setProperty('--windowHeight', window.innerHeight + 'px');
+addEventListener("resize", (event) => {
+    cssRoot.style.setProperty('--windowHeight', window.innerHeight + 'px');
+});
 
+addLoaderCss();
 function addLoaderCss() {
     const num = Math.floor((Math.random() * 6) + 1);
     const linkLoader = document.createElement('link');
     linkLoader.rel = 'stylesheet';
     linkLoader.href = `css/loaders/load${num}.css`;
     document.head.appendChild(linkLoader);
+}
+
+function scrollToTop() {
+    document.documentElement.scrollTop = 0;
 }
 
 async function reload() {
@@ -15,17 +24,6 @@ async function reload() {
     }
     location.replace(location.href);//origin
     //window.location.reload(true);
-}
-
-async function fetchJson(path) {
-    const response = await fetch(path);
-    const resData = await response.json();
-    return resData;
-}
-async function fetchText(path) {
-    const response = await fetch(path);
-    const resData = await response.text();
-    return resData;
 }
 
 function getLocation(prop) {
@@ -53,12 +51,19 @@ function getLocation(prop) {
     }
 }
 
+async function fetchJson(path) {
+    const response = await fetch(path);
+    const resData = await response.json();
+    return resData;
+}
+async function fetchText(path) {
+    const response = await fetch(path);
+    const resData = await response.text();
+    return resData;
+}
+
 async function getIp() {
     const response = await fetch('https://jsonip.com/');
     const data = await response.json();
     return data.ip;
-}
-
-function scrollToTop() {
-    document.documentElement.scrollTop = 0;
 }

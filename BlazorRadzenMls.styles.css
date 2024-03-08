@@ -18,6 +18,32 @@
 .footer-blank[b-fejvar2y2m] {
     height: var(--footer-fixed-height);
 }
+/* /Layout/TableBased/TableBody.razor.rz.scp.css */
+table[b-ogq1gc7yuh] {
+    width: 100%;
+    height: var(--windowHeight);
+    /* height: 100vh; */
+    /* border-spacing: 0px; */
+    /* margin: 0; */
+}
+
+td[b-ogq1gc7yuh], th[b-ogq1gc7yuh] {
+    padding: 0px;
+}
+
+th[b-ogq1gc7yuh] {
+    height: var(--header-fixed-height);
+}
+
+.td-body[b-ogq1gc7yuh] {
+    vertical-align: top;
+    text-align: left;
+}
+
+.td-footer[b-ogq1gc7yuh] {
+    height: var(--footer-fixed-height);
+    box-shadow: 0px 1px 0px lightgray inset;
+}
 /* /Pages/Learn/Upload/InputFiles.razor.rz.scp.css */
  .file-uploader[b-e0jcobmx42] {
      position: relative;
