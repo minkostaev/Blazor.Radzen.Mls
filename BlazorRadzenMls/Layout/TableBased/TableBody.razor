@@ -20,11 +20,11 @@
         </th>
     </tr>
     <tr>
-        <td style="vertical-align: top; text-align: left;">
+        <td class="td-body">
 
-            <div style="display: flex;">
+            <div style="display: flex; height: 100%; background-color: var(--rz-body-background-color);">
                 <div style="@SidebarWidth">
-                    <SideMenu />
+                    <SideMenu Height100=true />
                 </div>
                 <div style="flex: 1;">
                     @Body
@@ -34,7 +34,7 @@
         </td>
     </tr>
     <tr>
-        <td class="rz-header td-footer" style="box-shadow: 0px 1px 0px gray inset;">
+        <td class="rz-header td-footer">
             
             Footer
 
@@ -44,30 +44,12 @@
 
 @code {
 
-
     private string? SidebarWidth => (__state.SiteOptions.Menu.SidebarExpanded) ?
         __state.SiteOptions.Menu.SidebarWidth : "width: 0;";
 
     protected override void OnInitialized()
     {
+        
     }
 
 }
-
-<style>
-    table {
-        width: 100%;
-        height: 100vh;
-        /* border-spacing: 0px; */
-        /* margin: 0; */
-    }
-    td, th {
-        padding: 0px;
-    }
-    th {
-        /* height: var(--header-fixed-height); */
-    }
-    .td-footer {
-        /* height: var(--footer-fixed-height); */
-    }
-</style>
