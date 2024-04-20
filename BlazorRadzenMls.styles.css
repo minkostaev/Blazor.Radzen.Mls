@@ -1,3 +1,27 @@
+/* /Layout/DisplayGrid/DisplayGrid.razor.rz.scp.css */
+#abv[b-nzs4g7hs1d] {
+    height: var(--windowHeight);
+    /*height: 100vh;*/
+
+    display: grid;
+    grid-template-areas:
+        "header"
+        "content"
+        "footer";
+    grid-template-rows: auto 1fr auto;
+}
+
+header[b-nzs4g7hs1d] {
+    grid-area: header;
+}
+
+#content[b-nzs4g7hs1d] {
+    grid-area: content;
+}
+
+footer[b-nzs4g7hs1d] {
+    grid-area: footer;
+}
 /* /Layout/FixedPosition/FixedBody.razor.rz.scp.css */
 .header-fixed[b-fejvar2y2m], .footer-fixed[b-fejvar2y2m] {
     background-color: rgb(48, 68, 95);
