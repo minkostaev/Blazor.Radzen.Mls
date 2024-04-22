@@ -1,0 +1,20 @@
+﻿
+<div class="rz-header" style="display: flex;">
+    <div style="flex: 1;">
+        <RadzenSidebarToggle Style="margin-right: 0px;" Click="SidebarExpand" />
+                             @* Click="@(() => __state.SiteOptions.Menu.SidebarExpanded = !__state.SiteOptions.Menu.SidebarExpanded)" /> *@
+    </div>
+    <div>
+        <BlazorRadzenMls.Auth.MenuGravatar />
+    </div>
+</div>
+
+@code {
+    // background-color: var(--rz-panel-menu-background-color);
+    private void SidebarExpand()
+    {
+        __state.SiteOptions.Menu.SidebarExpanded = !__state.SiteOptions.Menu.SidebarExpanded;
+        __state.RefreshPage("LeftRight.razor -> SidebarExpand");
+    }
+
+}

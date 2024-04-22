@@ -9,7 +9,7 @@
             <RadzenSidebarToggle id="@menuToggleId" Click="@(() => sidebarExpanded = !sidebarExpanded)" />
                 
                 <TopBar />
-
+                
         </RadzenStack>
     </RadzenHeader>
     <RadzenSidebar @bind-Expanded="@sidebarExpanded" Style="@__state.SiteOptions.Menu.SidebarWidth">
@@ -30,7 +30,7 @@
 
     protected override void OnInitialized()
     {
-
+        
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }

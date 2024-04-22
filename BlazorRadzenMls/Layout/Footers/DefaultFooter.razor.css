@@ -1,0 +1,4 @@
+﻿.td-footer {
+    height: var(--footer-fixed-height);
+    box-shadow: 0px 1px 0px lightgray inset;
+}
