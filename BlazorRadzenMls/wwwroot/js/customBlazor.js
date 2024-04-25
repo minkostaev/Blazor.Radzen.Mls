@@ -67,3 +67,14 @@ async function getIp() {
     const data = await response.json();
     return data.ip;
 }
+
+function pdfToIframe(base64String, iframeId) {
+    const byteArray = Uint8Array.from(atob(base64String), c => c.charCodeAt(0));
+    const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+    const viewer = document.getElementById(iframeId);
+    const objectUrl = URL.createObjectURL(blob);
+
+    viewer.setAttribute('src', objectUrl);
+    viewer.onload = () => URL.revokeObjectURL(objectUrl);
+}

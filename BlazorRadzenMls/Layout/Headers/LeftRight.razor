@@ -3,6 +3,20 @@
     <div style="flex: 1;">
         <RadzenSidebarToggle Style="margin-right: 0px;" Click="SidebarExpand" />
                              @* Click="@(() => __state.SiteOptions.Menu.SidebarExpanded = !__state.SiteOptions.Menu.SidebarExpanded)" /> *@
+
+        <RadzenMenu Style="display: inline-block; margin-left: 200px;">
+            <RadzenMenuItem Icon="menu" Text="aaa" Style="display: inline-block;">
+                <SideMenu />
+                @* <RadzenMenuItem Text="random" Path="random" Icon="account_circle"></RadzenMenuItem>
+                <RadzenMenuItem Text="options" Path="options" Icon="announcement"></RadzenMenuItem> *@
+            </RadzenMenuItem>
+            <RadzenMenuItem Icon="facebook" Text="aaa" Style="display: inline-block;">
+                <div style="width: 200px;">
+                    <SideMenu />
+                </div>
+            </RadzenMenuItem>
+        </RadzenMenu>
+
     </div>
     <div>
         <BlazorRadzenMls.Auth.MenuGravatar />
@@ -18,3 +32,18 @@
     }
 
 }
+
+<style>
+    .rz-menu:not(.rz-profile-menu) .rz-navigation-menu .rz-navigation-item-link .rzi:not(.rz-navigation-item-icon-children) {
+        color: inherit;
+    }
+
+    .rz-menu:not(.rz-profile-menu) .rz-navigation-menu .rz-navigation-item-link {
+        color: inherit;
+    }
+
+    .rz-menu:not(.rz-profile-menu) .rz-navigation-menu .rz-navigation-menu .rz-navigation-item-link {
+        color: inherit;
+    }
+
+</style>
