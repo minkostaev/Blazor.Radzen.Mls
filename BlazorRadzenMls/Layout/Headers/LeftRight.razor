@@ -1,21 +1,16 @@
-﻿
+﻿@* background-color: var(--rz-panel-menu-background-color); *@
 <div class="rz-header" style="display: flex;">
     <div style="flex: 1;">
-        <RadzenSidebarToggle Style="margin-right: 0px;" Click="SidebarExpand" />
+        @* <RadzenSidebarToggle Style="margin-right: 0px;" Click="SidebarExpand" /> *@
                              @* Click="@(() => __state.SiteOptions.Menu.SidebarExpanded = !__state.SiteOptions.Menu.SidebarExpanded)" /> *@
 
-        <RadzenMenu Style="display: inline-block; margin-left: 200px;">
-            <RadzenMenuItem Icon="menu" Text="aaa" Style="display: inline-block;">
+        <div>
+            <RadzenButton id="@menuToggleId" Click="@btnMenu_Click" Variant="Variant.Text" Icon="menu" ButtonStyle="ButtonStyle.Secondary"
+                          Style="width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);" />
+            <div style="@menyStyle">
                 <SideMenu />
-                @* <RadzenMenuItem Text="random" Path="random" Icon="account_circle"></RadzenMenuItem>
-                <RadzenMenuItem Text="options" Path="options" Icon="announcement"></RadzenMenuItem> *@
-            </RadzenMenuItem>
-            <RadzenMenuItem Icon="facebook" Text="aaa" Style="display: inline-block;">
-                <div style="width: 200px;">
-                    <SideMenu />
-                </div>
-            </RadzenMenuItem>
-        </RadzenMenu>
+            </div>
+        </div>
 
     </div>
     <div>
@@ -24,26 +19,34 @@
 </div>
 
 @code {
-    // background-color: var(--rz-panel-menu-background-color);
+
+    private bool isClicked;
+    private string menyStyle => isClicked ?
+    "display: block; position: absolute; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1;"
+    : "display: none; position: absolute; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1;";
+
     private void SidebarExpand()
     {
         __state.SiteOptions.Menu.SidebarExpanded = !__state.SiteOptions.Menu.SidebarExpanded;
         __state.RefreshPage("LeftRight.razor -> SidebarExpand");
     }
 
+    private void btnMenu_Click()
+    {
+        isClicked = !isClicked;
+        // try { await __js.InvokeVoidAsync("menuToggleId", "aqwerty"); }
+        // catch { Console.WriteLine("js method error"); }
+    }
+    
+    private string menuToggleId = "menuToggle";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try { await __js.InvokeVoidAsync("changeSidebarToggleStyle", menuToggleId, "33px"); }
+            catch { Console.WriteLine("js method error"); }
+        }
+    }
+
 }
-
-<style>
-    .rz-menu:not(.rz-profile-menu) .rz-navigation-menu .rz-navigation-item-link .rzi:not(.rz-navigation-item-icon-children) {
-        color: inherit;
-    }
-
-    .rz-menu:not(.rz-profile-menu) .rz-navigation-menu .rz-navigation-item-link {
-        color: inherit;
-    }
-
-    .rz-menu:not(.rz-profile-menu) .rz-navigation-menu .rz-navigation-menu .rz-navigation-item-link {
-        color: inherit;
-    }
-
-</style>
