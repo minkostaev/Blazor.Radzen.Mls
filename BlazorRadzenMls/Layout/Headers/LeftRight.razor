@@ -1,16 +1,18 @@
-﻿@* background-color: var(--rz-panel-menu-background-color); *@
+﻿@using BlazorRadzenMls.Models
+
+@* background-color: var(--rz-panel-menu-background-color); *@
 <div class="rz-header" style="display: flex;">
     <div style="flex: 1;">
-        @* <RadzenSidebarToggle Style="margin-right: 0px;" Click="SidebarExpand" /> *@
-                             @* Click="@(() => __state.SiteOptions.Menu.SidebarExpanded = !__state.SiteOptions.Menu.SidebarExpanded)" /> *@
 
-        <div>
-            <RadzenButton id="@menuToggleId" Click="@btnMenu_Click" Variant="Variant.Text" Icon="menu" ButtonStyle="ButtonStyle.Secondary"
-                          Style="width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);" />
-            <div style="@menyStyle">
-                <SideMenu />
-            </div>
-        </div>
+        <RdznMenuIcon>
+            <SideMenu />
+        </RdznMenuIcon>
+
+        <RdznMenuIcon Icon="home" NavigateTo="" />
+
+        <RdznMenuIcon Icon="build" NavigateTo="@AppValues.PageOptions" />
+
+        <RdznMenuIcon Icon="description" NavigateTo="@AppValues.GitHubMy" OnNewTab="true" />
 
     </div>
     <div>
@@ -20,33 +22,10 @@
 
 @code {
 
-    private bool isClicked;
-    private string menyStyle => isClicked ?
-    "display: block; position: absolute; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1;"
-    : "display: none; position: absolute; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1;";
-
-    private void SidebarExpand()
-    {
-        __state.SiteOptions.Menu.SidebarExpanded = !__state.SiteOptions.Menu.SidebarExpanded;
-        __state.RefreshPage("LeftRight.razor -> SidebarExpand");
-    }
-
-    private void btnMenu_Click()
-    {
-        isClicked = !isClicked;
-        // try { await __js.InvokeVoidAsync("menuToggleId", "aqwerty"); }
-        // catch { Console.WriteLine("js method error"); }
-    }
-    
-    private string menuToggleId = "menuToggle";
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            try { await __js.InvokeVoidAsync("changeSidebarToggleStyle", menuToggleId, "33px"); }
-            catch { Console.WriteLine("js method error"); }
-        }
-    }
+    // private void SidebarExpand()
+    // {
+    //     __state.SiteOptions.Menu.SidebarExpanded = !__state.SiteOptions.Menu.SidebarExpanded;
+    //     __state.RefreshPage("LeftRight.razor -> SidebarExpand");
+    // }
 
 }

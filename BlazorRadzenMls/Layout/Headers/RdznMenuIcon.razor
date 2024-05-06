@@ -1,0 +1,57 @@
+﻿<div style="display: inline;">
+    <div id="@menuPanelId" class="drop-down-panel" style="display: none;">
+        @ChildContent
+    </div>
+    <RadzenButton id="@menuToggleId" Icon="@Icon" Click="@ShowMenuPanel"
+                  Variant="Variant.Text" ButtonStyle="ButtonStyle.Secondary"
+                  Style="width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);" />
+
+    @* <RadzenLink Path="">
+        <RadzenButton Size="ButtonSize.Large" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text"
+                      Icon="home" IconColor="@Colors.Series8" Style="font-weight: 1000; font-size: 30px;" />
+    </RadzenLink> *@
+</div>
+
+@code {
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string Icon { get; set; } = "menu";
+
+    [Parameter]
+    public string? NavigateTo { get; set; }
+
+    [Parameter]
+    public bool OnNewTab { get; set; }
+
+    private string menuToggleId = "menuToggle" + Guid.NewGuid().ToString();
+    private string menuPanelId = "menuPanel" + Guid.NewGuid().ToString();
+
+    private async Task ShowMenuPanel()
+    {
+        if (NavigateTo != null)
+        {
+            if (OnNewTab)
+                await __js.InvokeVoidAsync("open", NavigateTo, "_blank");
+            else
+                __nav.NavigateTo(NavigateTo);
+        }
+        else
+        {
+            try { await __js.InvokeVoidAsync("showMenuPanel", menuPanelId, "drop-down-panel", "inline"); }
+            catch { Console.WriteLine("js error: RdznMenuIcon.razor -> ShowMenuPanel"); }
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try { await __js.InvokeVoidAsync("changeSidebarToggleStyle", menuToggleId, "33px"); }
+            catch { Console.WriteLine("js error: RdznMenuIcon.razor -> OnAfterRenderAsync"); }
+        }
+    }
+
+}
