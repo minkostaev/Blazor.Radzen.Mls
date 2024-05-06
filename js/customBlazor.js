@@ -78,3 +78,23 @@ function pdfToIframe(base64String, iframeId) {
     viewer.setAttribute('src', objectUrl);
     viewer.onload = () => URL.revokeObjectURL(objectUrl);
 }
+
+let menuClicked = false;
+function showMenuPanel(id, className, display) {
+    hideMenuPanel(id, className);
+    const div = document.getElementById(id);
+    if (div != null) {
+        div.style.display = (div.style.display == display) ? 'none' : display;
+        menuClicked = true;
+    }
+}
+function hideMenuPanel(skipId, className) {
+    if (!menuClicked) {
+        const panels = document.getElementsByClassName(className);
+        for (const el of panels) {
+            if (el.id != skipId)
+                el.style.display = 'none';
+        }
+    }
+    menuClicked = false;
+}

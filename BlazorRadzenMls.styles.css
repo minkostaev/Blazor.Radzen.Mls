@@ -28,6 +28,14 @@
     height: var(--footer-fixed-height);
     box-shadow: 0px 1px 0px lightgray inset;
 }
+/* /Layout/Headers/RdznMenuIcon.razor.rz.scp.css */
+.drop-down-panel[b-0gor0z7pg9] {
+    /*display: none;*/
+    position: absolute;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 51px;
+}
 /* /Layout/TableBased/TableBody.razor.rz.scp.css */
 table[b-ogq1gc7yuh] {
     width: 100%;
