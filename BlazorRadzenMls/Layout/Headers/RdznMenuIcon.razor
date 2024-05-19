@@ -2,7 +2,7 @@
     <div id="@menuPanelId" class="drop-down-panel" style="display: none;">
         @ChildContent
     </div>
-    <RadzenButton id="@menuToggleId" Icon="@Icon" Click="@ShowMenuPanel"
+    <RadzenButton id="@menuToggleId" Icon="@Name" Click="@ShowMenuPanel"
                   Variant="Variant.Text" ButtonStyle="ButtonStyle.Secondary"
                   Style="width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);" />
 
@@ -18,7 +18,10 @@
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public string Icon { get; set; } = "menu";
+    public int Size { get; set; } = 33;
+
+    [Parameter]
+    public string Name { get; set; } = "menu";
 
     [Parameter]
     public string? NavigateTo { get; set; }
@@ -49,7 +52,7 @@
     {
         if (firstRender)
         {
-            try { await __js.InvokeVoidAsync("changeSidebarToggleStyle", menuToggleId, "33px"); }
+            try { await __js.InvokeVoidAsync("changeSidebarToggleStyle", menuToggleId, Size + "px"); }
             catch { Console.WriteLine("js error: RdznMenuIcon.razor -> OnAfterRenderAsync"); }
         }
     }

@@ -1,8 +1,9 @@
 ﻿
 <div style="display: flex; height: 100%; background-color: var(--rz-body-background-color);">
-    <div style="@SidebarWidth">
+    @* <div style="@SidebarWidth">
         <SideMenu Height100=true />
-    </div>
+    </div> *@
+    <div></div>
     <div style="flex: 1;">
         @ChildContent
     </div>
@@ -13,7 +14,7 @@
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    private string? SidebarWidth => (__state.SiteOptions.Menu.SidebarExpanded) ?
-        __state.SiteOptions.Menu.SidebarWidth : "width: 0;";
+    // private string? SidebarWidth => (__state.SiteOptions.Menu.SidebarExpanded) ?
+    //     __state.SiteOptions.Menu.SidebarWidth : "width: 0;";
 
 }

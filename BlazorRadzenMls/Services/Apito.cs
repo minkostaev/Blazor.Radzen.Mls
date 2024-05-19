@@ -5,6 +5,8 @@ using System.Net;
 using System.Text.Json;
 using System.Text;
 using BlazorRadzenMls.Contracts;
+using BlazorRadzenMls.Models;
+using System.Net.Http;
 
 public class Apito : IApito
 {
@@ -13,6 +15,8 @@ public class Apito : IApito
     //public string LastResponseMessage { get; set; }
 
     private const string EndpointTest = "/weatherforecast";
+    private const string EndpointMachinesDetails = "/machinesdetails";
+    private const string EndpointMachinesLogs = "/machineslogs";
 
     private readonly HttpClient _httpClient;
     public Apito(IHttpClientFactory httpClientFactory)
@@ -39,6 +43,54 @@ public class Apito : IApito
         //string error = await response.Content.ReadAsStringAsync();
 
         return await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
+    }
+
+    public virtual async Task<MachinesLogs[]?> GetMachinesLogs()
+    {
+        //var fileContent = new StreamContent(new MemoryStream(xbrlInstance));
+
+        //var response = await _httpClient.PostAsync(EndpointTest, fileContent);
+
+        //var response = await _httpClient.GetFromJsonAsync<WeatherForecast[]>(EndpointTest);
+        var response = await _httpClient.GetAsync(EndpointMachinesLogs);
+
+        if (response.StatusCode != HttpStatusCode.OK)
+        {
+            LastResponseStatus = response.StatusCode;
+            return null;
+        }
+        response.EnsureSuccessStatusCode();
+
+        //string error = await response.Content.ReadAsStringAsync();
+
+        return await response.Content.ReadFromJsonAsync<MachinesLogs[]>();
+    }
+    public virtual async Task<bool> DeleteMachinesLogs(string[]? ids)
+    {
+        if (ids == null)
+            return false;
+
+        string jsonString = JsonSerializer.Serialize(ids);
+        string requestBody = "{\"Ids\": " + jsonString + "}";
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Delete,
+            RequestUri = new Uri(string.Concat(_httpClient.BaseAddress!.AbsoluteUri, EndpointMachinesLogs.AsSpan(1))),
+            Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
+        };
+        
+        HttpResponseMessage response = await _httpClient.SendAsync(request);
+
+        if (response.StatusCode != HttpStatusCode.NoContent)
+        {
+            LastResponseStatus = response.StatusCode;
+            return false;
+        }
+        response.EnsureSuccessStatusCode();
+
+        //string error = await response.Content.ReadAsStringAsync();
+
+        return true;
     }
 
 }

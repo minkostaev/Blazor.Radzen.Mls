@@ -1,0 +1,126 @@
+﻿@page "/grid"
+
+@attribute [Authorize]
+@* @attribute [Authorize(Roles = "administrator, manager")] *@
+@* @attribute [Authorize(Policy = "admin-policy")] *@
+
+@using BlazorRadzenMls.Models
+
+@inject IApito _apito
+
+<RadzenText Text="@__lang["Machines Logs"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
+
+@if (dataLogs != null)
+{
+    <RadzenDataGrid Data="@dataLogs" TItem="MachinesLogs" @bind-Value="selectedLogs"
+                    PageSize="10" AllowPaging="true" AllowSorting="true"
+                    PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                    AllowFiltering="true" FilterMode="FilterMode.Advanced"
+                    SelectionMode="DataGridSelectionMode.Multiple">
+        <HeaderTemplate>
+            <RadzenButton Text="Reload" Icon="autorenew" Click="() => Clear(true)"
+                          ButtonStyle="ButtonStyle.Info" />
+            <RadzenButton Text="Delete" Icon="delete_forever" Click="@DeleteLogs" IsBusy="@busyDelete"
+                          ButtonStyle="ButtonStyle.Danger" Disabled="@disabledDelete" />
+            <RadzenSplitButton Text="@clearBtnText" Disabled="@disabledDelete" Click="() => Clear()"
+                               Icon="cached" ButtonStyle="ButtonStyle.Info">
+                <ChildContent>
+                    @if (selectedLogs != null)
+                    {
+                        <div style="width: 266px; max-height: 366px; overflow: auto; padding: 10px;">
+                            @foreach (var itm in selectedLogs)
+                            {
+                                <RadzenText TextStyle="TextStyle.Body2"
+                                            Style="display: flex; white-space: nowrap; text-overflow: ellipsis;">
+                                    @SelectLabel(@itm.Value!)
+                                    <RadzenIcon Icon="done" IconColor="var(--rz-dropdown-open-background-color)" />
+                                </RadzenText>
+                            }
+                        </div>
+                    }
+                </ChildContent>
+            </RadzenSplitButton>
+        </HeaderTemplate>
+        <Template Context="logs">
+            <RadzenCard Style="margin-bottom:20px">
+                Company: <b>@logs.Hash</b>
+            </RadzenCard>
+        </Template>
+        <Columns>
+            <RadzenDataGridColumn Property="Value" Title="Executed" />
+            <RadzenDataGridColumn Property="Api" Title="Api" Width="100px" />
+            <RadzenDataGridColumn Property="Desktop" Title="Desktop" Width="100px" />
+            <RadzenDataGridColumn Property="DateOnly" Title="Date" FormatString="{0:d}" Width="100px" />
+        </Columns>
+    </RadzenDataGrid>
+}
+else
+{
+    <div class="loader">Loading...</div>
+}
+
+@code {
+
+    private bool disabledDelete => (selectedLogs == null || selectedLogs!.Count == 0) ? true : false;
+    private bool busyDelete;
+    private string clearBtnText => disabledDelete ? "Clear selected" : "Clear selected" + " [" + selectedLogs!.Count + "]";
+    private int i;
+
+    private MachinesLogs[]? dataLogs;
+    private IList<MachinesLogs>? selectedLogs;
+
+    private async Task DeleteLogs()
+    {
+        if (selectedLogs == null)
+            return;
+        busyDelete = true;
+        await DeleteLogsFromApi();
+        DeleteLogsFromGrid();
+        busyDelete = false;
+    }
+    private async Task DeleteLogsFromApi()
+    {
+        var ids = selectedLogs!.Select(p => p._id).ToArray();
+        await _apito.DeleteMachinesLogs(ids!);
+    }
+    private void DeleteLogsFromGrid()
+    {
+        var oldData = dataLogs!.ToList();
+        foreach (var item in selectedLogs!)
+        {
+            var log = oldData.Where(p => p._id == item._id).FirstOrDefault();
+            if (log == null)
+                break;
+            oldData.Remove(log);
+        }
+        dataLogs = oldData.ToArray();
+        selectedLogs = null;
+    }
+
+    private async Task Clear(bool reload = false)
+    {
+        selectedLogs = null;
+        if (reload)
+        {
+            dataLogs = null;
+            dataLogs = await _apito.GetMachinesLogs();
+        }
+    }
+
+    private string? SelectLabel(string text)
+    {
+        int number = i + 1;
+        string result = $"[{number}] {text}";
+        if (selectedLogs!.Count - 1 == i)
+            i = 0;
+        else
+            i++;
+        return result;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        dataLogs = await _apito.GetMachinesLogs();
+    }
+
+}
