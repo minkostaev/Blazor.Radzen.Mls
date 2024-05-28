@@ -11,6 +11,8 @@ public static class AppValues
     public const string PageIcons = "Icons";
     public const string PageDogs = "Dogs";
     public const string PageOptions = "Options";
+    public const string PageMachinesLogs = "Machines/Logs";
+    public const string PageMachinesDetails = "Machines/Details";
 
     public static string GitHubMy => "https://github.com/minkostaev/Blazor.Radzen.Mls";
     public static string GitHubRadzen => "https://github.com/radzenhq/radzen-blazor";

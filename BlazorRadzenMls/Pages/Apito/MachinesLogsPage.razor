@@ -1,4 +1,4 @@
-﻿@page "/grid"
+﻿@attribute [Route(AppValues.PageMachinesLogs)]
 
 @attribute [Authorize]
 @* @attribute [Authorize(Roles = "administrator, manager")] *@
@@ -103,7 +103,7 @@ else
         if (reload)
         {
             dataLogs = null;
-            dataLogs = await _apito.GetMachinesLogs();
+            dataLogs = await _apito.GetMachinesLogs()!;
         }
     }
 
@@ -120,7 +120,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        dataLogs = await _apito.GetMachinesLogs();
+        dataLogs = await _apito.GetMachinesLogs()!;
+        var qq = await _apito.GetMachinesDetails();
     }
 
 }

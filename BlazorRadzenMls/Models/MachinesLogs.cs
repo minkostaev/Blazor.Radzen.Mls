@@ -8,6 +8,8 @@ public class MachinesLogs
     public string? Api { get; set; }
     public string? Desktop { get; set; }
     public string? Date { get; set; }
+
+    // more
     public DateTime DateTime { get { return DateTime.Parse(Date!); } }
     public DateTime DateOnly { get { return DateTime.Date; } }
 }

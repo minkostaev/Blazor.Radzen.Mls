@@ -1,0 +1,38 @@
+﻿@inherits LayoutComponentBase
+
+@* this is required for: Dialog, Notification, ContextMenu and Tooltip *@
+<RadzenComponents />
+
+<div @onclick="HideMenuPanel">
+
+    <div style="position: sticky; top: 0; z-index: 999;">
+        <BlazorRadzenMls.Layout.Headers.LeftRight />
+    </div>
+
+    <div style="min-height: 600px;">
+        <BlazorRadzenMls.Layout.Bodies.HideLeftContent>
+            @Body
+        </BlazorRadzenMls.Layout.Bodies.HideLeftContent>
+    </div>
+
+    <div>
+        <BlazorRadzenMls.Layout.Footers.DefaultFooter />
+    </div>
+
+</div>
+
+@code {
+
+    private async Task HideMenuPanel()
+    {
+        try { await __js.InvokeVoidAsync("hideMenuPanel", "", "drop-down-panel"); }
+        catch { Console.WriteLine("js error: StickyLayout.razor -> HideMenuPanel"); }
+    }
+
+    protected override void OnInitialized()
+    {
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+    }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+
+}

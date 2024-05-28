@@ -7,6 +7,7 @@ using System.Text;
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Models;
 using System.Net.Http;
+using Forms.Wpf.Mls.Tools.Models.TheMachine;
 
 public class Apito : IApito
 {
@@ -45,7 +46,7 @@ public class Apito : IApito
         return await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
     }
 
-    public virtual async Task<MachinesLogs[]?> GetMachinesLogs()
+    public virtual async Task<MachinesLogs[]?>? GetMachinesLogs()
     {
         //var fileContent = new StreamContent(new MemoryStream(xbrlInstance));
 
@@ -91,6 +92,27 @@ public class Apito : IApito
         //string error = await response.Content.ReadAsStringAsync();
 
         return true;
+    }
+
+    public virtual async Task<Machine[]?> GetMachinesDetails()
+    {
+        //var fileContent = new StreamContent(new MemoryStream(xbrlInstance));
+
+        //var response = await _httpClient.PostAsync(EndpointTest, fileContent);
+
+        //var response = await _httpClient.GetFromJsonAsync<WeatherForecast[]>(EndpointTest);
+        var response = await _httpClient.GetAsync(EndpointMachinesDetails);
+
+        if (response.StatusCode != HttpStatusCode.OK)
+        {
+            LastResponseStatus = response.StatusCode;
+            return null;
+        }
+        response.EnsureSuccessStatusCode();
+
+        //string error = await response.Content.ReadAsStringAsync();
+
+        return await response.Content.ReadFromJsonAsync<Machine[]>();
     }
 
 }
