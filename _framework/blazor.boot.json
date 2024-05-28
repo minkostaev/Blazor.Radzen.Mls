@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "BlazorRadzenMls",
   "resources": {
-    "hash": "sha256-2SeIhh2mqx+R5warshd0lqBvjnSSlrhJoQpsLS/vGZA=",
+    "hash": "sha256-G3ClOH3FBuvJZLFIGbq7sOy3b2aoQOYC7BuTo7dlkdU=",
     "jsModuleNative": {
       "dotnet.native.8.0.5.1rjxu4n8nb.js": "sha256-boyHe+0RMZDkzBKGhsrnXPhPg3oZ6UqJnTUzngJPjNY="
     },
@@ -19,7 +19,7 @@
     "assembly": {
       "AKSoftware.Localization.MultiLanguages.wasm": "sha256-oGwKi8ogfjmix9bsfGuscqbLmZvkTODlmUsgGMdT+to=",
       "Blazored.LocalStorage.wasm": "sha256-OaMAAd5n7ORfyur5e3QIyEVKJ76MKIvwbg7/icnnYcU=",
-      "BlazorRadzenMls.wasm": "sha256-DOUQ3QpVFblyUHHKt1bzbPDkOiyHatI+Wy9wFgyJjO4=",
+      "BlazorRadzenMls.wasm": "sha256-/gxsiIGNcwYCDq5MZQq/r8t34M8fyFDSg79NyRfHcLk=",
       "Microsoft.AspNetCore.Authorization.wasm": "sha256-z/Dz6WZKJVnUAu9zt+6kpbF/zbwfxwhDNskGSKWReb8=",
       "Microsoft.AspNetCore.Components.Authorization.wasm": "sha256-L3dira2G3Cttw+dUXx4/3twuG1w7Gy+d3wv5ifY+zwU=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-x2jxOg1otpSMhg0qyBDLtrl9tCo7FH5OhCWN3xauf7I=",
