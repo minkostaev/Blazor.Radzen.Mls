@@ -11,7 +11,7 @@
 
 @if (dataLogs != null)
 {
-    <RadzenDataGrid Data="@dataLogs" TItem="Machine" @bind-Value="selectedLogs"
+    <RadzenDataGrid Data="@dataLogs" TItem="MachineDb" @bind-Value="selectedLogs"
                     PageSize="10" AllowPaging="true" AllowSorting="true"
                     PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                     AllowFiltering="true" FilterMode="FilterMode.Advanced"
@@ -39,6 +39,7 @@
                     }
                 </ChildContent>
             </RadzenSplitButton> *@
+            @time
         </HeaderTemplate>
         <Template Context="logs">
             <RadzenCard Style="margin-bottom:20px">
@@ -60,12 +61,19 @@ else
 
 @code {
 
-    private Machine[]? dataLogs;
-    private IList<Machine>? selectedLogs;
+    private MachineDb[]? dataLogs;
+    private IList<MachineDb>? selectedLogs;
+
+    private string? time;
 
     protected override async Task OnInitializedAsync()
     {
         dataLogs = await _apito.GetMachinesDetails();
+
+        long total = _apito.RequestTime + _apito.DeserializeTime;
+        time = $"[{_apito.RequestTime}ms {_apito.DeserializeTime}ms] {AppValues.FormatMilliseconds(total)}";
     }
+
+
 
 }

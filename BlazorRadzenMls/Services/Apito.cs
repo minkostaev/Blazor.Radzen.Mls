@@ -8,12 +8,13 @@ using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Models;
 using System.Net.Http;
 using Forms.Wpf.Mls.Tools.Models.TheMachine;
+using System.Diagnostics;
 
 public class Apito : IApito
 {
-    public HttpStatusCode LastResponseStatus { get; set; } = HttpStatusCode.OK;
-
-    //public string LastResponseMessage { get; set; }
+    public HttpStatusCode ResponseStatus { get; set; } = HttpStatusCode.OK;
+    public long RequestTime { get; set; }
+    public long DeserializeTime { get; set; }
 
     private const string EndpointTest = "/weatherforecast";
     private const string EndpointMachinesDetails = "/machinesdetails";
@@ -23,9 +24,10 @@ public class Apito : IApito
     public Apito(IHttpClientFactory httpClientFactory)
     {
         _httpClient = httpClientFactory.CreateClient("ApitoSomee");
+        stopwatch = new Stopwatch();
     }
 
-    public virtual async Task<WeatherForecast[]?> GetSomethingAsync()
+    public async Task<WeatherForecast[]?> GetSomethingAsync()
     {
         //var fileContent = new StreamContent(new MemoryStream(xbrlInstance));
 
@@ -34,11 +36,14 @@ public class Apito : IApito
         //var response = await _httpClient.GetFromJsonAsync<WeatherForecast[]>(EndpointTest);
         var response = await _httpClient.GetAsync(EndpointTest);
 
-        if (response.StatusCode != HttpStatusCode.OK)
-        {
-            LastResponseStatus = response.StatusCode;
+        if (response == null)
             return null;
-        }
+        else
+            ResponseStatus = response.StatusCode;
+
+        if (response.StatusCode != HttpStatusCode.OK)
+            return null;
+
         response.EnsureSuccessStatusCode();
 
         //string error = await response.Content.ReadAsStringAsync();
@@ -46,27 +51,37 @@ public class Apito : IApito
         return await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
     }
 
-    public virtual async Task<MachinesLogs[]?>? GetMachinesLogs()
+    public async Task<MachinesLogs[]?>? GetMachinesLogs()
     {
-        //var fileContent = new StreamContent(new MemoryStream(xbrlInstance));
+        TimerStart();
 
-        //var response = await _httpClient.PostAsync(EndpointTest, fileContent);
-
-        //var response = await _httpClient.GetFromJsonAsync<WeatherForecast[]>(EndpointTest);
         var response = await _httpClient.GetAsync(EndpointMachinesLogs);
 
-        if (response.StatusCode != HttpStatusCode.OK)
+        if (response == null)
         {
-            LastResponseStatus = response.StatusCode;
+            ResponseStatus = HttpStatusCode.InternalServerError;
             return null;
         }
+        else
+            ResponseStatus = response.StatusCode;
+
+        if (response.StatusCode != HttpStatusCode.OK)
+            return null;
+
         response.EnsureSuccessStatusCode();
 
-        //string error = await response.Content.ReadAsStringAsync();
+        RequestTime = TimerStop();
+        TimerStart();
 
-        return await response.Content.ReadFromJsonAsync<MachinesLogs[]>();
+        MachinesLogs[]? result = null;
+        try { result = await response.Content.ReadFromJsonAsync<MachinesLogs[]>(); }
+        catch (Exception) { }
+
+        DeserializeTime = TimerStop();
+
+        return result;
     }
-    public virtual async Task<bool> DeleteMachinesLogs(string[]? ids)
+    public async Task<bool> DeleteMachinesLogs(string[]? ids)
     {
         if (ids == null)
             return false;
@@ -84,7 +99,7 @@ public class Apito : IApito
 
         if (response.StatusCode != HttpStatusCode.NoContent)
         {
-            LastResponseStatus = response.StatusCode;
+            ResponseStatus = response.StatusCode;
             return false;
         }
         response.EnsureSuccessStatusCode();
@@ -94,25 +109,46 @@ public class Apito : IApito
         return true;
     }
 
-    public virtual async Task<Machine[]?> GetMachinesDetails()
+    public async Task<MachineDb[]?> GetMachinesDetails()
     {
-        //var fileContent = new StreamContent(new MemoryStream(xbrlInstance));
+        TimerStart();
 
-        //var response = await _httpClient.PostAsync(EndpointTest, fileContent);
-
-        //var response = await _httpClient.GetFromJsonAsync<WeatherForecast[]>(EndpointTest);
         var response = await _httpClient.GetAsync(EndpointMachinesDetails);
 
-        if (response.StatusCode != HttpStatusCode.OK)
+        if (response == null)
         {
-            LastResponseStatus = response.StatusCode;
+            ResponseStatus = HttpStatusCode.InternalServerError;
             return null;
         }
+        else
+            ResponseStatus = response.StatusCode;
+
+        if (response.StatusCode != HttpStatusCode.OK)
+            return null;
         response.EnsureSuccessStatusCode();
 
-        //string error = await response.Content.ReadAsStringAsync();
+        RequestTime = TimerStop();
+        TimerStart();
 
-        return await response.Content.ReadFromJsonAsync<Machine[]>();
+        MachineDb[]? result = null;
+        try { result = await response.Content.ReadFromJsonAsync<MachineDb[]>(); }
+        catch (Exception) { }
+
+        DeserializeTime = TimerStop();
+
+        return result;
+    }
+
+    private Stopwatch stopwatch;
+    private void TimerStart()
+    {
+        stopwatch.Restart();
+        stopwatch.Start();
+    }
+    private long TimerStop()
+    {
+        stopwatch.Stop();
+        return stopwatch.ElapsedMilliseconds;
     }
 
 }

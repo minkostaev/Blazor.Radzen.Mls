@@ -55,6 +55,19 @@ public static class AppValues
     public static string JsErrorString(string jsMethod, string cMethod = "")
         => $"error: js -> {jsMethod} | {cMethod}";
 
+    public static string FormatMilliseconds(long milliseconds)
+    {
+        TimeSpan span = TimeSpan.FromMilliseconds(milliseconds);
+        if (span.TotalDays >= 1)
+            return $"{(int)span.TotalDays}d {span:hh\\:mm\\:ss\\.fff}";
+        else if (span.TotalHours >= 1)
+            return $"{(int)span.TotalHours}h {span:mm\\:ss\\.fff}";
+        else if (span.TotalMinutes >= 1)
+            return $"{(int)span.TotalMinutes}m {span:ss\\.fff}";
+        else
+            return $"{span.TotalSeconds:0.###}s";
+    }
+
 }
 // to see
 //https://blazor-university.com/

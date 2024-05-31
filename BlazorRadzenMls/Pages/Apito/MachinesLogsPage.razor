@@ -40,6 +40,7 @@
                     }
                 </ChildContent>
             </RadzenSplitButton>
+            @time
         </HeaderTemplate>
         <Template Context="logs">
             <RadzenCard Style="margin-bottom:20px">
@@ -56,7 +57,14 @@
 }
 else
 {
-    <div class="loader">Loading...</div>
+    @if (waitingRequest)
+    {
+        <div class="loader">Loading...</div>
+    }
+    else
+    {
+        @_apito.ResponseStatus.ToString()
+    }
 }
 
 @code {
@@ -68,6 +76,9 @@ else
 
     private MachinesLogs[]? dataLogs;
     private IList<MachinesLogs>? selectedLogs;
+
+    private string? time;
+    private bool waitingRequest;
 
     private async Task DeleteLogs()
     {
@@ -99,12 +110,14 @@ else
 
     private async Task Clear(bool reload = false)
     {
+        waitingRequest = true;
         selectedLogs = null;
         if (reload)
         {
             dataLogs = null;
             dataLogs = await _apito.GetMachinesLogs()!;
         }
+        waitingRequest = false;
     }
 
     private string? SelectLabel(string text)
@@ -120,8 +133,12 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        waitingRequest = true;
         dataLogs = await _apito.GetMachinesLogs()!;
-        var qq = await _apito.GetMachinesDetails();
+        
+        long total = _apito.RequestTime + _apito.DeserializeTime;
+        time = $"[{_apito.RequestTime}ms {_apito.DeserializeTime}ms] {AppValues.FormatMilliseconds(total)}";
+        waitingRequest = false;
     }
 
 }
