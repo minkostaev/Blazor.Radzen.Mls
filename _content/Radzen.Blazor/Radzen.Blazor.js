@@ -55,7 +55,14 @@ window.Radzen = {
               }
               return formatted;
           }
+
+          var start = el.selectionStart != el.value.length ? el.selectionStart : -1;
+          var end = el.selectionEnd != el.value.length ? el.selectionEnd : -1;
+
           el.value = format(el.value, mask, pattern, characterPattern);
+
+          el.selectionStart = start != -1 ? start : el.selectionStart;
+          el.selectionEnd = end != -1 ? end : el.selectionEnd;
       }
   },
   addContextMenu: function (id, ref) {
@@ -986,6 +993,7 @@ window.Radzen = {
       }
   },
   createDatePicker(el, popupId) {
+      if(!el) return;
       var handler = function (e, condition) {
           if (condition) {
               Radzen.togglePopup(e.currentTarget.parentNode, popupId, false, null, null, true, false);
