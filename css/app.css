@@ -1,4 +1,5 @@
 @import url('variables.css');
+@import url('customBlazor.css');
 
 h1:focus {
     outline: none;
