@@ -18,11 +18,11 @@
                     AllowFiltering="true" FilterMode="FilterMode.Advanced"
                     SelectionMode="DataGridSelectionMode.Multiple">
         <HeaderTemplate>
-            <RadzenButton Text="Reload" Icon="autorenew" Click="() => Clear(true)"
+            <RadzenButton Text="Reload" Icon="autorenew" Click="() => Clear(true)" IsBusy="@busyDelete"
                           ButtonStyle="ButtonStyle.Info" />
             <RadzenButton Text="Delete" Icon="delete_forever" Click="@DeleteLogs" IsBusy="@busyDelete"
                           ButtonStyle="ButtonStyle.Danger" Disabled="@disabledDelete" />
-            <RadzenSplitButton Text="@clearBtnText" Disabled="@disabledDelete" Click="() => Clear()"
+            <RadzenSplitButton Text="@clearBtnText" Disabled="@disabledDelete" Click="() => Clear()" IsBusy="@busyDelete"
                                Icon="cached" ButtonStyle="ButtonStyle.Info">
                 <ChildContent>
                     @if (selectedLogs != null)
@@ -63,7 +63,7 @@ else
     }
     else
     {
-        @_apito.ResponseStatus.ToString()
+        @ResponseText
     }
 }
 
@@ -78,6 +78,7 @@ else
     private IList<MachinesLogs>? selectedLogs;
 
     private string? time;
+    private string? ResponseText;
     private bool waitingRequest;
 
     private async Task DeleteLogs()
@@ -92,7 +93,10 @@ else
     private async Task DeleteLogsFromApi()
     {
         var ids = selectedLogs!.Select(p => p._id).ToArray();
-        await _apito.DeleteMachinesLogs(ids!);
+        var response = await _apito.DeleteMachinesLogs(ids!);
+
+        long total = response.RequestTime + response.DeserializeTime;
+        time = $"[{response.RequestTime}ms {response.DeserializeTime}ms] {AppValues.FormatMilliseconds(total)}";
     }
     private void DeleteLogsFromGrid()
     {
@@ -115,7 +119,7 @@ else
         if (reload)
         {
             dataLogs = null;
-            dataLogs = await _apito.GetMachinesLogs()!;
+            await GetMachinesLogs();
         }
         waitingRequest = false;
     }
@@ -131,14 +135,20 @@ else
         return result;
     }
 
-    protected override async Task OnInitializedAsync()
+    private async Task GetMachinesLogs()
     {
         waitingRequest = true;
-        dataLogs = await _apito.GetMachinesLogs()!;
-        
-        long total = _apito.RequestTime + _apito.DeserializeTime;
-        time = $"[{_apito.RequestTime}ms {_apito.DeserializeTime}ms] {AppValues.FormatMilliseconds(total)}";
+        Response response = await _apito.GetMachinesLogs();
+        dataLogs = (MachinesLogs[]?)response.Result;
+
+        long total = response.RequestTime + response.DeserializeTime;
+        time = $"[{response.RequestTime}ms {response.DeserializeTime}ms] {AppValues.FormatMilliseconds(total)}";
         waitingRequest = false;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetMachinesLogs();
     }
 
 }

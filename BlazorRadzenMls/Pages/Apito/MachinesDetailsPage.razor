@@ -68,12 +68,12 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        dataLogs = await _apito.GetMachinesDetails();
+        Response response = await _apito.GetMachinesDetails();
+        dataLogs = (MachineDb[]?)response.Result;
 
-        long total = _apito.RequestTime + _apito.DeserializeTime;
-        time = $"[{_apito.RequestTime}ms {_apito.DeserializeTime}ms] {AppValues.FormatMilliseconds(total)}";
+        long total = response.RequestTime + response.DeserializeTime;
+        time = $"[{response.RequestTime}ms {response.DeserializeTime}ms] {AppValues.FormatMilliseconds(total)}";
     }
-
 
 
 }

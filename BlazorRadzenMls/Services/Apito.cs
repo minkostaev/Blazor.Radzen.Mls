@@ -1,21 +1,17 @@
 ﻿namespace BlazorRadzenMls.Services;
 
-using System.Net.Http.Json;
-using System.Net;
-using System.Text.Json;
-using System.Text;
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Models;
-using System.Net.Http;
 using Forms.Wpf.Mls.Tools.Models.TheMachine;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 
 public class Apito : IApito
 {
-    public HttpStatusCode ResponseStatus { get; set; } = HttpStatusCode.OK;
-    public long RequestTime { get; set; }
-    public long DeserializeTime { get; set; }
-
     private const string EndpointTest = "/weatherforecast";
     private const string EndpointMachinesDetails = "/machinesdetails";
     private const string EndpointMachinesLogs = "/machineslogs";
@@ -24,7 +20,6 @@ public class Apito : IApito
     public Apito(IHttpClientFactory httpClientFactory)
     {
         _httpClient = httpClientFactory.CreateClient("ApitoSomee");
-        stopwatch = new Stopwatch();
     }
 
     public async Task<WeatherForecast[]?> GetSomethingAsync()
@@ -38,8 +33,8 @@ public class Apito : IApito
 
         if (response == null)
             return null;
-        else
-            ResponseStatus = response.StatusCode;
+        //else
+        //    ResponseStatus = response.StatusCode;
 
         if (response.StatusCode != HttpStatusCode.OK)
             return null;
@@ -51,41 +46,47 @@ public class Apito : IApito
         return await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
     }
 
-    public async Task<MachinesLogs[]?>? GetMachinesLogs()
+    public async Task<Response> GetMachinesLogs()
     {
-        TimerStart();
+        var result = new Response();
+        var timer1 = TimerStart();
 
         var response = await _httpClient.GetAsync(EndpointMachinesLogs);
 
         if (response == null)
         {
-            ResponseStatus = HttpStatusCode.InternalServerError;
-            return null;
+            result.Status = HttpStatusCode.InternalServerError;
+            return result;
         }
         else
-            ResponseStatus = response.StatusCode;
+            result.Status = response.StatusCode;
 
         if (response.StatusCode != HttpStatusCode.OK)
-            return null;
+            return result;
 
         response.EnsureSuccessStatusCode();
 
-        RequestTime = TimerStop();
-        TimerStart();
+        result.RequestTime = TimerStop(timer1);
+        var timer2 = TimerStart();
 
-        MachinesLogs[]? result = null;
-        try { result = await response.Content.ReadFromJsonAsync<MachinesLogs[]>(); }
+        //MachinesLogs[]? result = null;
+        try { result.Result = await response.Content.ReadFromJsonAsync<MachinesLogs[]>(); }
         catch (Exception) { }
 
-        DeserializeTime = TimerStop();
+        result.DeserializeTime = TimerStop(timer2);
 
         return result;
     }
-    public async Task<bool> DeleteMachinesLogs(string[]? ids)
+    public async Task<Response> DeleteMachinesLogs(string[]? ids)
     {
+        var result = new Response();
         if (ids == null)
-            return false;
+        {
+            result.Status = HttpStatusCode.InternalServerError;
+            return result;
+        }
 
+        var timer = TimerStart();
         string jsonString = JsonSerializer.Serialize(ids);
         string requestBody = "{\"Ids\": " + jsonString + "}";
         var request = new HttpRequestMessage
@@ -99,53 +100,55 @@ public class Apito : IApito
 
         if (response.StatusCode != HttpStatusCode.NoContent)
         {
-            ResponseStatus = response.StatusCode;
-            return false;
+            result.Status = response.StatusCode;
+            return result;
         }
         response.EnsureSuccessStatusCode();
 
-        //string error = await response.Content.ReadAsStringAsync();
+        result.RequestTime = TimerStop(timer);
+        result.Result = true;
 
-        return true;
+        return result;
     }
-
-    public async Task<MachineDb[]?> GetMachinesDetails()
+        
+    public async Task<Response> GetMachinesDetails()
     {
-        TimerStart();
-
+        var result = new Response();
+        var timer1 = TimerStart();
+        
         var response = await _httpClient.GetAsync(EndpointMachinesDetails);
 
         if (response == null)
         {
-            ResponseStatus = HttpStatusCode.InternalServerError;
-            return null;
+            result.Status = HttpStatusCode.InternalServerError;
+            return result;
         }
         else
-            ResponseStatus = response.StatusCode;
+            result.Status = response.StatusCode;
 
         if (response.StatusCode != HttpStatusCode.OK)
-            return null;
+            return result;
         response.EnsureSuccessStatusCode();
 
-        RequestTime = TimerStop();
-        TimerStart();
+        result.RequestTime = TimerStop(timer1);
+        var timer2 = TimerStart();
 
-        MachineDb[]? result = null;
-        try { result = await response.Content.ReadFromJsonAsync<MachineDb[]>(); }
+        try { result.Result = await response.Content.ReadFromJsonAsync<MachineDb[]>(); }
         catch (Exception) { }
 
-        DeserializeTime = TimerStop();
+        result.DeserializeTime = TimerStop(timer2);
 
         return result;
     }
 
-    private Stopwatch stopwatch;
-    private void TimerStart()
+    private Stopwatch TimerStart()
     {
-        stopwatch.Restart();
+        var stopwatch = new Stopwatch();
+        //stopwatch.Restart();
         stopwatch.Start();
+        return stopwatch;
     }
-    private long TimerStop()
+    private long TimerStop(Stopwatch stopwatch)
     {
         stopwatch.Stop();
         return stopwatch.ElapsedMilliseconds;
