@@ -11,7 +11,7 @@
 
 @if (dataLogs != null)
 {
-    <RadzenDataGrid Data="@dataLogs" TItem="MachineDb" @bind-Value="selectedLogs"
+    <RadzenDataGrid @ref="grid" Data="@dataLogs" TItem="MachineDb" @bind-Value="selectedLogs"
                     PageSize="10" AllowPaging="true" AllowSorting="true"
                     PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                     AllowFiltering="true" FilterMode="FilterMode.Advanced"
@@ -61,6 +61,7 @@ else
 
 @code {
 
+    RadzenDataGrid<MachineDb>? grid;
     private MachineDb[]? dataLogs;
     private IList<MachineDb>? selectedLogs;
 

@@ -1,8 +1,11 @@
 ﻿namespace BlazorRadzenMls.Models;
 
+using System.Text.Json.Serialization;
+
 public class MachinesLogs
 {
-    public string? _id { get; set; }
+    [JsonPropertyName("_id")]
+    public string? Id { get; set; }
     public string? Hash { get; set; }
     public string? Value { get; set; }
     public string? Api { get; set; }

@@ -12,8 +12,8 @@
 
 @if (dataLogs != null)
 {
-    <RadzenDataGrid Data="@dataLogs" TItem="MachinesLogs" @bind-Value="selectedLogs"
-                    PageSize="10" AllowPaging="true" AllowSorting="true"
+    <RadzenDataGrid @ref="grid" Data="@dataLogs" TItem="MachinesLogs" @bind-Value="selectedLogs"
+                    PageSize="10" AllowPaging="true" AllowSorting="true" IsLoading="@busyDelete"
                     PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                     AllowFiltering="true" FilterMode="FilterMode.Advanced"
                     SelectionMode="DataGridSelectionMode.Multiple">
@@ -42,12 +42,25 @@
             </RadzenSplitButton>
             @time
         </HeaderTemplate>
+        
         <Template Context="logs">
             <RadzenCard Style="margin-bottom:20px">
                 Company: <b>@logs.Hash</b>
             </RadzenCard>
         </Template>
+        
         <Columns>
+            <RadzenDataGridColumn Width="40px" Sortable="false" Filterable="false">
+                <HeaderTemplate>
+                    <RadzenCheckBox TriState="false" TValue="bool?"
+                                    Value="@(selectedLogs == null || selectedLogs?.Any() != true ? false : !dataLogs.All(i => selectedLogs.Select(e => e.Id).Contains(i.Id)) ? null : dataLogs.Any(i => selectedLogs.Select(e => e.Id).Contains(i.Id)))"
+                                    Change="@(args => selectedLogs = args == true ? (selectedLogs ?? Enumerable.Empty<MachinesLogs>()).Union(dataLogs.Where(i => !(selectedLogs ?? Enumerable.Empty<MachinesLogs>()).Select(e => e.Id).Contains(i.Id))).ToList() : null)" />
+                </HeaderTemplate>
+                <Template Context="data">
+                    <RadzenCheckBox TriState="false" TValue="bool"
+                                    Value="@(selectedLogs != null && selectedLogs.Select(e => e.Id).Contains(data.Id))" />
+                </Template>
+            </RadzenDataGridColumn>
             <RadzenDataGridColumn Property="Value" Title="Executed" />
             <RadzenDataGridColumn Property="Api" Title="Api" Width="100px" />
             <RadzenDataGridColumn Property="Desktop" Title="Desktop" Width="100px" />
@@ -74,8 +87,11 @@ else
     private string clearBtnText => disabledDelete ? "Clear selected" : "Clear selected" + " [" + selectedLogs!.Count + "]";
     private int i;
 
+    private RadzenDataGrid<MachinesLogs>? grid;
     private MachinesLogs[]? dataLogs;
     private IList<MachinesLogs>? selectedLogs;
+
+    private Density density = Density.Default;
 
     private string? time;
     private string? ResponseText;
@@ -92,7 +108,7 @@ else
     }
     private async Task DeleteLogsFromApi()
     {
-        var ids = selectedLogs!.Select(p => p._id).ToArray();
+        var ids = selectedLogs!.Select(p => p.Id).ToArray();
         var response = await _apito.DeleteMachinesLogs(ids!);
 
         long total = response.RequestTime + response.DeserializeTime;
@@ -103,7 +119,7 @@ else
         var oldData = dataLogs!.ToList();
         foreach (var item in selectedLogs!)
         {
-            var log = oldData.Where(p => p._id == item._id).FirstOrDefault();
+            var log = oldData.Where(p => p.Id == item.Id).FirstOrDefault();
             if (log == null)
                 break;
             oldData.Remove(log);
@@ -120,6 +136,8 @@ else
         {
             dataLogs = null;
             await GetMachinesLogs();
+            // grid.Reset(true);
+            // await grid.FirstPage(true);
         }
         waitingRequest = false;
     }
@@ -149,6 +167,9 @@ else
     protected override async Task OnInitializedAsync()
     {
         await GetMachinesLogs();
+        // bool res = false;
+        // try { res = await __js.InvokeAsync<bool>("isMobileDevice"); }
+        // catch { Console.WriteLine("js error: MachinesLogsPage.razor -> OnInitializedAsync"); }
     }
 
 }

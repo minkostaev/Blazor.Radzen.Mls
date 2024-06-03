@@ -5,13 +5,15 @@
 
 <div @onclick="HideMenuPanel">
 
-    <div style="position: sticky; top: 0; z-index: 999;">
+    <div class="header-sticky">
         <BlazorRadzenMls.Layout.Headers.LeftRight />
     </div>
 
-    <div style="min-height: calc(100vh - 73px); background-color: var(--rz-body-background-color);">
+    <div class="main-sticky">
         @* 600px;<BlazorRadzenMls.Layout.Bodies.HideLeftContent> *@
+        <div class="rz-p-4">
             @Body
+        </div>
         @* </BlazorRadzenMls.Layout.Bodies.HideLeftContent> *@
     </div>
 

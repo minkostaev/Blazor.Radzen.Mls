@@ -1,6 +1,5 @@
 ﻿@page "/dinamichnite"
 
-@using BlazorRadzenMls.Pages.Learn.Old
 @using BlazorRadzenMls.Pages.Learn.Parameters
 @using BlazorRadzenMls.Pages.Learn.RenderFragments
 
@@ -27,7 +26,7 @@
         Panels = new List<Panel>
         {
             new Panel { Title = "Counter", Component = typeof(Component1) },
-            new Panel { Title = "Weather", Component = typeof(Weather) },
+            new Panel { Title = "Weather", Component = typeof(Forma) },
             new Panel { Title = "Parametri", Component = typeof(Parametri), Parameters = new Dictionary<string, object> { ["Name"] = "NNamme" } }
         };
     }

@@ -1,0 +1,14 @@
+﻿.header-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.main-sticky {
+    min-height: calc(100vh - 73px);
+    background-color: var(--rz-body-background-color);
+}
+
+.footer-sticky {
+    
+}
