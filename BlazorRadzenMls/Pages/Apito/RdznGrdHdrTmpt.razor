@@ -1,0 +1,62 @@
+﻿@using BlazorRadzenMls.Models
+
+<RadzenButton Text="Reload" Icon="autorenew" Click="() => Clear.InvokeAsync(true)" IsBusy="@BusyDelete"
+              ButtonStyle="ButtonStyle.Info" />
+<RadzenButton Text="Delete" Icon="delete_forever" Click="@DeleteLogs" IsBusy="@BusyDelete"
+              ButtonStyle="ButtonStyle.Danger" Disabled="@DisabledDelete" />
+<RadzenSplitButton Text="@ClearBtnText" Disabled="@DisabledDelete" Click="() => Clear.InvokeAsync()" IsBusy="@BusyDelete"
+                   Icon="cached" ButtonStyle="ButtonStyle.Info">
+    <ChildContent>
+        @if (SelectedLogs != null)
+        {
+            <div style="width: 266px; max-height: 366px; overflow: auto; padding: 10px;">
+                @foreach (var itm in SelectedLogs)
+                {
+                    <RadzenText TextStyle="TextStyle.Body2"
+                                Style="display: flex; white-space: nowrap; text-overflow: ellipsis;">
+                        @SelectLabel(@itm.Value!)
+                        <RadzenIcon Icon="done" IconColor="var(--rz-dropdown-open-background-color)" />
+                    </RadzenText>
+                }
+            </div>
+        }
+    </ChildContent>
+</RadzenSplitButton>
+@Time
+
+@code {
+
+    [Parameter]
+    public IList<MachinesLogs>? SelectedLogs { get; set; }
+
+    [Parameter]
+    public bool BusyDelete { get; set; }
+
+    [Parameter]
+    public bool DisabledDelete { get; set; }
+
+    [Parameter]
+    public string? Time { get; set; }
+
+    [Parameter]
+    public string? ClearBtnText { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> Clear { get; set; }
+
+    [Parameter]
+    public EventCallback DeleteLogs { get; set; }
+
+    private int i;
+    private string? SelectLabel(string text)
+    {
+        int number = i + 1;
+        string result = $"[{number}] {text}";
+        if (SelectedLogs!.Count - 1 == i)
+            i = 0;
+        else
+            i++;
+        return result;
+    }
+
+}

@@ -6,6 +6,7 @@
 
 @using BlazorRadzenMls.Models
 
+@inject DialogService DialogService
 @inject IApito _apito
 
 <RadzenText Text="@__lang["Machines Logs"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
@@ -18,29 +19,9 @@
                     AllowFiltering="true" FilterMode="FilterMode.Advanced"
                     SelectionMode="DataGridSelectionMode.Multiple">
         <HeaderTemplate>
-            <RadzenButton Text="Reload" Icon="autorenew" Click="() => Clear(true)" IsBusy="@busyDelete"
-                          ButtonStyle="ButtonStyle.Info" />
-            <RadzenButton Text="Delete" Icon="delete_forever" Click="@DeleteLogs" IsBusy="@busyDelete"
-                          ButtonStyle="ButtonStyle.Danger" Disabled="@disabledDelete" />
-            <RadzenSplitButton Text="@clearBtnText" Disabled="@disabledDelete" Click="() => Clear()" IsBusy="@busyDelete"
-                               Icon="cached" ButtonStyle="ButtonStyle.Info">
-                <ChildContent>
-                    @if (selectedLogs != null)
-                    {
-                        <div style="width: 266px; max-height: 366px; overflow: auto; padding: 10px;">
-                            @foreach (var itm in selectedLogs)
-                            {
-                                <RadzenText TextStyle="TextStyle.Body2"
-                                            Style="display: flex; white-space: nowrap; text-overflow: ellipsis;">
-                                    @SelectLabel(@itm.Value!)
-                                    <RadzenIcon Icon="done" IconColor="var(--rz-dropdown-open-background-color)" />
-                                </RadzenText>
-                            }
-                        </div>
-                    }
-                </ChildContent>
-            </RadzenSplitButton>
-            @time
+            <RdznGrdHdrTmpt BusyDelete="@busyDelete" DisabledDelete="@disabledDelete"
+                            ClearBtnText="@clearBtnText" SelectedLogs="@selectedLogs" Time="@time"
+                            Clear="@Clear" DeleteLogs="@DeleteLogs" />
         </HeaderTemplate>
         
         <Template Context="logs">
@@ -85,8 +66,7 @@ else
     private bool disabledDelete => (selectedLogs == null || selectedLogs!.Count == 0) ? true : false;
     private bool busyDelete;
     private string clearBtnText => disabledDelete ? "Clear selected" : "Clear selected" + " [" + selectedLogs!.Count + "]";
-    private int i;
-
+    
     private RadzenDataGrid<MachinesLogs>? grid;
     private MachinesLogs[]? dataLogs;
     private IList<MachinesLogs>? selectedLogs;
@@ -99,9 +79,14 @@ else
 
     private async Task DeleteLogs()
     {
-        if (selectedLogs == null)
-            return;
         busyDelete = true;
+        var options = new ConfirmOptions() { OkButtonText = "Yes", CancelButtonText = "No" };
+        bool? confirm = await DialogService.Confirm("Are you sure?", "Delete", options);
+        if (confirm != true || selectedLogs == null)
+        {
+            busyDelete = false;
+            return;
+        }
         await DeleteLogsFromApi();
         DeleteLogsFromGrid();
         busyDelete = false;
@@ -140,17 +125,6 @@ else
             // await grid.FirstPage(true);
         }
         waitingRequest = false;
-    }
-
-    private string? SelectLabel(string text)
-    {
-        int number = i + 1;
-        string result = $"[{number}] {text}";
-        if (selectedLogs!.Count - 1 == i)
-            i = 0;
-        else
-            i++;
-        return result;
     }
 
     private async Task GetMachinesLogs()
