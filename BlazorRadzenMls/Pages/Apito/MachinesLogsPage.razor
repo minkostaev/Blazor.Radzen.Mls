@@ -6,7 +6,6 @@
 
 @using BlazorRadzenMls.Models
 
-@inject DialogService DialogService
 @inject IApito _apito
 
 <RadzenText Text="@__lang["Machines Logs"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
@@ -16,12 +15,12 @@
     <RadzenDataGrid @ref="grid" Data="@dataLogs" TItem="MachinesLogs" @bind-Value="selectedLogs"
                     PageSize="10" AllowPaging="true" AllowSorting="true" IsLoading="@busyDelete"
                     PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
-                    AllowFiltering="true" FilterMode="FilterMode.Advanced"
+                    AllowFiltering="true" FilterMode="FilterMode.Advanced" Density="@density"
                     SelectionMode="DataGridSelectionMode.Multiple">
         <HeaderTemplate>
             <RdznGrdHdrTmpt BusyDelete="@busyDelete" DisabledDelete="@disabledDelete"
-                            ClearBtnText="@clearBtnText" SelectedLogs="@selectedLogs" Time="@time"
-                            Clear="@Clear" DeleteLogs="@DeleteLogs" />
+                            Selected="@selectedLogs" ClearBtnText="@clearBtnText" Times="@times"
+                            Clear="@Clear" Delete="@DeleteLogs" Compact="@ToggleCompact" />
         </HeaderTemplate>
         
         <Template Context="logs">
@@ -31,7 +30,7 @@
         </Template>
         
         <Columns>
-            <RadzenDataGridColumn Width="40px" Sortable="false" Filterable="false">
+            <RadzenDataGridColumn Width="40px" Sortable="false" Filterable="false" Visible="@visibleCheckboxColumn">
                 <HeaderTemplate>
                     <RadzenCheckBox TriState="false" TValue="bool?"
                                     Value="@(selectedLogs == null || selectedLogs?.Any() != true ? false : !dataLogs.All(i => selectedLogs.Select(e => e.Id).Contains(i.Id)) ? null : dataLogs.Any(i => selectedLogs.Select(e => e.Id).Contains(i.Id)))"
@@ -66,27 +65,27 @@ else
     private bool disabledDelete => (selectedLogs == null || selectedLogs!.Count == 0) ? true : false;
     private bool busyDelete;
     private string clearBtnText => disabledDelete ? "Clear selected" : "Clear selected" + " [" + selectedLogs!.Count + "]";
-    
+
     private RadzenDataGrid<MachinesLogs>? grid;
     private MachinesLogs[]? dataLogs;
     private IList<MachinesLogs>? selectedLogs;
 
     private Density density = Density.Default;
+    private bool visibleCheckboxColumn;
 
-    private string? time;
     private string? ResponseText;
     private bool waitingRequest;
+    private Dictionary<string, long>? times;
 
-    private async Task DeleteLogs()
+    private async Task DeleteLogs(bool shouldDelete)
     {
         busyDelete = true;
-        var options = new ConfirmOptions() { OkButtonText = "Yes", CancelButtonText = "No" };
-        bool? confirm = await DialogService.Confirm("Are you sure?", "Delete", options);
-        if (confirm != true || selectedLogs == null)
+        if (!shouldDelete)
         {
             busyDelete = false;
             return;
         }
+        times = null;
         await DeleteLogsFromApi();
         DeleteLogsFromGrid();
         busyDelete = false;
@@ -95,9 +94,10 @@ else
     {
         var ids = selectedLogs!.Select(p => p.Id).ToArray();
         var response = await _apito.DeleteMachinesLogs(ids!);
-
-        long total = response.RequestTime + response.DeserializeTime;
-        time = $"[{response.RequestTime}ms {response.DeserializeTime}ms] {AppValues.FormatMilliseconds(total)}";
+        times = new Dictionary<string, long>()
+        {
+            { "Request", response.RequestTime }
+        };
     }
     private void DeleteLogsFromGrid()
     {
@@ -132,18 +132,26 @@ else
         waitingRequest = true;
         Response response = await _apito.GetMachinesLogs();
         dataLogs = (MachinesLogs[]?)response.Result;
-
-        long total = response.RequestTime + response.DeserializeTime;
-        time = $"[{response.RequestTime}ms {response.DeserializeTime}ms] {AppValues.FormatMilliseconds(total)}";
+        times = new Dictionary<string, long>()
+        {
+            { "Request", response.RequestTime },
+            { "Deserialize", response.DeserializeTime }
+        };
         waitingRequest = false;
+    }
+
+    private void ToggleCompact(bool newValue)
+    {
+        density = (newValue) ? Density.Compact : Density.Default;
     }
 
     protected override async Task OnInitializedAsync()
     {
         await GetMachinesLogs();
-        // bool res = false;
-        // try { res = await __js.InvokeAsync<bool>("isMobileDevice"); }
-        // catch { Console.WriteLine("js error: MachinesLogsPage.razor -> OnInitializedAsync"); }
+        bool isMobileDevice = false;
+        try { isMobileDevice = await __js.InvokeAsync<bool>("isMobileDevice"); }
+        catch { Console.WriteLine("js error: MachinesLogsPage.razor -> OnInitializedAsync"); }
+        visibleCheckboxColumn = !isMobileDevice;
     }
 
 }

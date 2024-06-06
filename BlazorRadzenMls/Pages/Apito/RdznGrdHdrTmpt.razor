@@ -2,15 +2,15 @@
 
 <RadzenButton Text="Reload" Icon="autorenew" Click="() => Clear.InvokeAsync(true)" IsBusy="@BusyDelete"
               ButtonStyle="ButtonStyle.Info" />
-<RadzenButton Text="Delete" Icon="delete_forever" Click="@DeleteLogs" IsBusy="@BusyDelete"
+<RadzenButton Text="Delete" Icon="delete_forever" Click="@DeleteConfirm" IsBusy="@BusyDelete"
               ButtonStyle="ButtonStyle.Danger" Disabled="@DisabledDelete" />
 <RadzenSplitButton Text="@ClearBtnText" Disabled="@DisabledDelete" Click="() => Clear.InvokeAsync()" IsBusy="@BusyDelete"
                    Icon="cached" ButtonStyle="ButtonStyle.Info">
     <ChildContent>
-        @if (SelectedLogs != null)
+        @if (Selected != null)
         {
             <div style="width: 266px; max-height: 366px; overflow: auto; padding: 10px;">
-                @foreach (var itm in SelectedLogs)
+                @foreach (var itm in Selected)
                 {
                     <RadzenText TextStyle="TextStyle.Body2"
                                 Style="display: flex; white-space: nowrap; text-overflow: ellipsis;">
@@ -22,12 +22,19 @@
         }
     </ChildContent>
 </RadzenSplitButton>
-@Time
+<RadzenToggleButton @bind-Value=@density Text="Compact" Change="@BtnToggle"
+                    ButtonStyle="ButtonStyle.Info" ToggleButtonStyle="ButtonStyle.Primary" />
+<RadzenText Text="@totolTime" MouseEnter="@(args => ShowTooltip(args))"
+            TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block; text-decoration: underline;" />
+
 
 @code {
 
     [Parameter]
-    public IList<MachinesLogs>? SelectedLogs { get; set; }
+    public IList<MachinesLogs>? Selected { get; set; }
+
+    [Parameter]
+    public Dictionary<string, long>? Times { get; set; }
 
     [Parameter]
     public bool BusyDelete { get; set; }
@@ -36,27 +43,87 @@
     public bool DisabledDelete { get; set; }
 
     [Parameter]
-    public string? Time { get; set; }
-
-    [Parameter]
     public string? ClearBtnText { get; set; }
 
     [Parameter]
     public EventCallback<bool> Clear { get; set; }
 
     [Parameter]
-    public EventCallback DeleteLogs { get; set; }
+    public EventCallback<bool> Delete { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> Compact { get; set; }
+
+    private bool density;
+    private string? totolTime
+    {
+        get
+        {
+            if (Times == null)
+                return null;
+            if (Times.Count > 0)
+                return AppValues.FormatMilliseconds(Times.Values.Sum());
+            return string.Empty;
+        }
+    }
+    private string? toolTipText
+    {
+        get
+        {
+            if (Times == null)
+                return null;
+            string result = string.Empty;
+            foreach (var qq in Times)
+            {
+                string delimeter = (string.IsNullOrEmpty(result)) ? string.Empty : " + ";
+                result += $"{delimeter}{qq.Key}: {qq.Value} ms";
+            }
+            return result;
+        }
+    }
+
+    private async Task DeleteConfirm()
+    {
+        bool shouldDelete = true;
+        var options = new ConfirmOptions() { OkButtonText = "Yes", CancelButtonText = "No" };
+        bool? confirm = await __dialog.Confirm("Are you sure?", "Delete", options);
+        if (confirm != true || Selected == null)
+        {
+            shouldDelete = false;
+        }
+        await Delete.InvokeAsync(shouldDelete);
+    }
 
     private int i;
     private string? SelectLabel(string text)
     {
         int number = i + 1;
         string result = $"[{number}] {text}";
-        if (SelectedLogs!.Count - 1 == i)
+        if (Selected!.Count - 1 == i)
             i = 0;
         else
             i++;
         return result;
+    }
+
+    private void ShowTooltip(ElementReference elementReference)
+    {
+        var options = new TooltipOptions() { Position = TooltipPosition.Bottom };
+        __tooltip.Open(elementReference, toolTipText, options);
+    }
+
+    private async Task BtnToggle(bool newValue)
+    {
+        await Compact.InvokeAsync(newValue);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        bool isMobileDevice = false;
+        try { isMobileDevice = await __js.InvokeAsync<bool>("isMobileDevice"); }
+        catch { Console.WriteLine("js error: MachinesLogsPage.razor -> OnInitializedAsync"); }
+        await BtnToggle(isMobileDevice);
+        density = isMobileDevice;
     }
 
 }

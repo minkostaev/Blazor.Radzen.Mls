@@ -59,13 +59,13 @@ public static class AppValues
     {
         TimeSpan span = TimeSpan.FromMilliseconds(milliseconds);
         if (span.TotalDays >= 1)
-            return $"{(int)span.TotalDays}d {span:hh\\:mm\\:ss\\.fff}";
+            return $"{(int)span.TotalDays} d {span:hh\\:mm\\:ss\\.fff}";
         else if (span.TotalHours >= 1)
-            return $"{(int)span.TotalHours}h {span:mm\\:ss\\.fff}";
+            return $"{(int)span.TotalHours} h {span:mm\\:ss\\.fff}";
         else if (span.TotalMinutes >= 1)
-            return $"{(int)span.TotalMinutes}m {span:ss\\.fff}";
+            return $"{(int)span.TotalMinutes} m {span:ss\\.fff}";
         else
-            return $"{span.TotalSeconds:0.###}s";
+            return $"{span.TotalSeconds:0.###} s";
     }
 
 }
