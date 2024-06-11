@@ -11,7 +11,7 @@
     <RadzenLabel Text="@__env.Environment" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
     <RadzenLabel Text="@__lang["Authentication Configuration:"]" class="rz-color-success-dark" />
-    <RadzenLabel Text="@AppValues.GetAuth0(__env.BaseAddress)" class="rz-color-primary" Style="font-weight: bold;" />
+    <RadzenLabel Text="@AppStatic.GetAuth0(__env.BaseAddress)" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
     <RadzenLink Icon="list" Path="appsettings.json" Text="appsettings.json" />
     <br />

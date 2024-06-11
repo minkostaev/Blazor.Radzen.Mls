@@ -12,9 +12,9 @@ using System.Text.Json;
 
 public class Apito : IApito
 {
-    private const string EndpointTest = "/weatherforecast";
     private const string EndpointMachinesDetails = "/machinesdetails";
     private const string EndpointMachinesLogs = "/machineslogs";
+    private const string EndpointMachinesRecords = "/machinesrecords";
 
     private readonly HttpClient _httpClient;
     public Apito(IHttpClientFactory httpClientFactory)
@@ -22,34 +22,34 @@ public class Apito : IApito
         _httpClient = httpClientFactory.CreateClient("ApitoSomee");
     }
 
-    public async Task<WeatherForecast[]?> GetSomethingAsync()
-    {
-        //var fileContent = new StreamContent(new MemoryStream(xbrlInstance));
+    //public async Task<WeatherForecast[]?> GetSomethingAsync()
+    //{
+    //    //var fileContent = new StreamContent(new MemoryStream(xbrlInstance));
 
-        //var response = await _httpClient.PostAsync(EndpointTest, fileContent);
+    //    //var response = await _httpClient.PostAsync(EndpointTest, fileContent);
 
-        //var response = await _httpClient.GetFromJsonAsync<WeatherForecast[]>(EndpointTest);
-        var response = await _httpClient.GetAsync(EndpointTest);
+    //    //var response = await _httpClient.GetFromJsonAsync<WeatherForecast[]>(EndpointTest);
+    //    var response = await _httpClient.GetAsync(EndpointTest);
 
-        if (response == null)
-            return null;
-        //else
-        //    ResponseStatus = response.StatusCode;
+    //    if (response == null)
+    //        return null;
+    //    //else
+    //    //    ResponseStatus = response.StatusCode;
 
-        if (response.StatusCode != HttpStatusCode.OK)
-            return null;
+    //    if (response.StatusCode != HttpStatusCode.OK)
+    //        return null;
 
-        response.EnsureSuccessStatusCode();
+    //    response.EnsureSuccessStatusCode();
 
-        //string error = await response.Content.ReadAsStringAsync();
+    //    //string error = await response.Content.ReadAsStringAsync();
 
-        return await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
-    }
+    //    return await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
+    //}
 
     public async Task<Response> GetMachinesLogs()
     {
         var result = new Response();
-        var timer1 = TimerStart();
+        var timer1 = AppStatic.TimerStart();
 
         var response = await _httpClient.GetAsync(EndpointMachinesLogs);
 
@@ -66,14 +66,13 @@ public class Apito : IApito
 
         response.EnsureSuccessStatusCode();
 
-        result.RequestTime = TimerStop(timer1);
-        var timer2 = TimerStart();
+        result.RequestTime = AppStatic.TimerStop(timer1);
+        var timer2 = AppStatic.TimerStart();
 
-        //MachinesLogs[]? result = null;
         try { result.Result = await response.Content.ReadFromJsonAsync<MachinesLogs[]>(); }
         catch (Exception) { }
 
-        result.DeserializeTime = TimerStop(timer2);
+        result.DeserializeTime = AppStatic.TimerStop(timer2);
 
         return result;
     }
@@ -86,7 +85,7 @@ public class Apito : IApito
             return result;
         }
 
-        var timer = TimerStart();
+        var timer = AppStatic.TimerStart();
         string jsonString = JsonSerializer.Serialize(ids);
         string requestBody = "{\"Ids\": " + jsonString + "}";
         var request = new HttpRequestMessage
@@ -105,16 +104,16 @@ public class Apito : IApito
         }
         response.EnsureSuccessStatusCode();
 
-        result.RequestTime = TimerStop(timer);
+        result.RequestTime = AppStatic.TimerStop(timer);
         result.Result = true;
 
         return result;
     }
-        
+    
     public async Task<Response> GetMachinesDetails()
     {
         var result = new Response();
-        var timer1 = TimerStart();
+        var timer1 = AppStatic.TimerStart();
         
         var response = await _httpClient.GetAsync(EndpointMachinesDetails);
 
@@ -130,35 +129,46 @@ public class Apito : IApito
             return result;
         response.EnsureSuccessStatusCode();
 
-        result.RequestTime = TimerStop(timer1);
-        var timer2 = TimerStart();
+        result.RequestTime = AppStatic.TimerStop(timer1);
+        var timer2 = AppStatic.TimerStart();
 
         try { result.Result = await response.Content.ReadFromJsonAsync<MachineDb[]>(); }
         catch (Exception) { }
 
-        result.DeserializeTime = TimerStop(timer2);
+        result.DeserializeTime = AppStatic.TimerStop(timer2);
 
         return result;
     }
 
-    private Stopwatch TimerStart()
+    public async Task<Response> GetMachinesRecords()
     {
-        var stopwatch = new Stopwatch();
-        //stopwatch.Restart();
-        stopwatch.Start();
-        return stopwatch;
-    }
-    private long TimerStop(Stopwatch stopwatch)
-    {
-        stopwatch.Stop();
-        return stopwatch.ElapsedMilliseconds;
+        var result = new Response();
+        var timer1 = AppStatic.TimerStart();
+
+        var response = await _httpClient.GetAsync(EndpointMachinesRecords);
+
+        if (response == null)
+        {
+            result.Status = HttpStatusCode.InternalServerError;
+            return result;
+        }
+        else
+            result.Status = response.StatusCode;
+
+        if (response.StatusCode != HttpStatusCode.OK)
+            return result;
+
+        response.EnsureSuccessStatusCode();
+
+        result.RequestTime = AppStatic.TimerStop(timer1);
+        var timer2 = AppStatic.TimerStart();
+
+        try { result.Result = await response.Content.ReadFromJsonAsync<MachinesRecords[]>(); }
+        catch (Exception) { }
+
+        result.DeserializeTime = AppStatic.TimerStop(timer2);
+
+        return result;
     }
 
-}
-public class WeatherForecast
-{
-    public DateOnly Date { get; set; }
-    public int TemperatureC { get; set; }
-    public string? Summary { get; set; }
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }

@@ -12,6 +12,7 @@ public static class AppValues
     public const string PageDogs = "Dogs";
     public const string PageOptions = "Options";
     public const string PageMachinesLogs = "Machines/Logs";
+    public const string PageMachinesRecords = "Machines/Records";
     public const string PageMachinesDetails = "Machines/Details";
 
     public static string GitHubMy => "https://github.com/minkostaev/Blazor.Radzen.Mls";
@@ -19,23 +20,15 @@ public static class AppValues
     public static string GitHubAKSoftware => "https://github.com/aksoftware98/multilanguages";
     public static string GitHubBlazored => "https://github.com/Blazored";
     public static string GitHubAuth0 => "https://github.com/auth0";
+    
     public static string GitHubDomain => ".github.io";
+    public static string RenderDomain => ".onrender.com";
+    public static string NetlifyDomain => ".netlify.app";
 
     //public const string RolesAll = "admin, manager, user";
     //public const string RolesManager = "admin, manager";
     //public const string RolesAdmin = "admin";
 
-    public static string GetAuth0(string address)
-    {
-        if (address.Contains(GitHubDomain))
-            return "Auth0GitHub";
-        else if (address.Contains(".onrender.com"))
-            return "Auth0Render";
-        else if (address.Contains(".netlify.app"))
-            return "Auth0Netlify";
-        else
-            return "Auth0";
-    }
     public static string GetGitHubSub(NavigationManager nav)
     {
         if (nav.BaseUri.Contains(GitHubDomain))
@@ -54,19 +47,6 @@ public static class AppValues
     }
     public static string JsErrorString(string jsMethod, string cMethod = "")
         => $"error: js -> {jsMethod} | {cMethod}";
-
-    public static string FormatMilliseconds(long milliseconds)
-    {
-        TimeSpan span = TimeSpan.FromMilliseconds(milliseconds);
-        if (span.TotalDays >= 1)
-            return $"{(int)span.TotalDays} d {span:hh\\:mm\\:ss\\.fff}";
-        else if (span.TotalHours >= 1)
-            return $"{(int)span.TotalHours} h {span:mm\\:ss\\.fff}";
-        else if (span.TotalMinutes >= 1)
-            return $"{(int)span.TotalMinutes} m {span:ss\\.fff}";
-        else
-            return $"{span.TotalSeconds:0.###} s";
-    }
 
 }
 // to see

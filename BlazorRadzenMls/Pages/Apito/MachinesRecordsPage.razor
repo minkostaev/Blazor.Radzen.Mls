@@ -1,4 +1,4 @@
-﻿@attribute [Route(AppValues.PageMachinesLogs)]
+﻿@attribute [Route(AppValues.PageMachinesRecords)]
 
 @attribute [Authorize]
 @* @attribute [Authorize(Roles = "administrator, manager")] *@
@@ -8,43 +8,43 @@
 
 @inject IApito _apito
 
-<RadzenText Text="@__lang["Machines Logs"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
+<RadzenText Text="@__lang["Machines Records"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
 
 @if (dataLogs != null)
 {
-    <RadzenDataGrid @ref="grid" Data="@dataLogs" TItem="MachinesLogs" @bind-Value="selectedLogs"
+    <RadzenDataGrid @ref="grid" Data="@dataLogs" TItem="MachinesRecords" @bind-Value="selectedLogs"
                     PageSize="10" AllowPaging="true" AllowSorting="true" IsLoading="@busyDelete"
                     PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
-                    AllowFiltering="true" FilterMode="FilterMode.Advanced" Density="@density"
+                    AllowFiltering="true" FilterMode="FilterMode.CheckBoxList" Density="@density"
                     SelectionMode="DataGridSelectionMode.Multiple">
         <HeaderTemplate>
-            <RdznGrdHdrTmpt BusyDelete="@busyDelete" DisabledDelete="@disabledDelete"
-                            Selected2="@selectedValues" ClearBtnText="@clearBtnText" Times="@times"
-                            Clear="@Clear" Delete="@DeleteLogs" Compact="@ToggleCompact" />
+            @* <RdznGrdHdrTmpt BusyDelete="@busyDelete" DisabledDelete="@disabledDelete"
+                            Selected="@selectedLogs" ClearBtnText="@clearBtnText" Times="@times"
+                            Clear="@Clear" Delete="@DeleteLogs" Compact="@ToggleCompact" /> *@
         </HeaderTemplate>
-        
+
         <Template Context="logs">
             <RadzenCard Style="margin-bottom:20px">
                 Company: <b>@logs.Hash</b>
             </RadzenCard>
         </Template>
-        
+
         <Columns>
             <RadzenDataGridColumn Width="40px" Sortable="false" Filterable="false" Visible="@visibleCheckboxColumn">
                 <HeaderTemplate>
                     <RadzenCheckBox TriState="false" TValue="bool?"
                                     Value="@(selectedLogs == null || selectedLogs?.Any() != true ? false : !dataLogs.All(i => selectedLogs.Select(e => e.Id).Contains(i.Id)) ? null : dataLogs.Any(i => selectedLogs.Select(e => e.Id).Contains(i.Id)))"
-                                    Change="@(args => selectedLogs = args == true ? (selectedLogs ?? Enumerable.Empty<MachinesLogs>()).Union(dataLogs.Where(i => !(selectedLogs ?? Enumerable.Empty<MachinesLogs>()).Select(e => e.Id).Contains(i.Id))).ToList() : null)" />
+                                    Change="@(args => selectedLogs = args == true ? (selectedLogs ?? Enumerable.Empty<MachinesRecords>()).Union(dataLogs.Where(i => !(selectedLogs ?? Enumerable.Empty<MachinesRecords>()).Select(e => e.Id).Contains(i.Id))).ToList() : null)" />
                 </HeaderTemplate>
                 <Template Context="data">
                     <RadzenCheckBox TriState="false" TValue="bool"
                                     Value="@(selectedLogs != null && selectedLogs.Select(e => e.Id).Contains(data.Id))" />
                 </Template>
             </RadzenDataGridColumn>
-            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Value)" Title="Executed" />
-            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Api)" Title="Api" Width="100px" />
-            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Desktop)" Title="Desktop" Width="100px" />
-            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Date)" Title="Date" FormatString="{0:d}" Width="100px" />
+            <RadzenDataGridColumn Property="@nameof(MachinesRecords.Value)" Title="Executed" />
+            <RadzenDataGridColumn Property="@nameof(MachinesRecords.Server)" Title="Api" Width="100px" />
+            <RadzenDataGridColumn Property="@nameof(MachinesRecords.Client)" Title="Desktop" Width="100px" />
+            <RadzenDataGridColumn Property="@nameof(MachinesRecords.Date)" Title="Date" FormatString="{0:d}" Width="100px" />
         </Columns>
     </RadzenDataGrid>
 }
@@ -60,24 +60,16 @@ else
     }
 }
 
+
 @code {
 
     private bool disabledDelete => (selectedLogs == null || selectedLogs!.Count == 0) ? true : false;
     private bool busyDelete;
     private string clearBtnText => disabledDelete ? "Clear selected" : "Clear selected" + " [" + selectedLogs!.Count + "]";
 
-    private RadzenDataGrid<MachinesLogs>? grid;
-    private MachinesLogs[]? dataLogs;
-    private IList<MachinesLogs>? selectedLogs;
-    private IList<string>? selectedValues
-    {
-        get
-        {
-            if (selectedLogs == null)
-                return null;
-            return (from s in selectedLogs select s.Value).ToList();
-        }
-    }
+    private RadzenDataGrid<MachinesRecords>? grid;
+    private MachinesRecords[]? dataLogs;
+    private IList<MachinesRecords>? selectedLogs;
 
     private Density density = Density.Default;
     private bool visibleCheckboxColumn;
@@ -139,8 +131,8 @@ else
     private async Task GetMachinesLogs()
     {
         waitingRequest = true;
-        Response response = await _apito.GetMachinesLogs();
-        dataLogs = (MachinesLogs[]?)response.Result;
+        Response response = await _apito.GetMachinesRecords();
+        dataLogs = (MachinesRecords[]?)response.Result;
         times = new Dictionary<string, long>()
         {
             { "Request", response.RequestTime },
@@ -163,5 +155,5 @@ else
         catch { Console.WriteLine("js error: MachinesLogsPage.razor -> OnInitializedAsync"); }
         visibleCheckboxColumn = !isMobileDevice;
     }
-
+    
 }

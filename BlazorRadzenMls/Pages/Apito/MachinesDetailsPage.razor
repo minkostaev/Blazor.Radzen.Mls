@@ -73,7 +73,7 @@ else
         dataLogs = (MachineDb[]?)response.Result;
 
         long total = response.RequestTime + response.DeserializeTime;
-        time = $"[{response.RequestTime}ms {response.DeserializeTime}ms] {AppValues.FormatMilliseconds(total)}";
+        time = $"[{response.RequestTime}ms {response.DeserializeTime}ms] {AppStatic.FormatMilliseconds(total)}";
     }
 
 

@@ -23,7 +23,7 @@
     {
         if (Action?.ToLower() == "logout")
         {
-            string auth0 = AppValues.GetAuth0(__nav.BaseUri);
+            string auth0 = AppStatic.GetAuth0(__nav.BaseUri);
             var authority = __config[$"Authentication:{auth0}:Authority"];
             var clientId = __config[$"Authentication:{auth0}:ClientId"];
             __nav.NavigateTo($"{authority}/v2/logout?client_id={clientId}");

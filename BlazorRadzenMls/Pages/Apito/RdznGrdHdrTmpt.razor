@@ -7,14 +7,15 @@
 <RadzenSplitButton Text="@ClearBtnText" Disabled="@DisabledDelete" Click="() => Clear.InvokeAsync()" IsBusy="@BusyDelete"
                    Icon="cached" ButtonStyle="ButtonStyle.Info">
     <ChildContent>
-        @if (Selected != null)
+        @if (Selected2 != null)
         {
             <div style="width: 266px; max-height: 366px; overflow: auto; padding: 10px;">
-                @foreach (var itm in Selected)
+                @foreach (var itm in Selected2)
                 {
                     <RadzenText TextStyle="TextStyle.Body2"
                                 Style="display: flex; white-space: nowrap; text-overflow: ellipsis;">
-                        @SelectLabel(@itm.Value!)
+                        @* @SelectLabel(@itm.Value!) *@
+                        @SelectLabel(@itm!)
                         <RadzenIcon Icon="done" IconColor="var(--rz-dropdown-open-background-color)" />
                     </RadzenText>
                 }
@@ -22,8 +23,10 @@
         }
     </ChildContent>
 </RadzenSplitButton>
+
 <RadzenToggleButton @bind-Value=@density Text="Compact" Change="@BtnToggle"
                     ButtonStyle="ButtonStyle.Info" ToggleButtonStyle="ButtonStyle.Primary" />
+
 <RadzenText Text="@totolTime" MouseEnter="@(args => ShowTooltip(args))"
             TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block; text-decoration: underline;" />
 
@@ -31,7 +34,10 @@
 @code {
 
     [Parameter]
-    public IList<MachinesLogs>? Selected { get; set; }
+    public IList<string>? Selected2 { get; set; }
+
+    // [Parameter]
+    // public IList<MachinesLogs>? Selected { get; set; }
 
     [Parameter]
     public Dictionary<string, long>? Times { get; set; }
@@ -62,7 +68,7 @@
             if (Times == null)
                 return null;
             if (Times.Count > 0)
-                return AppValues.FormatMilliseconds(Times.Values.Sum());
+                return AppStatic.FormatMilliseconds(Times.Values.Sum());
             return string.Empty;
         }
     }
@@ -87,7 +93,7 @@
         bool shouldDelete = true;
         var options = new ConfirmOptions() { OkButtonText = "Yes", CancelButtonText = "No" };
         bool? confirm = await __dialog.Confirm("Are you sure?", "Delete", options);
-        if (confirm != true || Selected == null)
+        if (confirm != true || Selected2 == null)
         {
             shouldDelete = false;
         }
@@ -99,7 +105,7 @@
     {
         int number = i + 1;
         string result = $"[{number}] {text}";
-        if (Selected!.Count - 1 == i)
+        if (Selected2!.Count - 1 == i)
             i = 0;
         else
             i++;
