@@ -18,9 +18,9 @@
                     AllowFiltering="true" FilterMode="FilterMode.CheckBoxList" Density="@density"
                     SelectionMode="DataGridSelectionMode.Multiple">
         <HeaderTemplate>
-            @* <RdznGrdHdrTmpt BusyDelete="@busyDelete" DisabledDelete="@disabledDelete"
-                            Selected="@selectedLogs" ClearBtnText="@clearBtnText" Times="@times"
-                            Clear="@Clear" Delete="@DeleteLogs" Compact="@ToggleCompact" /> *@
+            <RdznGrdHdrTmpt BusyDelete="@busyDelete" DisabledDelete="@disabledDelete"
+                            Selected="@selectedValues" Times="@times"
+                            Clear="@Clear" Delete="@DeleteLogs" Compact="@ToggleCompact" />
         </HeaderTemplate>
 
         <Template Context="logs">
@@ -65,12 +65,27 @@ else
 
     private bool disabledDelete => (selectedLogs == null || selectedLogs!.Count == 0) ? true : false;
     private bool busyDelete;
-    private string clearBtnText => disabledDelete ? "Clear selected" : "Clear selected" + " [" + selectedLogs!.Count + "]";
 
     private RadzenDataGrid<MachinesRecords>? grid;
     private MachinesRecords[]? dataLogs;
     private IList<MachinesRecords>? selectedLogs;
-
+    private IList<string>? selectedValues
+    {
+        get
+        {
+            if (selectedLogs == null)
+                return null;
+            return (from s in selectedLogs select s.Value).ToList();
+        }
+    }
+    private IList<string>? columns = new List<string>
+    {
+        "Density",
+        nameof(MachinesRecords.Server),
+        nameof(MachinesRecords.Client),
+        nameof(MachinesRecords.Date)
+    };
+    
     private Density density = Density.Default;
     private bool visibleCheckboxColumn;
 

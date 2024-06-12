@@ -19,7 +19,7 @@
                     SelectionMode="DataGridSelectionMode.Multiple">
         <HeaderTemplate>
             <RdznGrdHdrTmpt BusyDelete="@busyDelete" DisabledDelete="@disabledDelete"
-                            Selected2="@selectedValues" ClearBtnText="@clearBtnText" Times="@times"
+                            Selected="@selectedValues" Times="@times"
                             Clear="@Clear" Delete="@DeleteLogs" Compact="@ToggleCompact" />
         </HeaderTemplate>
         
@@ -64,8 +64,7 @@ else
 
     private bool disabledDelete => (selectedLogs == null || selectedLogs!.Count == 0) ? true : false;
     private bool busyDelete;
-    private string clearBtnText => disabledDelete ? "Clear selected" : "Clear selected" + " [" + selectedLogs!.Count + "]";
-
+    
     private RadzenDataGrid<MachinesLogs>? grid;
     private MachinesLogs[]? dataLogs;
     private IList<MachinesLogs>? selectedLogs;

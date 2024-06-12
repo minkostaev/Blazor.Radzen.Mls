@@ -1,21 +1,20 @@
 ﻿@using BlazorRadzenMls.Models
 
-<RadzenButton Text="Reload" Icon="autorenew" Click="() => Clear.InvokeAsync(true)" IsBusy="@BusyDelete"
-              ButtonStyle="ButtonStyle.Info" />
-<RadzenButton Text="Delete" Icon="delete_forever" Click="@DeleteConfirm" IsBusy="@BusyDelete"
-              ButtonStyle="ButtonStyle.Danger" Disabled="@DisabledDelete" />
-<RadzenSplitButton Text="@ClearBtnText" Disabled="@DisabledDelete" Click="() => Clear.InvokeAsync()" IsBusy="@BusyDelete"
-                   Icon="cached" ButtonStyle="ButtonStyle.Info">
+<RadzenButton Text="@__lang["Reload"]" Icon="autorenew" Click="() => Clear.InvokeAsync(true)"
+              ButtonStyle="ButtonStyle.Info" IsBusy="@BusyDelete" />
+<RadzenButton Text="@__lang["Delete"]" Icon="delete_forever" Click="@DeleteConfirm"
+              ButtonStyle="ButtonStyle.Danger" Disabled="@DisabledDelete" IsBusy="@BusyDelete" />
+<RadzenSplitButton Text="@DeselectText" Disabled="@DisabledDelete" Click="() => Clear.InvokeAsync()"
+                   Icon="cached" ButtonStyle="ButtonStyle.Info" IsBusy="@BusyDelete">
     <ChildContent>
-        @if (Selected2 != null)
+        @if (Selected != null)
         {
-            <div style="width: 266px; max-height: 366px; overflow: auto; padding: 10px;">
-                @foreach (var itm in Selected2)
+            <div class="drop-down-panel">
+                @foreach (var itm in Selected)
                 {
                     <RadzenText TextStyle="TextStyle.Body2"
                                 Style="display: flex; white-space: nowrap; text-overflow: ellipsis;">
-                        @* @SelectLabel(@itm.Value!) *@
-                        @SelectLabel(@itm!)
+                        @SelectLabel(@itm)
                         <RadzenIcon Icon="done" IconColor="var(--rz-dropdown-open-background-color)" />
                     </RadzenText>
                 }
@@ -24,20 +23,33 @@
     </ChildContent>
 </RadzenSplitButton>
 
-<RadzenToggleButton @bind-Value=@density Text="Compact" Change="@BtnToggle"
-                    ButtonStyle="ButtonStyle.Info" ToggleButtonStyle="ButtonStyle.Primary" />
+<RadzenSplitButton Text="@__lang["More"]" Icon="cached" ButtonStyle="ButtonStyle.Info" IsBusy="@BusyDelete">
+    <ChildContent>
+        <div class="drop-down-panel">
+            <div>
+                <RadzenLabel Text="@__lang["Last action time: "]" class="rz-color-success-dark" />
+                <RadzenText Text="@totolTime" MouseEnter="@(args => ShowTooltip(args))"
+                            TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block; text-decoration: underline;" />
+            </div>
+            <div>
+                <RadzenCheckBox Name="chkBxDensity" @bind-Value=@density TValue="bool" Change="@BtnToggle" />
+                <RadzenLabel Component="chkBxDensity" Text="@__lang["Compact view"]" class="rz-color-success-dark" />
+            </div>
+        </div>
+    </ChildContent>
+</RadzenSplitButton>
 
-<RadzenText Text="@totolTime" MouseEnter="@(args => ShowTooltip(args))"
-            TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block; text-decoration: underline;" />
+@* <RadzenToggleButton @bind-Value=@density Text="Compact" Change="@BtnToggle"
+                    ButtonStyle="ButtonStyle.Info" ToggleButtonStyle="ButtonStyle.Primary" /> *@
+
+@* <RadzenText Text="@totolTime" MouseEnter="@(args => ShowTooltip(args))"
+            TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block; text-decoration: underline;" /> *@
 
 
 @code {
 
     [Parameter]
-    public IList<string>? Selected2 { get; set; }
-
-    // [Parameter]
-    // public IList<MachinesLogs>? Selected { get; set; }
+    public IList<string>? Selected { get; set; }
 
     [Parameter]
     public Dictionary<string, long>? Times { get; set; }
@@ -49,9 +61,6 @@
     public bool DisabledDelete { get; set; }
 
     [Parameter]
-    public string? ClearBtnText { get; set; }
-
-    [Parameter]
     public EventCallback<bool> Clear { get; set; }
 
     [Parameter]
@@ -59,6 +68,8 @@
 
     [Parameter]
     public EventCallback<bool> Compact { get; set; }
+
+    private string DeselectText => DisabledDelete ? @__lang["Deselect"] : @__lang["Deselect"] + " [" + Selected!.Count + "]";
 
     private bool density;
     private string? totolTime
@@ -79,10 +90,10 @@
             if (Times == null)
                 return null;
             string result = string.Empty;
-            foreach (var qq in Times)
+            foreach (var t in Times)
             {
                 string delimeter = (string.IsNullOrEmpty(result)) ? string.Empty : " + ";
-                result += $"{delimeter}{qq.Key}: {qq.Value} ms";
+                result += $"{delimeter}{t.Key}: {t.Value} ms";
             }
             return result;
         }
@@ -93,7 +104,7 @@
         bool shouldDelete = true;
         var options = new ConfirmOptions() { OkButtonText = "Yes", CancelButtonText = "No" };
         bool? confirm = await __dialog.Confirm("Are you sure?", "Delete", options);
-        if (confirm != true || Selected2 == null)
+        if (confirm != true || Selected == null)
         {
             shouldDelete = false;
         }
@@ -105,7 +116,7 @@
     {
         int number = i + 1;
         string result = $"[{number}] {text}";
-        if (Selected2!.Count - 1 == i)
+        if (Selected!.Count - 1 == i)
             i = 0;
         else
             i++;
