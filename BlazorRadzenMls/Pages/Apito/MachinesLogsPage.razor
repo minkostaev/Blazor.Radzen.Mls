@@ -19,8 +19,8 @@
                     SelectionMode="DataGridSelectionMode.Multiple">
         <HeaderTemplate>
             <RdznGrdHdrTmpt BusyDelete="@busyDelete" DisabledDelete="@disabledDelete"
-                            Selected="@selectedValues" Times="@times"
-                            Clear="@Clear" Delete="@DeleteLogs" Compact="@ToggleCompact" />
+                            Selected="@selectedValues" ColumnsNames="@columnsNames" Times="@times"
+                            Clear="@Clear" Delete="@DeleteLogs" ColumnsChange="@ColumnsChange" />
         </HeaderTemplate>
         
         <Template Context="logs">
@@ -30,7 +30,7 @@
         </Template>
         
         <Columns>
-            <RadzenDataGridColumn Width="40px" Sortable="false" Filterable="false" Visible="@visibleCheckboxColumn">
+            <RadzenDataGridColumn Width="40px" Sortable="false" Filterable="false" Property="" Visible=@visibleCheckboxColumn >
                 <HeaderTemplate>
                     <RadzenCheckBox TriState="false" TValue="bool?"
                                     Value="@(selectedLogs == null || selectedLogs?.Any() != true ? false : !dataLogs.All(i => selectedLogs.Select(e => e.Id).Contains(i.Id)) ? null : dataLogs.Any(i => selectedLogs.Select(e => e.Id).Contains(i.Id)))"
@@ -41,10 +41,10 @@
                                     Value="@(selectedLogs != null && selectedLogs.Select(e => e.Id).Contains(data.Id))" />
                 </Template>
             </RadzenDataGridColumn>
-            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Value)" Title="Executed" />
-            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Api)" Title="Api" Width="100px" />
-            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Desktop)" Title="Desktop" Width="100px" />
-            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Date)" Title="Date" FormatString="{0:d}" Width="100px" />
+            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Value)" Title="Executed" MinWidth="100px"  />
+            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Api)" Title="Api" Width="100px" Visible=@visibleServer />
+            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Desktop)" Title="Desktop" Width="100px" Visible=@visibleClient />
+            <RadzenDataGridColumn Property="@nameof(MachinesLogs.Date)" Title="Date" FormatString="{0:d}" Width="100px" Visible=@visibleDate />
         </Columns>
     </RadzenDataGrid>
 }
@@ -68,6 +68,7 @@ else
     private RadzenDataGrid<MachinesLogs>? grid;
     private MachinesLogs[]? dataLogs;
     private IList<MachinesLogs>? selectedLogs;
+    
     private IList<string>? selectedValues
     {
         get
@@ -77,13 +78,41 @@ else
             return (from s in selectedLogs select s.Value).ToList();
         }
     }
+    private Dictionary<string, string>? columnsNames;
 
     private Density density = Density.Default;
-    private bool visibleCheckboxColumn;
+    private bool visibleCheckboxColumn = true;
+    private bool visibleServer = true;
+    private bool visibleClient = true;
+    private bool visibleDate = true;
 
     private bool waitingRequest;
     private string? ResponseText;
     private Dictionary<string, long>? times;
+    
+    private void ColumnsChange(KeyValuePair<string, bool> values)
+    {
+        switch (values.Key)
+        {
+            case nameof(density):
+                density = values.Value ? Density.Compact : Density.Default;
+                break;
+            case nameof(visibleCheckboxColumn):
+                visibleCheckboxColumn = values.Value;
+                break;
+            case nameof(MachinesRecords.Server):
+                visibleServer = values.Value;
+                break;
+            case nameof(MachinesRecords.Client):
+                visibleClient = values.Value;
+                break;
+            case nameof(MachinesRecords.Date):
+                visibleDate = values.Value;
+                break;
+            default:
+                break;
+        }
+    }
 
     private async Task DeleteLogs(bool shouldDelete)
     {
@@ -149,18 +178,15 @@ else
         waitingRequest = false;
     }
 
-    private void ToggleCompact(bool newValue)
-    {
-        density = (newValue) ? Density.Compact : Density.Default;
-    }
-
     protected override async Task OnInitializedAsync()
     {
+        columnsNames = new Dictionary<string, string>();
+        columnsNames.Add(nameof(density), __lang["Compact view"]);
+        columnsNames.Add(nameof(visibleCheckboxColumn), __lang["Select column"]);
+        columnsNames.Add(nameof(MachinesRecords.Server), __lang["Server"]);
+        columnsNames.Add(nameof(MachinesRecords.Client), __lang["Client"]);
+        columnsNames.Add(nameof(MachinesRecords.Date), __lang["Date"]);
         await GetMachinesLogs();
-        bool isMobileDevice = false;
-        try { isMobileDevice = await __js.InvokeAsync<bool>("isMobileDevice"); }
-        catch { Console.WriteLine("js error: MachinesLogsPage.razor -> OnInitializedAsync"); }
-        visibleCheckboxColumn = !isMobileDevice;
     }
 
 }

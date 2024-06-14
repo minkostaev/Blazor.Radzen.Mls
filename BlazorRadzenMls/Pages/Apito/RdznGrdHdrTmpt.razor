@@ -23,7 +23,8 @@
     </ChildContent>
 </RadzenSplitButton>
 
-<RadzenSplitButton Text="@__lang["More"]" Icon="cached" ButtonStyle="ButtonStyle.Info" IsBusy="@BusyDelete">
+<RadzenSplitButton Text="@__lang["More"]" Icon="list" ButtonStyle="ButtonStyle.Info"
+                   IsBusy="@BusyDelete" AlwaysOpenPopup="true">
     <ChildContent>
         <div class="drop-down-panel">
             <div>
@@ -31,25 +32,29 @@
                 <RadzenText Text="@totolTime" MouseEnter="@(args => ShowTooltip(args))"
                             TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block; text-decoration: underline;" />
             </div>
-            <div>
-                <RadzenCheckBox Name="chkBxDensity" @bind-Value=@density TValue="bool" Change="@BtnToggle" />
-                <RadzenLabel Component="chkBxDensity" Text="@__lang["Compact view"]" class="rz-color-success-dark" />
-            </div>
+            @if (ColumnsNames != null && columnsChecked != null)
+            {
+                @foreach (var itm in ColumnsNames)
+                {
+                    <div>
+                        <RadzenCheckBox Name="@itm.Key" @bind-Value=columnsChecked![itm.Key] TValue="bool"
+                                        Change="() => Columns_Change(itm.Key, columnsChecked![itm.Key])" />
+                        <RadzenLabel Component="@itm.Key" Text="@itm.Value" class="rz-color-success-dark" />
+                    </div>
+                }
+            }
         </div>
     </ChildContent>
 </RadzenSplitButton>
-
-@* <RadzenToggleButton @bind-Value=@density Text="Compact" Change="@BtnToggle"
-                    ButtonStyle="ButtonStyle.Info" ToggleButtonStyle="ButtonStyle.Primary" /> *@
-
-@* <RadzenText Text="@totolTime" MouseEnter="@(args => ShowTooltip(args))"
-            TextStyle="TextStyle.Body1" class="rz-color-primary" Style="display: inline-block; text-decoration: underline;" /> *@
-
 
 @code {
 
     [Parameter]
     public IList<string>? Selected { get; set; }
+
+    [Parameter]
+    public Dictionary<string, string>? ColumnsNames { get; set; }
+    private Dictionary<string, bool>? columnsChecked;
 
     [Parameter]
     public Dictionary<string, long>? Times { get; set; }
@@ -67,11 +72,10 @@
     public EventCallback<bool> Delete { get; set; }
 
     [Parameter]
-    public EventCallback<bool> Compact { get; set; }
+    public EventCallback<KeyValuePair<string, bool>> ColumnsChange { get; set; }
 
-    private string DeselectText => DisabledDelete ? @__lang["Deselect"] : @__lang["Deselect"] + " [" + Selected!.Count + "]";
+    private string DeselectText => DisabledDelete ? __lang["Deselect"] : __lang["Deselect"] + " [" + Selected?.Count + "]";
 
-    private bool density;
     private string? totolTime
     {
         get
@@ -129,18 +133,44 @@
         __tooltip.Open(elementReference, toolTipText, options);
     }
 
-    private async Task BtnToggle(bool newValue)
+    private async Task Columns_Change(string name, bool newValue)
     {
-        await Compact.InvokeAsync(newValue);
+        var val = new KeyValuePair<string, bool>(name, newValue);
+        await ColumnsChange.InvokeAsync(val);
     }
+
 
     protected override async Task OnInitializedAsync()
     {
+        string firstColumn = string.Empty;
+        string secondColumn = string.Empty;
+        if (ColumnsNames != null)
+        {
+            columnsChecked = new Dictionary<string, bool>();
+            foreach (var c in ColumnsNames)
+            {
+                columnsChecked.Add(c.Key, true);
+                if (string.IsNullOrEmpty(firstColumn))
+                {
+                    firstColumn = c.Key;
+                    continue;
+                }
+                if (string.IsNullOrEmpty(secondColumn))
+                {
+                    secondColumn = c.Key;
+                }
+            }
+        }
         bool isMobileDevice = false;
         try { isMobileDevice = await __js.InvokeAsync<bool>("isMobileDevice"); }
         catch { Console.WriteLine("js error: MachinesLogsPage.razor -> OnInitializedAsync"); }
-        await BtnToggle(isMobileDevice);
-        density = isMobileDevice;
+        if (columnsChecked != null && columnsChecked.Count > 1)
+        {
+            columnsChecked![firstColumn] = isMobileDevice;
+            columnsChecked![secondColumn] = !isMobileDevice;
+            await Columns_Change(ColumnsNames![firstColumn], isMobileDevice);
+            await Columns_Change(ColumnsNames![secondColumn], !isMobileDevice);
+        }
     }
 
 }
