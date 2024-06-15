@@ -28,5 +28,52 @@ public class MachinesRecords
 
     // more
     public DateTime DateTime { get { return DateTime.Parse(Date!); } }
-    public DateTime DateOnly { get { return DateTime.Date; } }
+    //public DateTime DateOnly { get { return DateTime.Date; } }
+
+    public string? ClientName
+    {
+        get
+        {
+            string? result = null;
+            var clients = Client?.Split('|');
+            if (clients != null && clients.Length > 0)
+                result = clients[0];
+            return result;
+        }
+    }
+    public string? ClientVersion
+    {
+        get
+        {
+            string? result = null;
+            var clients = Client?.Split('|');
+            if (clients != null && clients.Length > 1)
+                result = clients[1];
+            return result;
+        }
+    }
+
+    public string? ServerName
+    {
+        get
+        {
+            string? result = null;
+            var servers = Server?.Split('|');
+            if (servers != null && servers.Length > 0)
+                result = servers[0];
+            return result;
+        }
+    }
+    public string? ServerVersion
+    {
+        get
+        {
+            string? result = null;
+            var servers = Server?.Split('|');
+            if (servers != null && servers.Length > 1)
+                result = servers[1];
+            return result;
+        }
+    }
+
 }

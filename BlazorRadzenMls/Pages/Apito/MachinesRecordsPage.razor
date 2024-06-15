@@ -15,7 +15,7 @@
     <RadzenDataGrid @ref="grid" Data="@dataLogs" TItem="MachinesRecords" @bind-Value="selectedLogs"
                     PageSize="10" AllowPaging="true" AllowSorting="true" IsLoading="@busyDelete"
                     PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
-                    AllowFiltering="true" FilterMode="FilterMode.CheckBoxList" Density="@density"
+                    AllowFiltering="true" FilterMode="@filterMode" Density="@density"
                     SelectionMode="DataGridSelectionMode.Multiple">
         <HeaderTemplate>
             <RdznGrdHdrTmpt BusyDelete="@busyDelete" DisabledDelete="@disabledDelete"
@@ -25,7 +25,7 @@
 
         <Template Context="logs">
             <RadzenCard Style="margin-bottom:20px">
-                Company: <b>@logs.Hash</b>
+                Hash: <b>@logs.Hash</b>
             </RadzenCard>
         </Template>
 
@@ -42,9 +42,9 @@
                 </Template>
             </RadzenDataGridColumn>
             <RadzenDataGridColumn Property="@nameof(MachinesRecords.Value)" Title="Executed" MinWidth="100px" />
-            <RadzenDataGridColumn Property="@nameof(MachinesRecords.Server)" Title="Api" Width="100px" Visible=@visibleServer />
-            <RadzenDataGridColumn Property="@nameof(MachinesRecords.Client)" Title="Desktop" Width="100px" Visible=@visibleClient />
-            <RadzenDataGridColumn Property="@nameof(MachinesRecords.Date)" Title="Date" FormatString="{0:d}" Width="100px" Visible=@visibleDate />
+            <RadzenDataGridColumn Property="@nameof(MachinesRecords.ServerVersion)" Title="Api" Width="100px" Visible=@visibleServer />
+            <RadzenDataGridColumn Property="@nameof(MachinesRecords.ClientVersion)" Title="Desktop" Width="100px" Visible=@visibleClient />
+            <RadzenDataGridColumn Property="@nameof(MachinesRecords.DateTime)" Title="Date" FormatString="@AppValues.DateFullFormat" Width="100px" Visible=@visibleDate />
         </Columns>
     </RadzenDataGrid>
 }
@@ -81,6 +81,7 @@ else
     }
     private Dictionary<string, string>? columnsNames;
 
+    private FilterMode filterMode = FilterMode.Advanced;
     private Density density = Density.Default;
     private bool visibleCheckboxColumn = true;
     private bool visibleServer = true;
@@ -97,6 +98,9 @@ else
         {
             case nameof(density):
                 density = values.Value ? Density.Compact : Density.Default;
+                break;
+            case nameof(filterMode):
+                filterMode = values.Value ? FilterMode.CheckBoxList : FilterMode.Advanced;
                 break;
             case nameof(visibleCheckboxColumn):
                 visibleCheckboxColumn = values.Value;
@@ -183,6 +187,7 @@ else
     {
         columnsNames = new Dictionary<string, string>();
         columnsNames.Add(nameof(density), __lang["Compact view"]);
+        columnsNames.Add(nameof(filterMode), __lang["Filter list"]);
         columnsNames.Add(nameof(visibleCheckboxColumn), __lang["Select column"]);
         columnsNames.Add(nameof(MachinesRecords.Server), __lang["Server"]);
         columnsNames.Add(nameof(MachinesRecords.Client), __lang["Client"]);
