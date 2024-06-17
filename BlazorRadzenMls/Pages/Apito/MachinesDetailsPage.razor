@@ -17,36 +17,16 @@
                     AllowFiltering="true" FilterMode="FilterMode.Advanced"
                     SelectionMode="DataGridSelectionMode.Multiple">
         <HeaderTemplate>
-            @* <RadzenButton Text="Reload" Icon="autorenew" Click="() => Clear(true)"
-                          ButtonStyle="ButtonStyle.Info" />
-            <RadzenButton Text="Delete" Icon="delete_forever" Click="@DeleteLogs" IsBusy="@busyDelete"
-                          ButtonStyle="ButtonStyle.Danger" Disabled="@disabledDelete" />
-            <RadzenSplitButton Text="@clearBtnText" Disabled="@disabledDelete" Click="() => Clear()"
-                               Icon="cached" ButtonStyle="ButtonStyle.Info">
-                <ChildContent>
-                    @if (selectedLogs != null)
-                    {
-                        <div style="width: 266px; max-height: 366px; overflow: auto; padding: 10px;">
-                            @foreach (var itm in selectedLogs)
-                            {
-                                <RadzenText TextStyle="TextStyle.Body2"
-                                            Style="display: flex; white-space: nowrap; text-overflow: ellipsis;">
-                                    @SelectLabel(@itm.Value!)
-                                    <RadzenIcon Icon="done" IconColor="var(--rz-dropdown-open-background-color)" />
-                                </RadzenText>
-                            }
-                        </div>
-                    }
-                </ChildContent>
-            </RadzenSplitButton> *@
+            <RdznGrdHdrTmpt />
             @time
         </HeaderTemplate>
-        <Template Context="logs">
-            <RadzenCard Style="margin-bottom:20px">
-                Company: <b>@logs.Hash</b>
-            </RadzenCard>
+        <Template Context="item">
+
+            <RdznGrdRowTmpt Item="@item" />
+
         </Template>
         <Columns>
+            <RadzenDataGridColumn Property="@nameof(MachineDb.Hash)" Title="User" />
             <RadzenDataGridColumn Property="Client.User" Title="User" />
             <RadzenDataGridColumn Property="Client.Machine" Title="Machine" />
             <RadzenDataGridColumn Property="Client.Domain" Title="Desktop" />

@@ -4,8 +4,10 @@ using System.Text.RegularExpressions;
 
 public static class TheMachine
 {
-    public static string WindowsBuilds(string buildNumber)
+    public static string WindowsBuilds(string? buildNumber)
     {
+        if (string.IsNullOrEmpty(buildNumber))
+            return string.Empty;
         string pattern = @"\d+";
         var regex = new Regex(pattern);
         MatchCollection matches = regex.Matches(buildNumber);
