@@ -2,8 +2,8 @@
 
 <RadzenPanelMenu Multiple="true">
 
-    <RadzenPanelMenuItem Text="@id" Icon="fingerprint"></RadzenPanelMenuItem>
-    <RadzenPanelMenuItem Text="@hash" Icon="grid_on"></RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Click="() => CopyToClipboard(Item?.Id!)" Text="@id" Icon="fingerprint"></RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Click="() => CopyToClipboard(Item?.Hash!)" Text="@hash" Icon="grid_on"></RadzenPanelMenuItem>
 
     <RadzenPanelMenuItem Text="@client" Icon="account_circle">
         <RadzenPanelMenuItem Visible="false"></RadzenPanelMenuItem>
@@ -111,5 +111,18 @@
     private string processor => __lang["Processor"] + ": " + Item?.Processor?.Count.ToString() + " " + __lang["Cores"];
     private string networks => __lang["Networks"] + ": " + Item?.Networks?.Count.ToString();
     private string variables => __lang["Variables"] + ": " + Item?.Variables?.Count.ToString();
-    
+
+    private async Task CopyToClipboard(string copy)
+    {
+        bool isCopy = await __js.CopyToClipboard(copy, this, "CopyToClipboard");
+        var msg = new NotificationMessage
+        {
+            Severity = isCopy ? NotificationSeverity.Info : NotificationSeverity.Warning,
+            Summary = isCopy ? "Copied to clipboard" : "Error",
+            //Detail = isCopy ? "Copied to clipboard" : "Error",
+            Duration = 2000
+        };
+        __notify.Notify(msg);
+    }
+
 }

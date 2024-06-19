@@ -19,12 +19,14 @@
 @using BlazorRadzenMls.Layout
 @using BlazorRadzenMls.Contracts
 @using BlazorRadzenMls.Services
+@using BlazorRadzenMls.Extensions
 @inject AppState __state
 
 @using Radzen
 @using Radzen.Blazor
 @inject TooltipService __tooltip
 @inject DialogService __dialog
+@inject NotificationService __notify
 @inject IRadzenTheming __radTheme
 
 @inject AKSoftware.Localization.MultiLanguages.ILanguageContainerService __lang
