@@ -20,7 +20,7 @@
 
     private async Task BeginSignOut(MouseEventArgs args)
     {
-        await __js.InvokeVoidAsync("sessionStorage.clear");
+        await __js.SessionClear(this, "BeginSignOut");
         //NavigationManager.NavigateTo($"{your_auth0_authority}/v2/logout?client_id={your_auth0_client_id}&returnTo={uri_to_redirect_back_to}");
 
         // await SignOutManager.SetSignOutState();

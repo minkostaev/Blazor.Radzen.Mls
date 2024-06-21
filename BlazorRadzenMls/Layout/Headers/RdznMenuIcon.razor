@@ -37,14 +37,13 @@
         if (NavigateTo != null)
         {
             if (OnNewTab)
-                await __js.InvokeVoidAsync("open", NavigateTo, "_blank");
+                await __js.OpenNewTab(NavigateTo, this, "ShowMenuPanel");
             else
                 __nav.NavigateTo(NavigateTo);
         }
         else
         {
-            try { await __js.InvokeVoidAsync("showMenuPanel", menuPanelId, "drop-down-panel", "inline"); }
-            catch { Console.WriteLine("js error: RdznMenuIcon.razor -> ShowMenuPanel"); }
+            await __js.ShowMenuPanel(menuPanelId, "drop-down-panel", "inline", this, "ShowMenuPanel");
         }
     }
 

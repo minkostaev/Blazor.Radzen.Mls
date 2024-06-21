@@ -49,7 +49,7 @@
     private void SignIn() { __nav.NavigateToLogin("authentication/login"); }
     private async Task SignOut()
     {
-        await __js.InvokeVoidAsync("sessionStorage.clear");
+        await __js.SessionClear(this, "SignOut");
         __nav.NavigateTo("authentication/logout");
     }
 

@@ -3,7 +3,6 @@
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Models;
 using Forms.Wpf.Mls.Tools.Models.TheMachine;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -15,6 +14,7 @@ public class Apito : IApito
     private const string EndpointMachinesDetails = "/machinesdetails";
     private const string EndpointMachinesLogs = "/machineslogs";
     private const string EndpointMachinesRecords = "/machinesrecords";
+    private const string EndpointImoti = "/imoti";
 
     private readonly HttpClient _httpClient;
     public Apito(IHttpClientFactory httpClientFactory)
@@ -94,7 +94,7 @@ public class Apito : IApito
             RequestUri = new Uri(string.Concat(_httpClient.BaseAddress!.AbsoluteUri, EndpointMachinesLogs.AsSpan(1))),
             Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
         };
-        
+
         HttpResponseMessage response = await _httpClient.SendAsync(request);
 
         if (response.StatusCode != HttpStatusCode.NoContent)
@@ -109,12 +109,12 @@ public class Apito : IApito
 
         return result;
     }
-    
+
     public async Task<Response> GetMachinesDetails()
     {
         var result = new Response();
         var timer1 = AppStatic.TimerStart();
-        
+
         var response = await _httpClient.GetAsync(EndpointMachinesDetails);
 
         if (response == null)
@@ -167,6 +167,102 @@ public class Apito : IApito
         catch (Exception) { }
 
         result.DeserializeTime = AppStatic.TimerStop(timer2);
+
+        return result;
+    }
+
+    public async Task<Response> GetImoti()
+    {
+        var result = new Response();
+        var timer1 = AppStatic.TimerStart();
+
+        var response = await _httpClient.GetAsync(EndpointImoti);
+
+        if (response == null)
+        {
+            result.Status = HttpStatusCode.InternalServerError;
+            return result;
+        }
+        else
+            result.Status = response.StatusCode;
+
+        if (response.StatusCode != HttpStatusCode.OK)
+            return result;
+
+        response.EnsureSuccessStatusCode();
+
+        result.RequestTime = AppStatic.TimerStop(timer1);
+        var timer2 = AppStatic.TimerStart();
+
+        try { result.Result = await response.Content.ReadFromJsonAsync<ImotMongo[]>(); }
+        catch (Exception) { }
+
+        result.DeserializeTime = AppStatic.TimerStop(timer2);
+
+        return result;
+    }
+
+    public async Task<Response> PostImoti(ImotMongo item, bool put = false)
+    {
+        var result = new Response();
+        var timer1 = AppStatic.TimerStart();
+
+        HttpResponseMessage response;
+        if (!put)
+            response = await _httpClient.PostAsJsonAsync(EndpointImoti, item as Imot);
+        else
+        {
+            string? id = item?.Id;
+            Imot? imot = item;
+            response = await _httpClient.PutAsJsonAsync($"{EndpointImoti}/{id}", imot);
+        }
+
+        if (response == null)
+        {
+            result.Status = HttpStatusCode.InternalServerError;
+            return result;
+        }
+        else
+            result.Status = response.StatusCode;
+
+        if (response.StatusCode != HttpStatusCode.OK)
+            return result;
+
+        response.EnsureSuccessStatusCode();
+
+        result.RequestTime = AppStatic.TimerStop(timer1);
+        var timer2 = AppStatic.TimerStart();
+
+        try { result.Result = await response.Content.ReadFromJsonAsync<Imot[]>(); }
+        catch (Exception) { }
+
+        result.DeserializeTime = AppStatic.TimerStop(timer2);
+
+        return result;
+    }
+
+    public async Task<Response> DeleteImot(string? id)
+    {
+        var result = new Response();
+        if (id == null)
+        {
+            result.Status = HttpStatusCode.InternalServerError;
+            return result;
+        }
+
+        var timer = AppStatic.TimerStart();
+
+        HttpResponseMessage response = await _httpClient.DeleteAsync($"{EndpointImoti}/{id}");
+
+        if (response.StatusCode != HttpStatusCode.NoContent)
+        {
+            result.Status = response.StatusCode;
+            return result;
+        }
+        response.EnsureSuccessStatusCode();
+
+        result.RequestTime = AppStatic.TimerStop(timer);
+        result.Result = true;
 
         return result;
     }

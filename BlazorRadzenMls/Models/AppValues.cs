@@ -14,6 +14,7 @@ public static class AppValues
     public const string PageMachinesLogs = "Machines/Logs";
     public const string PageMachinesRecords = "Machines/Records";
     public const string PageMachinesDetails = "Machines/Details";
+    public const string PageImoti = "Imoti";
 
     public const string DateDefaultFormat = "{0:d}";
     public const string DateFullFormat = "{0:yyyy/MM/dd|HH:mm:ss}";
