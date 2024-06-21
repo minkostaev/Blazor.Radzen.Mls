@@ -80,11 +80,11 @@ function pdfToIframe(base64String, iframeId) {
 }
 
 let menuClicked = false;
-function showMenuPanel(id, className, display) {
-    hideMenuPanel(id, className);
-    const div = document.getElementById(id);
+function showMenuPanel(htmlId, className, cssDisplay) {
+    hideMenuPanel(htmlId, className);
+    const div = document.getElementById(htmlId);
     if (div != null) {
-        div.style.display = (div.style.display == display) ? 'none' : display;
+        div.style.display = (div.style.display == cssDisplay) ? 'none' : cssDisplay;
         menuClicked = true;
     }
 }
