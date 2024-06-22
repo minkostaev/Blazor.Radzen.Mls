@@ -1,0 +1,144 @@
+﻿@using BlazorRadzenMls.Models
+
+<RadzenFieldset Text="Imot">
+    <RadzenStack Gap="1rem">
+        <RadzenRow AlignItems="AlignItems.Center">
+            <RadzenColumn Size="12" SizeMD="3">
+                <RadzenLabel Text="Label" Component="Label" />
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="9">
+                @if (IsNew)
+                {
+                    <RadzenTextBox @bind-Value=NewImot!.Label Style="width: 100%;" Name="Label" />
+                }
+                else
+                {
+                    @if (SelectedImot != null)
+                    {
+                        <RadzenTextBox @bind-Value=SelectedImot.Label Style="width: 100%;" Name="Label" />
+                    }
+                }
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow AlignItems="AlignItems.Center">
+            <RadzenColumn Size="12" SizeMD="3">
+                <RadzenLabel Text="Location" Component="Location" />
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="9">
+                @if (IsNew)
+                {
+                    <RadzenTextBox @bind-Value=NewImot!.Location Style="width: 100%;" Name="Location" />
+                }
+                else
+                {
+                    @if (SelectedImot != null)
+                    {
+                        <RadzenTextBox @bind-Value=SelectedImot.Location Style="width: 100%;" Name="Location" />
+                    }
+                }
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow AlignItems="AlignItems.Center">
+            <RadzenColumn Size="12" SizeMD="3">
+                <RadzenLabel Text="Type" Component="Type" />
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="9">
+                @if (IsNew)
+                {
+                    <RadzenTextBox @bind-Value=NewImot!.Type Style="width: 100%;" Name="Type" />
+                }
+                else
+                {
+                    @if (SelectedImot != null)
+                    {
+                        <RadzenTextBox @bind-Value=SelectedImot.Type Style="width: 100%;" Name="Type" />
+                    }
+                }
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow AlignItems="AlignItems.Center">
+            <RadzenColumn Size="12" SizeMD="3">
+                <RadzenLabel Text="Link" Component="Link" />
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="9">
+                @if (IsNew)
+                {
+                    <RadzenTextBox @bind-Value=NewImot!.Link Style="width: 100%;" Name="Link" />
+                }
+                else
+                {
+                    @if (SelectedImot != null)
+                    {
+                        <RadzenTextBox @bind-Value=SelectedImot.Link Style="width: 100%;" Name="Link" />
+                    }
+                }
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow AlignItems="AlignItems.Center">
+            <RadzenColumn Size="12" SizeMD="3">
+                <RadzenLabel Text="Price" Component="Price" />
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="9">
+                @if (IsNew)
+                {
+                    <RadzenNumeric @bind-Value=@NewImot!.Price Name="Price" />
+                }
+                else
+                {
+                    @if (SelectedImot != null)
+                    {
+                        <RadzenNumeric @bind-Value=@SelectedImot.Price Name="Price" />
+                    }
+                }
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow AlignItems="AlignItems.Center">
+            <RadzenColumn Size="12" SizeMD="3">
+                <RadzenCheckBox Name="chBxNew" @bind-Value=@IsNew />
+                <RadzenLabel Component="chBxNew" Text="New" Style="margin-left: 8px; vertical-align: middle;" />
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="9">
+
+
+                <AuthorizeView>
+                    <Authorized>
+                        @if (IsNew)
+                        {
+                            <RadzenButton Text="Add" Icon="note_add" Click="() => Method.InvokeAsync(HttpMethod.Post)" />
+                        }
+                        else
+                        {
+                            @if (SelectedImot != null)
+                            {
+                                <RadzenButton Text="Update" Icon="build" Click="() => Method.InvokeAsync(HttpMethod.Put)" />
+                                <RadzenButton Text="Delete" Icon="delete" ButtonStyle="ButtonStyle.Danger"
+                                              Click="() => Method.InvokeAsync(HttpMethod.Delete)" />
+                            }
+                        }
+                    </Authorized>
+                    <NotAuthorized>
+                        <a class="text-decoration-none" href="authentication/login">Register if you want to edit</a>
+                    </NotAuthorized>
+                </AuthorizeView>
+
+
+            </RadzenColumn>
+        </RadzenRow>
+    </RadzenStack>
+</RadzenFieldset>
+
+@code {
+
+    [Parameter]
+    public bool IsNew { get; set; }
+
+    [Parameter]
+    public ImotMongo? NewImot { get; set; }
+
+    [Parameter]
+    public ImotMongo? SelectedImot { get; set; }
+
+    [Parameter]
+    public EventCallback<HttpMethod> Method { get; set; }
+
+}

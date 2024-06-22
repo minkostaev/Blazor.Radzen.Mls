@@ -1,5 +1,4 @@
-﻿@* @page "/Aaa" *@
-@attribute [Route(AppValues.PageImoti)]
+﻿@attribute [Route(AppValues.PageImoti)]
 
 @using BlazorRadzenMls.Models
 
@@ -9,10 +8,10 @@
 
 @if (dataImoti != null)
 {
-    <RadzenDataGrid @ref="grid" Data="@dataImoti" TItem="ImotMongo" @bind-Value="selectedImoti"
+    <RadzenDataGrid @ref="grid" Data="@dataImoti" TItem="ImotMongo" ValueChanged="@grid_ValueChanged"
                     PageSize="10" AllowPaging="true" AllowSorting="true" AllowAlternatingRows="false"
                     PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
-                    AllowFiltering="true" FilterMode="FilterMode.Advanced">
+                    AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.CheckBoxList">
         <HeaderTemplate>
             @* <RdznGrdHdrTmpt /> *@
             @time
@@ -22,144 +21,19 @@
             <RadzenDataGridColumn Property="@nameof(Imot.Location)" Title="Location" />
             <RadzenDataGridColumn Property="@nameof(Imot.Type)" Title="Type" />
             <RadzenDataGridColumn Property="@nameof(Imot.Domain)" Title="Domain" />
-            <RadzenDataGridColumn Property="@nameof(Imot.Price)" Title="Price" Width="70px" />
-            <RadzenDataGridColumn Context="cntx" Title="Link" Filterable="false" Sortable="false" Width="50px">
+            <RadzenDataGridColumn Property="@nameof(Imot.Price)" Title="Price" Width="70px" Resizable="false" />
+            <RadzenDataGridColumn Context="cntx" Title="@nameof(Imot.Link)"
+                                  Filterable="false" Sortable="false" Resizable="false" Width="50px">
                 <Template Context="cntx">
                     <RadzenButton Icon="open_in_new" ButtonStyle="ButtonStyle.Light"
                                   Variant="Variant.Flat" Size="ButtonSize.Medium"
-                                  Click="() => OpenNewTab(cntx.Link)">
-                    </RadzenButton>
+                                  Click="() => OpenNewTab(cntx.Link)" />
                 </Template>
             </RadzenDataGridColumn>
         </Columns>
     </RadzenDataGrid>
 
-    <RadzenFieldset Text="Imot">
-        <RadzenStack Gap="1rem">
-            <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Label" Component="Label" />
-                </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="9">
-                    @if (isNew)
-                    {
-                        <RadzenTextBox @bind-Value=newImot!.Label Style="width: 100%;" Name="Label" />
-                    }
-                    else
-                    {
-                        @if (selectedImot != null)
-                        {
-                            <RadzenTextBox @bind-Value=selectedImot.Label Style="width: 100%;" Name="Label" />
-                        }
-                    }
-                </RadzenColumn>
-            </RadzenRow>
-            <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Location" Component="Location" />
-                </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="9">
-                    @if (isNew)
-                    {
-                        <RadzenTextBox @bind-Value=newImot!.Location Style="width: 100%;" Name="Location" />
-                    }
-                    else
-                    {
-                        @if (selectedImot != null)
-                        {
-                            <RadzenTextBox @bind-Value=selectedImot.Location Style="width: 100%;" Name="Location" />
-                        }
-                    }
-                </RadzenColumn>
-            </RadzenRow>
-            <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Type" Component="Type" />
-                </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="9">
-                    @if (isNew)
-                    {
-                        <RadzenTextBox @bind-Value=newImot!.Type Style="width: 100%;" Name="Type" />
-                    }
-                    else
-                    {
-                        @if (selectedImot != null)
-                        {
-                            <RadzenTextBox @bind-Value=selectedImot.Type Style="width: 100%;" Name="Type" />
-                        }
-                    }
-                </RadzenColumn>
-            </RadzenRow>
-            <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Link" Component="Link" />
-                </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="9">
-                    @if (isNew)
-                    {
-                        <RadzenTextBox @bind-Value=newImot!.Link Style="width: 100%;" Name="Link" />
-                    }
-                    else
-                    {
-                        @if (selectedImot != null)
-                        {
-                            <RadzenTextBox @bind-Value=selectedImot.Link Style="width: 100%;" Name="Link" />
-                        }
-                    }
-                </RadzenColumn>
-            </RadzenRow>
-            <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Price" Component="Price" />
-                </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="9">
-                    @if (isNew)
-                    {
-                        <RadzenNumeric @bind-Value=@newImot!.Price Name="Price" />
-                    }
-                    else
-                    {
-                        @if (selectedImot != null)
-                        {
-                            <RadzenNumeric @bind-Value=@selectedImot.Price Name="Price" />
-                        }
-                    }
-                </RadzenColumn>
-            </RadzenRow>
-            <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenCheckBox Name="chBxNew" @bind-Value=@isNew />
-                    <RadzenLabel Component="chBxNew" Text="New" Style="margin-left: 8px; vertical-align: middle;" />
-                </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="9">
-
-
-                    <AuthorizeView>
-                        <Authorized>
-                            @if (isNew)
-                            {
-                                <RadzenButton Text="Add" Icon="note_add" Click="PostImoti" />
-                            }
-                            else
-                            {
-                                @if (selectedImot != null)
-                                {
-                                    <RadzenButton Text="Update" Icon="build" Click="@PostImoti" />
-                                    <RadzenButton Text="Delete" Icon="delete" ButtonStyle="ButtonStyle.Danger"
-                                                  Click="@Delete" />
-                                }
-                            }
-                        </Authorized>
-                        <NotAuthorized>
-                            <a class="text-decoration-none" href="authentication/login">Register if you want to edit</a>
-                        </NotAuthorized>
-                    </AuthorizeView>
-
-
-                </RadzenColumn>
-            </RadzenRow>
-        </RadzenStack>
-    </RadzenFieldset>
+    <ImotiForm IsNew="@isNew" NewImot="@newImot" SelectedImot="@selectedImot" Method="@Imot_Form" />
 }
 else
 {
@@ -170,17 +44,33 @@ else
 
     private bool isNew = true;
 
-    RadzenDataGrid<ImotMongo>? grid;
+    private RadzenDataGrid<ImotMongo>? grid;
     private ImotMongo[]? dataImoti;
-    private IList<ImotMongo>? selectedImoti;
-    private ImotMongo? selectedImot => (selectedImoti != null && selectedImoti.Count > 0) ? selectedImoti[0] : null;
+    private ImotMongo? selectedImot;
     private ImotMongo? newImot;
 
     private string? time;
 
+    private void grid_ValueChanged(object items)
+    {
+        var itemsList = items as List<ImotMongo>;
+        if (itemsList == null || itemsList.Count == 0)
+            return;
+        selectedImot = itemsList[0];
+        isNew = false;
+    }
+
     private async Task OpenNewTab(string? link)
     {
         await __js.OpenNewTab(link!, this, "OpenNewTab");
+    }
+
+    private async Task Imot_Form(HttpMethod httpMethod)
+    {
+        if (httpMethod == HttpMethod.Post || httpMethod == HttpMethod.Put)
+            await PostImoti();
+        else if (httpMethod == HttpMethod.Delete)
+            await Delete();
     }
 
     private async Task PostImoti()
@@ -216,7 +106,7 @@ else
     private async Task Clear(bool reload = false)
     {
         // waitingRequest = true;
-        selectedImoti = null;
+        selectedImot = null;
         if (reload)
         {
             dataImoti = null;
