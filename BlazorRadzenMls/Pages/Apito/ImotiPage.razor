@@ -20,6 +20,7 @@
             <RadzenDataGridColumn Property="@nameof(Imot.Label)" Title="Label" />
             <RadzenDataGridColumn Property="@nameof(Imot.Location)" Title="Location" />
             <RadzenDataGridColumn Property="@nameof(Imot.Type)" Title="Type" />
+            <RadzenDataGridColumn Property="@nameof(Imot.Agent)" Title="Agent" />
             <RadzenDataGridColumn Property="@nameof(Imot.Domain)" Title="Domain" />
             <RadzenDataGridColumn Property="@nameof(Imot.Price)" Title="Price" Width="70px" Resizable="false" />
             <RadzenDataGridColumn Context="cntx" Title="@nameof(Imot.Link)"
@@ -27,7 +28,7 @@
                 <Template Context="cntx">
                     <RadzenButton Icon="open_in_new" ButtonStyle="ButtonStyle.Light"
                                   Variant="Variant.Flat" Size="ButtonSize.Medium"
-                                  Click="() => OpenNewTab(cntx.Link)" />
+                                  Click="() => __js.OpenNewTab(cntx.Link!, this)" />
                 </Template>
             </RadzenDataGridColumn>
         </Columns>
@@ -60,59 +61,21 @@ else
         isNew = false;
     }
 
-    private async Task OpenNewTab(string? link)
-    {
-        await __js.OpenNewTab(link!, this, "OpenNewTab");
-    }
-
     private async Task Imot_Form(HttpMethod httpMethod)
     {
-        if (httpMethod == HttpMethod.Post || httpMethod == HttpMethod.Put)
-            await PostImoti();
+        if (httpMethod == HttpMethod.Post)
+        {
+            isNew = true;
+            await PostImot();
+        }
+        else if (httpMethod == HttpMethod.Put)
+        {
+            await EditImot();
+        }
         else if (httpMethod == HttpMethod.Delete)
+        {
             await Delete();
-    }
-
-    private async Task PostImoti()
-    {
-        if (isNew)
-        {
-            await _apito.PostImoti(newImot!);
-            newImot = new ImotMongo();
-            await Clear(true);
         }
-        else
-        {
-            if (selectedImot != null)
-            {
-                await _apito.PostImoti(selectedImot!, true);
-                await Clear(true);
-            }
-        }
-    }
-
-
-    private async Task Delete()
-    {
-        var options = new ConfirmOptions() { OkButtonText = "Yes", CancelButtonText = "No" };
-        bool? confirm = await __dialog.Confirm("Are you sure?", "Delete", options);
-        if (confirm == true)
-        {
-            await _apito.DeleteImot(selectedImot!.Id);
-            await Clear(true);
-        }
-    }
-
-    private async Task Clear(bool reload = false)
-    {
-        // waitingRequest = true;
-        selectedImot = null;
-        if (reload)
-        {
-            dataImoti = null;
-            await GetImoti();
-        }
-        //waitingRequest = false;
     }
 
     private async Task GetImoti()
@@ -122,6 +85,38 @@ else
 
         long total = response.RequestTime + response.DeserializeTime;
         time = $"[{response.RequestTime}ms {response.DeserializeTime}ms] {AppStatic.FormatMilliseconds(total)}";
+    }
+
+    private async Task PostImot()
+    {
+        await _apito.PostImoti(newImot!);
+        newImot = new ImotMongo();
+        await Clear();
+    }
+    private async Task EditImot()
+    {
+        if (selectedImot == null)
+            return;
+        await _apito.PostImoti(selectedImot!, true);
+        await Clear();
+    }
+    private async Task Delete()
+    {
+        var options = new ConfirmOptions() { OkButtonText = "Yes", CancelButtonText = "No" };
+        bool? confirm = await __dialog.Confirm("Are you sure?", "Delete", options);
+        if (confirm == true)
+        {
+            await _apito.DeleteImot(selectedImot!.Id);
+            await Clear();
+        }
+    }
+    private async Task Clear()
+    {
+        // waitingRequest = true;
+        selectedImot = null;
+        dataImoti = null;
+        await GetImoti();
+        //waitingRequest = false;
     }
 
     protected override async Task OnInitializedAsync()

@@ -58,6 +58,24 @@
         </RadzenRow>
         <RadzenRow AlignItems="AlignItems.Center">
             <RadzenColumn Size="12" SizeMD="3">
+                <RadzenLabel Text="Agent" Component="Agent" />
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="9">
+                @if (IsNew)
+                {
+                    <RadzenTextBox @bind-Value=NewImot!.Agent Style="width: 100%;" Name="Agent" />
+                }
+                else
+                {
+                    @if (SelectedImot != null)
+                    {
+                        <RadzenTextBox @bind-Value=SelectedImot.Agent Style="width: 100%;" Name="Agent" />
+                    }
+                }
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow AlignItems="AlignItems.Center">
+            <RadzenColumn Size="12" SizeMD="3">
                 <RadzenLabel Text="Link" Component="Link" />
             </RadzenColumn>
             <RadzenColumn Size="12" SizeMD="9">
@@ -70,6 +88,24 @@
                     @if (SelectedImot != null)
                     {
                         <RadzenTextBox @bind-Value=SelectedImot.Link Style="width: 100%;" Name="Link" />
+                    }
+                }
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow AlignItems="AlignItems.Center">
+            <RadzenColumn Size="12" SizeMD="3">
+                <RadzenLabel Text="Pictures" Component="Pictures" />
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="9">
+                @if (IsNew)
+                {
+                    <RadzenTextBox @bind-Value=NewPictures Style="width: 100%;" Name="Pictures" />
+                }
+                else
+                {
+                    @if (SelectedImot != null)
+                    {
+                        <RadzenTextBox @bind-Value=Pictures Style="width: 100%;" Name="Pictures" />
                     }
                 }
             </RadzenColumn>
@@ -140,5 +176,47 @@
 
     [Parameter]
     public EventCallback<HttpMethod> Method { get; set; }
+
+    private string? pictures;
+    private string? Pictures
+    {
+        get
+        {
+            if (SelectedImot == null)
+                return null;
+            if (SelectedImot.Pictures == null)
+                SelectedImot.Pictures = new List<string>().ToArray();
+            pictures = string.Join(' ', SelectedImot.Pictures);
+            return pictures;
+        }
+        set
+        {
+            if (SelectedImot == null)
+                return;
+            pictures = value;
+            SelectedImot.Pictures = pictures?.Split(' ');
+        }
+    }
+
+    private string? newPictures;
+    private string? NewPictures
+    {
+        get
+        {
+            if (NewImot == null)
+                return null;
+            if (NewImot.Pictures == null)
+                NewImot.Pictures = new List<string>().ToArray();
+            newPictures = string.Join(' ', NewImot.Pictures);
+            return newPictures;
+        }
+        set
+        {
+            if (NewImot == null)
+                return;
+            newPictures = value;
+            NewImot.Pictures = newPictures?.Split(' ');
+        }
+    }
 
 }
