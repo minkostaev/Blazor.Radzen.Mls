@@ -39,8 +39,7 @@
     {
         if (firstRender)
         {
-            try { await __js.InvokeVoidAsync("changeSidebarToggleStyle", menuToggleId, "33px"); }
-            catch { Console.WriteLine("js error: RdznLayout.razor -> OnAfterRenderAsync"); }
+            await __js.ChangeSidebarToggle(menuToggleId, 33, this, "OnAfterRenderAsync");
         }
     }
 

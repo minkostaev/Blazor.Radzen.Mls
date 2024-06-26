@@ -163,9 +163,8 @@
                     thirdVar = c.Key;
             }
         }
-        bool isMobileDevice = false;
-        try { isMobileDevice = await __js.InvokeAsync<bool>("isMobileDevice"); }
-        catch { Console.WriteLine("js error: MachinesLogsPage.razor -> OnInitializedAsync"); }
+        bool? isMobileDeviceResult = await __js.IsMobileDevice(this, "OnInitializedAsync");
+        bool isMobileDevice = (isMobileDeviceResult == true) ? true : false;
         if (columnsChecked != null && columnsChecked.Count > 2)
         {
             columnsChecked![firstVar] = isMobileDevice;

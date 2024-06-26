@@ -20,6 +20,8 @@ public static class AppValues
     public const string DateFullFormat = "{0:yyyy/MM/dd|HH:mm:ss}";
     public const string DateShortFormat = "{0:yyyy/MM/dd}";
 
+    public const string HtmlClassMenuIcon = "drop-down-panel";
+
     public static string GitHubMy => "https://github.com/minkostaev/Blazor.Radzen.Mls";
     public static string GitHubRadzen => "https://github.com/radzenhq/radzen-blazor";
     public static string GitHubAKSoftware => "https://github.com/aksoftware98/multilanguages";
@@ -50,8 +52,13 @@ public static class AppValues
         }
         return string.Empty;
     }
+
+
+    // REMOVE
     public static string JsErrorString(string jsMethod, string cMethod = "")
         => $"error: js -> {jsMethod} | {cMethod}";
+    //---------
+
 
 }
 // to see

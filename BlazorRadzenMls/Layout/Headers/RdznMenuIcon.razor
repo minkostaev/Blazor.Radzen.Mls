@@ -1,5 +1,7 @@
-﻿<div style="display: inline;">
-    <div id="@menuPanelId" class="drop-down-panel" style="display: none;">
+﻿@using BlazorRadzenMls.Models
+
+<div style="display: inline;">
+    <div id="@menuPanelId" class="@AppValues.HtmlClassMenuIcon" style="display: none;">
         @ChildContent
     </div>
     <RadzenButton id="@menuToggleId" Icon="@Name" Click="@ShowMenuPanel"
@@ -43,7 +45,7 @@
         }
         else
         {
-            await __js.ShowMenuPanel(menuPanelId, "drop-down-panel", "inline", this, "ShowMenuPanel");
+            await __js.ShowMenuPanel(menuPanelId, AppValues.HtmlClassMenuIcon, "inline", this, "ShowMenuPanel");
         }
     }
 
@@ -51,8 +53,7 @@
     {
         if (firstRender)
         {
-            try { await __js.InvokeVoidAsync("changeSidebarToggleStyle", menuToggleId, Size + "px"); }
-            catch { Console.WriteLine("js error: RdznMenuIcon.razor -> OnAfterRenderAsync"); }
+            await __js.ChangeSidebarToggle(menuToggleId, Size, this, "OnAfterRenderAsync");
         }
     }
 

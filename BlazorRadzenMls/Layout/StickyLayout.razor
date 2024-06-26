@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using BlazorRadzenMls.Models
+
+@inherits LayoutComponentBase
 
 @* this is required for: Dialog, Notification, ContextMenu and Tooltip *@
 <RadzenComponents />
@@ -27,8 +29,7 @@
 
     private async Task HideMenuPanel()
     {
-        try { await __js.InvokeVoidAsync("hideMenuPanel", "", "drop-down-panel"); }
-        catch { Console.WriteLine("js error: StickyLayout.razor -> HideMenuPanel"); }
+        await __js.ShowMenuPanel("", AppValues.HtmlClassMenuIcon, "", this, "HideMenuPanel");
     }
 
     protected override void OnInitialized()
