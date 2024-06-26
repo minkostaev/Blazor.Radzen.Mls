@@ -103,13 +103,10 @@ function isMobileDevice() {
     // Check the user agent string for common mobile device keywords
     const mobileKeywords = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone'];
     const userAgent = navigator.userAgent;
-
     for (let i = 0; i < mobileKeywords.length; i++) {
         if (userAgent.indexOf(mobileKeywords[i]) !== -1) {
             return true;
         }
     }
-
-    // If no mobile keywords are found, assume it's a desktop
     return false;
 }

@@ -57,7 +57,7 @@
       "url": "css\/variables.css"
     },
     {
-      "hash": "sha256-qaraouTdMUdxdD6iCr4t23akk5IzzSorUehJtkzdduw=",
+      "hash": "sha256-rWaA0QxJmBsxiWaSEohtdR+\/RuetMgRpq3xf+BSLFPw=",
       "url": "data\/version.txt"
     },
     {
@@ -97,7 +97,7 @@
       "url": "index.html"
     },
     {
-      "hash": "sha256-dKPlVlCYEmZsnWhu0gibTIwIfCo8k+WuYWvPk2hfRsU=",
+      "hash": "sha256-\/ng3gK\/keHQybisWMF5wFFvIQ2F1hNHDUsu2WkdOtLQ=",
       "url": "js\/customBlazor.js"
     },
     {
@@ -149,7 +149,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-Stme6VPhk84bR7LhKMy2u7XLlWJ9TIeCfzVk8Cn\/Bis=",
+      "hash": "sha256-ZlofTpeI7pOKcEaxSADrIFkr82n1tD1mNvUw9TpSmdY=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -161,7 +161,7 @@
       "url": "_framework\/Blazored.LocalStorage.wasm"
     },
     {
-      "hash": "sha256-85g3nY8JWSiC3SrdaTMx5YnMFpObXllII8Mb\/C80j+E=",
+      "hash": "sha256-pQdDl4Z5WrnIm5EG\/7ym09+BErv0edtegoEEh1iLBAs=",
       "url": "_framework\/BlazorRadzenMls.wasm"
     },
     {
@@ -265,7 +265,7 @@
       "url": "_framework\/netstandard.wasm"
     },
     {
-      "hash": "sha256-o+wyT8LhEoMuCItj4K2Ushs1DDnIUG1lttpLIrug\/yc=",
+      "hash": "sha256-ZbkM2\/jjAEvNSYQyARUENbqvOfBUI\/ZLOhNKIdqNLCs=",
       "url": "_framework\/Radzen.Blazor.wasm"
     },
     {
@@ -405,7 +405,7 @@
       "url": "_framework\/System.Runtime.Serialization.Primitives.wasm"
     },
     {
-      "hash": "sha256-MU8UY1n7KH7HktXulq2GEjzs7ZgMjhLnNY8lz9Apwpw=",
+      "hash": "sha256-4SlprOB2G5zmEW6Y8g34+lUBT5qA3zO3WR6K3nAPin0=",
       "url": "_framework\/System.Runtime.wasm"
     },
     {
@@ -657,9 +657,9 @@
       "url": "_content\/Radzen.Blazor\/fonts\/SourceSansPro-SemiboldIt.woff"
     },
     {
-      "hash": "sha256-SWLSCXZ8E6effT1dndFUwvfFaqDxTOhnpMvhWi8SCJM=",
+      "hash": "sha256-0+wY5XsrwMdxUtE0WqKfO\/n77UJSZ0bHfAciEw5i54o=",
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "iB+nb4EX"
+  "version": "0KhQjVK5"
 };
