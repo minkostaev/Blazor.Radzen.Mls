@@ -2,6 +2,6 @@
 
 public interface IVersionReload
 {
-    Task<bool> CheckVersion();
+    Task CheckVersion();
     Task<bool> Reload();
 }

@@ -1,6 +1,8 @@
 ﻿namespace BlazorRadzenMls.Extensions;
 
 using BlazorRadzenMls.Models;
+using BlazorRadzenMls.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 public static class JavaScriptRuntime
@@ -18,6 +20,21 @@ public static class JavaScriptRuntime
     #endregion
 
     #region Uses default js methods
+
+    public static async Task<bool> ScrollToTop(this IJSRuntime js, object thisComponent, string methodName = "")
+    {
+        string jsMethod = "scrollToTop";
+        try
+        {
+            await js.InvokeVoidAsync(jsMethod);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            CatchException(thisComponent, methodName, jsMethod, ex.Message);
+            return false;
+        }
+    }
 
     public static async Task<bool> CopyToClipboard(this IJSRuntime js, string copy, object thisComponent, string methodName = "")
     {
@@ -64,6 +81,51 @@ public static class JavaScriptRuntime
     #endregion
 
     #region Uses custom coded methods in a external js file
+
+    public static async Task<string?> GetIp(this IJSRuntime js, object thisComponent, string methodName = "")
+    {
+        string jsMethod = "getIp";
+        try
+        {
+            return await js.InvokeAsync<string>(jsMethod);
+        }
+        catch (Exception ex)
+        {
+            CatchException(thisComponent, methodName, jsMethod, ex.Message);
+            return null;
+        }
+    }
+
+    public static async Task<bool> Reload(this IJSRuntime js, object thisComponent, string methodName = "")
+    {
+        string jsMethod = "reload";
+        try
+        {
+            await js.InvokeVoidAsync(jsMethod);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            CatchException(thisComponent, methodName, jsMethod, ex.Message);
+            return false;
+        }
+    }
+
+    public static async Task<string> CheckVersion(this IJSRuntime js, NavigationManager _navigationManager, object thisComponent, string methodName = "")
+    {
+        string jsMethod = "fetchText";
+        try
+        {
+            string param = AppStatic.GetGitHubSub(_navigationManager) + "/data/version.txt";
+            string version = await js.InvokeAsync<string>(jsMethod, param);
+            return version.Trim();
+        }
+        catch (Exception ex)
+        {
+            CatchException(thisComponent, methodName, jsMethod, ex.Message);
+            return "0.0.0.0";
+        }
+    }
 
     public static async Task<bool?> IsMobileDevice(this IJSRuntime js, object thisComponent, string methodName = "")
     {
@@ -125,6 +187,34 @@ public static class JavaScriptRuntime
 
     #region Radzen
 
+    public static async Task<string> GetTheme(this IJSRuntime js, object thisComponent, string methodName = "")
+    {
+        string jsMethod = "getRadzenTheme";
+        try
+        {
+            return await js.InvokeAsync<string>(jsMethod);
+        }
+        catch (Exception ex)
+        {
+            CatchException(thisComponent, methodName, jsMethod, ex.Message);
+            return string.Empty;
+        }
+    }
+
+    public static async Task<bool> SetTheme(this IJSRuntime js, string? name, object thisComponent, string methodName = "")
+    {
+        string jsMethod = "setRadzenTheme";
+        try
+        {
+            await js.InvokeVoidAsync(jsMethod, name);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            CatchException(thisComponent, methodName, jsMethod, ex.Message);
+            return false;
+        }
+    }
 
     public static async Task<bool> ChangeSidebarToggle(this IJSRuntime js,
         string htmlId, int size, object thisComponent, string methodName = "")

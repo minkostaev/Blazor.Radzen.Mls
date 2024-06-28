@@ -1,7 +1,7 @@
 ﻿namespace BlazorRadzenMls.Services;
 
 using BlazorRadzenMls.Contracts;
-using BlazorRadzenMls.Models;
+using BlazorRadzenMls.Extensions;
 using Microsoft.JSInterop;
 
 public class RadzenTheming : IRadzenTheming
@@ -26,23 +26,13 @@ public class RadzenTheming : IRadzenTheming
     /// <returns>Theme name</returns>
     public async Task<string> GetTheme()
     {
-        #region AppState
         if (!string.IsNullOrEmpty(_appState.SiteOptions.Theme)
             && Themes.Contains(_appState.SiteOptions.Theme))
         {
             return _appState.SiteOptions.Theme;
         }
-        #endregion
-        try
-        {
-            return await _IJSRuntime.InvokeAsync<string>("getRadzenTheme");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(AppValues.JsErrorString("getRadzenTheme", "GetTheme"));
-            Console.WriteLine(ex.Message);
-            return string.Empty;
-        }
+        
+        return await _IJSRuntime.GetTheme(this, "GetTheme");
     }
 
     /// <summary>
@@ -56,25 +46,14 @@ public class RadzenTheming : IRadzenTheming
         {
             name = Themes.FirstOrDefault();
         }
-        bool success;
-        try
-        {
-            await _IJSRuntime.InvokeVoidAsync("setRadzenTheme", name);
-            success = true;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(AppValues.JsErrorString("setRadzenTheme", "SetTheme"));
-            Console.WriteLine(ex.Message);
-            success = false;
-        }
-        #region AppState
+        
+        bool success = await _IJSRuntime.SetTheme(name, this, "SetTheme");
+        
         _appState.SiteOptions.Theme = name;
         if (saveLocal && success)
         {
             await _appState.SaveAppOptions();
         }
-        #endregion
         return success;
     }
 }

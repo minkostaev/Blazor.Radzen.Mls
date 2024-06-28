@@ -1,6 +1,5 @@
 ﻿namespace BlazorRadzenMls.Models;
 
-using Microsoft.AspNetCore.Components;
 using System.Reflection;
 
 public static class AppValues
@@ -35,29 +34,6 @@ public static class AppValues
     //public const string RolesAll = "admin, manager, user";
     //public const string RolesManager = "admin, manager";
     //public const string RolesAdmin = "admin";
-
-    public static string GetGitHubSub(NavigationManager nav)
-    {
-        if (nav.BaseUri.Contains(GitHubDomain))
-        {
-            var words = nav.BaseUri.Split("/");
-            bool isGitHub = false;
-            foreach (var word in words)
-            {
-                if (isGitHub)
-                    return "/" + word;
-                if (word.Contains(GitHubDomain))
-                    isGitHub = true;
-            }
-        }
-        return string.Empty;
-    }
-
-
-    // REMOVE
-    public static string JsErrorString(string jsMethod, string cMethod = "")
-        => $"error: js -> {jsMethod} | {cMethod}";
-    //---------
 
 
 }

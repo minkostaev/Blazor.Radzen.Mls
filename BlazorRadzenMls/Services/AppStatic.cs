@@ -1,6 +1,7 @@
 ﻿namespace BlazorRadzenMls.Services;
 
 using BlazorRadzenMls.Models;
+using Microsoft.AspNetCore.Components;
 using System.Diagnostics;
 
 public static class AppStatic
@@ -29,6 +30,23 @@ public static class AppStatic
             return "Auth0Netlify";
         else
             return "Auth0";
+    }
+
+    public static string GetGitHubSub(NavigationManager nav)
+    {
+        if (nav.BaseUri.Contains(AppValues.GitHubDomain))
+        {
+            var words = nav.BaseUri.Split("/");
+            bool isGitHub = false;
+            foreach (var word in words)
+            {
+                if (isGitHub)
+                    return "/" + word;
+                if (word.Contains(AppValues.GitHubDomain))
+                    isGitHub = true;
+            }
+        }
+        return string.Empty;
     }
 
     public static Stopwatch TimerStart()

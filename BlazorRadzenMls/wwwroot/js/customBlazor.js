@@ -4,6 +4,18 @@ addEventListener("resize", (event) => {
     cssRoot.style.setProperty('--windowHeight', window.innerHeight + 'px');
 });
 
+function setHeaderHeight(id) {
+    var clientHeight = document.getElementById('id').clientHeight;
+    cssRoot.style.setProperty('--headerHeight', clientHeight);
+    return clientHeight;
+}
+
+function setFooterHeight(id) {
+    var clientHeight = document.getElementById('id').clientHeight;
+    cssRoot.style.setProperty('--footerHeight', clientHeight);
+    return clientHeight;
+}
+
 addLoaderCss();
 function addLoaderCss() {
     const num = Math.floor((Math.random() * 6) + 1);

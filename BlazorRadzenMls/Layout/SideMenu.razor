@@ -1,6 +1,6 @@
 ﻿@using BlazorRadzenMls.Models
 
-<RadzenPanelMenu Style="@_style" DisplayStyle="@__state.SiteOptions.Menu.MenuStyle" ShowArrow="@__state.SiteOptions.Menu.Arrow" Multiple="@__state.SiteOptions.Menu.Multiple">
+<RadzenPanelMenu Style="overflow: auto; max-height: calc(100vh - 70px);" DisplayStyle="@__state.SiteOptions.Menu.MenuStyle" ShowArrow="@__state.SiteOptions.Menu.Arrow" Multiple="@__state.SiteOptions.Menu.Multiple">
     <RadzenPanelMenuItem Text="МинцЪт" Path="" Image="images/icon-128.png">
         @* Home *@
 
@@ -49,10 +49,6 @@
 </RadzenPanelMenu>
 
 @code {
-
-    [Parameter]
-    public bool Height100 { get; set; }
-    private string _style => (Height100) ? "height: 100%;" : "";
 
     protected override void OnInitialized()
     {

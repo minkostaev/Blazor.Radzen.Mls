@@ -97,15 +97,7 @@
 
         jsLocation = await __js.GetLocation(this, "OnInitializedAsync");
 
-        try
-        {
-            ip = await __js.InvokeAsync<string>("getIp");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(AppValues.JsErrorString("getIp", "AppInformation"));
-            Console.WriteLine(ex.Message);
-        }
+        ip = await __js.GetIp(this, "OnInitializedAsync");
 
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
