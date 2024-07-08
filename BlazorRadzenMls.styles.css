@@ -1,5 +1,5 @@
-/* /Layout/Footers/DefaultFooter.razor.rz.scp.css */
-.td-footer[b-mwyqx8vsbv] {
+/* /Layout/Footers/StickyFooter.razor.rz.scp.css */
+.td-footer[b-gh75424kph] {
     height: var(--footer-fixed-height);
     box-shadow: 0px 1px 0px lightgray inset;
 }
@@ -25,32 +25,6 @@
 
 .footer-sticky[b-ualc49u5kx] {
     
-}
-/* /Layout/TableBased/TableBody.razor.rz.scp.css */
-table[b-ogq1gc7yuh] {
-    width: 100%;
-    height: var(--windowHeight);
-    /* height: 100vh; */
-    /* border-spacing: 0px; */
-    /* margin: 0; */
-}
-
-td[b-ogq1gc7yuh], th[b-ogq1gc7yuh] {
-    padding: 0px;
-}
-
-th[b-ogq1gc7yuh] {
-    height: var(--header-fixed-height);
-}
-
-.td-body[b-ogq1gc7yuh] {
-    vertical-align: top;
-    text-align: left;
-}
-
-.td-footer[b-ogq1gc7yuh] {
-    height: var(--footer-fixed-height);
-    box-shadow: 0px 1px 0px lightgray inset;
 }
 /* /Pages/Apito/RdznGrdHdrTmpt.razor.rz.scp.css */
 .drop-down-panel[b-1l2jm1oo7y] {

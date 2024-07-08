@@ -4,15 +4,14 @@ addEventListener("resize", (event) => {
     cssRoot.style.setProperty('--windowHeight', window.innerHeight + 'px');
 });
 
-function setHeaderHeight(id) {
-    var clientHeight = document.getElementById('id').clientHeight;
-    cssRoot.style.setProperty('--headerHeight', clientHeight);
+function updateHeaderHeight(htmlId) {
+    var clientHeight = document.getElementById(htmlId).clientHeight;//offsetHeight
+    cssRoot.style.setProperty('--headerHeight', clientHeight + 'px');
     return clientHeight;
 }
-
-function setFooterHeight(id) {
-    var clientHeight = document.getElementById('id').clientHeight;
-    cssRoot.style.setProperty('--footerHeight', clientHeight);
+function updateFooterHeight(htmlId) {
+    var clientHeight = document.getElementById(htmlId).clientHeight;
+    cssRoot.style.setProperty('--footerHeight', clientHeight + 'px');
     return clientHeight;
 }
 
@@ -96,9 +95,12 @@ function showMenuPanel(htmlId, className, cssDisplay) {
     hideMenuPanel(htmlId, className);
     const div = document.getElementById(htmlId);
     if (div != null) {
-        div.style.display = (div.style.display == cssDisplay) ? 'none' : cssDisplay;
+        let isDisplayVisible = div.style.display == cssDisplay;
+        div.style.display = isDisplayVisible ? 'none' : cssDisplay;
         menuClicked = true;
+        return !isDisplayVisible;
     }
+    return false;
 }
 function hideMenuPanel(skipId, className) {
     if (!menuClicked) {
