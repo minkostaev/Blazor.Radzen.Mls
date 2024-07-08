@@ -1,7 +1,7 @@
 ﻿@using BlazorRadzenMls.Models
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
-<RadzenProfileMenu Style="background-color: transparent; border-left:0; top: -3px;">
+<RadzenProfileMenu>
     <Template>
         @if (isGravatar)
         {
@@ -54,10 +54,3 @@
     }
 
 }
-
-<style>
-    ul.rz-profile-menu .rz-navigation-menu {
-        right: initial;
-        /* right: unset;initial */
-    }
-</style>

@@ -1,4 +1,4 @@
-﻿@using BlazorRadzenMls.Auth
+﻿@using BlazorRadzenMls.Layout.Headers
 @using BlazorRadzenMls.Models
 
 <RadzenLink Path="">
@@ -20,11 +20,11 @@
 </RadzenLink>
 
 <div style="margin-left: auto;">
-    <MenuGravatar />
+    <RdznMenuProfile />
 </div>
 
 @code {
-
+    //RdznMenuProfile
     private void ShowTooltip(ElementReference elementReference)
     {
         var options = new TooltipOptions() { Position = TooltipPosition.Bottom };

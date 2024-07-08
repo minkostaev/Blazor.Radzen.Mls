@@ -141,19 +141,18 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<bool> ShowMenuPanel(this IJSRuntime js,
+    public static async Task<bool?> ShowMenuPanel(this IJSRuntime js,
         string htmlId, string className, string cssDisplay, object thisComponent, string methodName = "")
     {
         string jsMethod = "showMenuPanel";
         try
         {
-            await js.InvokeVoidAsync(jsMethod, htmlId, className, cssDisplay);
-            return true;
+            return await js.InvokeAsync<bool?>(jsMethod, htmlId, className, cssDisplay);
         }
         catch (Exception ex)
         {
             CatchException(thisComponent, methodName, jsMethod, ex.Message);
-            return false;
+            return null;
         }
     }
 
@@ -182,6 +181,34 @@ public static class JavaScriptRuntime
             return null;
         }
     }
+
+    public static async Task<int?> UpdateHeaderHeight(this IJSRuntime js, string htmlId, object thisComponent, string methodName = "")
+    {
+        string jsMethod = "updateHeaderHeight";
+        try
+        {
+            return await js.InvokeAsync<int>(jsMethod, htmlId);
+        }
+        catch (Exception ex)
+        {
+            CatchException(thisComponent, methodName, jsMethod, ex.Message);
+            return null;
+        }
+    }
+    public static async Task<int?> UpdateFooterHeight(this IJSRuntime js, string htmlId, object thisComponent, string methodName = "")
+    {
+        string jsMethod = "updateFooterHeight";
+        try
+        {
+            return await js.InvokeAsync<int>(jsMethod, htmlId);
+        }
+        catch (Exception ex)
+        {
+            CatchException(thisComponent, methodName, jsMethod, ex.Message);
+            return null;
+        }
+    }
+
 
     #endregion
 

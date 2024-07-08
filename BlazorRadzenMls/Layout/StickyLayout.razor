@@ -1,4 +1,6 @@
-﻿@using BlazorRadzenMls.Models
+﻿@using BlazorRadzenMls.Layout.Headers
+@using BlazorRadzenMls.Layout.Footers
+@using BlazorRadzenMls.Models
 
 @inherits LayoutComponentBase
 
@@ -8,7 +10,7 @@
 <div @onclick="HideMenuPanel">
 
     <div class="header-sticky">
-        <BlazorRadzenMls.Layout.Headers.LeftRight />
+        <StickyHeader />
     </div>
 
     <div class="main-sticky">
@@ -20,7 +22,7 @@
     </div>
 
     <div>
-        <BlazorRadzenMls.Layout.Footers.DefaultFooter />
+        <StickyFooter />
     </div>
 
 </div>

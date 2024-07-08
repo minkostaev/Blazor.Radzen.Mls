@@ -1,6 +1,7 @@
 ﻿@using BlazorRadzenMls.Models
 
-<RadzenPanelMenu Style="overflow: auto; max-height: calc(100vh - 70px);" DisplayStyle="@__state.SiteOptions.Menu.MenuStyle" ShowArrow="@__state.SiteOptions.Menu.Arrow" Multiple="@__state.SiteOptions.Menu.Multiple">
+<RadzenPanelMenu Style="@PanelMenuStyle" Multiple="@__state.SiteOptions.Menu.Multiple"
+                 DisplayStyle="@__state.SiteOptions.Menu.MenuStyle" ShowArrow="@__state.SiteOptions.Menu.Arrow">
     <RadzenPanelMenuItem Text="МинцЪт" Path="" Image="images/icon-128.png">
         @* Home *@
 
@@ -21,9 +22,9 @@
 
     </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Blazor" Icon="bug_report">
-        
+
         <RadzenPanelMenuItem Text="@__lang["Options"]" Path="@AppValues.PageOptions" Icon="build" />
-        
+
     </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="@__lang["Learn"]" Icon="extension">
 
@@ -37,7 +38,7 @@
         @* <RadzenPanelMenuItem Text="LocalStorage" Path="local" Icon="autorenew" /> *@
         <RadzenPanelMenuItem Text="Layout2" Path="sidemenu" Icon="autorenew" />
         <RadzenPanelMenuItem Text="Information" Path="information" Icon="autorenew" />
-        
+
     </RadzenPanelMenuItem>
     <RadzenPanelMenuItem Text="Api" Icon="http">
 
@@ -50,9 +51,12 @@
 
 @code {
 
+    [Parameter]
+    public string? PanelMenuStyle { get; set; }
+
     protected override void OnInitialized()
     {
-        
+
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }

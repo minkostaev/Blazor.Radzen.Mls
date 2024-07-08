@@ -1,11 +1,11 @@
 ﻿@using BlazorRadzenMls.Models
 
 @* background-color: var(--rz-panel-menu-background-color); *@
-<div class="rz-header" style="display: flex;">
+<div id="@AppValues.HtmlIdHeader" class="rz-header" style="display: flex;">
     <div style="flex: 1;">
 
         <RdznMenuIcon>
-            <SideMenu />
+            <RdznMenuPanel PanelMenuStyle="@AppValues.RdznPanelMenuStyle" />
         </RdznMenuIcon>
 
         <RdznMenuIcon Name="home" NavigateTo="" Size="29" />
@@ -14,7 +14,7 @@
 
     </div>
     <div>
-        <BlazorRadzenMls.Auth.MenuGravatar />
+        <RdznMenuProfile />
     </div>
 </div>
 
