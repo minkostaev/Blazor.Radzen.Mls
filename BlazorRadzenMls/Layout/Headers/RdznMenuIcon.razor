@@ -40,16 +40,7 @@
         }
         else
         {
-            var isMenuVisible = await __js.ShowMenuPanel(menuPanelId, AppValues.HtmlClassMenuIcon, "inline", this, "ShowMenuPanel");
-            if (isMenuVisible == true)
-            {
-                int? header = await __js.UpdateHeaderHeight(AppValues.HtmlIdHeader, this, "OnAfterRenderAsync");
-                int? footer = await __js.UpdateFooterHeight(AppValues.HtmlIdFooter, this, "OnAfterRenderAsync");
-                header = (header == null) ? 0 : header;
-                footer = (footer == null) ? 0 : footer;
-                int? height = header + footer;
-                AppValues.RdznPanelMenuStyle = $"overflow: auto; max-height: calc(100vh - {height}px);";
-            }
+            await __js.ShowMenuPanel(menuPanelId, AppValues.HtmlClassMenuIcon, "inline", this, "ShowMenuPanel");
         }
     }
 

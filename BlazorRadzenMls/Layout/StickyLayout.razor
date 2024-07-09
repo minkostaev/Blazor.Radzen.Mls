@@ -13,15 +13,13 @@
         <StickyHeader />
     </div>
 
-    <div class="main-sticky">
-        @* 600px;<BlazorRadzenMls.Layout.Bodies.HideLeftContent> *@
-        <div class="rz-p-4">
-            @Body
-        </div>
+    <div class="rz-p-4 main-sticky">
+        @* <BlazorRadzenMls.Layout.Bodies.HideLeftContent> *@
+        @Body
         @* </BlazorRadzenMls.Layout.Bodies.HideLeftContent> *@
     </div>
 
-    <div>
+    <div class="footer-sticky">
         <StickyFooter />
     </div>
 

@@ -1,11 +1,11 @@
 ﻿@using BlazorRadzenMls.Models
 
 @* background-color: var(--rz-panel-menu-background-color); *@
-<div id="@AppValues.HtmlIdHeader" class="rz-header" style="display: flex;">
+<div id="@htmlIdHeader" class="rz-header" style="display: flex;">
     <div style="flex: 1;">
 
         <RdznMenuIcon>
-            <RdznMenuPanel PanelMenuStyle="@AppValues.RdznPanelMenuStyle" />
+            <RdznMenuPanel />
         </RdznMenuIcon>
 
         <RdznMenuIcon Name="home" NavigateTo="" Size="29" />
@@ -20,10 +20,20 @@
 
 @code {
 
+    private const string htmlIdHeader = "headerStickyLayout";
+
     // private void SidebarExpand()
     // {
     //     __state.SiteOptions.Menu.SidebarExpanded = !__state.SiteOptions.Menu.SidebarExpanded;
     //     __state.RefreshPage("LeftRight.razor -> SidebarExpand");
     // }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await __js.AddHeaderHeight(htmlIdHeader, this, "OnAfterRenderAsync");
+        }
+    }
 
 }

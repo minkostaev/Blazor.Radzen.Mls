@@ -5,7 +5,7 @@
 }
 
 .main-sticky {
-    min-height: calc(100vh - 73px);
+    min-height: calc(100vh - var(--heightHeaderFooter));
     background-color: var(--rz-body-background-color);
 }
 

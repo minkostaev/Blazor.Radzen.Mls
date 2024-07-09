@@ -1,9 +1,19 @@
 ﻿@using BlazorRadzenMls.Models
 
-<div id="@AppValues.HtmlIdFooter" class="rz-panel-menu td-footer">
-    &copy; 2024 Footer
+<div id="@htmlIdFooter" class="rz-panel-menu td-footer">
+    &copy; 2023-@DateTime.Now.Year Footer
 </div>
 
 @code {
-    //StickyFooter
+
+    private const string htmlIdFooter = "footerStickyLayout";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await __js.AddFooterHeight(htmlIdFooter, this, "OnAfterRenderAsync");
+        }
+    }
+
 }

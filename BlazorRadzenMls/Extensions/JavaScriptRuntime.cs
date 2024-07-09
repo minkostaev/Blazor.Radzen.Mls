@@ -82,6 +82,35 @@ public static class JavaScriptRuntime
 
     #region Uses custom coded methods in a external js file
 
+    public static async Task<bool> AddHeaderHeight(this IJSRuntime js, string htmlId, object thisComponent, string methodName = "")
+    {
+        string jsMethod = "addHeaderHeight";
+        try
+        {
+            await js.InvokeVoidAsync(jsMethod, htmlId);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            CatchException(thisComponent, methodName, jsMethod, ex.Message);
+            return false;
+        }
+    }
+    public static async Task<bool> AddFooterHeight(this IJSRuntime js, string htmlId, object thisComponent, string methodName = "")
+    {
+        string jsMethod = "addFooterHeight";
+        try
+        {
+            await js.InvokeVoidAsync(jsMethod, htmlId);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            CatchException(thisComponent, methodName, jsMethod, ex.Message);
+            return false;
+        }
+    }
+
     public static async Task<string?> GetIp(this IJSRuntime js, object thisComponent, string methodName = "")
     {
         string jsMethod = "getIp";
@@ -174,33 +203,6 @@ public static class JavaScriptRuntime
                 Search = await js.InvokeAsync<string>(jsMethod, "search")
             };  
             return result;
-        }
-        catch (Exception ex)
-        {
-            CatchException(thisComponent, methodName, jsMethod, ex.Message);
-            return null;
-        }
-    }
-
-    public static async Task<int?> UpdateHeaderHeight(this IJSRuntime js, string htmlId, object thisComponent, string methodName = "")
-    {
-        string jsMethod = "updateHeaderHeight";
-        try
-        {
-            return await js.InvokeAsync<int>(jsMethod, htmlId);
-        }
-        catch (Exception ex)
-        {
-            CatchException(thisComponent, methodName, jsMethod, ex.Message);
-            return null;
-        }
-    }
-    public static async Task<int?> UpdateFooterHeight(this IJSRuntime js, string htmlId, object thisComponent, string methodName = "")
-    {
-        string jsMethod = "updateFooterHeight";
-        try
-        {
-            return await js.InvokeAsync<int>(jsMethod, htmlId);
         }
         catch (Exception ex)
         {
