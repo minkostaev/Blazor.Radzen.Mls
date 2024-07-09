@@ -1,18 +1,45 @@
 const cssRoot = document.querySelector(':root');
 cssRoot.style.setProperty('--windowHeight', window.innerHeight + 'px');
 addEventListener("resize", (event) => {
+    windowHeight = window.innerHeight;
     cssRoot.style.setProperty('--windowHeight', window.innerHeight + 'px');
 });
-
-function updateHeaderHeight(htmlId) {
-    var clientHeight = document.getElementById(htmlId).clientHeight;//offsetHeight
-    cssRoot.style.setProperty('--headerHeight', clientHeight + 'px');
-    return clientHeight;
+let windowHeight = 0;
+let headerHeight = 0;
+let footerHeight = 0;
+function addHeaderHeight(htmlId) {
+    const el = document.getElementById(htmlId);
+    addHeaderHeight2();
+    function addHeaderHeight2() {
+        headerHeight = el.clientHeight;//offsetHeight
+        cssRoot.style.setProperty('--headerHeight', headerHeight + 'px');
+        cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 1) + 'px');
+    }
+    const resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+            //const { width, height } = entry.contentRect;
+            //console.log(`Element resized to ${width}px x ${height}px`);
+            addHeaderHeight2();
+        }
+    });
+    resizeObserver.observe(el);
 }
-function updateFooterHeight(htmlId) {
-    var clientHeight = document.getElementById(htmlId).clientHeight;
-    cssRoot.style.setProperty('--footerHeight', clientHeight + 'px');
-    return clientHeight;
+function addFooterHeight(htmlId) {
+    const el = document.getElementById(htmlId);
+    addFooterHeight2();
+    function addFooterHeight2() {
+        footerHeight = el.clientHeight;
+        cssRoot.style.setProperty('--footerHeight', footerHeight + 'px');
+        cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 1) + 'px');
+    }
+    const resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+            //const { width, height } = entry.contentRect;
+            //console.log(`Element resized to ${width}px x ${height}px`);
+            addFooterHeight2();
+        }
+    });
+    resizeObserver.observe(el);
 }
 
 addLoaderCss();
