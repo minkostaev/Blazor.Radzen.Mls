@@ -3,6 +3,8 @@
 using BlazorRadzenMls.Models;
 using Microsoft.AspNetCore.Components;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Net;
 
 public static class AppStatic
 {
@@ -61,5 +63,37 @@ public static class AppStatic
         stopwatch.Stop();
         return stopwatch.ElapsedMilliseconds;
     }
+
+    public static async Task<(HttpResponseMessage?, Response)> GetResponse(HttpClient http, string uri)
+    {
+        var result = new Response();
+        var timer = TimerStart();
+
+        HttpResponseMessage? response = null;
+        try { response = await http.GetAsync(uri); }
+        catch (Exception) { }
+
+        if (response == null)
+        {
+            result.Status = HttpStatusCode.InternalServerError;
+            return (null, result);
+        }
+        else
+        {
+            result.Status = response.StatusCode;
+        }
+
+        if (response.StatusCode != HttpStatusCode.OK)
+        {
+            return (null, result);
+        }
+
+        response.EnsureSuccessStatusCode();
+
+        result.RequestTime = TimerStop(timer);
+
+        return (response, result);
+    }
+
 
 }

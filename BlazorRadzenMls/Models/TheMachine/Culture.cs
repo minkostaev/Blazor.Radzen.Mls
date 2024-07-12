@@ -1,4 +1,4 @@
-﻿namespace Forms.Wpf.Mls.Tools.Models.TheMachine;
+﻿namespace BlazorRadzenMls.Models.TheMachine;
 
 using System.Globalization;
 
