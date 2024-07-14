@@ -3,6 +3,7 @@
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Models.TheMachine;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -26,12 +27,12 @@ public class Apito : IApito
     {
         var (response, result) = await AppStatic.GetResponse(_httpClient, EndpointMachinesLogs);
 
-        var timer2 = AppStatic.TimerStart();
+        var timer = AppStatic.TimerStart();
 
         try { result.Result = await response!.Content.ReadFromJsonAsync<MachinesLogs[]>(); }
         catch (Exception) { }
 
-        result.DeserializeTime = AppStatic.TimerStop(timer2);
+        result.DeserializeTime = AppStatic.TimerStop(timer);
 
         return result;
     }
@@ -40,28 +41,44 @@ public class Apito : IApito
         var result = new Response();
         if (ids == null)
         {
-            result.Status = HttpStatusCode.InternalServerError;
+            result.Status = HttpStatusCode.ExpectationFailed;
             return result;
         }
 
         var timer = AppStatic.TimerStart();
-        string jsonString = JsonSerializer.Serialize(ids);
-        string requestBody = "{\"Ids\": " + jsonString + "}";
-        var request = new HttpRequestMessage
-        {
-            Method = HttpMethod.Delete,
-            RequestUri = new Uri(string.Concat(_httpClient.BaseAddress!.AbsoluteUri, EndpointMachinesLogs.AsSpan(1))),
-            Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
-        };
 
-        HttpResponseMessage response = await _httpClient.SendAsync(request);
-
-        if (response.StatusCode != HttpStatusCode.NoContent)
+        HttpRequestMessage? httpRequest = null;
+        try
         {
-            result.Status = response.StatusCode;
+            string jsonString = JsonSerializer.Serialize(ids);
+            string requestBody = "{\"Ids\": " + jsonString + "}";
+            httpRequest = new HttpRequestMessage
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = new Uri(string.Concat(_httpClient.BaseAddress!.AbsoluteUri, EndpointMachinesLogs.AsSpan(1))),
+                Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
+            };
+        }
+        catch (Exception)
+        {
+            result.Status = HttpStatusCode.Conflict;
             return result;
         }
-        response.EnsureSuccessStatusCode();
+
+        HttpResponseMessage? httpResponse = null;
+        try { httpResponse = await _httpClient.SendAsync(httpRequest!); }
+        catch (Exception)
+        {
+            result.Status = HttpStatusCode.InternalServerError;
+            return result;
+        }
+
+        if (httpResponse.StatusCode != HttpStatusCode.NoContent)
+        {
+            result.Status = httpResponse.StatusCode;
+            return result;
+        }
+        httpResponse.EnsureSuccessStatusCode();
 
         result.RequestTime = AppStatic.TimerStop(timer);
         result.Result = true;
@@ -110,7 +127,6 @@ public class Apito : IApito
 
         return result;
     }
-
     public async Task<Response> PostImoti(ImotMongo item, bool put = false)
     {
         var result = new Response();
@@ -149,7 +165,6 @@ public class Apito : IApito
 
         return result;
     }
-
     public async Task<Response> DeleteImot(string? id)
     {
         var result = new Response();
@@ -161,7 +176,15 @@ public class Apito : IApito
 
         var timer = AppStatic.TimerStart();
 
-        HttpResponseMessage response = await _httpClient.DeleteAsync($"{EndpointImoti}/{id}");
+        HttpResponseMessage? response = null;
+        try { response = await _httpClient.DeleteAsync($"{EndpointImoti}/{id}"); }
+        catch (Exception) { }
+
+        if (response == null)
+        {
+            result.Status = HttpStatusCode.InternalServerError;
+            return result;
+        }
 
         if (response.StatusCode != HttpStatusCode.NoContent)
         {

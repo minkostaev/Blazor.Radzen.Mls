@@ -1,7 +1,6 @@
 using BlazorRadzenMls;
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Extensions;
-using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

@@ -40,7 +40,7 @@
     protected override async Task OnInitializedAsync()
     {
         await __state.LoadAppOptions();
-        await __radTheme.SetTheme(__state.SiteOptions.Theme);
+        await __rdznTheme.SetTheme(__state.SiteOptions.Theme);
         await __ml.ChangeLanguage(__state.SiteOptions.Language);
         await __verRe.CheckVersion();
 

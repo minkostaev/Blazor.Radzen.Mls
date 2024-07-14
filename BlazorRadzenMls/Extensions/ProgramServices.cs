@@ -29,7 +29,7 @@ public static class ProgramServices
     {
         services.AddScoped<AppState>();
         services.AddScoped<MultiLanguage>();
-        services.AddScoped<IRadzenTheming, RadzenTheming>();
+        services.AddScoped<IRdznTheming, RdznTheming>();
         services.AddScoped<IVersionReload, VersionReload>();
     }
 }

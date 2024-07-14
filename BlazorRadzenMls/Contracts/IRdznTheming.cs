@@ -1,8 +1,8 @@
 ﻿namespace BlazorRadzenMls.Contracts;
 
-public interface IRadzenTheming
+public interface IRdznTheming
 {
-    string[] Themes { get; set; }
-    Task<string> GetTheme();
+    string[] Themes { get; }
+    Task<string?> GetTheme();
     Task<bool> SetTheme(string? name, bool saveLocal = false);
 }
