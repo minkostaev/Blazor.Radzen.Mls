@@ -57,7 +57,7 @@
       "url": "css\/variables.css"
     },
     {
-      "hash": "sha256-7PC1OOlAO5aSUeBOz2pC8IqQGsLr9FAGFbJDfuu28ec=",
+      "hash": "sha256-fzgaP6lVbJbchBfxMjmvn4xt7uzNn8loxOE3frl8hsI=",
       "url": "data\/version.txt"
     },
     {
@@ -149,7 +149,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-\/1tvfhoGBrMxo236ExwkRG0hmR\/+\/ygl8ZkAzeI3hiA=",
+      "hash": "sha256-ImxheZUORvva1VSDw4IPiECxaOltYHg8kgJWngpDSc0=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -161,7 +161,7 @@
       "url": "_framework\/Blazored.LocalStorage.wasm"
     },
     {
-      "hash": "sha256-tCJSkD0\/E\/bAmLmv3hdmn6wrB4nQgnivseBmtM+qgX8=",
+      "hash": "sha256-ZFuA8K3f4M+EHKESCyUvjuTj0Le1aYe0EozB7SAOq9s=",
       "url": "_framework\/BlazorRadzenMls.wasm"
     },
     {
@@ -661,5 +661,5 @@
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "NQLC\/XwW"
+  "version": "XDBiua0n"
 };
