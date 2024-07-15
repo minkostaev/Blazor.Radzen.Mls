@@ -15,9 +15,9 @@
 
 @code {
 
-    private string _currentVersion => __lang["Current_version_is"] + ": " + AppValues.VersionClient;
-    private string _updateVersion => __lang["Update_version_available"] + ": " + __state.VersionServer;
-    private string _btnLablel => __state.NeedUpdate ? __lang["Update"] : __lang["Refresh"];
+    private string _currentVersion => __ml["Current_version_is"] + ": " + AppValues.VersionClient;
+    private string _updateVersion => __ml["Update_version_available"] + ": " + __state.VersionServer;
+    private string _btnLablel => __state.NeedUpdate ? __ml["Update"] : __ml["Refresh"];
 
     protected override async void OnInitialized()
     {

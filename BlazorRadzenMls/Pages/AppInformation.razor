@@ -4,80 +4,80 @@
 
 <PageTitle>App Information</PageTitle>
 
-<RadzenText Text="@__lang["App Information"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
+<RadzenText Text="@__ml["App Information"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
 
 <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4">
-    <RadzenLabel Text="@__lang["Host Environment:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["Host Environment:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@__env.Environment" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["Authentication Configuration:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["Authentication Configuration:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@AppStatic.GetAuth0(__env.BaseAddress)" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
     <RadzenLink Icon="list" Path="appsettings.json" Text="appsettings.json" />
     <br />
     <RadzenLink Icon="list" Path="appsettings.Development.json" Text="appsettings.Development.json" />
     <br />
-    <RadzenLabel Text="@__lang["Base Address:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["Base Address:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@__env.BaseAddress" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["Base Uri:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["Base Uri:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@__nav.BaseUri" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["Uri:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["Uri:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@__nav.Uri" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["History Entry State:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["History Entry State:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@__nav.HistoryEntryState" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["Version Client:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["Version Client:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@AppValues.VersionClient" class="rz-color-primary" Style="font-weight: bold;" />
-    <RadzenLabel Text="@__lang["(project's version)"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["(project's version)"]" class="rz-color-success-dark" />
     <br />
-    <RadzenLabel Text="@__lang["Version Server:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["Version Server:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@__state.VersionServer" class="rz-color-primary" Style="font-weight: bold;" />
-    <RadzenLabel Text="@__lang["(custom created for version checking)"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["(custom created for version checking)"]" class="rz-color-success-dark" />
     <br />
     <RadzenLink Icon="offline_pin" Path="data/version.txt" Text="version.txt" />
     <br />
-    <RadzenLabel Text="@__lang["Current Culture:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["Current Culture:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@currentCulture" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["Language Culture:"]" class="rz-color-success-dark" />
-    <RadzenLabel Text="@__lang.CurrentCulture.Name" class="rz-color-primary" Style="font-weight: bold;" />
+    <RadzenLabel Text="@__ml["Language Culture:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml.CurrentCulture.Name" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["Theme Name:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["Theme Name:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@theme" class="rz-color-primary" Style="font-weight: bold;" />
 
     <br />
-    <RadzenLabel Text="@__lang["location.hash:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["location.hash:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@jsLocation?.Hash" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["location.host:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["location.host:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@jsLocation?.Host" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["location.hostname:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["location.hostname:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@jsLocation?.Hostname" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["location.href:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["location.href:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@jsLocation?.Href" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["location.origin:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["location.origin:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@jsLocation?.Origin" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["location.pathname:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["location.pathname:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@jsLocation?.Pathname" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["location.port:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["location.port:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@jsLocation?.Port" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["location.protocol:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["location.protocol:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@jsLocation?.Protocol" class="rz-color-primary" Style="font-weight: bold;" />
     <br />
-    <RadzenLabel Text="@__lang["location.search:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["location.search:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@jsLocation?.Search" class="rz-color-primary" Style="font-weight: bold;" />
 
     <br />
-    <RadzenLabel Text="@__lang["your ip is:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@__ml["your ip is:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@ip" class="rz-color-primary" Style="font-weight: bold;" />
 
     <br />

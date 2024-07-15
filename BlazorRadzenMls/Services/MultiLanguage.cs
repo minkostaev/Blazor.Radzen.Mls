@@ -5,12 +5,12 @@ using System.Globalization;
 
 public class MultiLanguage
 {
-    private readonly ILanguageContainerService _languageService;
-    private readonly AppState _appState;
+    private readonly ILanguageContainerService _language;
+    private readonly AppState __state;
     public MultiLanguage(ILanguageContainerService languageService, AppState appState)
     {
-        _languageService = languageService;
-        _appState = appState;
+        _language = languageService;
+        __state = appState;
         Languages = new Dictionary<string, string>
         {
             { en_US.Key, en_US.Value },
@@ -18,29 +18,42 @@ public class MultiLanguage
         };
     }
 
+    /// <summary>
+    /// Languages list
+    /// </summary>
     public IDictionary<string, string> Languages { get; private set; }
-    // flgs - https://icons8.com/icon/set/flags/fluency
     public readonly KeyValuePair<string, string> en_US = new("en-US", "english");
     public readonly KeyValuePair<string, string> bg_BG = new("bg-BG", "bulgarian");
-
-    public string Get(string key) { return _languageService[key]; }
+    // flgs - https://icons8.com/icon/set/flags/fluency
 
     /// <summary>
-    /// Change Language
+    /// CultureInfo CurrentCulture
+    /// </summary>
+    public CultureInfo CurrentCulture => _language.CurrentCulture;
+
+    /// <summary>
+    /// Get language value from the yml
+    /// </summary>
+    /// <param name="key">Key from the yml file</param>
+    /// <returns>Language string value from the yml</returns>
+    public string this[string? key] => _language[key];
+
+    /// <summary>
+    /// Change language
     /// </summary>
     /// <param name="language">Language code (ex: en-US)</param>
-    /// <param name="saveLocal"></param>
-    /// <returns></returns>
+    /// <param name="saveLocal">Save to local storage</param>
+    /// <returns>Success status</returns>
     public async Task<bool> ChangeLanguage(string? language, bool saveLocal = false)
     {
-        if (_languageService.CurrentCulture.Name == language)
+        if (CurrentCulture.Name == language)
             return false;
         string id = string.Empty;
         bool success = false;
         if (Languages != null)
         {
             id = Languages.FirstOrDefault(x => x.Value == language).Key;
-            if (Languages.Count > 0 && (string.IsNullOrEmpty(id)))
+            if (Languages.Count > 0 && string.IsNullOrEmpty(id))
             {
                 id = Languages.FirstOrDefault().Key;
                 success = true;
@@ -50,12 +63,12 @@ public class MultiLanguage
         {
             id = "en-US";
         }
-        _languageService?.SetLanguage(CultureInfo.GetCultureInfo(id));
+        _language?.SetLanguage(CultureInfo.GetCultureInfo(id));
         #region AppState
-        _appState.SiteOptions.Language = Languages?[id];
+        __state.SiteOptions.Language = Languages?[id];
         if (saveLocal)
         {
-            await _appState.SaveAppOptions();
+            await __state.SaveAppOptions();
         }
         #endregion
         return success;
@@ -70,3 +83,8 @@ public class MultiLanguage
 
 // add folder in the project with yml files with the translations
 // /Languages/en-US.yml
+
+// in project file
+//<ItemGroup>
+//  <EmbeddedResource Include="Languages\en-US.yml" />
+//</ItemGroup>

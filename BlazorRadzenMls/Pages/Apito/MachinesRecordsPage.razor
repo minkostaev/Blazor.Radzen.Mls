@@ -8,7 +8,7 @@
 
 @inject IApito _apito
 
-<RadzenText Text="@__lang["Machines Records"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
+<RadzenText Text="@__ml["Machines Records"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
 
 @if (dataLogs != null)
 {
@@ -186,12 +186,12 @@ else
     protected override async Task OnInitializedAsync()
     {
         columnsNames = new Dictionary<string, string>();
-        columnsNames.Add(nameof(density), __lang["Compact view"]);
-        columnsNames.Add(nameof(filterMode), __lang["Filter list"]);
-        columnsNames.Add(nameof(visibleCheckboxColumn), __lang["Select column"]);
-        columnsNames.Add(nameof(MachinesRecords.Server), __lang["Server"]);
-        columnsNames.Add(nameof(MachinesRecords.Client), __lang["Client"]);
-        columnsNames.Add(nameof(MachinesRecords.Date), __lang["Date"]);
+        columnsNames.Add(nameof(density), __ml["Compact view"]);
+        columnsNames.Add(nameof(filterMode), __ml["Filter list"]);
+        columnsNames.Add(nameof(visibleCheckboxColumn), __ml["Select column"]);
+        columnsNames.Add(nameof(MachinesRecords.Server), __ml["Server"]);
+        columnsNames.Add(nameof(MachinesRecords.Client), __ml["Client"]);
+        columnsNames.Add(nameof(MachinesRecords.Date), __ml["Date"]);
         await GetMachinesRecords();
     }
     

@@ -1,8 +1,8 @@
 ﻿@using BlazorRadzenMls.Models
 
-<RadzenButton Text="@__lang["Reload"]" Icon="autorenew" Click="() => Clear.InvokeAsync(true)"
+<RadzenButton Text="@__ml["Reload"]" Icon="autorenew" Click="() => Clear.InvokeAsync(true)"
               ButtonStyle="ButtonStyle.Secondary" IsBusy="@BusyDelete" />
-<RadzenButton Text="@__lang["Delete"]" Icon="delete_forever" Click="@DeleteConfirm"
+<RadzenButton Text="@__ml["Delete"]" Icon="delete_forever" Click="@DeleteConfirm"
               ButtonStyle="ButtonStyle.Danger" Disabled="@DisabledDelete" IsBusy="@BusyDelete" />
 <RadzenSplitButton Text="@DeselectText" Disabled="@DisabledDelete" Click="() => Clear.InvokeAsync()"
                    Icon="cached" ButtonStyle="ButtonStyle.Primary" IsBusy="@BusyDelete">
@@ -23,7 +23,7 @@
     </ChildContent>
 </RadzenSplitButton>
 
-<RadzenSplitButton Text="@__lang["More"]" Icon="list" ButtonStyle="ButtonStyle.Info"
+<RadzenSplitButton Text="@__ml["More"]" Icon="list" ButtonStyle="ButtonStyle.Info"
                    IsBusy="@BusyDelete" AlwaysOpenPopup="true">
     <ChildContent>
         <div class="drop-down-panel">
@@ -78,8 +78,8 @@
 
     private Dictionary<string, bool>? columnsChecked;
 
-    private string DeselectText => DisabledDelete ? __lang["Deselect"] : __lang["Deselect"] + " [" + Selected?.Count + "]";
-    private string TimeText => __lang["Last action time"] + ": " + totolTime;
+    private string DeselectText => DisabledDelete ? __ml["Deselect"] : __ml["Deselect"] + " [" + Selected?.Count + "]";
+    private string TimeText => __ml["Last action time"] + ": " + totolTime;
 
     private string? totolTime
     {

@@ -5,11 +5,11 @@
 <RadzenLabel Text=@_menuLbl class="rz-color-success-dark" Style="font-weight: bold;" />
 
 <div class="myRadzenToggleButton">
-    <RadzenToggleButton @bind-Value=@isTextIcon Text=@__lang["Text"] Icon="view_list" IconColor="@Colors.Series5"
+    <RadzenToggleButton @bind-Value=@isTextIcon Text=@__ml["Text"] Icon="view_list" IconColor="@Colors.Series5"
                         ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
 </div>
 <div class="myRadzenToggleButton">
-    <RadzenToggleButton @bind-Value=@Text Text=@__lang["Text"]
+    <RadzenToggleButton @bind-Value=@Text Text=@__ml["Text"]
                         ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
 </div>
 <div class="myRadzenToggleButton">
@@ -20,12 +20,12 @@
 <div>
     <label>
         <RadzenCheckBox Value="@appMenuArrow" @onclick="ArrowsChange" Style="margin: 10px 0 0 0;" />
-        <RadzenLabel Text=@__lang["Show_arrows"] @onclick="ArrowsChange"
+        <RadzenLabel Text=@__ml["Show_arrows"] @onclick="ArrowsChange"
                      class="rz-color-success-dark" Style="margin: 10px 20px 0 0;" />
     </label>
     <label>
         <RadzenCheckBox Value="@appMenuMultiple" @onclick="MultipleChange" Style="margin: 10px 0 0 0;" />
-        <RadzenLabel Text=@__lang["Open_multiples"] @onclick="MultipleChange"
+        <RadzenLabel Text=@__ml["Open_multiples"] @onclick="MultipleChange"
                      class="rz-color-success-dark" Style="margin: 10px 0 0 0;" />
     </label>
 </div>
@@ -51,7 +51,7 @@
             Task.FromResult(__state.SaveAppOptions()); }
     }
     
-    private string _menuLbl => $"{__lang["Menu"]}: ";
+    private string _menuLbl => $"{__ml["Menu"]}: ";
 
     private bool _isTextIcon;
     private bool isTextIcon

@@ -7,7 +7,7 @@
         <ChildContent>
             @foreach (var i in __ml.Languages)
             {
-                <RadzenSplitButtonItem Text="@__lang[i.Value]" Value="@i.Value" />
+                <RadzenSplitButtonItem Text="@__ml[i.Value]" Value="@i.Value" />
             }
         </ChildContent>
     </RadzenSplitButton>
@@ -17,11 +17,11 @@ else
     <RadzenLabel Text=@_languageLbl class="rz-color-success-dark" Style="font-weight: bold;" />
 
     <div class="myRadzenToggleButton">
-        <RadzenToggleButton @bind-Value=@isEnglish Text=@__lang["english"] Image="@GetImagePath("english")"
+        <RadzenToggleButton @bind-Value=@isEnglish Text=@__ml["english"] Image="@GetImagePath("english")"
                             ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
     </div>
     <div class="myRadzenToggleButton">
-        <RadzenToggleButton @bind-Value=@isBulgarian Text=@__lang["bulgarian"] Image="@GetImagePath("bulgarian")"
+        <RadzenToggleButton @bind-Value=@isBulgarian Text=@__ml["bulgarian"] Image="@GetImagePath("bulgarian")"
                             ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
     </div>
 }
@@ -31,8 +31,8 @@ else
     [Parameter]
     public bool IsComboNotBar { get; set; }
 
-    private string _languageLbl => __lang["Language"] + ": ";
-    private string _btnText => _languageLbl + __lang[__state.SiteOptions.Language];
+    private string _languageLbl => __ml["Language"] + ": ";
+    private string _btnText => _languageLbl + __ml[__state.SiteOptions.Language];
 
     private bool _isEnglish;
     private bool isEnglish

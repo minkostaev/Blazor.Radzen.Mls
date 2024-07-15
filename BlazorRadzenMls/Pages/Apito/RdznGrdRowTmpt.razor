@@ -10,9 +10,9 @@
         <RadzenCard Style="@styl" class="@clas">
             <RadzenRow RowGap="0">
                 @* <RdznGrdColTmpt Label="@__lang["User"]" Value="@Item?.Client?.User" /> *@
-                <RdznGrdColTmpt Label="@__lang["Machine"]" Value="@Item?.Client?.Machine" />
-                <RdznGrdColTmpt Label="@__lang["Domain"]" Value="@Item?.Client?.Domain" />
-                <RdznGrdColTmpt Label="@__lang["Path"]" Value="@Item?.Client?.Path" />
+                <RdznGrdColTmpt Label="@__ml["Machine"]" Value="@Item?.Client?.Machine" />
+                <RdznGrdColTmpt Label="@__ml["Domain"]" Value="@Item?.Client?.Domain" />
+                <RdznGrdColTmpt Label="@__ml["Path"]" Value="@Item?.Client?.Path" />
             </RadzenRow>
         </RadzenCard>
     </RadzenPanelMenuItem>
@@ -21,16 +21,16 @@
         <RadzenPanelMenuItem Visible="false"></RadzenPanelMenuItem>
         <RadzenCard Style="@styl" class="@clas">
             <RadzenRow RowGap="0">
-                <RdznGrdColTmpt Label="@__lang["Description"]" Value="@Item?.Version?.Description" />
-                <RdznGrdColTmpt Label="@__lang["Platform"]" Value="@Item?.Version?.Platform" />
+                <RdznGrdColTmpt Label="@__ml["Description"]" Value="@Item?.Version?.Description" />
+                <RdznGrdColTmpt Label="@__ml["Platform"]" Value="@Item?.Version?.Platform" />
                 @if (!string.IsNullOrEmpty(Item?.Version?.Pack))
                 {
-                    <RdznGrdColTmpt Label="@__lang["Pack"]" Value="@Item?.Version?.Pack" />
+                    <RdznGrdColTmpt Label="@__ml["Pack"]" Value="@Item?.Version?.Pack" />
                 }
-                <RdznGrdColTmpt Label="@__lang["Build"]" Value="@Item?.Version?.Build?.ToString()" />
-                <RdznGrdColTmpt Label="@__lang["Major"]" Value="@Item?.Version?.Major?.ToString()" />
-                <RdznGrdColTmpt Label="@__lang["Minor"]" Value="@Item?.Version?.Minor?.ToString()" />
-                <RdznGrdColTmpt Label="@__lang["Revision"]" Value="@Item?.Version?.Revision?.ToString()" />
+                <RdznGrdColTmpt Label="@__ml["Build"]" Value="@Item?.Version?.Build?.ToString()" />
+                <RdznGrdColTmpt Label="@__ml["Major"]" Value="@Item?.Version?.Major?.ToString()" />
+                <RdznGrdColTmpt Label="@__ml["Minor"]" Value="@Item?.Version?.Minor?.ToString()" />
+                <RdznGrdColTmpt Label="@__ml["Revision"]" Value="@Item?.Version?.Revision?.ToString()" />
             </RadzenRow>
         </RadzenCard>
     </RadzenPanelMenuItem>
@@ -39,9 +39,9 @@
         <RadzenPanelMenuItem Visible="false"></RadzenPanelMenuItem>
         <RadzenCard Style="@styl" class="@clas">
             <RadzenRow RowGap="0">
-                <RdznGrdColTmpt Label="@__lang["Name"]" Value="@Item?.Culture?.Name" />
-                <RdznGrdColTmpt Label="@__lang["Description"]" Value="@Item?.Culture?.Description" />
-                <RdznGrdColTmpt Label="@__lang["Separator"]" Value="@Item?.Culture?.Separator" />
+                <RdznGrdColTmpt Label="@__ml["Name"]" Value="@Item?.Culture?.Name" />
+                <RdznGrdColTmpt Label="@__ml["Description"]" Value="@Item?.Culture?.Description" />
+                <RdznGrdColTmpt Label="@__ml["Separator"]" Value="@Item?.Culture?.Separator" />
             </RadzenRow>
         </RadzenCard>
     </RadzenPanelMenuItem>
@@ -50,9 +50,9 @@
         <RadzenPanelMenuItem Visible="false"></RadzenPanelMenuItem>
         <RadzenCard Style="@styl" class="@clas">
             <RadzenRow RowGap="0">
-                <RdznGrdColTmpt Label="@__lang["64 bit OS"]" Value="@Item?.Processor?.Os64.ToString()" />
-                <RdznGrdColTmpt Label="@__lang["64 bit Process"]" Value="@Item?.Processor?.Process64.ToString()" />
-                <RdznGrdColTmpt Label="@__lang["Process Cores"]" Value="@Item?.Processor?.Count.ToString()" />
+                <RdznGrdColTmpt Label="@__ml["64 bit OS"]" Value="@Item?.Processor?.Os64.ToString()" />
+                <RdznGrdColTmpt Label="@__ml["64 bit Process"]" Value="@Item?.Processor?.Process64.ToString()" />
+                <RdznGrdColTmpt Label="@__ml["Process Cores"]" Value="@Item?.Processor?.Count.ToString()" />
             </RadzenRow>
         </RadzenCard>
     </RadzenPanelMenuItem>
@@ -65,12 +65,12 @@
             {
                 <RadzenCard Style="@styl" class="@clas">
                     <RadzenRow RowGap="0">
-                        <RdznGrdColTmpt Label="@__lang["Id"]" Value="@n.Id" />
-                        <RdznGrdColTmpt Label="@__lang["Name"]" Value="@n.Name" />
-                        <RdznGrdColTmpt Label="@__lang["Description"]" Value="@n.Description" />
-                        <RdznGrdColTmpt Label="@__lang["Type"]" Value="@n.Type" />
-                        <RdznGrdColTmpt Label="@__lang["Mac"]" Value="@n.Mac" />
-                        <RdznGrdColTmpt Label="@__lang["Ip"]" Value="@n.Ip" />
+                        <RdznGrdColTmpt Label="@__ml["Id"]" Value="@n.Id" />
+                        <RdznGrdColTmpt Label="@__ml["Name"]" Value="@n.Name" />
+                        <RdznGrdColTmpt Label="@__ml["Description"]" Value="@n.Description" />
+                        <RdznGrdColTmpt Label="@__ml["Type"]" Value="@n.Type" />
+                        <RdznGrdColTmpt Label="@__ml["Mac"]" Value="@n.Mac" />
+                        <RdznGrdColTmpt Label="@__ml["Ip"]" Value="@n.Ip" />
                     </RadzenRow>
                 </RadzenCard>
             }
@@ -102,15 +102,15 @@
     private string styl => "margin-top: -15px;";
     private string clas => "rz-background-color-primary-light";
 
-    private string id => __lang["Id"] + ": " + Item?.Id;
-    private string hash => __lang["Hash"] + ": " + Item?.Hash;
+    private string id => __ml["Id"] + ": " + Item?.Id;
+    private string hash => __ml["Hash"] + ": " + Item?.Hash;
 
-    private string client => __lang["Client"] + ": " + __lang["User"] + " - " + Item?.Client?.User;
-    private string version => __lang["Version"] + ": " + "Windows " + TheMachine.WindowsBuilds(Item?.Version?.Build.ToString());
-    private string culture => __lang["Culture"] + ": " + Item?.Culture?.Description;
-    private string processor => __lang["Processor"] + ": " + Item?.Processor?.Count.ToString() + " " + __lang["Cores"];
-    private string networks => __lang["Networks"] + ": " + Item?.Networks?.Count.ToString();
-    private string variables => __lang["Variables"] + ": " + Item?.Variables?.Count.ToString();
+    private string client => __ml["Client"] + ": " + __ml["User"] + " - " + Item?.Client?.User;
+    private string version => __ml["Version"] + ": " + "Windows " + TheMachine.WindowsBuilds(Item?.Version?.Build.ToString());
+    private string culture => __ml["Culture"] + ": " + Item?.Culture?.Description;
+    private string processor => __ml["Processor"] + ": " + Item?.Processor?.Count.ToString() + " " + __ml["Cores"];
+    private string networks => __ml["Networks"] + ": " + Item?.Networks?.Count.ToString();
+    private string variables => __ml["Variables"] + ": " + Item?.Variables?.Count.ToString();
 
     private async Task CopyToClipboard(string copy)
     {
