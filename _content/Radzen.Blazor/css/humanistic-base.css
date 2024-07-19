@@ -12155,6 +12155,9 @@ a:focus-visible .rz-fieldset-toggler {
   border-bottom-left-radius: 0;
 }
 .rz-splitbutton .rz-button:not(.rz-splitbutton-menubutton) {
+  flex: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -13595,13 +13598,38 @@ a:focus-visible .rz-fieldset-toggler {
   display: flex;
   flex: auto;
   align-items: center;
-}
-
-.rz-cell-filter-content {
   color: var(--rz-grid-filter-color);
   min-height: 1.375rem;
+  container-type: inline-size;
+  container-name: rz-cell-filter-content;
 }
 
+@container rz-cell-filter-content (max-width: 200px) {
+  .rz-cell-filter-content .rz-filter-button .rzi {
+    display: none;
+  }
+  .rz-cell-filter-content .rz-cell-filter-label {
+    position: relative;
+    min-width: 4.5rem;
+  }
+  .rz-cell-filter-content .rz-filter-button {
+    position: absolute;
+    z-index: 1;
+    min-height: 0;
+    inset-inline-start: calc(var(--rz-border-width));
+    height: calc(var(--rz-input-height) - var(--rz-border-width) * 2);
+    max-height: calc(var(--rz-input-height) - var(--rz-border-width) * 2);
+    line-height: calc(1.25rem - var(--rz-border-width) * 2);
+    border-start-start-radius: calc(var(--rz-input-border-radius) - var(--rz-border-width));
+    border-start-end-radius: 0;
+    border-end-start-radius: calc(var(--rz-input-border-radius) - var(--rz-border-width));
+    border-end-end-radius: 0;
+  }
+  .rz-cell-filter-content .rz-textbox,
+  .rz-cell-filter-content .rz-inputtext {
+    text-indent: 2.25rem;
+  }
+}
 .rz-date-filter {
   display: flex;
   align-items: stretch;
