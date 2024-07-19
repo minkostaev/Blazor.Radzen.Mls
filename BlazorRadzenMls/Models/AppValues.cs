@@ -4,8 +4,8 @@ using System.Reflection;
 
 public static class AppValues
 {
-    private static string? Version => Assembly.GetExecutingAssembly().GetName().Version?.ToString();
-    public static string VersionClient => (string.IsNullOrEmpty(Version)) ? "0.0.0.0" : Version;
+    //private static string? Version => Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+    //public static string VersionClient => (string.IsNullOrEmpty(Version)) ? "0.0.0.0" : Version;
 
     public const string PageIcons = "Icons";
     public const string PageDogs = "Dogs";

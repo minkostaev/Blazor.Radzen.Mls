@@ -2,22 +2,41 @@
 
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Extensions;
-using BlazorRadzenMls.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Reflection;
 
 public class VersionReload : IVersionReload
 {
-    private readonly IJSRuntime _IJSRuntime;
-    private readonly AppState _appState;
-    private readonly NavigationManager _navigationManager;
-    public VersionReload(IJSRuntime IJSRuntime, AppState appState, NavigationManager navigationManager)
+    private readonly IJSRuntime __js;
+    private readonly NavigationManager __nav;
+    public VersionReload(IJSRuntime IJSRuntime, NavigationManager navigationManager)
     {
-        _IJSRuntime = IJSRuntime;
-        _appState = appState;
-        _navigationManager = navigationManager;
-        _appState = appState;
+        __js = IJSRuntime;
+        __nav = navigationManager;
+        VersionProject = string.IsNullOrEmpty(version) ? "0.0.0.0" : version;
+        VersionCached = "0.0.0.0";
     }
+
+    /// <summary>
+    /// Project version number
+    /// </summary>
+    private string? version => Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+
+    /// <summary>
+    /// Version number in project file
+    /// </summary>
+    public string VersionProject { get; private set; }
+
+    /// <summary>
+    /// Cached version numver
+    /// </summary>
+    public string VersionCached { get; private set; }
+
+    /// <summary>
+    /// Is there differences in the versions (depends on CheckVersion methods)
+    /// </summary>
+    public bool NeedUpdate => !VersionProject.StartsWith(VersionCached);
 
     /// <summary>
     /// Calls js method that checks version number and determine whether is new or not
@@ -25,11 +44,7 @@ public class VersionReload : IVersionReload
     /// <returns>The success status of the method</returns>
     public async Task CheckVersion()
     {
-        string version = await _IJSRuntime.CheckVersion(_navigationManager, this, "CheckVersion");
-        
-        bool needUpdate = !AppValues.VersionClient.StartsWith(version);
-        _appState.VersionServer = version;
-        _appState.NeedUpdate = needUpdate;
+        VersionCached = await __js.CheckVersion(__nav, this, "CheckVersion");
     }
 
     /// <summary>
@@ -38,16 +53,16 @@ public class VersionReload : IVersionReload
     /// <returns>The success of reload</returns>
     public async Task<bool> Reload()
     {
-        return await _IJSRuntime.Reload(this, "Reload");
+        return await __js.Reload(this, "Reload");
     }
 }
 // for version check use js fetch text in /data/version.txt
 // version.txt is auto created with pre build script
-//async function reload()
-//{
-//    const keys = await caches.keys();
-//    for (let cch of keys) {
-//        await caches.delete(cch);
-//    }
-//    location.replace(location.href);
-//}
+//in project file
+// <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+//   <Exec Command="powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)preBuild.ps1" />
+// </Target>
+//preBuild.ps1
+// $xml = [xml](Get-Content "BlazorRadzenMls.csproj")
+// $version = $xml.Project.PropertyGroup.Version
+// $version | Out-File -FilePath "wwwroot\data\version.txt" -Encoding utf8

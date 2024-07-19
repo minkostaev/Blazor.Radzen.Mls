@@ -5,23 +5,23 @@
 
 <RadzenLabel Text=@_currentVersion class="rz-color-success-dark" Style="font-weight: bold;" />
 
-@if (__state.NeedUpdate)
+@if (__ver.NeedUpdate)
 {
     <RadzenLabel Text=@_updateVersion class="rz-color-danger-dark" Style="font-weight: bold;" />
 }
 
 <RadzenButton Text="@_btnLablel" Icon="autorenew"
-              ButtonStyle="ButtonStyle.Warning" Click="@__verRe.Reload" />
+              ButtonStyle="ButtonStyle.Warning" Click="@__ver.Reload" />
 
 @code {
 
-    private string _currentVersion => __ml["Current_version_is"] + ": " + AppValues.VersionClient;
-    private string _updateVersion => __ml["Update_version_available"] + ": " + __state.VersionServer;
-    private string _btnLablel => __state.NeedUpdate ? __ml["Update"] : __ml["Refresh"];
+    private string _currentVersion => __ml["Current_version_is"] + ": " + __ver.VersionProject;
+    private string _updateVersion => __ml["Update_version_available"] + ": " + __ver.VersionCached;
+    private string _btnLablel => __ver.NeedUpdate ? __ml["Update"] : __ml["Refresh"];
 
     protected override async void OnInitialized()
     {
-        await __verRe.CheckVersion();
+        await __ver.CheckVersion();
         
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }

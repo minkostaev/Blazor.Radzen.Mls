@@ -12,13 +12,13 @@ public class AppState
     {
         _localStorage = localStorage;
         Timer = new Timer(10000) { Enabled = true };//10 sec
-        VersionServer = "0.0.0.0";
+        //VersionServer = "0.0.0.0";
         SiteOptions = new AppOptions();
     }
 
     public Timer Timer { get; set; }
-    public string VersionServer { get; set; }
-    public bool NeedUpdate { get; set; }
+    //public string VersionServer { get; set; }
+    //public bool NeedUpdate { get; set; }
 
     public AppOptions SiteOptions { get; set; }
     public async Task SaveAppOptions()

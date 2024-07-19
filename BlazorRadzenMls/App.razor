@@ -42,7 +42,7 @@
         await __state.LoadAppOptions();
         await __rdznTheme.SetTheme(__state.SiteOptions.Theme);
         await __ml.ChangeLanguage(__state.SiteOptions.Language);
-        await __verRe.CheckVersion();
+        await __ver.CheckVersion();
 
         __nav.LocationChanged += async (object? sender, LocationChangedEventArgs e) =>
         {
@@ -59,13 +59,10 @@
 
         __state.Timer.Elapsed += async delegate
         {
-            await __verRe.CheckVersion();
-            if (__state.NeedUpdate)
+            await __ver.CheckVersion();
+            if (__ver.NeedUpdate)
             {
-                if (__state.NeedUpdate)
-                {
-                    __state.RefreshPage("App.razor -> Timer -> NeedUpdate");
-                }
+                __state.RefreshPage("App.razor -> Timer -> NeedUpdate");
             }
         };
 
