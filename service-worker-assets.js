@@ -57,7 +57,7 @@
       "url": "css\/variables.css"
     },
     {
-      "hash": "sha256-zPF3LxkzDVyn4QCVdlPRu5olcUzrQre7cf7buHh48JQ=",
+      "hash": "sha256-AO+B0\/ZmprBf8JvceeXCrI7iDYxfQSO7iPgW3uxYzsk=",
       "url": "data\/version.txt"
     },
     {
@@ -149,7 +149,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-0Al5jIeLqa3jCOfcfU2XlTOIvfeDVsQDdJU2ylm3cjA=",
+      "hash": "sha256-3tfbJkjUHoO2El4U6M+CJvz++VAlfwO6e9M1YBxjlMM=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -161,7 +161,7 @@
       "url": "_framework\/Blazored.LocalStorage.wasm"
     },
     {
-      "hash": "sha256-H+jVA58dILq27G8ex5BGqdETnKDUGwLFxvg8OwQQrKs=",
+      "hash": "sha256-OTAzJfy7i2MnIrYQ8Y9Tl5jrXvdN8ADu98KEh9hpSn4=",
       "url": "_framework\/BlazorRadzenMls.wasm"
     },
     {
@@ -297,7 +297,7 @@
       "url": "_framework\/System.ComponentModel.Primitives.wasm"
     },
     {
-      "hash": "sha256-UxBkjeS5zVbijeydl+p14Fpp1m2skgoZERT25MoNH5s=",
+      "hash": "sha256-l1wSqNquPwrQWPX8CJhichF791UQSYFPgfycFqO9MPM=",
       "url": "_framework\/System.ComponentModel.TypeConverter.wasm"
     },
     {
@@ -319,6 +319,14 @@
     {
       "hash": "sha256-TG3C6wrEPa6M27tDNM5kpIXXnEnsGToAVqO\/SvdwYL4=",
       "url": "_framework\/System.Diagnostics.TraceSource.wasm"
+    },
+    {
+      "hash": "sha256-sZxatmOX3sgwGFIOjtKkKGZ8\/ObXnJGzfCAmErzxL7E=",
+      "url": "_framework\/System.Drawing.Primitives.wasm"
+    },
+    {
+      "hash": "sha256-n0mlcTn2XIWZk2RbXH8tRpTe4W3Zn9SVMN8w41chdRg=",
+      "url": "_framework\/System.Drawing.wasm"
     },
     {
       "hash": "sha256-u+GQ8XllJRIAmSQZwWRL6A8P8Nx2DNihu3Zth2BtSOs=",
@@ -361,7 +369,7 @@
       "url": "_framework\/System.ObjectModel.wasm"
     },
     {
-      "hash": "sha256-YlqD8dE6VowjP7zmqJpSkEwmRHZ\/b1n\/JQybUMuEoCA=",
+      "hash": "sha256-b5mB+Lmh3GZAI9TmsouUNATZElHBk+prUvh5lJw7cks=",
       "url": "_framework\/System.Private.CoreLib.wasm"
     },
     {
@@ -701,5 +709,5 @@
       "url": "_content\/Radzen.Blazor\/Radzen.Blazor.js"
     }
   ],
-  "version": "JCFjExfg"
+  "version": "bq2lfNd5"
 };
