@@ -16,7 +16,7 @@
 @code {
 
     private string _currentVersion => __ml["Current_version_is"] + ": " + __ver.VersionProject;
-    private string _updateVersion => __ml["Update_version_available"] + ": " + __ver.VersionCached;
+    private string _updateVersion => __ml["Update_version_available"] + ": " + __ver.VersionWwwroot;
     private string _btnLablel => __ver.NeedUpdate ? __ml["Update"] : __ml["Refresh"];
 
     protected override async void OnInitialized()

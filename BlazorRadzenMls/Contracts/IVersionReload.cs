@@ -3,7 +3,7 @@
 public interface IVersionReload
 {
     string VersionProject { get; }
-    string VersionCached { get; }
+    string VersionWwwroot { get; }
     bool NeedUpdate { get; }
     Task CheckVersion();
     Task<bool> Reload();

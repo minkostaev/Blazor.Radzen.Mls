@@ -15,7 +15,7 @@ public class VersionReload : IVersionReload
         __js = IJSRuntime;
         __nav = navigationManager;
         VersionProject = string.IsNullOrEmpty(version) ? "0.0.0.0" : version;
-        VersionCached = "0.0.0.0";
+        VersionWwwroot = "0.0.0.0";
     }
 
     /// <summary>
@@ -31,12 +31,12 @@ public class VersionReload : IVersionReload
     /// <summary>
     /// Cached version numver
     /// </summary>
-    public string VersionCached { get; private set; }
+    public string VersionWwwroot { get; private set; }
 
     /// <summary>
     /// Is there differences in the versions (depends on CheckVersion methods)
     /// </summary>
-    public bool NeedUpdate => !VersionProject.StartsWith(VersionCached);
+    public bool NeedUpdate => !VersionProject.StartsWith(VersionWwwroot);
 
     /// <summary>
     /// Calls js method that checks version number and determine whether is new or not
@@ -44,7 +44,7 @@ public class VersionReload : IVersionReload
     /// <returns>The success status of the method</returns>
     public async Task CheckVersion()
     {
-        VersionCached = await __js.CheckVersion(__nav, this, "CheckVersion");
+        VersionWwwroot = await __js.CheckVersion(__nav, this, "CheckVersion");
     }
 
     /// <summary>
@@ -56,8 +56,10 @@ public class VersionReload : IVersionReload
         return await __js.Reload(this, "Reload");
     }
 }
-// for version check use js fetch text in /data/version.txt
-// version.txt is auto created with pre build script
+//for version check use js fetch text in /data/version.txt
+// const response = await fetch(path);
+// const resData = await response.text();
+//version.txt is auto created with pre build script
 //in project file
 // <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 //   <Exec Command="powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)preBuild.ps1" />
