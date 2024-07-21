@@ -5,6 +5,7 @@ using BlazorRadzenMls.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Reflection;
+using System.Timers;
 
 public class VersionReload : IVersionReload
 {
@@ -14,14 +15,26 @@ public class VersionReload : IVersionReload
     {
         __js = IJSRuntime;
         __nav = navigationManager;
-        VersionProject = string.IsNullOrEmpty(version) ? "0.0.0.0" : version;
+        VersionProject = (Version == null) ? "0.0.0.0" : Version.ToString();
         VersionWwwroot = "0.0.0.0";
+
+        var timer = new Timer(CheckInterval) { Enabled = true };
+        timer.Elapsed += async delegate
+        {
+            timer.Interval = CheckInterval;
+            TimerEvent?.Invoke(timer, EventArgs.Empty);
+            await CheckVersion();
+            if (NeedUpdate)
+            {
+                DifferenceEvent?.Invoke(timer, EventArgs.Empty);
+            }
+        };
     }
 
     /// <summary>
     /// Project version number
     /// </summary>
-    private string? version => Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+    public static Version? Version => Assembly.GetExecutingAssembly().GetName().Version;
 
     /// <summary>
     /// Version number in project file
@@ -37,6 +50,21 @@ public class VersionReload : IVersionReload
     /// Is there differences in the versions (depends on CheckVersion methods)
     /// </summary>
     public bool NeedUpdate => !VersionProject.StartsWith(VersionWwwroot);
+
+    /// <summary>
+    /// Differences in the versions found event
+    /// </summary>
+    public event EventHandler? DifferenceEvent;
+
+    /// <summary>
+    /// Timer cycle event triggered every CheckInterval period
+    /// </summary>
+    public event EventHandler? TimerEvent;
+
+    /// <summary>
+    /// Timer Check Interval
+    /// </summary>
+    public double CheckInterval { get; set; } = 10000;//10 sec
 
     /// <summary>
     /// Calls js method that checks version number and determine whether is new or not

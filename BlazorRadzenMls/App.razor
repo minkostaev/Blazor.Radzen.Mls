@@ -57,14 +57,18 @@
             }
         };
 
-        __state.Timer.Elapsed += async delegate
+        __ver.DifferenceEvent += delegate
         {
-            await __ver.CheckVersion();
-            if (__ver.NeedUpdate)
-            {
-                __state.RefreshPage("App.razor -> Timer -> NeedUpdate");
-            }
+            __state.RefreshPage("App.razor -> Timer -> NeedUpdate");
         };
+        // __state.Timer.Elapsed += async delegate
+        // {
+        //     await __ver.CheckVersion();
+        //     if (__ver.NeedUpdate)
+        //     {
+        //         __state.RefreshPage("App.razor -> Timer -> NeedUpdate");
+        //     }
+        // };
 
         __state.RefreshPage("App.razor -> OnInitializedAsync");//await InvokeAsync(StateHasChanged);
     }
