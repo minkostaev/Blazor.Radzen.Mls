@@ -4,7 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User custom list
-/BlazorRadzenMls/wwwroot/404.html
+BlazorRadzenMls/wwwroot/404.html
 
 # User-specific files
 *.rsuser

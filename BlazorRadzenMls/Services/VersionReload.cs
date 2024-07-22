@@ -18,10 +18,9 @@ public class VersionReload : IVersionReload
         VersionProject = (Version == null) ? "0.0.0.0" : Version.ToString();
         VersionWwwroot = "0.0.0.0";
 
-        var timer = new Timer(CheckInterval) { Enabled = true };
+        var timer = new Timer(10000) { Enabled = true };//10 sec
         timer.Elapsed += async delegate
         {
-            timer.Interval = CheckInterval;
             TimerEvent?.Invoke(timer, EventArgs.Empty);
             await CheckVersion();
             if (NeedUpdate)
@@ -60,11 +59,6 @@ public class VersionReload : IVersionReload
     /// Timer cycle event triggered every CheckInterval period
     /// </summary>
     public event EventHandler? TimerEvent;
-
-    /// <summary>
-    /// Timer Check Interval
-    /// </summary>
-    public double CheckInterval { get; set; } = 10000;//10 sec
 
     /// <summary>
     /// Calls js method that checks version number and determine whether is new or not

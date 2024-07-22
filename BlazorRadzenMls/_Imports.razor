@@ -16,18 +16,16 @@
 @using Microsoft.JSInterop
 @inject IJSRuntime __js
 @using BlazorRadzenMls
-@using BlazorRadzenMls.Layout
 @using BlazorRadzenMls.Contracts
-@using BlazorRadzenMls.Services
 @using BlazorRadzenMls.Extensions
+@using BlazorRadzenMls.Layout
+@using BlazorRadzenMls.Services
 @inject AppState __state
-
+@inject MultiLanguage __ml
+@inject IVersionReload __ver
 @using Radzen
 @using Radzen.Blazor
 @inject TooltipService __tooltip
 @inject DialogService __dialog
 @inject NotificationService __notify
 @inject IRdznTheming __rdznTheme
-
-@inject MultiLanguage __ml
-@inject IVersionReload __ver

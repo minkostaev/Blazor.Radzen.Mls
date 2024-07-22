@@ -76,7 +76,7 @@ public class MultiLanguage
 }
 // https://akmultilanguages.azurewebsites.net/
 
-// in Program.cs add
+// in Program.cs add:
 //builder.Services.AddLanguageContainer<EmbeddedResourceKeysProvider>(Assembly.GetExecutingAssembly(), "Languages");
 // or
 //builder.Services.AddLanguageContainer(Assembly.GetExecutingAssembly(), CultureInfo.GetCultureInfo("en-US"), "Languages");

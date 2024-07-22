@@ -3,7 +3,6 @@
 using Blazored.LocalStorage;
 using BlazorRadzenMls.Models;
 using System;
-using System.Timers;
 
 public class AppState
 {
@@ -11,15 +10,14 @@ public class AppState
     public AppState(ILocalStorageService localStorage)
     {
         _localStorage = localStorage;
-        //Timer = new Timer(10000) { Enabled = true };//10 sec
         SiteOptions = new AppOptions();
     }
 
-    //public Timer Timer { get; set; }
-
     public AppOptions SiteOptions { get; set; }
     public async Task SaveAppOptions()
-    { await _localStorage.SetItemAsync(AppOptions.Name, SiteOptions); }
+    {
+        await _localStorage.SetItemAsync(AppOptions.Name, SiteOptions);
+    }
     public async Task LoadAppOptions()
     {
         var props = await _localStorage.GetItemAsync<AppOptions>(AppOptions.Name);
@@ -28,7 +26,9 @@ public class AppState
 
     public event EventHandler? RefreshEvent;
     public void RefreshPage(string e)
-    { RefreshEvent?.Invoke(e, EventArgs.Empty); Console.WriteLine(e); }
+    {
+        RefreshEvent?.Invoke(e, EventArgs.Empty); Console.WriteLine(e);
+    }
 
     //public string ReplaceFirst(string text, string oldValue, string newValue)
     //{
