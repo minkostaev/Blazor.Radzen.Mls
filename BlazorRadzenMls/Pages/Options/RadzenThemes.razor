@@ -2,7 +2,7 @@
 
 @if (IsComboNotButton == true)
 {
-    <RadzenDropDown Value="@appTheme" Data=@__rdznTheme.Themes TValue="string"
+    <RadzenDropDown Value="@appTheme" Data=@__theme.Themes TValue="string"
                     ValueChanged="@((string val) => SetTheme(val))" />
 }
 else if (IsComboNotButton == false)
@@ -10,9 +10,9 @@ else if (IsComboNotButton == false)
     <RadzenSplitButton AlwaysOpenPopup=true Text="@_btnText"
                        Click=@(args => SplBtn_Click(args, "SplitButton1"))>
         <ChildContent>
-            @for (int i = 0; i < __rdznTheme.Themes.Length; i++)
+            @for (int i = 0; i < __theme.Themes.Length; i++)
             {
-                <RadzenSplitButtonItem Text="@__rdznTheme.Themes[i]" Value="@i.ToString()" />
+                <RadzenSplitButtonItem Text="@__theme.Themes[i]" Value="@i.ToString()" />
             }
         </ChildContent>
     </RadzenSplitButton>
@@ -151,7 +151,7 @@ else
 
     private void SetTheme(string themeName)
     {
-        Task.FromResult(__rdznTheme.SetTheme(themeName, true));
+        Task.FromResult(__theme.SetTheme(themeName, true));
     }
 
     private void SplBtn_Click(RadzenSplitButtonItem item, string buttonName)
@@ -165,21 +165,21 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await __rdznTheme.GetTheme();
+        await __theme.GetTheme();
 
         _btnText = _themeLbl + appTheme;
 
-        if (appTheme == __rdznTheme.Themes[0])
+        if (appTheme == __theme.Themes[0])
             _isDefault = true;
-        else if (appTheme == __rdznTheme.Themes[1])
+        else if (appTheme == __theme.Themes[1])
             _isStandard = true;
-        else if (appTheme == __rdznTheme.Themes[2])
+        else if (appTheme == __theme.Themes[2])
             _isSoftware = true;
-        else if (appTheme == __rdznTheme.Themes[3])
+        else if (appTheme == __theme.Themes[3])
             _isHumanistic = true;
-        else if (appTheme == __rdznTheme.Themes[4])
+        else if (appTheme == __theme.Themes[4])
             _isDark = true;
-        else if (appTheme == __rdznTheme.Themes[5])
+        else if (appTheme == __theme.Themes[5])
             _isMaterial = true;
         else
             _isDefault = true;

@@ -93,7 +93,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        theme = await __rdznTheme.GetTheme();
+        theme = await __theme.GetTheme();
 
         jsLocation = await __js.GetLocation(this, "OnInitializedAsync");
 

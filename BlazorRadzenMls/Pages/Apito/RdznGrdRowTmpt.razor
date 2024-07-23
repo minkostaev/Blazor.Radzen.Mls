@@ -106,7 +106,7 @@
     private string hash => __ml["Hash"] + ": " + Item?.Hash;
 
     private string client => __ml["Client"] + ": " + __ml["User"] + " - " + Item?.Client?.User;
-    private string version => __ml["Version"] + ": " + "Windows " + TheMachine.WindowsBuilds(Item?.Version?.Build.ToString());
+    private string version => __ml["Version"] + ": " + "Windows " + AppStatic.WindowsBuilds(Item?.Version?.Build.ToString());
     private string culture => __ml["Culture"] + ": " + Item?.Culture?.Description;
     private string processor => __ml["Processor"] + ": " + Item?.Processor?.Count.ToString() + " " + __ml["Cores"];
     private string networks => __ml["Networks"] + ": " + Item?.Networks?.Count.ToString();
