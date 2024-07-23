@@ -16969,6 +16969,15 @@ button.rz-colorpicker-trigger .rzi:before {
   .rz-body {
     width: 100vw;
   }
+  .rz-layout:has(> .rz-sidebar-collapsed + .rz-sidebar-expanded) {
+    justify-content: end;
+  }
+  .rz-layout:has(> .rz-sidebar-collapsed + .rz-sidebar-expanded) .rz-header, .rz-layout:has(> .rz-sidebar-collapsed + .rz-sidebar-expanded) .rz-footer {
+    margin-inline-start: auto;
+  }
+  .rz-layout:has(> .rz-sidebar-expanded + .rz-sidebar-expanded) .rz-body {
+    width: auto;
+  }
 }
 .rz-breadcrumb {
   box-sizing: border-box;
@@ -20825,12 +20834,8 @@ button.rz-colorpicker-trigger .rzi:before {
   --rz-pager-numeric-button-min-width: 2.25rem;
   --rz-pager-back-button-background-color: var(--rz-base-700);
   --rz-pager-back-button-color: var(--rz-text-color);
-  --rz-pager-back-button-hover-background-color: var(--rz-base-700);
-  --rz-pager-back-button-hover-color: var(--rz-text-color);
   --rz-pager-next-button-background-color: var(--rz-base-700);
   --rz-pager-next-button-color: var(--rz-text-color);
-  --rz-pager-next-button-hover-background-color: var(--rz-base-700);
-  --rz-pager-next-button-hover-color: var(--rz-text-color);
   --rz-pager-dropdown-width: 80px;
   --rz-pager-summary-padding: 1.25rem;
   --rz-pager-summary-font-size: var(--rz-body-font-size);

@@ -13,7 +13,7 @@ function addHeaderHeight(htmlId) {
     function addHeaderHeight2() {
         headerHeight = el.clientHeight;//offsetHeight
         cssRoot.style.setProperty('--headerHeight', headerHeight + 'px');
-        cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 1) + 'px');
+        cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 33) + 'px');
     }
     const resizeObserver = new ResizeObserver(entries => {
         for (let entry of entries) {
@@ -30,7 +30,7 @@ function addFooterHeight(htmlId) {
     function addFooterHeight2() {
         footerHeight = el.clientHeight;
         cssRoot.style.setProperty('--footerHeight', footerHeight + 'px');
-        cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 1) + 'px');
+        cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 33) + 'px');
     }
     const resizeObserver = new ResizeObserver(entries => {
         for (let entry of entries) {
