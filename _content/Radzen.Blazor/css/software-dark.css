@@ -12897,10 +12897,6 @@ a:focus-visible .rz-fieldset-toggler {
   .rz-cell-filter-content .rz-filter-button .rzi {
     display: none;
   }
-  .rz-cell-filter-content .rz-cell-filter-label {
-    position: relative;
-    min-width: 4.5rem;
-  }
   .rz-cell-filter-content .rz-filter-button {
     position: absolute;
     z-index: 1;
@@ -12914,8 +12910,12 @@ a:focus-visible .rz-fieldset-toggler {
     border-end-start-radius: calc(var(--rz-input-border-radius) - var(--rz-border-width));
     border-end-end-radius: 0;
   }
-  .rz-cell-filter-content .rz-textbox,
-  .rz-cell-filter-content .rz-inputtext {
+  .rz-cell-filter-content:has(.rz-filter-button) .rz-cell-filter-label {
+    position: relative;
+    min-width: 4.5rem;
+  }
+  .rz-cell-filter-content:has(.rz-filter-button) .rz-textbox,
+  .rz-cell-filter-content:has(.rz-filter-button) .rz-inputtext {
     text-indent: 2.25rem;
   }
 }
