@@ -1,0 +1,140 @@
+﻿<RadzenPanelMenu Style="overflow: auto; max-height: calc(100vh - var(--heightHeaderFooter));"
+                 DisplayStyle="@__state.SiteOptions.Menu.MenuStyle"
+                 Multiple="@__state.SiteOptions.Menu.Multiple"
+                 ShowArrow="@__state.SiteOptions.Menu.Arrow">
+
+    <RadzenPanelMenuItem Text="@txtTheme" Icon="perm_media">
+        @foreach (var i in __theme.Themes)
+        {
+            if (__state.SiteOptions.Theme == i)
+            {
+                <RadzenButton Text=@__ml[i] Icon="done"
+                              ButtonStyle="ButtonStyle.Success" Click="() => Theme_ValueChanged(i)"
+                              Style="width: 100%; display: block; text-transform: capitalize;" />
+            }
+            else
+            {
+                <RadzenButton Text=@__ml[i] Icon="perm_media"
+                              ButtonStyle="ButtonStyle.Secondary" Click="() => Theme_ValueChanged(i)"
+                              Style="width: 100%; display: block; text-transform: capitalize;" />
+            }
+        }
+    </RadzenPanelMenuItem>
+
+    <RadzenPanelMenuItem Text="@txtLanguage" Icon="language">
+        @foreach (var i in __ml.Languages)
+        {
+            if (__state.SiteOptions.Language == i.Value)
+            {
+                <RadzenButton Text=@__ml[i.Value] Image="@AppStatic.GetImagePath(i.Value, __ml)"
+                              ButtonStyle="ButtonStyle.Success" Click="() => Language_ValueChanged(i.Value)"
+                              Style="width: 100%; display: block;" />
+            }
+            else
+            {
+                <RadzenButton Text=@__ml[i.Value] Image="@AppStatic.GetImagePath(i.Value, __ml)"
+                              ButtonStyle="ButtonStyle.Secondary" Click="() => Language_ValueChanged(i.Value)"
+                              Style="width: 100%; display: block;" />
+            }
+        }
+    </RadzenPanelMenuItem>
+
+    <RadzenPanelMenuItem Text="@__ml["Menu options"]" Icon="menu">
+        <RadzenButton Text="All default" Icon="view_list" ButtonStyle="@btnStyleAll"
+                      Click="() => Menu_ValueChanged(MenuItemDisplayStyle.IconAndText)"
+                      Style="width: 100%; display: block;" />
+        <RadzenButton Text="@__ml["Text only"]" Icon="description" ButtonStyle="@btnStyleText"
+                      Click="() => Menu_ValueChanged(MenuItemDisplayStyle.Text)"
+                      Style="width: 100%; display: block;" />
+        <RadzenButton Text="@__ml["Icon only"]" Icon="group_work" ButtonStyle="@btnStyleIcon"
+                      Click="() => Menu_ValueChanged(MenuItemDisplayStyle.Icon)"
+                      Style="width: 100%; display: block;" />
+        <div style="text-align: center; padding: 10px 10px 0px 10px;">
+            <RadzenCheckBox @bind-Value=@appMenuArrow Name="chbArrow" />
+            <RadzenLabel Text=@__ml["Show_arrows"] Component="chbArrow" />
+        </div>
+        <div style="text-align: center; padding: 10px;">
+            <RadzenCheckBox @bind-Value=@appMenuMultiple Name="chbMultiple" />
+            <RadzenLabel Text=@__ml["Open_multiples"] Component="chbMultiple" />
+        </div>
+    </RadzenPanelMenuItem>
+
+    <RadzenPanelMenuItem Text="@txtVersion" IconColor="@_clrIcon" Icon="info">
+        @if (__ver.NeedUpdate)
+        {
+            <RadzenLabel Text=@_lblVersion class="rz-color-danger-dark"
+                         Style="font-weight: bold; width: 100%; text-align: center; padding: 8px;" />
+        }
+        <RadzenButton Text="@_btnReload" Icon="autorenew" Style="width: 100%; display: block;"
+                      ButtonStyle="ButtonStyle.Warning" Click="@__ver.Reload" />
+    </RadzenPanelMenuItem>
+
+</RadzenPanelMenu>
+
+@code {
+    
+    private string txtTheme => __ml["Theme"] + ": " + __state.SiteOptions.Theme;
+
+    private string txtLanguage => __ml["Language"] + ": " + __ml[__state.SiteOptions.Language];
+
+    private string txtVersion => __ml["Version"] + ": " + __ver.VersionProject;
+    private string _lblVersion => __ml["New_version"] + ": " + __ver.VersionWwwroot;
+    private string _btnReload => __ver.NeedUpdate ? __ml["Update"] : __ml["Refresh"];
+    private string _clrIcon => __ver.NeedUpdate ? Colors.Warning : string.Empty;
+
+    private ButtonStyle btnStyleAll => __state.SiteOptions.Menu.MenuStyle == MenuItemDisplayStyle.IconAndText ? ButtonStyle.Success : ButtonStyle.Secondary;
+    private ButtonStyle btnStyleText => __state.SiteOptions.Menu.MenuStyle == MenuItemDisplayStyle.Text ? ButtonStyle.Success : ButtonStyle.Secondary;
+    private ButtonStyle btnStyleIcon => __state.SiteOptions.Menu.MenuStyle == MenuItemDisplayStyle.Icon ? ButtonStyle.Success : ButtonStyle.Secondary;
+
+    private bool appMenuMultiple
+    {
+        get { return __state.SiteOptions.Menu.Multiple; }
+        set
+        {
+            __state.SiteOptions.Menu.Multiple = value;
+            Task.FromResult(__state.SaveAppOptions());
+            __state.RefreshPage("RdznMenuOptions.razor -> appMenuMultiple");
+        }
+    }
+    private bool appMenuArrow
+    {
+        get { return __state.SiteOptions.Menu.Arrow; }
+        set
+        {
+            __state.SiteOptions.Menu.Arrow = value;
+            Task.FromResult(__state.SaveAppOptions());
+            __state.RefreshPage("RdznMenuOptions.razor -> appMenuArrow");
+        }
+    }
+
+    private async Task Language_ValueChanged(string? language)
+    {
+        if (__state.SiteOptions.Language == language)
+            return;
+        await __ml.ChangeLanguage(language, true);
+        __state.RefreshPage("RdznMenuOptions.razor -> Language_ValueChanged");
+    }
+
+    private async Task Theme_ValueChanged(string? theme)
+    {
+        if (__state.SiteOptions.Language == theme)
+            return;
+        await __theme.SetTheme(theme, true);
+    }
+
+    private async Task Menu_ValueChanged(MenuItemDisplayStyle style)
+    {
+        __state.SiteOptions.Menu.MenuStyle = style;
+        __state.RefreshPage("RdznMenuOptions.razor -> Menu_ValueChanged");
+        await __state.SaveAppOptions();
+    }
+
+    protected override async void OnInitialized()
+    {
+        await __ver.CheckVersion();
+
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+    }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+
+}

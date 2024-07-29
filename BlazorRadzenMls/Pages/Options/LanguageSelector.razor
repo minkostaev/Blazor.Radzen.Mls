@@ -17,11 +17,11 @@ else
     <RadzenLabel Text=@_languageLbl class="rz-color-success-dark" Style="font-weight: bold;" />
 
     <div class="myRadzenToggleButton">
-        <RadzenToggleButton @bind-Value=@isEnglish Text=@__ml["english"] Image="@GetImagePath("english")"
+        <RadzenToggleButton @bind-Value=@isEnglish Text=@__ml["english"] Image="@AppStatic.GetImagePath("english", __ml)"
                             ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
     </div>
     <div class="myRadzenToggleButton">
-        <RadzenToggleButton @bind-Value=@isBulgarian Text=@__ml["bulgarian"] Image="@GetImagePath("bulgarian")"
+        <RadzenToggleButton @bind-Value=@isBulgarian Text=@__ml["bulgarian"] Image="@AppStatic.GetImagePath("bulgarian", __ml)"
                             ButtonStyle="ButtonStyle.Success" ToggleButtonStyle="ButtonStyle.Danger" />
     </div>
 }
@@ -55,20 +55,6 @@ else
             _isBulgarian = true;
             Task.FromResult(Language_ValueChanged(__ml.bg_BG.Value));
         }
-    }
-
-    private string GetImagePath(string language)
-    {
-        string fileName = string.Empty;
-        if (language == __ml.en_US.Value)
-        {
-            fileName = "usa";
-        }
-        else if (language == __ml.bg_BG.Value)
-        {
-            fileName = "bulgaria";
-        }
-        return $"images/{fileName}-48.png";
     }
 
     private async Task SplBtn_Click(RadzenSplitButtonItem item, string buttonName)

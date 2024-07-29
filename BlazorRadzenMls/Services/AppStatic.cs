@@ -127,4 +127,18 @@ public static class AppStatic
         };
     }
 
+    public static string GetImagePath(string language, MultiLanguage ml)
+    {
+        string fileName = string.Empty;
+        if (language == ml.en_US.Value)
+        {
+            fileName = "usa";
+        }
+        else if (language == ml.bg_BG.Value)
+        {
+            fileName = "bulgaria";
+        }
+        return $"images/{fileName}-48.png";
+    }
+
 }

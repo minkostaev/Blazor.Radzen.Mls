@@ -2,8 +2,6 @@
 bulgarian: Български
 Language: Език
 Theme: Тема
-Current_version_is: Текущата версия е
-Update_version_available: Налична е актуализирана версия
 Refresh: Опресняване
 Update: Актуализация
 Options: Настройки
@@ -13,3 +11,4 @@ Text: Текст
 Show_arrows: Показване на стрелки
 Open_multiples: Отвори множества
 Learn: Научете
+Version: Версия

@@ -36,7 +36,16 @@ public class MultiLanguage
     /// </summary>
     /// <param name="key">Key from the yml file</param>
     /// <returns>Language string value from the yml</returns>
-    public string this[string? key] => _language[key];
+    public string this[string? key] //=> _language[key];
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(key))
+                return _language[key];
+            else
+                return string.Empty;
+        }
+    }
 
     /// <summary>
     /// Change language
