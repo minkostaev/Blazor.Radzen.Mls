@@ -3,25 +3,15 @@
                  Multiple="@__state.SiteOptions.Menu.Multiple"
                  ShowArrow="@__state.SiteOptions.Menu.Arrow">
 
-    <RadzenPanelMenuItem Text="МинцЪт" Path="" Image="images/icon-128.png">
-        @* Home *@
-    </RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Text="МинцЪт" Path="" Image="images/icon-128.png">@* Home *@</RadzenPanelMenuItem>
 
     <RadzenPanelMenuItem Text="@txtTheme" Icon="perm_media">
         @foreach (var i in __theme.Themes)
         {
-            if (__state.SiteOptions.Theme == i)
-            {
-                <RadzenButton Text=@__ml[i] Icon="done"
-                              ButtonStyle="ButtonStyle.Success" Click="() => Theme_ValueChanged(i)"
-                              Style="width: 100%; display: block; text-transform: capitalize;" />
-            }
-            else
-            {
-                <RadzenButton Text=@__ml[i] Icon="perm_media"
-                              ButtonStyle="ButtonStyle.Secondary" Click="() => Theme_ValueChanged(i)"
-                              Style="width: 100%; display: block; text-transform: capitalize;" />
-            }
+            <RadzenPanelMenuItem Text="@__ml[i]" Click="() => Theme_ValueChanged(i)"
+                                 Icon="@ThemeIcon(__state.SiteOptions.Theme == i)"
+                                 IconColor="@IconColor(__state.SiteOptions.Theme == i)"
+                                 Style="@IconColor(__state.SiteOptions.Theme == i)" />
         }
     </RadzenPanelMenuItem>
 
@@ -30,22 +20,36 @@
         {
             if (__state.SiteOptions.Language == i.Value)
             {
-                <RadzenButton Text=@__ml[i.Value] Image="@AppStatic.GetImagePath(i.Value, __ml)"
+                <RadzenPanelMenuItem Text="@__ml[i.Value]" Icon="done" IconColor="@IconColor(__state.SiteOptions.Language == i.Value)"
+                                     Click="() => Language_ValueChanged(i.Value)" Style="@IconColor(__state.SiteOptions.Language == i.Value)" />
+
+                @* <RadzenButton Text=@__ml[i.Value] Image="@AppStatic.GetImagePath(i.Value, __ml)"
                               ButtonStyle="ButtonStyle.Success" Click="() => Language_ValueChanged(i.Value)"
-                              Style="width: 100%; display: block;" />
+                              Style="width: 100%; display: block;" /> *@
             }
             else
             {
-                <RadzenButton Text=@__ml[i.Value] Image="@AppStatic.GetImagePath(i.Value, __ml)"
+                <RadzenPanelMenuItem Text="@__ml[i.Value]" Image="@AppStatic.GetImagePath(i.Value, __ml)"
+                                     Click="() => Language_ValueChanged(i.Value)" />
+
+                @* <RadzenButton Text=@__ml[i.Value] Image="@AppStatic.GetImagePath(i.Value, __ml)"
                               ButtonStyle="ButtonStyle.Secondary" Click="() => Language_ValueChanged(i.Value)"
-                              Style="width: 100%; display: block;" />
+                              Style="width: 100%; display: block;" /> *@
             }
         }
     </RadzenPanelMenuItem>
 
     <RadzenPanelMenuItem Text="@__ml["Menu options"]" Icon="menu">
         @* <RadzenPanelMenuItem Visible="false" /> *@
-        <RadzenButton Text="All default" Icon="view_list" ButtonStyle="@btnStyleAll"
+
+        <RadzenPanelMenuItem Text="All default" Icon="view_list" IconColor="@IconColor(true)"
+                             Click="() => Menu_ValueChanged(MenuItemDisplayStyle.IconAndText)" Style="@IconColor(true)" />
+        <RadzenPanelMenuItem Text="Text only" Icon="description" IconColor="@IconColor(false)"
+                             Click="() => Menu_ValueChanged(MenuItemDisplayStyle.Text)" Style="@IconColor(false)" />
+        <RadzenPanelMenuItem Text="Icon only" Icon="group_work" IconColor="@IconColor(false)"
+                             Click="() => Menu_ValueChanged(MenuItemDisplayStyle.Icon)" Style="@IconColor(false)" />
+
+        @* <RadzenButton Text="All default" Icon="view_list" ButtonStyle="@btnStyleAll"
                       Click="() => Menu_ValueChanged(MenuItemDisplayStyle.IconAndText)"
                       Style="width: 100%; display: block;" />
         <RadzenButton Text="@__ml["Text only"]" Icon="description" ButtonStyle="@btnStyleText"
@@ -53,7 +57,8 @@
                       Style="width: 100%; display: block;" />
         <RadzenButton Text="@__ml["Icon only"]" Icon="group_work" ButtonStyle="@btnStyleIcon"
                       Click="() => Menu_ValueChanged(MenuItemDisplayStyle.Icon)"
-                      Style="width: 100%; display: block;" />
+                      Style="width: 100%; display: block;" /> *@
+
         <div style="text-align: center; padding: 10px 10px 0px 10px;">
             <RadzenCheckBox @bind-Value=@appMenuArrow Name="chbArrow" />
             <RadzenLabel Text=@__ml["Show_arrows"] Component="chbArrow" />
@@ -77,7 +82,11 @@
 </RadzenPanelMenu>
 
 @code {
-    
+
+    private string ThemeIcon(bool selected) => selected ? "done" : "perm_media";
+
+    private string IconColor(bool color) => color ? "color: " + Colors.Secondary : string.Empty;
+
     private string txtTheme => __ml["Theme"] + ": " + __state.SiteOptions.Theme;
 
     private string txtLanguage => __ml["Language"] + ": " + __ml[__state.SiteOptions.Language];
@@ -136,7 +145,7 @@
 
     protected override async void OnInitialized()
     {
-        await __ver.CheckVersion();
+        //await __ver.CheckVersion();
 
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
