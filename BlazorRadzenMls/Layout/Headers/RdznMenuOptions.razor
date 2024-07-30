@@ -3,6 +3,10 @@
                  Multiple="@__state.SiteOptions.Menu.Multiple"
                  ShowArrow="@__state.SiteOptions.Menu.Arrow">
 
+    <RadzenPanelMenuItem Text="МинцЪт" Path="" Image="images/icon-128.png">
+        @* Home *@
+    </RadzenPanelMenuItem>
+
     <RadzenPanelMenuItem Text="@txtTheme" Icon="perm_media">
         @foreach (var i in __theme.Themes)
         {
@@ -40,6 +44,7 @@
     </RadzenPanelMenuItem>
 
     <RadzenPanelMenuItem Text="@__ml["Menu options"]" Icon="menu">
+        @* <RadzenPanelMenuItem Visible="false" /> *@
         <RadzenButton Text="All default" Icon="view_list" ButtonStyle="@btnStyleAll"
                       Click="() => Menu_ValueChanged(MenuItemDisplayStyle.IconAndText)"
                       Style="width: 100%; display: block;" />
