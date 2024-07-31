@@ -138,7 +138,17 @@ public static class AppStatic
         {
             fileName = "bulgaria";
         }
-        return $"images/{fileName}-48.png";
+        if (!string.IsNullOrEmpty(fileName))
+            return $"images/{fileName}-48.png";
+        else
+            return string.Empty;
+    }
+
+    public static string FirstLetterToUpper(string? str)
+    {
+        if (string.IsNullOrEmpty(str))
+            return string.Empty;
+        return char.ToUpper(str[0]) + str.Substring(1);
     }
 
 }

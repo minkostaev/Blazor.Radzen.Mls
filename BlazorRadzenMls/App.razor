@@ -42,7 +42,7 @@
         await __state.LoadAppOptions();
         await __theme.SetTheme(__state.SiteOptions.Theme);
         await __ml.ChangeLanguage(__state.SiteOptions.Language);
-        //await __ver.CheckVersion();
+        await __ver.CheckVersion();
 
         __nav.LocationChanged += async (object? sender, LocationChangedEventArgs e) =>
         {

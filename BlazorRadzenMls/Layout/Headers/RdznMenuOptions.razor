@@ -5,77 +5,59 @@
 
     <RadzenPanelMenuItem Text="МинцЪт" Path="" Image="images/icon-128.png">@* Home *@</RadzenPanelMenuItem>
 
-    <RadzenPanelMenuItem Text="@txtTheme" Icon="perm_media">
+    <RadzenPanelMenuItem Text="@txtTheme" Icon="@ThemeIcon(false)">
         @foreach (var i in __theme.Themes)
         {
-            <RadzenPanelMenuItem Text="@__ml[i]" Click="() => Theme_ValueChanged(i)"
+            <RadzenPanelMenuItem Text="@__ml[i]" Click="() => Theme_Click(i)"
                                  Icon="@ThemeIcon(__state.SiteOptions.Theme == i)"
                                  IconColor="@IconColor(__state.SiteOptions.Theme == i)"
-                                 Style="@IconColor(__state.SiteOptions.Theme == i)" />
+                                 Style="@ThemeStyle(__state.SiteOptions.Theme == i)" />
         }
     </RadzenPanelMenuItem>
 
     <RadzenPanelMenuItem Text="@txtLanguage" Icon="language">
         @foreach (var i in __ml.Languages)
         {
-            if (__state.SiteOptions.Language == i.Value)
-            {
-                <RadzenPanelMenuItem Text="@__ml[i.Value]" Icon="done" IconColor="@IconColor(__state.SiteOptions.Language == i.Value)"
-                                     Click="() => Language_ValueChanged(i.Value)" Style="@IconColor(__state.SiteOptions.Language == i.Value)" />
-
-                @* <RadzenButton Text=@__ml[i.Value] Image="@AppStatic.GetImagePath(i.Value, __ml)"
-                              ButtonStyle="ButtonStyle.Success" Click="() => Language_ValueChanged(i.Value)"
-                              Style="width: 100%; display: block;" /> *@
-            }
-            else
-            {
-                <RadzenPanelMenuItem Text="@__ml[i.Value]" Image="@AppStatic.GetImagePath(i.Value, __ml)"
-                                     Click="() => Language_ValueChanged(i.Value)" />
-
-                @* <RadzenButton Text=@__ml[i.Value] Image="@AppStatic.GetImagePath(i.Value, __ml)"
-                              ButtonStyle="ButtonStyle.Secondary" Click="() => Language_ValueChanged(i.Value)"
-                              Style="width: 100%; display: block;" /> *@
-            }
+            <RadzenPanelMenuItem Text="@__ml[i.Value]"
+                                 Image="@AppStatic.GetImagePath(__state.SiteOptions.Language == i.Value ? string.Empty : i.Value, __ml)"
+                                 Icon="@IconDone(__state.SiteOptions.Language == i.Value)"
+                                 IconColor="@IconColor(__state.SiteOptions.Language == i.Value)"
+                                 Click="() => Language_Click(i.Value)"
+                                 Style="@IconColor(__state.SiteOptions.Language == i.Value)" />
         }
     </RadzenPanelMenuItem>
 
     <RadzenPanelMenuItem Text="@__ml["Menu options"]" Icon="menu">
-        @* <RadzenPanelMenuItem Visible="false" /> *@
-
-        <RadzenPanelMenuItem Text="All default" Icon="view_list" IconColor="@IconColor(true)"
-                             Click="() => Menu_ValueChanged(MenuItemDisplayStyle.IconAndText)" Style="@IconColor(true)" />
-        <RadzenPanelMenuItem Text="Text only" Icon="description" IconColor="@IconColor(false)"
-                             Click="() => Menu_ValueChanged(MenuItemDisplayStyle.Text)" Style="@IconColor(false)" />
-        <RadzenPanelMenuItem Text="Icon only" Icon="group_work" IconColor="@IconColor(false)"
-                             Click="() => Menu_ValueChanged(MenuItemDisplayStyle.Icon)" Style="@IconColor(false)" />
-
-        @* <RadzenButton Text="All default" Icon="view_list" ButtonStyle="@btnStyleAll"
-                      Click="() => Menu_ValueChanged(MenuItemDisplayStyle.IconAndText)"
-                      Style="width: 100%; display: block;" />
-        <RadzenButton Text="@__ml["Text only"]" Icon="description" ButtonStyle="@btnStyleText"
-                      Click="() => Menu_ValueChanged(MenuItemDisplayStyle.Text)"
-                      Style="width: 100%; display: block;" />
-        <RadzenButton Text="@__ml["Icon only"]" Icon="group_work" ButtonStyle="@btnStyleIcon"
-                      Click="() => Menu_ValueChanged(MenuItemDisplayStyle.Icon)"
-                      Style="width: 100%; display: block;" /> *@
-
-        <div style="text-align: center; padding: 10px 10px 0px 10px;">
-            <RadzenCheckBox @bind-Value=@appMenuArrow Name="chbArrow" />
-            <RadzenLabel Text=@__ml["Show_arrows"] Component="chbArrow" />
-        </div>
-        <div style="text-align: center; padding: 10px;">
-            <RadzenCheckBox @bind-Value=@appMenuMultiple Name="chbMultiple" />
-            <RadzenLabel Text=@__ml["Open_multiples"] Component="chbMultiple" />
-        </div>
+        <RadzenPanelMenuItem Text="@__ml["All default"]" Icon="view_list"
+                             IconColor="@MenuColor(MenuItemDisplayStyle.IconAndText)"
+                             Click="() => Menu_Click(MenuItemDisplayStyle.IconAndText)"
+                             Style="@MenuColor(MenuItemDisplayStyle.IconAndText)" />
+        <RadzenPanelMenuItem Text="@__ml["Text only"]" Icon="description"
+                             IconColor="@MenuColor(MenuItemDisplayStyle.Text)"
+                             Click="() => Menu_Click(MenuItemDisplayStyle.Text)"
+                             Style="@MenuColor(MenuItemDisplayStyle.Text)" />
+        <RadzenPanelMenuItem Text="@__ml["Icon only"]" Icon="group_work"
+                             IconColor="@MenuColor(MenuItemDisplayStyle.Icon)"
+                             Click="() => Menu_Click(MenuItemDisplayStyle.Icon)"
+                             Style="@MenuColor(MenuItemDisplayStyle.Icon)" />
+        <hr style="margin:0;" />
+        <RadzenPanelMenuItem Text="@__ml["Show_arrows"]" Icon="assignment_returned"
+                             Click="() => MultipleArrows_Click(true)"
+                             IconColor="@IconColor(__state.SiteOptions.Menu.Arrow)"
+                             Style="@IconColor(__state.SiteOptions.Menu.Arrow)" />
+        <RadzenPanelMenuItem Text="@__ml["Open_multiples"]" Icon="list"
+                             Click="() => MultipleArrows_Click(false)"
+                             IconColor="@IconColor(__state.SiteOptions.Menu.Multiple)"
+                             Style="@IconColor(__state.SiteOptions.Menu.Multiple)" />
     </RadzenPanelMenuItem>
 
-    <RadzenPanelMenuItem Text="@txtVersion" IconColor="@_clrIcon" Icon="info">
+    <RadzenPanelMenuItem Text="@txtVersion" IconColor="@clrIcon" Icon="info">
         @if (__ver.NeedUpdate)
         {
-            <RadzenLabel Text=@_lblVersion class="rz-color-danger-dark"
+            <RadzenLabel Text=@lblVersion class="rz-color-danger-dark"
                          Style="font-weight: bold; width: 100%; text-align: center; padding: 8px;" />
         }
-        <RadzenButton Text="@_btnReload" Icon="autorenew" Style="width: 100%; display: block;"
+        <RadzenButton Text="@btnReload" Icon="autorenew" Style="width: 100%; display: block;"
                       ButtonStyle="ButtonStyle.Warning" Click="@__ver.Reload" />
     </RadzenPanelMenuItem>
 
@@ -83,45 +65,30 @@
 
 @code {
 
+    private string txtTheme => $"{__ml["Theme"]}: {AppStatic.FirstLetterToUpper(__state.SiteOptions.Theme)}";
     private string ThemeIcon(bool selected) => selected ? "done" : "perm_media";
+    private string ThemeStyle(bool color) => color ? $"{IconColor(color)}; text-transform: capitalize;" : "text-transform: capitalize;";
 
     private string IconColor(bool color) => color ? "color: " + Colors.Secondary : string.Empty;
 
-    private string txtTheme => __ml["Theme"] + ": " + __state.SiteOptions.Theme;
-
+    private string IconDone(bool done) => done ? "done" : string.Empty;
     private string txtLanguage => __ml["Language"] + ": " + __ml[__state.SiteOptions.Language];
 
+    private string MenuColor(MenuItemDisplayStyle style) => IconColor(style == __state.SiteOptions.Menu.MenuStyle);
+
     private string txtVersion => __ml["Version"] + ": " + __ver.VersionProject;
-    private string _lblVersion => __ml["New_version"] + ": " + __ver.VersionWwwroot;
-    private string _btnReload => __ver.NeedUpdate ? __ml["Update"] : __ml["Refresh"];
-    private string _clrIcon => __ver.NeedUpdate ? Colors.Warning : string.Empty;
+    private string lblVersion => __ml["New_version"] + ": " + __ver.VersionWwwroot;
+    private string btnReload => __ver.NeedUpdate ? __ml["Update"] : __ml["Refresh"];
+    private string clrIcon => __ver.NeedUpdate ? Colors.Warning : string.Empty;
 
-    private ButtonStyle btnStyleAll => __state.SiteOptions.Menu.MenuStyle == MenuItemDisplayStyle.IconAndText ? ButtonStyle.Success : ButtonStyle.Secondary;
-    private ButtonStyle btnStyleText => __state.SiteOptions.Menu.MenuStyle == MenuItemDisplayStyle.Text ? ButtonStyle.Success : ButtonStyle.Secondary;
-    private ButtonStyle btnStyleIcon => __state.SiteOptions.Menu.MenuStyle == MenuItemDisplayStyle.Icon ? ButtonStyle.Success : ButtonStyle.Secondary;
-
-    private bool appMenuMultiple
+    private async Task Theme_Click(string? theme)
     {
-        get { return __state.SiteOptions.Menu.Multiple; }
-        set
-        {
-            __state.SiteOptions.Menu.Multiple = value;
-            Task.FromResult(__state.SaveAppOptions());
-            __state.RefreshPage("RdznMenuOptions.razor -> appMenuMultiple");
-        }
-    }
-    private bool appMenuArrow
-    {
-        get { return __state.SiteOptions.Menu.Arrow; }
-        set
-        {
-            __state.SiteOptions.Menu.Arrow = value;
-            Task.FromResult(__state.SaveAppOptions());
-            __state.RefreshPage("RdznMenuOptions.razor -> appMenuArrow");
-        }
+        if (__state.SiteOptions.Language == theme)
+            return;
+        await __theme.SetTheme(theme, true);
     }
 
-    private async Task Language_ValueChanged(string? language)
+    private async Task Language_Click(string? language)
     {
         if (__state.SiteOptions.Language == language)
             return;
@@ -129,24 +96,29 @@
         __state.RefreshPage("RdznMenuOptions.razor -> Language_ValueChanged");
     }
 
-    private async Task Theme_ValueChanged(string? theme)
+    private async Task Menu_Click(MenuItemDisplayStyle style)
     {
-        if (__state.SiteOptions.Language == theme)
+        if (__state.SiteOptions.Menu.MenuStyle == style)
             return;
-        await __theme.SetTheme(theme, true);
+        __state.SiteOptions.Menu.MenuStyle = style;
+        __state.RefreshPage("RdznMenuOptions.razor -> Menu_Click");
+        await __state.SaveAppOptions();
     }
 
-    private async Task Menu_ValueChanged(MenuItemDisplayStyle style)
+    private async Task MultipleArrows_Click(bool arrows)
     {
-        __state.SiteOptions.Menu.MenuStyle = style;
-        __state.RefreshPage("RdznMenuOptions.razor -> Menu_ValueChanged");
+        if (arrows)
+            __state.SiteOptions.Menu.Arrow = !__state.SiteOptions.Menu.Arrow;
+        else
+            __state.SiteOptions.Menu.Multiple = !__state.SiteOptions.Menu.Multiple;
         await __state.SaveAppOptions();
+        __state.RefreshPage("RdznMenuOptions.razor -> MultipleArrows_Click");
     }
 
     protected override async void OnInitialized()
     {
-        //await __ver.CheckVersion();
-
+        await __ver.CheckVersion();
+        
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
