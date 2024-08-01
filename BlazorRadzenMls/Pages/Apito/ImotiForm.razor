@@ -135,7 +135,6 @@
             </RadzenColumn>
             <RadzenColumn Size="12" SizeMD="9">
 
-
                 <AuthorizeView>
                     <Authorized>
                         @if (IsNew)
@@ -144,11 +143,15 @@
                         }
                         else
                         {
-                            @if (SelectedImot != null)
+                            @if (SelectedImot != null && context?.User?.Identity?.Name == "rbsxkbgzpekhuwsufu@cazlp.com")
                             {
                                 <RadzenButton Text="Update" Icon="build" Click="() => Method.InvokeAsync(HttpMethod.Put)" />
                                 <RadzenButton Text="Delete" Icon="delete" ButtonStyle="ButtonStyle.Danger"
-                                              Click="() => Method.InvokeAsync(HttpMethod.Delete)" />
+                                Click="() => Method.InvokeAsync(HttpMethod.Delete)" />
+                            }
+                            else
+                            {
+                                <p>only rbsxkbgzpekhuwsufu@cazlp.com can edit</p>
                             }
                         }
                     </Authorized>
@@ -156,7 +159,6 @@
                         <a class="text-decoration-none" href="authentication/login">Register if you want to edit</a>
                     </NotAuthorized>
                 </AuthorizeView>
-
 
             </RadzenColumn>
         </RadzenRow>

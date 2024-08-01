@@ -6,7 +6,7 @@
     </div>
     <RadzenButton id="@menuToggleId" Icon="@Name" Click="@LinkOrMenu"
                   Variant="Variant.Text" ButtonStyle="ButtonStyle.Info"
-                  Style="width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);" />
+                  Style="@style" />
 </div>
 
 @code {
@@ -25,6 +25,21 @@
 
     [Parameter]
     public bool OnNewTab { get; set; }
+
+    [Parameter]
+    public bool ExpectRefresh { get; set; }
+
+    private bool expectRefresh;
+    private string style
+    {
+        get
+        {
+            string style = "width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);";
+            if (expectRefresh && ExpectRefresh)
+                return style = $"{style} color: {Colors.Warning};";
+            return style;
+        }
+    }
 
     private string menuToggleId = "menuToggle" + Guid.NewGuid().ToString();
     private string menuPanelId = "menuPanel" + Guid.NewGuid().ToString();
@@ -51,5 +66,28 @@
             await __js.ChangeSidebarToggle(menuToggleId, Size, this, "OnAfterRenderAsync");
         }
     }
+
+    protected override void OnInitialized()
+    {
+        __ver.TimerEvent += delegate
+        {
+            if (!__ver.NeedUpdate)
+            {
+                expectRefresh = true;
+                StateHasChanged();
+                ///__state.RefreshPage("");
+            }
+            else
+            {
+                bool tmp = expectRefresh;
+                expectRefresh = false;
+                if (tmp)
+                    StateHasChanged();
+            }
+        };
+
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+    }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

@@ -52,13 +52,8 @@
     </RadzenPanelMenuItem>
 
     <RadzenPanelMenuItem Text="@txtVersion" IconColor="@clrIcon" Icon="info">
-        @if (__ver.NeedUpdate)
-        {
-            <RadzenLabel Text=@lblVersion class="rz-color-danger-dark"
-                         Style="font-weight: bold; width: 100%; text-align: center; padding: 8px;" />
-        }
-        <RadzenButton Text="@btnReload" Icon="autorenew" Style="width: 100%; display: block;"
-                      ButtonStyle="ButtonStyle.Warning" Click="@__ver.Reload" />
+        <RadzenPanelMenuItem Text="@btnReload" Icon="autorenew" IconColor="@clrIcon"
+                             Click="@__ver.Reload" Style="@clrStyle" />
     </RadzenPanelMenuItem>
 
 </RadzenPanelMenu>
@@ -78,8 +73,9 @@
 
     private string txtVersion => __ml["Version"] + ": " + __ver.VersionProject;
     private string lblVersion => __ml["New_version"] + ": " + __ver.VersionWwwroot;
-    private string btnReload => __ver.NeedUpdate ? __ml["Update"] : __ml["Refresh"];
+    private string btnReload => __ver.NeedUpdate ? __ml["Update"] + ": " + __ver.VersionWwwroot : __ml["Refresh"];
     private string clrIcon => __ver.NeedUpdate ? Colors.Warning : string.Empty;
+    private string clrStyle => string.IsNullOrEmpty(clrIcon) ? string.Empty : "color: " + clrIcon;
 
     private async Task Theme_Click(string? theme)
     {
@@ -115,7 +111,7 @@
         __state.RefreshPage("RdznMenuOptions.razor -> MultipleArrows_Click");
     }
 
-    protected override async void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         await __ver.CheckVersion();
         
