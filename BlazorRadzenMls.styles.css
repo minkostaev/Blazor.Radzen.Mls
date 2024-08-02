@@ -19,13 +19,13 @@
 }
 
 .main-sticky[b-ualc49u5kx] {
-    min-height: calc(100vh - var(--heightHeaderFooter));
+    min-height: calc(100vh - var(--heightHeaderFooterRdzn));
     background-color: var(--rz-body-background-color);
 }
 
-.footer-sticky[b-ualc49u5kx] {
+/*.footer-sticky {
     
-}
+}*/
 /* /Pages/Apito/RdznGrdHdrTmpt.razor.rz.scp.css */
 .drop-down-panel[b-1l2jm1oo7y] {
     width: 266px;
