@@ -71,7 +71,7 @@
     {
         __ver.TimerEvent += delegate
         {
-            if (!__ver.NeedUpdate)
+            if (__ver.NeedUpdate)
             {
                 expectRefresh = true;
                 StateHasChanged();

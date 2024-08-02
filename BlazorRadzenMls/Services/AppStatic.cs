@@ -55,7 +55,7 @@ public static class AppStatic
     public static Stopwatch TimerStart()
     {
         var stopwatch = new Stopwatch();
-        //stopwatch.Restart();
+        ///stopwatch.Restart();
         stopwatch.Start();
         return stopwatch;
     }
@@ -70,24 +70,18 @@ public static class AppStatic
         var result = new Response();
         var timer = TimerStart();
 
+        result.Status = HttpStatusCode.InternalServerError;
         HttpResponseMessage? response = null;
         try { response = await http.GetAsync(uri); }
-        catch (Exception) { }
+        catch { result.Status = HttpStatusCode.InternalServerError; }
 
         if (response == null)
-        {
-            result.Status = HttpStatusCode.InternalServerError;
             return (null, result);
-        }
         else
-        {
             result.Status = response.StatusCode;
-        }
 
         if (response.StatusCode != HttpStatusCode.OK)
-        {
             return (null, result);
-        }
 
         response.EnsureSuccessStatusCode();
 

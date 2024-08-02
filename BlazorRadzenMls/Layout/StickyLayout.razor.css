@@ -5,10 +5,10 @@
 }
 
 .main-sticky {
-    min-height: calc(100vh - var(--heightHeaderFooter));
+    min-height: calc(100vh - var(--heightHeaderFooterRdzn));
     background-color: var(--rz-body-background-color);
 }
 
-.footer-sticky {
+/*.footer-sticky {
     
-}
+}*/

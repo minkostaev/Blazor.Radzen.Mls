@@ -9,38 +9,56 @@ let headerHeight = 0;
 let footerHeight = 0;
 function addHeaderHeight(htmlId) {
     const el = document.getElementById(htmlId);
-    addHeaderHeight2();
-    function addHeaderHeight2() {
-        headerHeight = el.clientHeight;//offsetHeight
-        cssRoot.style.setProperty('--headerHeight', headerHeight + 'px');
-        cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 33) + 'px');
-    }
+    setHeaderFooterHeight(el, true);
+    //addHeaderHeight2();
+    //function addHeaderHeight2() {
+    //    headerHeight = el.clientHeight;//offsetHeight
+    //    cssRoot.style.setProperty('--headerHeight', headerHeight + 'px');
+    //    cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 1) + 'px');
+    //    cssRoot.style.setProperty('--heightHeaderFooterRdzn', (headerHeight + footerHeight + 33) + 'px');
+    //}
     const resizeObserver = new ResizeObserver(entries => {
+        setHeaderFooterHeight(el, true);
         for (let entry of entries) {
-            //const { width, height } = entry.contentRect;
-            //console.log(`Element resized to ${width}px x ${height}px`);
-            addHeaderHeight2();
+            ///const { width, height } = entry.contentRect;
+            ///console.log(`Element resized to ${width}px x ${height}px`);
+            //addHeaderHeight2();
         }
     });
     resizeObserver.observe(el);
 }
 function addFooterHeight(htmlId) {
     const el = document.getElementById(htmlId);
-    addFooterHeight2();
-    function addFooterHeight2() {
-        footerHeight = el.clientHeight;
-        cssRoot.style.setProperty('--footerHeight', footerHeight + 'px');
-        cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 33) + 'px');
-    }
+    setHeaderFooterHeight(el, false);
+    //addFooterHeight2();
+    //function addFooterHeight2() {
+    //    footerHeight = el.clientHeight;
+    //    cssRoot.style.setProperty('--footerHeight', footerHeight + 'px');
+    //    cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 1) + 'px');
+    //    cssRoot.style.setProperty('--heightHeaderFooterRdzn', (headerHeight + footerHeight + 33) + 'px');
+    //}
     const resizeObserver = new ResizeObserver(entries => {
+        setHeaderFooterHeight(el, false);
         for (let entry of entries) {
-            //const { width, height } = entry.contentRect;
-            //console.log(`Element resized to ${width}px x ${height}px`);
-            addFooterHeight2();
+            ///const { width, height } = entry.contentRect;
+            ///console.log(`Element resized to ${width}px x ${height}px`);
+            //addFooterHeight2();
         }
     });
     resizeObserver.observe(el);
 }
+function setHeaderFooterHeight(el, isHeader) {
+    if (isHeader) {
+        headerHeight = el.clientHeight;//offsetHeight
+        cssRoot.style.setProperty('--headerHeight', headerHeight + 'px');
+    } else {
+        footerHeight = el.clientHeight;
+        cssRoot.style.setProperty('--footerHeight', footerHeight + 'px');
+    }
+    cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 1) + 'px');
+    cssRoot.style.setProperty('--heightHeaderFooterRdzn', (headerHeight + footerHeight + 33) + 'px');
+}
+
 
 addLoaderCss();
 function addLoaderCss() {
@@ -61,7 +79,7 @@ async function reload() {
         await caches.delete(cch);
     }
     location.replace(location.href);//origin
-    //window.location.reload(true);
+    ///window.location.reload(true);
 }
 
 function getLocation(prop) {

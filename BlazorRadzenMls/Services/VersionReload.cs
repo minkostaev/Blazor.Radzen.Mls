@@ -16,7 +16,14 @@ public class VersionReload : IVersionReload
         __js = IJSRuntime;
         __nav = navigationManager;
         VersionProject = (Version == null) ? "0.0.0.0" : Version.ToString();
-        VersionWwwroot = "0.0.0.0";
+        VersionWwwroot = VersionProject;
+
+        var timerCheck = new Timer(1000) { Enabled = true };//1 sec
+        timerCheck.Elapsed += async delegate
+        {
+            await CheckVersion();
+            timerCheck.Stop();
+        };
 
         var timer = new Timer(10000) { Enabled = true };//10 sec
         timer.Elapsed += async delegate
@@ -78,15 +85,15 @@ public class VersionReload : IVersionReload
         return await __js.Reload(this, "Reload");
     }
 }
-//for version check use js fetch text in /data/version.txt
-// const response = await fetch(path);
-// const resData = await response.text();
-//version.txt is auto created with pre build script
-//in project file
-// <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-//   <Exec Command="powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)preBuild.ps1" />
-// </Target>
-//preBuild.ps1
-// $xml = [xml](Get-Content "BlazorRadzenMls.csproj")
-// $version = $xml.Project.PropertyGroup.Version
-// $version | Out-File -FilePath "wwwroot\data\version.txt" -Encoding utf8
+///for version check use js fetch text in /data/version.txt
+/// const response = await fetch(path);
+/// const resData = await response.text();
+///version.txt is auto created with pre build script
+///in project file
+/// <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+///   <Exec Command="powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)preBuild.ps1" />
+/// </Target>
+///preBuild.ps1
+/// $xml = [xml](Get-Content "BlazorRadzenMls.csproj")
+/// $version = $xml.Project.PropertyGroup.Version
+/// $version | Out-File -FilePath "wwwroot\data\version.txt" -Encoding utf8
