@@ -84,10 +84,10 @@ public static class JavaScriptRuntime
 
     public static async Task<bool> AddHeaderHeight(this IJSRuntime js, string htmlId, object thisComponent, string methodName = "")
     {
-        string jsMethod = "addHeaderHeight";
+        string jsMethod = "addHeaderFooterHeight";
         try
         {
-            await js.InvokeVoidAsync(jsMethod, htmlId);
+            await js.InvokeVoidAsync(jsMethod, htmlId, true);
             return true;
         }
         catch (Exception ex)
@@ -98,10 +98,10 @@ public static class JavaScriptRuntime
     }
     public static async Task<bool> AddFooterHeight(this IJSRuntime js, string htmlId, object thisComponent, string methodName = "")
     {
-        string jsMethod = "addFooterHeight";
+        string jsMethod = "addHeaderFooterHeight";
         try
         {
-            await js.InvokeVoidAsync(jsMethod, htmlId);
+            await js.InvokeVoidAsync(jsMethod, htmlId, false);
             return true;
         }
         catch (Exception ex)

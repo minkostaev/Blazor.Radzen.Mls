@@ -13,17 +13,18 @@ public class RdznTheming(IJSRuntime iJSRuntime, AppState appState) : IRdznThemin
     /// Available radzen themes names
     /// </summary>
     public string[] Themes { get; private set; } =
-        ["default", "standard", "software", "humanistic", "dark", "material"];
-
+        ["default", "dark", "standard", "standard-dark", "software", "software-dark",
+         "humanistic", "humanistic-dark", "material", "material-dark"];
+    
     /// <summary>
     /// Get current radzen theme name
     /// </summary>
     /// <returns>Theme name</returns>
     public async Task<string?> GetTheme()
     {
-        string? name = null;
+        string? name;
         try { name = __state.SiteOptions.Theme; }
-        catch (Exception) { }
+        catch { name = string.Empty; }
         if (!string.IsNullOrEmpty(name) && Themes.Contains(name))
         {
             return name;

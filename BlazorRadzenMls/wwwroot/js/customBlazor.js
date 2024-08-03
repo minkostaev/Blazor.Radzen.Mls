@@ -7,43 +7,15 @@ addEventListener("resize", (event) => {
 let windowHeight = 0;
 let headerHeight = 0;
 let footerHeight = 0;
-function addHeaderHeight(htmlId) {
+function addHeaderFooterHeight(htmlId, isHeader) {
     const el = document.getElementById(htmlId);
-    setHeaderFooterHeight(el, true);
-    //addHeaderHeight2();
-    //function addHeaderHeight2() {
-    //    headerHeight = el.clientHeight;//offsetHeight
-    //    cssRoot.style.setProperty('--headerHeight', headerHeight + 'px');
-    //    cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 1) + 'px');
-    //    cssRoot.style.setProperty('--heightHeaderFooterRdzn', (headerHeight + footerHeight + 33) + 'px');
-    //}
+    setHeaderFooterHeight(el, isHeader);
     const resizeObserver = new ResizeObserver(entries => {
-        setHeaderFooterHeight(el, true);
-        for (let entry of entries) {
-            ///const { width, height } = entry.contentRect;
-            ///console.log(`Element resized to ${width}px x ${height}px`);
-            //addHeaderHeight2();
-        }
-    });
-    resizeObserver.observe(el);
-}
-function addFooterHeight(htmlId) {
-    const el = document.getElementById(htmlId);
-    setHeaderFooterHeight(el, false);
-    //addFooterHeight2();
-    //function addFooterHeight2() {
-    //    footerHeight = el.clientHeight;
-    //    cssRoot.style.setProperty('--footerHeight', footerHeight + 'px');
-    //    cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 1) + 'px');
-    //    cssRoot.style.setProperty('--heightHeaderFooterRdzn', (headerHeight + footerHeight + 33) + 'px');
-    //}
-    const resizeObserver = new ResizeObserver(entries => {
-        setHeaderFooterHeight(el, false);
-        for (let entry of entries) {
-            ///const { width, height } = entry.contentRect;
-            ///console.log(`Element resized to ${width}px x ${height}px`);
-            //addFooterHeight2();
-        }
+        setHeaderFooterHeight(el, isHeader);
+        ///for (let entry of entries) {
+        ///    const { width, height } = entry.contentRect;
+        ///    console.log(`Element resized to ${width}px x ${height}px`);
+        ///}
     });
     resizeObserver.observe(el);
 }
