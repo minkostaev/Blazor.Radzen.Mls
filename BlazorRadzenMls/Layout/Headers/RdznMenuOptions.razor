@@ -3,7 +3,7 @@
                  Multiple="@__state.SiteOptions.Menu.Multiple"
                  ShowArrow="@__state.SiteOptions.Menu.Arrow">
 
-    <RadzenPanelMenuItem Text="МинцЪт" Path="" Image="images/icon-128.png">@* Home *@</RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Text="МинцЪт" Image="images/icon-128.png" />
 
     <RadzenPanelMenuItem Text="@txtTheme" Icon="@ThemeIcon(false)">
         @foreach (var i in __theme.Themes)
@@ -45,6 +45,7 @@
                              Click="() => MultipleArrows_Click(true)"
                              IconColor="@IconColor(__state.SiteOptions.Menu.Arrow)"
                              Style="@IconColor(__state.SiteOptions.Menu.Arrow)" />
+        <hr style="margin:0;" />
         <RadzenPanelMenuItem Text="@__ml["Open_multiples"]" Icon="list"
                              Click="() => MultipleArrows_Click(false)"
                              IconColor="@IconColor(__state.SiteOptions.Menu.Multiple)"
@@ -64,7 +65,7 @@
     private string ThemeIcon(bool selected) => selected ? "done" : "perm_media";
     private string ThemeStyle(bool color) => color ? $"{IconColor(color)}; text-transform: capitalize;" : "text-transform: capitalize;";
 
-    private string IconColor(bool color) => color ? "color: " + Colors.Secondary : string.Empty;
+    private string IconColor(bool color) => color ? "color: " + Colors.Info : string.Empty;
 
     private string IconDone(bool done) => done ? "done" : string.Empty;
     private string txtLanguage => __ml["Language"] + ": " + __ml[__state.SiteOptions.Language];

@@ -50,7 +50,7 @@ async function reload() {
     for (let cch of keys) {
         await caches.delete(cch);
     }
-    location.replace(location.href);//origin
+    location.replace(location.href);///origin
     ///window.location.reload(true);
 }
 
@@ -134,8 +134,8 @@ function isMobileDevice() {
     // Check the user agent string for common mobile device keywords
     const mobileKeywords = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone'];
     const userAgent = navigator.userAgent;
-    for (let i = 0; i < mobileKeywords.length; i++) {
-        if (userAgent.indexOf(mobileKeywords[i]) !== -1) {
+    for (const element of mobileKeywords) {
+        if (userAgent.indexOf(element) !== -1) {
             return true;
         }
     }

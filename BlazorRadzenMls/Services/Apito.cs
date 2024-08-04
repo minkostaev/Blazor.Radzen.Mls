@@ -47,7 +47,7 @@ public class Apito : IApito
 
         var timer = AppStatic.TimerStart();
 
-        HttpRequestMessage? httpRequest = null;
+        HttpRequestMessage? httpRequest;
         try
         {
             string jsonString = JsonSerializer.Serialize(ids);
@@ -59,15 +59,15 @@ public class Apito : IApito
                 Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
             };
         }
-        catch (Exception)
+        catch
         {
             result.Status = HttpStatusCode.Conflict;
             return result;
         }
 
-        HttpResponseMessage? httpResponse = null;
+        HttpResponseMessage? httpResponse;
         try { httpResponse = await _httpClient.SendAsync(httpRequest!); }
-        catch (Exception)
+        catch
         {
             result.Status = HttpStatusCode.InternalServerError;
             return result;
@@ -78,6 +78,7 @@ public class Apito : IApito
             result.Status = httpResponse.StatusCode;
             return result;
         }
+
         httpResponse.EnsureSuccessStatusCode();
 
         result.RequestTime = AppStatic.TimerStop(timer);
@@ -93,7 +94,7 @@ public class Apito : IApito
         var timer = AppStatic.TimerStart();
 
         try { result.Result = await response!.Content.ReadFromJsonAsync<MachineDb[]>(); }
-        catch (Exception) { }
+        catch { result.Status = HttpStatusCode.Conflict; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
 
@@ -107,7 +108,7 @@ public class Apito : IApito
         var timer = AppStatic.TimerStart();
 
         try { result.Result = await response!.Content.ReadFromJsonAsync<MachinesRecords[]>(); }
-        catch (Exception) { }
+        catch { result.Status = HttpStatusCode.Conflict; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
 
@@ -121,7 +122,7 @@ public class Apito : IApito
         var timer = AppStatic.TimerStart();
 
         try { result.Result = await response!.Content.ReadFromJsonAsync<ImotMongo[]>(); }
-        catch (Exception) { }
+        catch { result.Status = HttpStatusCode.Conflict; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
 
@@ -159,7 +160,7 @@ public class Apito : IApito
         var timer2 = AppStatic.TimerStart();
 
         try { result.Result = await response.Content.ReadFromJsonAsync<Imot[]>(); }
-        catch (Exception) { }
+        catch { result.Status = HttpStatusCode.Conflict; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer2);
 

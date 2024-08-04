@@ -18,12 +18,12 @@ public static class ProgramServices
         services.AddRadzenComponents();
 
         // https://akmultilanguages.azurewebsites.net/
-        //services.AddLanguageContainer<EmbeddedResourceKeysProvider>(Assembly.GetExecutingAssembly(), "Languages");
+        ///services.AddLanguageContainer<EmbeddedResourceKeysProvider>(Assembly.GetExecutingAssembly(), "Languages");
         services.AddLanguageContainer(Assembly.GetExecutingAssembly(), CultureInfo.GetCultureInfo("en-US"), "Languages");
 
         // https://github.com/Blazored/LocalStorage
         services.AddBlazoredLocalStorage();
-        //builder.Services.AddBlazoredLocalStorageAsSingleton();
+        ///builder.Services.AddBlazoredLocalStorageAsSingleton();
     }
     public static void AddOwnServices(this IServiceCollection services)
     {
