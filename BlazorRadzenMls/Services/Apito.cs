@@ -30,7 +30,7 @@ public class Apito : IApito
         var timer = AppStatic.TimerStart();
 
         try { result.Result = await response!.Content.ReadFromJsonAsync<MachinesLogs[]>(); }
-        catch (Exception) { }
+        catch { result.Status = HttpStatusCode.Conflict; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
 
@@ -179,7 +179,7 @@ public class Apito : IApito
 
         HttpResponseMessage? response = null;
         try { response = await _httpClient.DeleteAsync($"{EndpointImoti}/{id}"); }
-        catch (Exception) { }
+        catch { result.Status = HttpStatusCode.Conflict; }
 
         if (response == null)
         {

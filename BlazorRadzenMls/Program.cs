@@ -17,18 +17,18 @@ builder.Services.AddOidcAuthentication(options =>
     ///options.ProviderOptions.AdditionalProviderParameters.Add("audience", builder.Configuration["Auth0:ClientId"]);
 });
 
-//builder.Services.AddHttpClient("ServerAPI",
-//    client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
-//    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+///builder.Services.AddHttpClient("ServerAPI",
+///    client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+///    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 ///builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["API_Prefix"] ?? builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddHttpClient("ApitoSomee", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["Endpoints:ApitoSomee"]!);
-    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-    //client.Timeout = TimeSpan.FromMinutes(3);
-});//.AddHttpMessageHandler<LocalTokenHandler>();
+    ///client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    ///client.Timeout = TimeSpan.FromMinutes(3);
+});///.AddHttpMessageHandler<LocalTokenHandler>();
 builder.Services.AddScoped<IApito, Apito>();
 
 builder.Services.AddExternalLibraries();//extension

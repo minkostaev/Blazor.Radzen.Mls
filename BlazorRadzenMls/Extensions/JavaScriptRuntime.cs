@@ -15,7 +15,7 @@ public static class JavaScriptRuntime
     {
         string name = ComponentName(thisComponent);
         Console.WriteLine($"{Error}{name}.razor -> {cMethod} | {jsMethod}");
-        //Console.WriteLine(exMessage);
+        Console.WriteLine(exMessage);
     }
     #endregion
 
