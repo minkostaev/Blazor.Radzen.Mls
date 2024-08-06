@@ -16,8 +16,6 @@ public class VersionReload : IVersionReload
         __js = IJSRuntime;
         __nav = navigationManager;
         VersionProject = (Version == null) ? "0.0.0.0" : Version.ToString();
-        VersionWwwroot = "0";
-            Console.WriteLine(NeedUpdate);
         VersionWwwroot = VersionProject;
 
         var timerCheck = new Timer(1000) { Enabled = true };//1 sec
