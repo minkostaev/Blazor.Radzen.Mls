@@ -28,7 +28,6 @@ function setHeaderFooterHeight(el, isHeader) {
         cssRoot.style.setProperty('--footerHeight', footerHeight + 'px');
     }
     cssRoot.style.setProperty('--heightHeaderFooter', (headerHeight + footerHeight + 1) + 'px');
-    cssRoot.style.setProperty('--heightHeaderFooterRdzn', (headerHeight + footerHeight + 33) + 'px');
 }
 
 
