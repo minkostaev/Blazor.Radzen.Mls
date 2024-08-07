@@ -21,10 +21,14 @@
   font-style: italic;
   font-weight: 200 900;
 }
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
+[class^=rz-], [class^=rz-]::before, [class^=rz-]::after, [class^=rz-] *, [class^=rz-] *::before, [class^=rz-] *::after,
+[class*=" rz-"],
+[class*=" rz-"]::before,
+[class*=" rz-"]::after,
+[class*=" rz-"] *,
+[class*=" rz-"] *::before,
+[class*=" rz-"] *::after {
+  box-sizing: border-box;
 }
 
 .rz-text-title-color {
@@ -2327,6 +2331,7 @@
   background-position: center;
   background: radial-gradient(circle, currentColor 1%, transparent 1%) center/15000%;
   transition: background-size 0.8s, opacity 0.8s;
+  pointer-events: none;
 }
 .rz-ripple:not(.rz-state-disabled):active:before {
   transition: background-size 0s, opacity 0s;
