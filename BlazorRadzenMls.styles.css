@@ -23,9 +23,9 @@
     background-color: var(--rz-body-background-color);
 }
 
-/*.footer-sticky {
-    
-}*/
+.footer-sticky[b-ualc49u5kx] {
+    --transparent-color: rgba(255, 0, 0, 0.5);/*it's temp (remove later)*/
+}
 /* /Pages/Apito/RdznGrdHdrTmpt.razor.rz.scp.css */
 .drop-down-panel[b-1l2jm1oo7y] {
     width: 266px;
