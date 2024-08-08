@@ -27,6 +27,7 @@ public static class ProgramServices
     }
     public static void AddOwnServices(this IServiceCollection services)
     {
+        services.AddScoped<JavaScriptCustom>();
         services.AddScoped<AppState>();
         services.AddScoped<MultiLanguage>();
         services.AddScoped<IRdznTheming, RdznTheming>();

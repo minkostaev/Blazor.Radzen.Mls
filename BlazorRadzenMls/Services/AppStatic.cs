@@ -145,4 +145,12 @@ public static class AppStatic
         return char.ToUpper(str[0]) + str.Substring(1);
     }
 
+    ///public string ReplaceFirst(string text, string oldValue, string newValue)
+    ///{
+    ///    int position = text.IndexOf(oldValue);
+    ///    if (position < 0) { return text; }
+    ///    text = text.Substring(0, position) + newValue + text.Substring(position + oldValue.Length);
+    ///    return text;
+    ///}
+
 }

@@ -83,17 +83,17 @@ public class MultiLanguage
         return success;
     }
 }
-// https://akmultilanguages.azurewebsites.net/
+/// https://akmultilanguages.azurewebsites.net/
 
-// in Program.cs add:
-//builder.Services.AddLanguageContainer<EmbeddedResourceKeysProvider>(Assembly.GetExecutingAssembly(), "Languages");
-// or
-//builder.Services.AddLanguageContainer(Assembly.GetExecutingAssembly(), CultureInfo.GetCultureInfo("en-US"), "Languages");
+/// in Program.cs add:
+///builder.Services.AddLanguageContainer<EmbeddedResourceKeysProvider>(Assembly.GetExecutingAssembly(), "Languages");
+/// or
+///builder.Services.AddLanguageContainer(Assembly.GetExecutingAssembly(), CultureInfo.GetCultureInfo("en-US"), "Languages");
 
-// add folder in the project with yml files with the translations
-// /Languages/en-US.yml
+/// add folder in the project with yml files with the translations
+/// /Languages/en-US.yml
 
-// in project file
-//<ItemGroup>
-//  <EmbeddedResource Include="Languages\en-US.yml" />
-//</ItemGroup>
+/// in project file
+///<ItemGroup>
+///  <EmbeddedResource Include="Languages\en-US.yml" />
+///</ItemGroup>

@@ -4,8 +4,8 @@ using System.Reflection;
 
 public static class AppValues
 {
-    //private static string? Version => Assembly.GetExecutingAssembly().GetName().Version?.ToString();
-    //public static string VersionClient => (string.IsNullOrEmpty(Version)) ? "0.0.0.0" : Version;
+    ///private static string? Version => Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+    ///public static string VersionClient => (string.IsNullOrEmpty(Version)) ? "0.0.0.0" : Version;
 
     public const string PageIcons = "Icons";
     public const string PageDogs = "Dogs";
@@ -31,9 +31,9 @@ public static class AppValues
     public static string RenderDomain => ".onrender.com";
     public static string NetlifyDomain => ".netlify.app";
 
-    //public const string RolesAll = "admin, manager, user";
-    //public const string RolesManager = "admin, manager";
-    //public const string RolesAdmin = "admin";
+    ///public const string RolesAll = "admin, manager, user";
+    ///public const string RolesManager = "admin, manager";
+    ///public const string RolesAdmin = "admin";
 
 
 }
@@ -50,5 +50,5 @@ public static class AppValues
 
 // EditForm
 
-//StateHasChanged();
-//await InvokeAsync(StateHasChanged);
+///StateHasChanged();
+///await InvokeAsync(StateHasChanged);

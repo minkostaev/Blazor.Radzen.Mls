@@ -9,6 +9,6 @@
     background-color: var(--rz-body-background-color);
 }
 
-/*.footer-sticky {
-    
-}*/
+.footer-sticky {
+    --transparent-color: rgba(255, 0, 0, 0.5);/*it's temp (remove later)*/
+}

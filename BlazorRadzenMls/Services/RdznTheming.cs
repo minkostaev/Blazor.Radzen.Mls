@@ -4,9 +4,9 @@ using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Extensions;
 using Microsoft.JSInterop;
 
-public class RdznTheming(IJSRuntime iJSRuntime, AppState appState) : IRdznTheming
+public class RdznTheming(JavaScriptCustom iJSRuntime, AppState appState) : IRdznTheming
 {
-    private readonly IJSRuntime __js = iJSRuntime;
+    private readonly JavaScriptCustom __js = iJSRuntime;
     private readonly AppState __state = appState;
 
     /// <summary>
@@ -58,6 +58,6 @@ public class RdznTheming(IJSRuntime iJSRuntime, AppState appState) : IRdznThemin
         return success;
     }
 }
-//requirements: in index.html
-//<link rel="stylesheet" href="_content/Radzen.Blazor/css/default-base.css"> - theme name
-//<script src="js/customRadzen.js"></script> - js code is in here
+///requirements: in index.html
+///<link rel="stylesheet" href="_content/Radzen.Blazor/css/default-base.css"> - theme name
+///<script src="js/customRadzen.js"></script> - js code is in here

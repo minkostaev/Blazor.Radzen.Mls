@@ -1,6 +1,7 @@
 ﻿namespace BlazorRadzenMls.Services;
 
 using BlazorRadzenMls.Contracts;
+using BlazorRadzenMls.Extensions;
 using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Models.TheMachine;
 using System;
@@ -17,6 +18,8 @@ public class Apito : IApito
     private const string EndpointMachinesRecords = "/machinesrecords";
     private const string EndpointImoti = "/imoti";
 
+    private const HttpStatusCode HttpCodeJson = HttpStatusCode.Conflict;
+
     private readonly HttpClient _httpClient;
     public Apito(IHttpClientFactory httpClientFactory)
     {
@@ -30,7 +33,7 @@ public class Apito : IApito
         var timer = AppStatic.TimerStart();
 
         try { result.Result = await response!.Content.ReadFromJsonAsync<MachinesLogs[]>(); }
-        catch { result.Status = HttpStatusCode.Conflict; }
+        catch { result.Status = HttpCodeJson; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
 
@@ -61,7 +64,7 @@ public class Apito : IApito
         }
         catch
         {
-            result.Status = HttpStatusCode.Conflict;
+            result.Status = HttpCodeJson;
             return result;
         }
 
@@ -94,7 +97,7 @@ public class Apito : IApito
         var timer = AppStatic.TimerStart();
 
         try { result.Result = await response!.Content.ReadFromJsonAsync<MachineDb[]>(); }
-        catch { result.Status = HttpStatusCode.Conflict; }
+        catch { result.Status = HttpCodeJson; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
 
@@ -108,7 +111,7 @@ public class Apito : IApito
         var timer = AppStatic.TimerStart();
 
         try { result.Result = await response!.Content.ReadFromJsonAsync<MachinesRecords[]>(); }
-        catch { result.Status = HttpStatusCode.Conflict; }
+        catch { result.Status = HttpCodeJson; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
 
@@ -122,7 +125,7 @@ public class Apito : IApito
         var timer = AppStatic.TimerStart();
 
         try { result.Result = await response!.Content.ReadFromJsonAsync<ImotMongo[]>(); }
-        catch { result.Status = HttpStatusCode.Conflict; }
+        catch { result.Status = HttpCodeJson; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
 
@@ -160,7 +163,7 @@ public class Apito : IApito
         var timer2 = AppStatic.TimerStart();
 
         try { result.Result = await response.Content.ReadFromJsonAsync<Imot[]>(); }
-        catch { result.Status = HttpStatusCode.Conflict; }
+        catch { result.Status = HttpCodeJson; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer2);
 
@@ -179,7 +182,7 @@ public class Apito : IApito
 
         HttpResponseMessage? response = null;
         try { response = await _httpClient.DeleteAsync($"{EndpointImoti}/{id}"); }
-        catch { result.Status = HttpStatusCode.Conflict; }
+        catch { result.Status = HttpCodeJson; }
 
         if (response == null)
         {

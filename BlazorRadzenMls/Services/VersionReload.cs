@@ -3,15 +3,14 @@
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Extensions;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using System.Reflection;
 using System.Timers;
 
 public class VersionReload : IVersionReload
 {
-    private readonly IJSRuntime __js;
+    private readonly JavaScriptCustom __js;
     private readonly NavigationManager __nav;
-    public VersionReload(IJSRuntime IJSRuntime, NavigationManager navigationManager)
+    public VersionReload(JavaScriptCustom IJSRuntime, NavigationManager navigationManager)
     {
         __js = IJSRuntime;
         __nav = navigationManager;

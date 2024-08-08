@@ -21,7 +21,7 @@ public static class JavaScriptRuntime
 
     #region Uses default js methods
 
-    public static async Task<bool> ScrollToTop(this IJSRuntime js, object thisComponent, string methodName = "")
+    public static async Task<bool> ScrollToTop(this JavaScriptCustom js, object thisComponent, string methodName = "")
     {
         string jsMethod = "scrollToTop";
         try
@@ -36,7 +36,7 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<bool> CopyToClipboard(this IJSRuntime js, string copy, object thisComponent, string methodName = "")
+    public static async Task<bool> CopyToClipboard(this JavaScriptCustom js, string copy, object thisComponent, string methodName = "")
     {
         try
         {
@@ -50,7 +50,7 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<bool> SessionClear(this IJSRuntime js, object thisComponent, string methodName = "")
+    public static async Task<bool> SessionClear(this JavaScriptCustom js, object thisComponent, string methodName = "")
     {
         try
         {
@@ -63,8 +63,8 @@ public static class JavaScriptRuntime
             return false;
         }
     }
-
-    public static async Task<bool> OpenNewTab(this IJSRuntime js, string url, object thisComponent, string methodName = "")
+    
+    public static async Task<bool> OpenNewTab(this JavaScriptCustom js, string url, object thisComponent, string methodName = "")
     {
         try
         {
@@ -82,7 +82,7 @@ public static class JavaScriptRuntime
 
     #region Uses custom coded methods in a external js file
 
-    public static async Task<bool> AddHeaderHeight(this IJSRuntime js, string htmlId, object thisComponent, string methodName = "")
+    public static async Task<bool> AddHeaderHeight(this JavaScriptCustom js, string htmlId, object thisComponent, string methodName = "")
     {
         string jsMethod = "addHeaderFooterHeight";
         try
@@ -96,7 +96,7 @@ public static class JavaScriptRuntime
             return false;
         }
     }
-    public static async Task<bool> AddFooterHeight(this IJSRuntime js, string htmlId, object thisComponent, string methodName = "")
+    public static async Task<bool> AddFooterHeight(this JavaScriptCustom js, string htmlId, object thisComponent, string methodName = "")
     {
         string jsMethod = "addHeaderFooterHeight";
         try
@@ -111,7 +111,7 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<string?> GetIp(this IJSRuntime js, object thisComponent, string methodName = "")
+    public static async Task<string?> GetIp(this JavaScriptCustom js, object thisComponent, string methodName = "")
     {
         string jsMethod = "getIp";
         try
@@ -125,7 +125,7 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<bool> Reload(this IJSRuntime js, object thisComponent, string methodName = "")
+    public static async Task<bool> Reload(this JavaScriptCustom js, object thisComponent, string methodName = "")
     {
         string jsMethod = "reload";
         try
@@ -140,7 +140,7 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<string> CheckVersion(this IJSRuntime js, NavigationManager _navigationManager, object thisComponent, string methodName = "")
+    public static async Task<string> CheckVersion(this JavaScriptCustom js, NavigationManager _navigationManager, object thisComponent, string methodName = "")
     {
         string jsMethod = "fetchText";
         try
@@ -156,7 +156,7 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<bool?> IsMobileDevice(this IJSRuntime js, object thisComponent, string methodName = "")
+    public static async Task<bool?> IsMobileDevice(this JavaScriptCustom js, object thisComponent, string methodName = "")
     {
         string jsMethod = "isMobileDevice";
         try
@@ -170,7 +170,7 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<bool?> ShowMenuPanel(this IJSRuntime js,
+    public static async Task<bool?> ShowMenuPanel(this JavaScriptCustom js,
         string htmlId, string className, string cssDisplay, object thisComponent, string methodName = "")
     {
         string jsMethod = "showMenuPanel";
@@ -185,7 +185,7 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<JsLocation?> GetLocation(this IJSRuntime js, object thisComponent, string methodName = "")
+    public static async Task<JsLocation?> GetLocation(this JavaScriptCustom js, object thisComponent, string methodName = "")
     {
         string jsMethod = "getLocation";
         try
@@ -216,7 +216,7 @@ public static class JavaScriptRuntime
 
     #region Radzen
 
-    public static async Task<string> GetTheme(this IJSRuntime js, object thisComponent, string methodName = "")
+    public static async Task<string> GetTheme(this JavaScriptCustom js, object thisComponent, string methodName = "")
     {
         string jsMethod = "getRadzenTheme";
         try
@@ -230,7 +230,7 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<bool> SetTheme(this IJSRuntime js, string? name, object thisComponent, string methodName = "")
+    public static async Task<bool> SetTheme(this JavaScriptCustom js, string? name, object thisComponent, string methodName = "")
     {
         string jsMethod = "setRadzenTheme";
         try
@@ -245,7 +245,7 @@ public static class JavaScriptRuntime
         }
     }
 
-    public static async Task<bool> ChangeSidebarToggle(this IJSRuntime js,
+    public static async Task<bool> ChangeSidebarToggle(this JavaScriptCustom js,
         string htmlId, int size, object thisComponent, string methodName = "")
     {
         string jsMethod = "changeSidebarToggleStyle";
