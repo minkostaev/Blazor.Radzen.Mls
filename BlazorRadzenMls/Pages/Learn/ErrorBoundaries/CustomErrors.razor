@@ -27,7 +27,7 @@
     <button @onclick="BtnException_click">Error outside ErrorBoundary</button>
 </div>
 
-PPP: @Environment
+Error: @Environment
 
 @code {
 
@@ -45,7 +45,7 @@ PPP: @Environment
 
         try
         {
-            Environment = await __js.InvokeAsync<string>("getEnvironment");
+            Environment = await __jsr.InvokeAsync<string>("getEnvironment");
         }
         catch (Exception ex)
         {

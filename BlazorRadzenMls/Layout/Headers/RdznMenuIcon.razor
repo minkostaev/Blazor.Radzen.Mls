@@ -73,6 +73,7 @@
         {
             if (ExpectRefresh)
             {
+                Console.WriteLine("TEMP: DifferenceEvent");// DELETE
                 expectRefresh = true;
                 StateHasChanged();
             }
@@ -81,22 +82,10 @@
         {
             if (ExpectRefresh && expectRefresh && !__ver.NeedUpdate)
             {
+                Console.WriteLine("TEMP: TimerEvent");// DELETE
                 expectRefresh = false;
                 StateHasChanged();
             }
-            // if (__ver.NeedUpdate)
-            // {
-            //     expectRefresh = true;
-            //     StateHasChanged();
-            //     ///__state.RefreshPage("");
-            // }
-            // else
-            // {
-            //     bool tmp = expectRefresh;
-            //     expectRefresh = false;
-            //     if (tmp)
-            //         StateHasChanged();
-            // }
         };
 
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;

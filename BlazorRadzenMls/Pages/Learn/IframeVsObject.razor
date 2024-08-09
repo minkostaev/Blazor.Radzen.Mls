@@ -44,8 +44,7 @@
     {
         if (firstRender)
         {
-            try { await __js.InvokeVoidAsync("pdfToIframe", base64Pdf, "iframeId"); }
-            catch { Console.WriteLine("js error: IframeVsObject.razor -> OnAfterRenderAsync"); }
+            await __js.PdfToIframe(base64Pdf, "iframeId", this, "OnAfterRenderAsync");
         }
     }
 

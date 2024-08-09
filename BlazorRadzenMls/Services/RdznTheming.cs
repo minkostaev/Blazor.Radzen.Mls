@@ -2,7 +2,6 @@
 
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Extensions;
-using Microsoft.JSInterop;
 
 public class RdznTheming(JavaScriptCustom iJSRuntime, AppState appState) : IRdznTheming
 {
