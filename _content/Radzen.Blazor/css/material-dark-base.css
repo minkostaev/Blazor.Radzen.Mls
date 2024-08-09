@@ -11960,6 +11960,7 @@ a:focus-visible .rz-fieldset-toggler {
 }
 .rz-menuitem .rz-menuitem-icon {
   vertical-align: top;
+  margin-inline: var(--rz-menu-item-icon-margin-inline);
 }
 
 .rz-splitbutton-menubutton {

@@ -11717,6 +11717,7 @@ a:focus-visible .rz-fieldset-toggler {
 }
 .rz-menuitem .rz-menuitem-icon {
   vertical-align: top;
+  margin-inline: var(--rz-menu-item-icon-margin-inline);
 }
 
 .rz-splitbutton-menubutton {
@@ -21057,10 +21058,10 @@ button.rz-colorpicker-trigger .rzi:before {
   --rz-panel-toggle-icon-height: var(--rz-icon-size);
   --rz-panel-toggle-icon-font-size: var(--rz-icon-size);
   --rz-panel-toggle-icon-border-radius: var(--rz-border-radius);
-  --rz-panel-toggle-icon-background-color: var(--rz-base-200);
+  --rz-panel-toggle-icon-background-color: var(--rz-base-700);
   --rz-panel-toggle-icon-focus-outline: var(--rz-outline-focus);
   --rz-panel-toggle-icon-focus-outline-offset: var(--rz-outline-offset);
-  --rz-panel-hover-color: var(--rz-primary);
+  --rz-panel-hover-color: var(--rz-primary-light);
   --rz-panel-border-radius: var(--rz-border-radius);
   --rz-panel-shadow: none;
   /* ProfileMenu */
