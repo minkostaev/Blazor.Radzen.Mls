@@ -5,61 +5,50 @@ using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-public class JavaScriptCustom(IJSRuntime jsRuntime, IWebAssemblyHostEnvironment environment)/// : IJSRuntime
+public class JavaScriptCustom(IJSRuntime jsRuntime, IWebAssemblyHostEnvironment environment)
 {
-    private readonly IJSRuntime __js = jsRuntime;
+    private readonly IJSRuntime __jsr = jsRuntime;
     private readonly IWebAssemblyHostEnvironment __env = environment;
 
-    ///public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>
-    ///    (string identifier, CancellationToken cancellationToken, object?[]? args)
-    ///{
-    ///    return __js.InvokeAsync<TValue>(identifier, args);
-    ///}
-    ///public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>
-    ///    (string identifier, object?[]? args)
-    ///{
-    ///    return __js.InvokeAsync<TValue>(identifier, args);
-    ///}
+    private string? RazorComponent { get; set; }
+    private string? CSharpMethod { get; set; }
 
     public bool IsDevelopment => __env.IsDevelopment();
 
-
-
-    ///public object? FromComponent { get; set; }
-    ///public string? FromMethod { get; set; }
-
-    private string? razorComponent { get; set; }
-    private string? cSharpMethod { get; set; }
-
-    public async Task<bool> InvokeVoidAsync(string identifier, object?[]? args = null)
+    public async Task<bool> InvokeVoidAsync
+        (string identifier, params object?[]? args)
     {
         bool isSuccess;
+        string? razorComponent = RazorComponent;
+        string? cSharpMethod = CSharpMethod;
         try
         {
-            await __js.InvokeVoidAsync(identifier, args);
+            await __jsr.InvokeVoidAsync(identifier, args);
             isSuccess = true;
         }
         catch (Exception ex)
         {
-            CatchException(identifier, ex.Message);
+            CatchException(razorComponent, cSharpMethod, identifier, ex.Message);
             isSuccess = false;
         }
         return isSuccess;
     }
 
     public async Task<(bool, object?)> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>
-        (string identifier, object?[]? args = null)
+        (string identifier, params object?[]? args)
     {
         bool isSuccess;
         object? result = null;
+        string? razorComponent = RazorComponent;
+        string? cSharpMethod = CSharpMethod;
         try
         {
-            result = await __js.InvokeAsync<TValue>(identifier, args);
+            result = await __jsr.InvokeAsync<TValue>(identifier, args);
             isSuccess = true;
         }
         catch (Exception ex)
         {
-            CatchException(identifier, ex.Message);
+            CatchException(razorComponent, cSharpMethod, identifier, ex.Message);
             isSuccess = false;
         }
         return (isSuccess, result);
@@ -67,15 +56,15 @@ public class JavaScriptCustom(IJSRuntime jsRuntime, IWebAssemblyHostEnvironment 
 
     public void DefineComponent(object? component, string? cMethod)
     {
-        razorComponent = component?.GetType().Name;
-        cSharpMethod = cMethod;
+        RazorComponent = component?.GetType().Name;
+        CSharpMethod = cMethod;
     }
-    private void CatchException(string jsMethod, string exMessage)
+    
+    private void CatchException(string? component, string? cMethod, string jsMethod, string exMessage)
     {
-        Console.WriteLine($"JS error: {razorComponent}.razor -> {cSharpMethod} | {jsMethod}");
+        Console.WriteLine($"JS error: {component}.razor -> {cMethod} | {jsMethod}");
         if (IsDevelopment)
             Console.WriteLine(exMessage);
     }
-
 
 }

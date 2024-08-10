@@ -1,7 +1,6 @@
 ﻿namespace BlazorRadzenMls.Services;
 
 using BlazorRadzenMls.Contracts;
-using BlazorRadzenMls.Extensions;
 using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Models.TheMachine;
 using System;
@@ -30,9 +29,12 @@ public class Apito : IApito
     {
         var (response, result) = await AppStatic.GetResponse(_httpClient, EndpointMachinesLogs);
 
+        if (response == null)
+            return result;
+
         var timer = AppStatic.TimerStart();
 
-        try { result.Result = await response!.Content.ReadFromJsonAsync<MachinesLogs[]>(); }
+        try { result.Result = await response.Content.ReadFromJsonAsync<MachinesLogs[]>(); }
         catch { result.Status = HttpCodeJson; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
@@ -94,9 +96,12 @@ public class Apito : IApito
     {
         var (response, result) = await AppStatic.GetResponse(_httpClient, EndpointMachinesDetails);
 
+        if (response == null)
+            return result;
+
         var timer = AppStatic.TimerStart();
 
-        try { result.Result = await response!.Content.ReadFromJsonAsync<MachineDb[]>(); }
+        try { result.Result = await response.Content.ReadFromJsonAsync<MachineDb[]>(); }
         catch { result.Status = HttpCodeJson; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
@@ -108,9 +113,12 @@ public class Apito : IApito
     {
         var (response, result) = await AppStatic.GetResponse(_httpClient, EndpointMachinesRecords);
 
+        if (response == null)
+            return result;
+
         var timer = AppStatic.TimerStart();
 
-        try { result.Result = await response!.Content.ReadFromJsonAsync<MachinesRecords[]>(); }
+        try { result.Result = await response.Content.ReadFromJsonAsync<MachinesRecords[]>(); }
         catch { result.Status = HttpCodeJson; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
@@ -122,9 +130,12 @@ public class Apito : IApito
     {
         var (response, result) = await AppStatic.GetResponse(_httpClient, EndpointImoti);
 
+        if (response == null)
+            return result;
+
         var timer = AppStatic.TimerStart();
 
-        try { result.Result = await response!.Content.ReadFromJsonAsync<ImotMongo[]>(); }
+        try { result.Result = await response.Content.ReadFromJsonAsync<ImotMongo[]>(); }
         catch { result.Status = HttpCodeJson; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
