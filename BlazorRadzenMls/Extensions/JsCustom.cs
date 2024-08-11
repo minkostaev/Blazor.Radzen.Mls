@@ -1,35 +1,36 @@
 ﻿namespace BlazorRadzenMls.Extensions;
 
+using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components;
 
-public static class JavaScriptRuntime
+public static class JsCustom
 {
     #region Uses default js methods
 
-    public static async Task<bool> CopyToClipboard(this JavaScriptCustom js,
+    public static async Task<bool> CopyToClipboard(this IJavaScriptCustom js,
         string copy, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("navigator.clipboard.writeText", copy);
     }
 
-    public static async Task<bool> SessionClear(this JavaScriptCustom js,
+    public static async Task<bool> SessionClear(this IJavaScriptCustom js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("sessionStorage.clear");
     }
     
-    public static async Task<bool> OpenNewTab(this JavaScriptCustom js,
+    public static async Task<bool> OpenNewTab(this IJavaScriptCustom js,
         string url, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("open", url, "_blank");
     }
 
-    public static async Task<bool> ScrollToTop(this JavaScriptCustom js,
+    public static async Task<bool> ScrollToTop(this IJavaScriptCustom js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -40,20 +41,21 @@ public static class JavaScriptRuntime
 
     #region Uses custom coded methods in a external js file
 
-    public static async Task<bool> AddHeaderHeight(this JavaScriptCustom js,
+    public static async Task<bool> AddHeaderHeight(this IJavaScriptCustom js,
         string htmlId, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("addHeaderFooterHeight", htmlId, true);
     }
-    public static async Task<bool> AddFooterHeight(this JavaScriptCustom js,
+    public static async Task<bool> AddFooterHeight(this IJavaScriptCustom js,
         string htmlId, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("addHeaderFooterHeight", htmlId, false);
     }
 
-    public static async Task<string?> GetIp(this JavaScriptCustom js, object thisComponent, string methodName = "")
+    public static async Task<string?> GetIp(this IJavaScriptCustom js,
+        object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         var result = await js.InvokeAsync<string>("getIp");
@@ -62,14 +64,14 @@ public static class JavaScriptRuntime
         return null;
     }
 
-    public static async Task<bool> Reload(this JavaScriptCustom js,
+    public static async Task<bool> Reload(this IJavaScriptCustom js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("reload");
     }
 
-    public static async Task<string> CheckVersion(this JavaScriptCustom js,
+    public static async Task<string> CheckVersion(this IJavaScriptCustom js,
         NavigationManager _navigationManager, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -80,7 +82,7 @@ public static class JavaScriptRuntime
         return "0.0.0.0";
     }
 
-    public static async Task<bool?> IsMobileDevice(this JavaScriptCustom js,
+    public static async Task<bool?> IsMobileDevice(this IJavaScriptCustom js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -90,7 +92,7 @@ public static class JavaScriptRuntime
         return null;
     }
 
-    public static async Task<bool?> ShowMenuPanel(this JavaScriptCustom js,
+    public static async Task<bool?> ShowMenuPanel(this IJavaScriptCustom js,
         string htmlId, string className, string cssDisplay, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -100,7 +102,7 @@ public static class JavaScriptRuntime
         return null;
     }
 
-    public static async Task<JsLocation?> GetLocation(this JavaScriptCustom js,
+    public static async Task<JsLocation?> GetLocation(this IJavaScriptCustom js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -142,7 +144,7 @@ public static class JavaScriptRuntime
         return null;
     }
 
-    public static async Task<bool> PdfToIframe(this JavaScriptCustom js,
+    public static async Task<bool> PdfToIframe(this IJavaScriptCustom js,
         string base64Pdf, string iframeId, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -154,7 +156,7 @@ public static class JavaScriptRuntime
 
     #region Radzen
 
-    public static async Task<string> GetTheme(this JavaScriptCustom js,
+    public static async Task<string> GetTheme(this IJavaScriptCustom js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -164,14 +166,14 @@ public static class JavaScriptRuntime
         return string.Empty;
     }
 
-    public static async Task<bool> SetTheme(this JavaScriptCustom js,
+    public static async Task<bool> SetTheme(this IJavaScriptCustom js,
         string? name, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("setRadzenTheme", name);
     }
 
-    public static async Task<bool> ChangeSidebarToggle(this JavaScriptCustom js,
+    public static async Task<bool> ChangeSidebarToggle(this IJavaScriptCustom js,
         string htmlId, int size, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);

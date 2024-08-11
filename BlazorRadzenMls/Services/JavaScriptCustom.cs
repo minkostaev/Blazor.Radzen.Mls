@@ -1,11 +1,12 @@
 ﻿namespace BlazorRadzenMls.Services;
 
+using BlazorRadzenMls.Contracts;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-public class JavaScriptCustom(IJSRuntime jsRuntime, IWebAssemblyHostEnvironment environment)
+public class JavaScriptCustom(IJSRuntime jsRuntime, IWebAssemblyHostEnvironment environment) : IJavaScriptCustom
 {
     private readonly IJSRuntime __jsr = jsRuntime;
     private readonly IWebAssemblyHostEnvironment __env = environment;
@@ -34,8 +35,10 @@ public class JavaScriptCustom(IJSRuntime jsRuntime, IWebAssemblyHostEnvironment 
         return isSuccess;
     }
 
-    public async Task<(bool, object?)> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>
-        (string identifier, params object?[]? args)
+    public async Task<(bool, object?)> InvokeAsync<[
+        DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors |
+        DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)
+        ] TValue>(string identifier, params object?[]? args)
     {
         bool isSuccess;
         object? result = null;

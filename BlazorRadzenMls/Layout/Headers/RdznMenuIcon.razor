@@ -71,7 +71,7 @@
     {
         __ver.DifferenceEvent += delegate
         {
-            if (ExpectRefresh)
+            if (ExpectRefresh && !expectRefresh)
             {
                 Console.WriteLine("TEMP: DifferenceEvent");// DELETE
                 expectRefresh = true;

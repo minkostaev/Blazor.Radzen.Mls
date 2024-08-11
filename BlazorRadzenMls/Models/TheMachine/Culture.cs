@@ -5,18 +5,20 @@ using System.Globalization;
 public class Culture
 {
     public Culture() { }
-    public Culture(bool initialize = false)
+    public void Initialize()
     {
         try
         {
-            if (initialize)
-            {
-                Name = CultureInfo.CurrentCulture.Name;
-                Description = CultureInfo.CurrentCulture.EnglishName;
-                Separator = CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
-            }
+            Name = CultureInfo.CurrentCulture.Name;
+            Description = CultureInfo.CurrentCulture.EnglishName;
+            Separator = CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
         }
-        catch (Exception) { }
+        catch (Exception ex)
+        {
+            Name = "Error";
+            Description = ex.Message;
+            Separator = ",";
+        }
     }
 
     public string? Name { get; set; }

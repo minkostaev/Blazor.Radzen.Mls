@@ -3,15 +3,22 @@
 public class Client
 {
     public Client() { }
-    public Client(bool initialize = false)
+    public void Initialize()
     {
-        if (initialize)
+        try
         {
             User = Environment.UserName;
             Machine = Environment.MachineName;
             Domain = Environment.UserDomainName;
-            //CurrentDirectory = Environment.CurrentDirectory;
+            ///CurrentDirectory = Environment.CurrentDirectory;
             Path = Environment.ProcessPath;//CommandLine
+        }
+        catch (Exception ex)
+        {
+            User = "Error";
+            Machine = ex.Message;
+            Domain = string.Empty;
+            Path = string.Empty;
         }
     }
 

@@ -3,9 +3,9 @@
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Extensions;
 
-public class RdznTheming(JavaScriptCustom iJSRuntime, AppState appState) : IRdznTheming
+public class RdznTheming(IJavaScriptCustom iJSRuntime, AppState appState) : IRdznTheming
 {
-    private readonly JavaScriptCustom __js = iJSRuntime;
+    private readonly IJavaScriptCustom __js = iJSRuntime;
     private readonly AppState __state = appState;
 
     /// <summary>

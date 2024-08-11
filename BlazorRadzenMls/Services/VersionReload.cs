@@ -8,9 +8,9 @@ using System.Timers;
 
 public class VersionReload : IVersionReload
 {
-    private readonly JavaScriptCustom __js;
+    private readonly IJavaScriptCustom __js;
     private readonly NavigationManager __nav;
-    public VersionReload(JavaScriptCustom IJSRuntime, NavigationManager navigationManager)
+    public VersionReload(IJavaScriptCustom IJSRuntime, NavigationManager navigationManager)
     {
         __js = IJSRuntime;
         __nav = navigationManager;
