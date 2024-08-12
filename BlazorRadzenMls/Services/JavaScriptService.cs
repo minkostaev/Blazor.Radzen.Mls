@@ -6,7 +6,7 @@ using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-public class JavaScriptCustom(IJSRuntime jsRuntime, IWebAssemblyHostEnvironment environment) : IJavaScriptCustom
+public class JavaScriptService(IJSRuntime jsRuntime, IWebAssemblyHostEnvironment environment) : IJavaScriptService
 {
     private readonly IJSRuntime __jsr = jsRuntime;
     private readonly IWebAssemblyHostEnvironment __env = environment;

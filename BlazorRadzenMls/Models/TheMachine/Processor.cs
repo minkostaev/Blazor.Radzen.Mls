@@ -3,13 +3,19 @@
 public class Processor
 {
     public Processor() { }
-    public Processor(bool initialize = false)
+    public void Initialize()
     {
-        if (initialize)
+        try
         {
             Os64 = Environment.Is64BitOperatingSystem;
             Process64 = Environment.Is64BitProcess;
             Count = Environment.ProcessorCount;
+        }
+        catch (Exception)
+        {
+            Os64 = false;
+            Process64 = false;
+            Count = -1;
         }
     }
 

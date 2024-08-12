@@ -2,7 +2,7 @@
 
 using BlazorRadzenMls.Models;
 
-public interface IApito
+public interface IApitoService
 {
     Task<Response> GetImoti();
     Task<Response> PostImoti(ImotMongo item, bool put = false);

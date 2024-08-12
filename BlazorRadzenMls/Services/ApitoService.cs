@@ -10,7 +10,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 
-public class Apito : IApito
+public class ApitoService : IApitoService
 {
     private const string EndpointMachinesDetails = "/machinesdetails";
     private const string EndpointMachinesLogs = "/machineslogs";
@@ -20,7 +20,7 @@ public class Apito : IApito
     private const HttpStatusCode HttpCodeJson = HttpStatusCode.Conflict;
 
     private readonly HttpClient _httpClient;
-    public Apito(IHttpClientFactory httpClientFactory)
+    public ApitoService(IHttpClientFactory httpClientFactory)
     {
         _httpClient = httpClientFactory.CreateClient("ApitoSomee");
     }

@@ -5,32 +5,32 @@ using BlazorRadzenMls.Models;
 using BlazorRadzenMls.Services;
 using Microsoft.AspNetCore.Components;
 
-public static class JsCustom
+public static class JavaScriptExtensions
 {
     #region Uses default js methods
 
-    public static async Task<bool> CopyToClipboard(this IJavaScriptCustom js,
+    public static async Task<bool> CopyToClipboard(this IJavaScriptService js,
         string copy, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("navigator.clipboard.writeText", copy);
     }
 
-    public static async Task<bool> SessionClear(this IJavaScriptCustom js,
+    public static async Task<bool> SessionClear(this IJavaScriptService js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("sessionStorage.clear");
     }
     
-    public static async Task<bool> OpenNewTab(this IJavaScriptCustom js,
+    public static async Task<bool> OpenNewTab(this IJavaScriptService js,
         string url, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("open", url, "_blank");
     }
 
-    public static async Task<bool> ScrollToTop(this IJavaScriptCustom js,
+    public static async Task<bool> ScrollToTop(this IJavaScriptService js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -41,20 +41,20 @@ public static class JsCustom
 
     #region Uses custom coded methods in a external js file
 
-    public static async Task<bool> AddHeaderHeight(this IJavaScriptCustom js,
+    public static async Task<bool> AddHeaderHeight(this IJavaScriptService js,
         string htmlId, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("addHeaderFooterHeight", htmlId, true);
     }
-    public static async Task<bool> AddFooterHeight(this IJavaScriptCustom js,
+    public static async Task<bool> AddFooterHeight(this IJavaScriptService js,
         string htmlId, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("addHeaderFooterHeight", htmlId, false);
     }
 
-    public static async Task<string?> GetIp(this IJavaScriptCustom js,
+    public static async Task<string?> GetIp(this IJavaScriptService js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -64,14 +64,14 @@ public static class JsCustom
         return null;
     }
 
-    public static async Task<bool> Reload(this IJavaScriptCustom js,
+    public static async Task<bool> Reload(this IJavaScriptService js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("reload");
     }
 
-    public static async Task<string> CheckVersion(this IJavaScriptCustom js,
+    public static async Task<string> CheckVersion(this IJavaScriptService js,
         NavigationManager _navigationManager, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -82,7 +82,7 @@ public static class JsCustom
         return "0.0.0.0";
     }
 
-    public static async Task<bool?> IsMobileDevice(this IJavaScriptCustom js,
+    public static async Task<bool?> IsMobileDevice(this IJavaScriptService js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -92,7 +92,7 @@ public static class JsCustom
         return null;
     }
 
-    public static async Task<bool?> ShowMenuPanel(this IJavaScriptCustom js,
+    public static async Task<bool?> ShowMenuPanel(this IJavaScriptService js,
         string htmlId, string className, string cssDisplay, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -102,49 +102,35 @@ public static class JsCustom
         return null;
     }
 
-    public static async Task<JsLocation?> GetLocation(this IJavaScriptCustom js,
+    public static async Task<JsLocation?> GetLocation(this IJavaScriptService js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
-        var jsProps = new Dictionary<string, string?>()
+        var result = await js.InvokeAsync<Dictionary<string, string>>("getLocation");
+        if (result.Item1 && result.Item2 is Dictionary<string, string> jsProps)
         {
-            { "hash", null},
-            { "host", null},
-            { "hostname", null},
-            { "href", null},
-            { "origin", null},
-            { "pathname", null},
-            { "port", null},
-            { "protocol", null},
-            { "search", null}
-        };
-        bool success = true;
-        foreach (string key in jsProps.Keys)
-        {
-            var jsResult = await js.InvokeAsync<string>("getLocation", key);
-            if (jsResult.Item1 && jsResult.Item2 is string val)
-                jsProps[key] = val;
-            if (!jsResult.Item1)
-                success = false;
+            try
+            {
+                var location = new JsLocation
+                {
+                    Hash = jsProps["hash"],
+                    Host = jsProps["host"],
+                    Hostname = jsProps["hostname"],
+                    Href = jsProps["href"],
+                    Origin = jsProps["origin"],
+                    Pathname = jsProps["pathname"],
+                    Port = jsProps["port"],
+                    Protocol = jsProps["protocol"],
+                    Search = jsProps["search"]
+                };
+                return location;
+            }
+            catch { return null; }
         }
-        var result = new JsLocation
-        {
-            Hash = jsProps["hash"],
-            Host = jsProps["host"],
-            Hostname = jsProps["hostname"],
-            Href = jsProps["href"],
-            Origin = jsProps["origin"],
-            Pathname = jsProps["pathname"],
-            Port = jsProps["port"],
-            Protocol = jsProps["protocol"],
-            Search = jsProps["search"]
-        };
-        if (success)
-            return result;
         return null;
     }
 
-    public static async Task<bool> PdfToIframe(this IJavaScriptCustom js,
+    public static async Task<bool> PdfToIframe(this IJavaScriptService js,
         string base64Pdf, string iframeId, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -156,7 +142,7 @@ public static class JsCustom
 
     #region Radzen
 
-    public static async Task<string> GetTheme(this IJavaScriptCustom js,
+    public static async Task<string> GetTheme(this IJavaScriptService js,
         object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
@@ -166,14 +152,14 @@ public static class JsCustom
         return string.Empty;
     }
 
-    public static async Task<bool> SetTheme(this IJavaScriptCustom js,
+    public static async Task<bool> SetTheme(this IJavaScriptService js,
         string? name, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
         return await js.InvokeVoidAsync("setRadzenTheme", name);
     }
 
-    public static async Task<bool> ChangeSidebarToggle(this IJavaScriptCustom js,
+    public static async Task<bool> ChangeSidebarToggle(this IJavaScriptService js,
         string htmlId, int size, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);

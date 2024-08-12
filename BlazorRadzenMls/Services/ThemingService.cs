@@ -3,10 +3,10 @@
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Extensions;
 
-public class RdznTheming(IJavaScriptCustom iJSRuntime, AppState appState) : IRdznTheming
+public class ThemingService(IJavaScriptService iJSRuntime, StateService appState) : IThemingService
 {
-    private readonly IJavaScriptCustom __js = iJSRuntime;
-    private readonly AppState __state = appState;
+    private readonly IJavaScriptService __js = iJSRuntime;
+    private readonly StateService __state = appState;
 
     /// <summary>
     /// Available radzen themes names

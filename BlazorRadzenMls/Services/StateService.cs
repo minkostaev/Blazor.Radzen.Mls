@@ -4,10 +4,10 @@ using Blazored.LocalStorage;
 using BlazorRadzenMls.Models;
 using System;
 
-public class AppState
+public class StateService
 {
     private readonly ILocalStorageService _localStorage;
-    public AppState(ILocalStorageService localStorage)
+    public StateService(ILocalStorageService localStorage)
     {
         _localStorage = localStorage;
         SiteOptions = new AppOptions();

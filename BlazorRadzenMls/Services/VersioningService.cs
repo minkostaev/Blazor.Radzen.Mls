@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Components;
 using System.Reflection;
 using System.Timers;
 
-public class VersionReload : IVersionReload
+public class VersioningService : IVersioningService
 {
-    private readonly IJavaScriptCustom __js;
+    private readonly IJavaScriptService __js;
     private readonly NavigationManager __nav;
-    public VersionReload(IJavaScriptCustom IJSRuntime, NavigationManager navigationManager)
+    public VersioningService(IJavaScriptService IJSRuntime, NavigationManager navigationManager)
     {
         __js = IJSRuntime;
         __nav = navigationManager;

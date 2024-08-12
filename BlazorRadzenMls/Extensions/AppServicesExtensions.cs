@@ -9,7 +9,7 @@ using Radzen;
 using System.Globalization;
 using System.Reflection;
 
-public static class ProgramServices
+public static class AppServicesExtensions
 {
     public static void AddExternalLibraries(this IServiceCollection services)
     {
@@ -27,10 +27,10 @@ public static class ProgramServices
     }
     public static void AddOwnServices(this IServiceCollection services)
     {
-        services.AddScoped<IJavaScriptCustom, JavaScriptCustom>();
-        services.AddScoped<AppState>();
-        services.AddScoped<MultiLanguage>();
-        services.AddScoped<IRdznTheming, RdznTheming>();
-        services.AddScoped<IVersionReload, VersionReload>();
+        services.AddScoped<IJavaScriptService, JavaScriptService>();
+        services.AddScoped<StateService>();
+        services.AddScoped<LanguageService>();
+        services.AddScoped<IThemingService, ThemingService>();
+        services.AddScoped<IVersioningService, VersioningService>();
     }
 }

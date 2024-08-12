@@ -3,11 +3,11 @@
 using AKSoftware.Localization.MultiLanguages;
 using System.Globalization;
 
-public class MultiLanguage
+public class LanguageService
 {
     private readonly ILanguageContainerService _language;
-    private readonly AppState __state;
-    public MultiLanguage(ILanguageContainerService languageService, AppState appState)
+    private readonly StateService __state;
+    public LanguageService(ILanguageContainerService languageService, StateService appState)
     {
         _language = languageService;
         __state = appState;
@@ -36,7 +36,7 @@ public class MultiLanguage
     /// </summary>
     /// <param name="key">Key from the yml file</param>
     /// <returns>Language string value from the yml</returns>
-    public string this[string? key] //=> _language[key];
+    public string this[string? key]
     {
         get
         {

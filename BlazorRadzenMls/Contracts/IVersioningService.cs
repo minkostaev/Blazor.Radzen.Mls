@@ -1,6 +1,6 @@
 ﻿namespace BlazorRadzenMls.Contracts;
 
-public interface IVersionReload
+public interface IVersioningService
 {
     string VersionProject { get; }
     string VersionWwwroot { get; }

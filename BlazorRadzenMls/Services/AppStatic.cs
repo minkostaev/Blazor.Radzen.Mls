@@ -121,7 +121,7 @@ public static class AppStatic
         };
     }
 
-    public static string GetImagePath(string language, MultiLanguage ml)
+    public static string GetImagePath(string language, LanguageService ml)
     {
         string fileName = string.Empty;
         if (language == ml.en_US.Value)

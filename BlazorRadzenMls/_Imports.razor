@@ -15,7 +15,7 @@
 @inject IConfiguration __config
 @using Microsoft.JSInterop
 @inject IJSRuntime __jsr
-@inject IJavaScriptCustom __js
+@inject IJavaScriptService __js
 @using BlazorRadzenMls
 @using BlazorRadzenMls.Contracts
 @using BlazorRadzenMls.Extensions
@@ -23,10 +23,10 @@
 @using BlazorRadzenMls.Services
 @using Radzen
 @using Radzen.Blazor
-@inject AppState __state
-@inject MultiLanguage __ml
-@inject IVersionReload __ver
-@inject IRdznTheming __theme
+@inject StateService __state
+@inject LanguageService __ml
+@inject IVersioningService __ver
+@inject IThemingService __theme
 @inject TooltipService __tooltip
 @inject DialogService __dialog
 @inject NotificationService __notify

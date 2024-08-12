@@ -2,7 +2,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-public interface IJavaScriptCustom
+public interface IJavaScriptService
 {
     bool IsDevelopment { get; }
     void DefineComponent(object? component, string? cMethod);
