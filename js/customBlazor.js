@@ -53,29 +53,18 @@ async function reload() {
     ///window.location.reload(true);
 }
 
-function getLocation(prop) {
-    switch (prop) {
-        case 'hash':
-            return location.hash;
-        case 'host':
-            return location.host;
-        case 'hostname':
-            return location.hostname;
-        case 'href':
-            return location.href;
-        case 'origin':
-            return location.origin;
-        case 'pathname':
-            return location.pathname;
-        case 'port':
-            return location.port;
-        case 'protocol':
-            return location.protocol;
-        case 'search':
-            return location.search;
-        default:
-            return location;
-    }
+function getLocation() {
+    let result = {};
+    result.hash = location.hash;
+    result.host = location.host;
+    result.hostname = location.hostname;
+    result.href = location.href;
+    result.origin = location.origin;
+    result.pathname = location.pathname;
+    result.port = location.port;
+    result.protocol = location.protocol;
+    result.search = location.search;
+    return result;
 }
 
 async function fetchJson(path) {
