@@ -7,3 +7,7 @@
 .my-rz-body {
     padding: 0;
 }
+
+.rz-dialog-confirm-message {
+    color: var(--rz-primary);
+}
