@@ -47,18 +47,22 @@
         {
             ///string navigationMethod = e.IsNavigationIntercepted ? "HTML" : "code";
             ///Console.WriteLine($"Notified of navigation via {navigationMethod} to {e.Location}");
-            string page = e.Location.Substring(__nav.BaseUri.Length);
-            __state.SiteOptions.Page = page;
+            __state.SiteOptions.Page = e.Location.Substring(__nav.BaseUri.Length);
             await __state.SaveAppOptions();
-            if (string.IsNullOrEmpty(page))
+            if (string.IsNullOrEmpty(__state.SiteOptions.Page))
             {//update home page
                 __state.RefreshPage("App.razor -> __nav.LocationChanged");
             }
         };
 
+        bool differenceNotification = false;
         __ver.DifferenceEvent += delegate
         {
-            __state.RefreshPage("App.razor -> OnInitializedAsync -> __ver.DifferenceEvent");
+            if (!differenceNotification)
+            {
+                __state.RefreshPage("App.razor -> OnInitializedAsync -> __ver.DifferenceEvent");
+                differenceNotification = true;
+            }
         };
 
         __state.RefreshPage("App.razor -> OnInitializedAsync");//await InvokeAsync(StateHasChanged);
