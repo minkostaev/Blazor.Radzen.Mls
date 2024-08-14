@@ -6,7 +6,7 @@
     </div>
     <RadzenButton id="@menuToggleId" Icon="@Name" Click="@LinkOrMenu"
                   Variant="Variant.Text" ButtonStyle="ButtonStyle.Info"
-                  Style="@style" />
+                  Style="@buttonStyle" />
 </div>
 
 @code {
@@ -29,28 +29,28 @@
     [Parameter]
     public bool ExpectRefresh { get; set; }
 
-    private bool expectRefresh;
-    private string style
-    {
-        get
-        {
-            string result = "width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);";
-            if (expectRefresh && ExpectRefresh)
-                return $"{result} color: {Colors.Warning};";
-            return result;
-        }
-    }
-
-    // private string buttonStyle
+    // private bool expectRefresh;
+    // private string style
     // {
     //     get
     //     {
     //         string result = "width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);";
-    //         if (ExpectRefresh && __ver.NeedUpdate)
+    //         if (expectRefresh && ExpectRefresh)
     //             return $"{result} color: {Colors.Warning};";
     //         return result;
     //     }
     // }
+
+    private string buttonStyle
+    {
+        get
+        {
+            string result = "width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);";
+            if (ExpectRefresh && __ver.NeedUpdate)
+                return $"{result} color: {Colors.Warning};";
+            return result;
+        }
+    }
 
     private string menuToggleId = "menuToggle" + Guid.NewGuid().ToString();
     private string menuPanelId = "menuPanel" + Guid.NewGuid().ToString();
@@ -80,24 +80,24 @@
 
     protected override void OnInitialized()
     {
-        __ver.DifferenceEvent += delegate
-        {
-            if (ExpectRefresh && !expectRefresh)
-            {
-                Console.WriteLine("TEMP: DifferenceEvent");// DELETE
-                expectRefresh = true;
-                StateHasChanged();
-            }
-        };
-        __ver.TimerEvent += delegate
-        {
-            if (ExpectRefresh && expectRefresh && !__ver.NeedUpdate)
-            {
-                Console.WriteLine("TEMP: TimerEvent");// DELETE
-                expectRefresh = false;
-                StateHasChanged();
-            }
-        };
+        // __ver.DifferenceEvent += delegate
+        // {
+        //     if (ExpectRefresh && !expectRefresh)
+        //     {
+        //         Console.WriteLine("TEMP: DifferenceEvent");// DELETE
+        //         expectRefresh = true;
+        //         StateHasChanged();
+        //     }
+        // };
+        // __ver.TimerEvent += delegate
+        // {
+        //     if (ExpectRefresh && expectRefresh && !__ver.NeedUpdate)
+        //     {
+        //         Console.WriteLine("TEMP: TimerEvent");// DELETE
+        //         expectRefresh = false;
+        //         StateHasChanged();
+        //     }
+        // };
 
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }

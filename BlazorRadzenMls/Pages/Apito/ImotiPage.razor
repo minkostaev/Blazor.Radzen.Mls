@@ -15,6 +15,7 @@
         <HeaderTemplate>
             @* <RdznGrdHdrTmpt /> *@
             @time
+            <RadzenButton Text="GoToPage" Click="@GoToPage" />
         </HeaderTemplate>
         <Columns>
             <RadzenDataGridColumn Property="@nameof(Imot.Label)" Title="Label" />
@@ -51,9 +52,11 @@ else
     private ImotMongo? newImot;
 
     private string? time;
+    private int PageIndex = 0;
 
     private void grid_ValueChanged(object items)
     {
+        PageIndex = grid!.CurrentPage;
         var itemsList = items as List<ImotMongo>;
         if (itemsList == null || itemsList.Count == 0)
             return;
@@ -123,6 +126,11 @@ else
     {
         newImot = new ImotMongo();
         await GetImoti();
+    }
+
+    private async Task GoToPage()
+    {
+        await grid.GoToPage(PageIndex);
     }
 
 }
