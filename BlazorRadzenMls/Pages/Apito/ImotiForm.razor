@@ -139,15 +139,15 @@
                     <Authorized>
                         @if (IsNew)
                         {
-                            <RadzenButton Text="Add" Icon="note_add" Click="() => Method.InvokeAsync(HttpMethod.Post)" />
+                            <RadzenButton Text="Add" Icon="note_add" Click="() => Btn_Clicked(HttpMethod.Post)" />
                         }
                         else
                         {
                             @if (SelectedImot != null && context?.User?.Identity?.Name == "rbsxkbgzpekhuwsufu@cazlp.com")
                             {
-                                <RadzenButton Text="Update" Icon="build" Click="() => Method.InvokeAsync(HttpMethod.Put)" />
+                                <RadzenButton Text="Update" Icon="build" Click="() => Btn_Clicked(HttpMethod.Put)" />
                                 <RadzenButton Text="Delete" Icon="delete" ButtonStyle="ButtonStyle.Danger"
-                                Click="() => Method.InvokeAsync(HttpMethod.Delete)" />
+                                              Click="() => Btn_Clicked(HttpMethod.Delete)" />
                             }
                             else
                             {
@@ -219,6 +219,13 @@
             newPictures = value;
             NewImot.Pictures = newPictures?.Split(' ');
         }
+    }
+
+    private void Btn_Clicked(HttpMethod httpMethod)
+    {
+        Method.InvokeAsync(httpMethod);
+        __dialog.Close(true);
+        //@((args) => dialogService.Close(true))
     }
 
 }

@@ -12,7 +12,7 @@ public class Imot
     public int Price { get; set; }
     public string[]? Pictures { get; set; }
     [JsonIgnore]
-    public string? Domain => new Uri(Link!).Host;
+    public string? Domain => (Link == null) ? null : new Uri(Link).Host;
 }
 public class ImotMongo : Imot
 {

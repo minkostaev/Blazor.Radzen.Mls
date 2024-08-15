@@ -9,13 +9,13 @@
 @if (dataImoti != null)
 {
     <RadzenDataGrid @ref="grid" Data="@dataImoti" TItem="ImotMongo" ValueChanged="@grid_ValueChanged"
+                    Render="@OnRender" RowDoubleClick="@OnDoubleClick"
                     PageSize="10" AllowPaging="true" AllowSorting="true" AllowAlternatingRows="false"
                     PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                     AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.CheckBoxList">
         <HeaderTemplate>
             @* <RdznGrdHdrTmpt /> *@
             @time
-            <RadzenButton Text="GoToPage" Click="@GoToPage" />
         </HeaderTemplate>
         <Columns>
             <RadzenDataGridColumn Property="@nameof(Imot.Label)" Title="Label" />
@@ -52,11 +52,10 @@ else
     private ImotMongo? newImot;
 
     private string? time;
-    private int PageIndex = 0;
+    private KeyValuePair<bool, int> PageGoToNeeded = new KeyValuePair<bool, int>(false, 0);
 
     private void grid_ValueChanged(object items)
     {
-        PageIndex = grid!.CurrentPage;
         var itemsList = items as List<ImotMongo>;
         if (itemsList == null || itemsList.Count == 0)
             return;
@@ -94,14 +93,20 @@ else
     {
         await _apito.PostImoti(newImot!);
         newImot = new ImotMongo();
+        int? index = grid?.CurrentPage;
         await Clear();
+        if (index != null)
+            PageGoToNeeded = new KeyValuePair<bool, int>(true, index ?? default(int));
     }
     private async Task EditImot()
     {
         if (selectedImot == null)
             return;
         await _apito.PostImoti(selectedImot!, true);
+        int? index = grid?.CurrentPage;
         await Clear();
+        if (index != null)
+            PageGoToNeeded = new KeyValuePair<bool, int>(true, index ?? default(int));
     }
     private async Task Delete()
     {
@@ -110,7 +115,10 @@ else
         if (confirm == true)
         {
             await _apito.DeleteImot(selectedImot!.Id);
+            int? index = grid?.CurrentPage;
             await Clear();
+            if (index != null)
+                PageGoToNeeded = new KeyValuePair<bool, int>(true, index ?? default(int));
         }
     }
     private async Task Clear()
@@ -122,15 +130,41 @@ else
         //waitingRequest = false;
     }
 
+    private void OnRender(DataGridRenderEventArgs<ImotMongo> args)
+    {
+        if (PageGoToNeeded.Key)
+        {
+            args.Grid.GoToPage(PageGoToNeeded.Value);
+            PageGoToNeeded = new KeyValuePair<bool, int>(false, args.Grid.CurrentPage);
+        }
+    }
+
+    private async Task OnDoubleClick()
+    {
+        await __dialog.OpenAsync<ImotiForm>($"Title",
+            new Dictionary<string, object>() {
+                { "IsNew", isNew },
+                { "NewImot", newImot! },
+                { "SelectedImot", selectedImot! },
+                { "Method", new EventCallback<HttpMethod>(this, Imot_Form) }
+            },
+            new DialogOptions()
+            {
+                Resizable = true,
+                Draggable = true,
+                //Resize = OnResize,
+                //Drag = OnDrag,
+                //Width = Settings != null ? Settings.Width : "700px",
+                //Height = Settings != null ? Settings.Height : "512px",
+                //Left = Settings != null ? Settings.Left : null,
+                //Top = Settings != null ? Settings.Top : null
+            });
+    }
+
     protected override async Task OnInitializedAsync()
     {
         newImot = new ImotMongo();
         await GetImoti();
-    }
-
-    private async Task GoToPage()
-    {
-        await grid.GoToPage(PageIndex);
     }
 
 }
