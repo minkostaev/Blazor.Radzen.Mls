@@ -29,18 +29,6 @@
     [Parameter]
     public bool ExpectRefresh { get; set; }
 
-    // private bool expectRefresh;
-    // private string style
-    // {
-    //     get
-    //     {
-    //         string result = "width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);";
-    //         if (expectRefresh && ExpectRefresh)
-    //             return $"{result} color: {Colors.Warning};";
-    //         return result;
-    //     }
-    // }
-
     private string buttonStyle
     {
         get
@@ -80,25 +68,7 @@
 
     protected override void OnInitialized()
     {
-        // __ver.DifferenceEvent += delegate
-        // {
-        //     if (ExpectRefresh && !expectRefresh)
-        //     {
-        //         Console.WriteLine("TEMP: DifferenceEvent");// DELETE
-        //         expectRefresh = true;
-        //         StateHasChanged();
-        //     }
-        // };
-        // __ver.TimerEvent += delegate
-        // {
-        //     if (ExpectRefresh && expectRefresh && !__ver.NeedUpdate)
-        //     {
-        //         Console.WriteLine("TEMP: TimerEvent");// DELETE
-        //         expectRefresh = false;
-        //         StateHasChanged();
-        //     }
-        // };
-
+        
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }

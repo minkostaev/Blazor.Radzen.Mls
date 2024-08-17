@@ -5,16 +5,14 @@
 @* <h1>Pdf Iframe</h1> *@
 
 <div class="rz-p-4">
-    <div style="display: flex; justify-content: center; align-items: center;">
-        <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4" style="width: 644px; height: 860px;">
-            <iframe id="@IframeId" style="width: 600px; height: 800px;"></iframe>
-        </RadzenCard>
-    </div>
-    
-    <div style="display: flex; justify-content: center; align-items: center;">
-        <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4" style="width: 644px;">
+    <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4"
+                Style="min-width: 344px; width: 100%;">
+        <iframe id="@IframeId" style="width: 100%; height: 700px;"></iframe>
+    </RadzenCard>
+
+    <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4">
 <pre style="color: var(--rz-secondary);"><code>1) In the HTML razor
-&lt;iframe id="iframeHtmlId" style="width: 600px; height: 800px;"&gt;&lt;/&lt;iframe&gt;
+&lt;iframe id="iframeHtmlId"&gt;&lt;/&lt;iframe&gt;
 2) In the @@code { }
 await js.InvokeVoidAsync("pdfToIframe", base64PdfString, iframeHtmlId);
 3) In the js code file
@@ -26,14 +24,12 @@ function pdfToIframe(base64PdfString, iframeHtmlId) {
   viewer.setAttribute('src', objectUrl);
   viewer.onload = () => URL.revokeObjectURL(objectUrl);
 }</code></pre>
-        </RadzenCard>
-    </div>
+    </RadzenCard>
 
-    <div style="display: flex; justify-content: center; align-items: center;">
-        <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4" style="width: 644px; height: 860px;">
-            <iframe src="@Src" style="width: 600px; height: 800px;"></iframe>
-        </RadzenCard>
-    </div>
+    <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4"
+                Style="min-width: 344px; width: 100%;">
+        <iframe src="@Src" style="width: 100%; height: 700px;"></iframe>
+    </RadzenCard>
 </div>
 
 @code {

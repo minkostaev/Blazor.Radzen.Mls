@@ -54,7 +54,7 @@
 
     <RadzenPanelMenuItem Text="@txtVersion" IconColor="@clrIcon" Icon="info">
         <RadzenPanelMenuItem Text="@btnReload" Icon="autorenew" IconColor="@clrIcon"
-                             Click="@Refresh_Click" Style="@clrStyle" />
+                             Click="@(() => AppStatic.Refresh(__ver, __dialog, __ml))" Style="@clrStyle" />
     </RadzenPanelMenuItem>
 
 </RadzenPanelMenu>
@@ -111,13 +111,13 @@
         __state.RefreshPage("RdznMenuOptions.razor -> MultipleArrows_Click");
     }
 
-    private async Task Refresh_Click()
-    {
-        var options = new ConfirmOptions() { OkButtonText = __ml["Refresh"], CancelButtonText = __ml["Cancel"] };
-        bool? confirm = await __dialog.Confirm(__ml["Refresh1"], __ml["Refresh"], options);
-        if (confirm == true)
-            await __ver.Reload();
-    }
+    // private async Task Refresh_Click()
+    // {
+    //     var options = new ConfirmOptions() { OkButtonText = __ml["Refresh"], CancelButtonText = __ml["Cancel"] };
+    //     bool? confirm = await __dialog.Confirm(__ml["Refresh1"], __ml["Refresh"], options);
+    //     if (confirm == true)
+    //         await __ver.Reload();
+    // }
 
     protected override async Task OnInitializedAsync()
     {

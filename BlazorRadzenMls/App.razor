@@ -61,11 +61,24 @@
             if (!differenceNotification)
             {
                 __state.RefreshPage("App.razor -> OnInitializedAsync -> __ver.DifferenceEvent");
+                ShowNotificationWithCustomContent();
                 differenceNotification = true;
             }
         };
-
+        
         __state.RefreshPage("App.razor -> OnInitializedAsync");//await InvokeAsync(StateHasChanged);
+    }
+
+    private void ShowNotificationWithCustomContent()
+    {
+        __notify.Notify(new NotificationMessage
+        {
+            Severity = NotificationSeverity.Info,
+            Duration = 20000,
+            SummaryContent = ns => @<RadzenText TextStyle="TextStyle.H6">@__ml["New version available"]</RadzenText>,
+            DetailContent = ns => @<RadzenButton Text="@__ml["Update"]" Click="@(() => AppStatic.Refresh(__ver, __dialog, __ml))" />
+            ///DetailContent = ns => @<RadzenButton Text="@__ml["Update"]" Click="@(args => ns.Messages.Clear())" />
+        });
     }
 
 }

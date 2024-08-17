@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Net;
 using System.Text.RegularExpressions;
+using BlazorRadzenMls.Contracts;
+using Radzen;
 
 public static class AppStatic
 {
@@ -143,6 +145,14 @@ public static class AppStatic
         if (string.IsNullOrEmpty(str))
             return string.Empty;
         return char.ToUpper(str[0]) + str.Substring(1);
+    }
+
+    public static async Task Refresh(IVersioningService __ver, DialogService __dialog, LanguageService __ml)
+    {
+        var options = new ConfirmOptions() { OkButtonText = __ml["Refresh"], CancelButtonText = __ml["Cancel"] };
+        bool? confirm = await __dialog.Confirm(__ml["Refresh1"], __ml["Refresh"], options);
+        if (confirm == true)
+            await __ver.Reload();
     }
 
     ///public string ReplaceFirst(string text, string oldValue, string newValue)
