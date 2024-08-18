@@ -2,14 +2,15 @@
 
 @using BlazorRadzenMls.CustomComponents
 
-@* <h1>Pdf Iframe</h1> *@
+<PageTitle>Pdf Iframe</PageTitle>
 
 <div class="rz-p-4">
+    <RadzenText Text="@__ml["Pdf Iframe"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
+    
     <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4"
                 Style="min-width: 344px; width: 100%;">
-        <iframe id="@IframeId" style="width: 100%; height: 700px;"></iframe>
+        <iframe id="@IframeId" style="width: 100%; max-width: 700px; height: 700px;"></iframe>
     </RadzenCard>
-
     <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4">
 <pre style="color: var(--rz-secondary);"><code>1) In the HTML razor
 &lt;iframe id="iframeHtmlId"&gt;&lt;/&lt;iframe&gt;
@@ -24,16 +25,25 @@ function pdfToIframe(base64PdfString, iframeHtmlId) {
   viewer.setAttribute('src', objectUrl);
   viewer.onload = () => URL.revokeObjectURL(objectUrl);
 }</code></pre>
+        <RadzenLabel Text="@__ml["This is usefull for big files, but could have issue with mobile."]" class="rz-color-success-dark" />
     </RadzenCard>
-
+    
     <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4"
                 Style="min-width: 344px; width: 100%;">
-        <iframe src="@Src" style="width: 100%; height: 700px;"></iframe>
+        <iframe src="@Src" style="width: 100%; max-width: 700px; height: 700px;"></iframe>
+    </RadzenCard>
+    <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4">
+<pre style="color: var(--rz-secondary);"><code>1) In the HTML razor
+&lt;iframe src="@@Src"&gt;&lt;/&lt;iframe&gt;
+2) In the @@code { }
+string Src = "data:application/pdf;base64," + Base64Pdf;
+</code></pre>
+        <RadzenLabel Text="@__ml["This could fail to load big files, but for mobile could give option to download."]" class="rz-color-success-dark" />
     </RadzenCard>
 </div>
 
 @code {
-
+    
     private const string Src = "data:application/pdf;base64," + Base64Pdf;
 
     private const string IframeId = "iframeId";
