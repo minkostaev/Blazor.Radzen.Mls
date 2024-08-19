@@ -5,22 +5,32 @@
                 Style="min-width: 344px; width: 100%;">
         <iframe src="data/sample.pdf" style="width: 100%; max-width: 700px; height: 700px;"></iframe>
     </RadzenCard>
-    <object data="data/sample.pdf"
-            type="application/pdf"
-            width="100%"
-            height="600px">
-        <p>Here's a link to <a href="CleanCode.pdf">the PDF</a>instead.</p>
-    </object>
-    <embed src="data/sample.pdf"
-           type="application/pdf"
-           width="100%"
-           height="600px" />
-    <object data="https://www.princexml.com/howcome/2016/samples/invoice/index.pdf"
-            type="application/pdf"
-            width="100%"
-            height="600px">
-        <p>Here's a link to <a href="https://www.princexml.com/howcome/2016/samples/invoice/index.pdf">the PDF</a>instead.</p>
-    </object>
+
+    <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4"
+                Style="min-width: 344px; width: 100%;">
+        <object data="data/sample.pdf"
+                type="application/pdf"
+                style="width: 100%; max-width: 700px; height: 700px;">
+            <p>Here's a link to <a href="CleanCode.pdf">the PDF</a> instead.</p>
+        </object>
+    </RadzenCard>
+
+    <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4"
+                Style="min-width: 344px; width: 100%;">
+        <embed src="data/sample.pdf"
+               type="application/pdf"
+               style="width: 100%; max-width: 700px; height: 700px;" />
+    </RadzenCard>
+
+    <RadzenCard class="rz-background-color-base-300 rz-my-3 rz-shadow-4"
+                Style="min-width: 344px; width: 100%;">
+        <object data="https://www.princexml.com/howcome/2016/samples/invoice/index.pdf"
+                type="application/pdf"
+                style="width: 100%; max-width: 700px; height: 700px;">
+            <p>Here's a link to <a href="https://www.princexml.com/howcome/2016/samples/invoice/index.pdf"> the PDF</a>instead.</p>
+        </object>
+    </RadzenCard>
+
 </div>
 
 @code {

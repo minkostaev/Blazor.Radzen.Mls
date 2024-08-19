@@ -101,23 +101,15 @@
         __state.RefreshPage("RdznMenuOptions.razor -> Menu_Click");
         await __state.SaveAppOptions();
     }
-    private async Task MultipleArrows_Click(bool arrows)
+    private async Task MultipleArrows_Click(bool isArrows)
     {
-        if (arrows)
+        if (isArrows)
             __state.SiteOptions.Menu.Arrow = !__state.SiteOptions.Menu.Arrow;
         else
             __state.SiteOptions.Menu.Multiple = !__state.SiteOptions.Menu.Multiple;
-        await __state.SaveAppOptions();
         __state.RefreshPage("RdznMenuOptions.razor -> MultipleArrows_Click");
+        await __state.SaveAppOptions();
     }
-
-    // private async Task Refresh_Click()
-    // {
-    //     var options = new ConfirmOptions() { OkButtonText = __ml["Refresh"], CancelButtonText = __ml["Cancel"] };
-    //     bool? confirm = await __dialog.Confirm(__ml["Refresh1"], __ml["Refresh"], options);
-    //     if (confirm == true)
-    //         await __ver.Reload();
-    // }
 
     protected override async Task OnInitializedAsync()
     {

@@ -1,6 +1,7 @@
 ﻿namespace BlazorRadzenMls.Services;
 
 using Blazored.LocalStorage;
+using BlazorRadzenMls.Layout;
 using BlazorRadzenMls.Models;
 using System;
 
@@ -11,6 +12,7 @@ public class StateService
     {
         _localStorage = localStorage;
         SiteOptions = new AppOptions();
+        CurrentLayoutType = (typeof(StickyLayout));
     }
 
     public AppOptions SiteOptions { get; set; }
@@ -30,4 +32,6 @@ public class StateService
         RefreshEvent?.Invoke(e, EventArgs.Empty); Console.WriteLine(e);
     }
 
+    public Type? CurrentLayoutType { get; set; }
+    
 }

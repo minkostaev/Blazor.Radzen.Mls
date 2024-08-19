@@ -1,7 +1,7 @@
 ﻿<CascadingAuthenticationState>
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(StickyLayout)">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@__state.CurrentLayoutType">
                 <Authorizing>
                     <RadzenLabel Text="Getting user information, please wait." class="rz-color-success-dark" />
                     <div class="loader">Loading...</div>
@@ -24,7 +24,7 @@
         </Found>
         <NotFound>
             <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="@typeof(StickyLayout)">
+            <LayoutView Layout="@__state.CurrentLayoutType">
                 <RadzenLabel Text="This address doesn't have content." class="rz-color-success-dark" />
                 <img alt="404" src="/images/browser-404.svg" style="width: 100%; height: 90%;" />
             </LayoutView>
@@ -61,24 +61,30 @@
             if (!differenceNotification)
             {
                 __state.RefreshPage("App.razor -> OnInitializedAsync -> __ver.DifferenceEvent");
-                ShowNotificationWithCustomContent();
+                ShowNotificationUpdate();
                 differenceNotification = true;
             }
         };
-        
+
         __state.RefreshPage("App.razor -> OnInitializedAsync");//await InvokeAsync(StateHasChanged);
     }
 
-    private void ShowNotificationWithCustomContent()
+    private void ShowNotificationUpdate()
     {
         __notify.Notify(new NotificationMessage
         {
             Severity = NotificationSeverity.Info,
-            Duration = 20000,
+            Duration = 40000,
             SummaryContent = ns => @<RadzenText TextStyle="TextStyle.H6">@__ml["New version available"]</RadzenText>,
             DetailContent = ns => @<RadzenButton Text="@__ml["Update"]" Click="@(() => AppStatic.Refresh(__ver, __dialog, __ml))" />
             ///DetailContent = ns => @<RadzenButton Text="@__ml["Update"]" Click="@(args => ns.Messages.Clear())" />
         });
     }
+
+    protected override void OnInitialized()
+    {
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+    }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }
