@@ -113,7 +113,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await __ver.CheckVersion();
+        //await __ver.CheckVersion();
         
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }

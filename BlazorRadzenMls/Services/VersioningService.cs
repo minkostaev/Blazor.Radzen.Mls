@@ -24,14 +24,18 @@ public class VersioningService : IVersioningService
             timerCheck.Stop();
         };
 
+        bool diffEventInvoked = false;
         var timer = new Timer(10000) { Enabled = true };//10 sec
         timer.Elapsed += async delegate
         {
             TimerEvent?.Invoke(timer, EventArgs.Empty);
             await CheckVersion();
-            if (NeedUpdate)
+            if (NeedUpdate && !diffEventInvoked)
             {
                 DifferenceEvent?.Invoke(timer, EventArgs.Empty);
+                diffEventInvoked = true;
+                if (AutoUpdate)
+                    await Reload();
             }
         };
     }
@@ -50,6 +54,11 @@ public class VersioningService : IVersioningService
     /// Cached version numver
     /// </summary>
     public string VersionWwwroot { get; private set; }
+
+    /// <summary>
+    /// Force Reload of the app/site
+    /// </summary>
+    public bool AutoUpdate { get; set; }
 
     /// <summary>
     /// Is there differences in the versions (depends on CheckVersion methods)

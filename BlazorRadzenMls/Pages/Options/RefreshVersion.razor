@@ -20,8 +20,6 @@
 
     protected override async void OnInitialized()
     {
-        //await __ver.CheckVersion();
-        
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }

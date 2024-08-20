@@ -55,15 +55,10 @@
             }
         };
 
-        bool differenceNotification = false;
         __ver.DifferenceEvent += delegate
         {
-            if (!differenceNotification)
-            {
-                __state.RefreshPage("App.razor -> OnInitializedAsync -> __ver.DifferenceEvent");
-                ShowNotificationUpdate();
-                differenceNotification = true;
-            }
+            __state.RefreshPage("App.razor -> OnInitializedAsync -> __ver.DifferenceEvent");
+            ShowNotificationUpdate();
         };
 
         __state.RefreshPage("App.razor -> OnInitializedAsync");//await InvokeAsync(StateHasChanged);
