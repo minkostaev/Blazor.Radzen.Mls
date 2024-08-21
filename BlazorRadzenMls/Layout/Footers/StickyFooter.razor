@@ -1,12 +1,18 @@
 ﻿@using BlazorRadzenMls.Models
 
 <div id="@htmlIdFooter" class="rz-panel-menu td-footer">
-    &copy; 2023-@DateTime.Now.Year site powered by МинцЪт
+    <div style="text-align: right; padding-right: 10px;">
+        <RadzenLabel Text="@text" class="rz-color-success-dark" />
+    </div>
 </div>
 
 @code {
 
     private const string htmlIdFooter = "footerStickyLayout";
+
+    private static string text = "© Copyright 2023-" + DateTime.Now.Year.ToString() + " site powered by МинцЪт";
+
+    //   ©   &copy;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

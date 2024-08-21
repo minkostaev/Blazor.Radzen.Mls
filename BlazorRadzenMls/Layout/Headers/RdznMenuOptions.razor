@@ -6,24 +6,31 @@
     <RadzenPanelMenuItem Text="МинцЪт" Image="images/icon-128.png" />
 
     <RadzenPanelMenuItem Text="@txtTheme" Icon="@ThemeIcon(false)">
-        @foreach (var i in __theme.Themes)
+        <RadzenPanelMenuItem Text="@__ml["Light"]" Click="() => ThemeDark_Click(false)"
+                             Icon="light_mode" IconColor="@IconColor(__theme.IsDark == false)"
+                             Style="@ThemeStyle(__theme.IsDark == false)" />
+        <RadzenPanelMenuItem Text="@__ml["Dark"]" Click="() => ThemeDark_Click(true)"
+                             Icon="dark_mode" IconColor="@IconColor(__theme.IsDark == true)"
+                             Style="@ThemeStyle(__theme.IsDark == true)" />
+        <hr style="margin:0;" />
+        @foreach (string thm in __theme.ThemesBasic)
         {
-            <RadzenPanelMenuItem Text="@__ml[i]" Click="() => Theme_Click(i)"
-                                 Icon="@ThemeIcon(__state.SiteOptions.Theme == i)"
-                                 IconColor="@IconColor(__state.SiteOptions.Theme == i)"
-                                 Style="@ThemeStyle(__state.SiteOptions.Theme == i)" />
+            <RadzenPanelMenuItem Text="@__ml[thm]" Click="() => Theme_Click(thm)"
+                                 Icon="@ThemeIcon(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))"
+                                 IconColor="@IconColor(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))"
+                                 Style="@ThemeStyle(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))" />
         }
     </RadzenPanelMenuItem>
 
     <RadzenPanelMenuItem Text="@txtLanguage" Icon="language">
-        @foreach (var i in __ml.Languages)
+        @foreach (var l in __ml.Languages)
         {
-            <RadzenPanelMenuItem Text="@__ml[i.Value]"
-                                 Image="@AppStatic.GetImagePath(__state.SiteOptions.Language == i.Value ? string.Empty : i.Value, __ml)"
-                                 Icon="@IconDone(__state.SiteOptions.Language == i.Value)"
-                                 IconColor="@IconColor(__state.SiteOptions.Language == i.Value)"
-                                 Click="() => Language_Click(i.Value)"
-                                 Style="@IconColor(__state.SiteOptions.Language == i.Value)" />
+            <RadzenPanelMenuItem Text="@__ml[l.Value]"
+                                 Image="@AppStatic.GetImagePath(__state.SiteOptions.Language == l.Value ? string.Empty : l.Value, __ml)"
+                                 Icon="@IconDone(__state.SiteOptions.Language == l.Value)"
+                                 IconColor="@IconColor(__state.SiteOptions.Language == l.Value)"
+                                 Click="() => Language_Click(l.Value)"
+                                 Style="@IconColor(__state.SiteOptions.Language == l.Value)" />
         }
     </RadzenPanelMenuItem>
 
@@ -80,9 +87,17 @@
 
     private async Task Theme_Click(string? theme)
     {
-        if (__state.SiteOptions.Language == theme)
+        if (__state.SiteOptions.Theme == theme)
             return;
         await __theme.SetTheme(theme, true);
+    }
+    private async Task ThemeDark_Click(bool isDark)
+    {
+        if (__theme.IsDark == isDark)
+            return;
+        string? name = await __theme.GetTheme();
+        __theme.IsDark = isDark;
+        await __theme.SetTheme(name, true);
     }
 
     private async Task Language_Click(string? language)
@@ -111,10 +126,9 @@
         await __state.SaveAppOptions();
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        //await __ver.CheckVersion();
-        
+
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
