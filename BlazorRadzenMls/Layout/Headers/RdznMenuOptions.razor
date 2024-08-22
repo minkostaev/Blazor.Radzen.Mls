@@ -89,15 +89,15 @@
     {
         if (__state.SiteOptions.Theme == theme)
             return;
-        await __theme.SetTheme(theme, true);
+        await __theme.SetTheme(theme, __state, true);
     }
     private async Task ThemeDark_Click(bool isDark)
     {
         if (__theme.IsDark == isDark)
             return;
-        string? name = await __theme.GetTheme();
+        string? name = await __theme.GetTheme(__state);
         __theme.IsDark = isDark;
-        await __theme.SetTheme(name, true);
+        await __theme.SetTheme(name, __state, true);
     }
 
     private async Task Language_Click(string? language)
@@ -128,7 +128,7 @@
 
     protected override void OnInitialized()
     {
-
+        
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }

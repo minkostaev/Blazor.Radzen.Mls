@@ -3,10 +3,9 @@
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Extensions;
 
-public class ThemingService(IJavaScriptService iJSRuntime, StateService appState) : IThemingService
+public class ThemingService(IJavaScriptService iJSRuntime) : IThemingService
 {
     private readonly IJavaScriptService __js = iJSRuntime;
-    private readonly StateService __state = appState;
 
     private string DefaultTheme => ThemesAll.FirstOrDefault()!;
     private bool ThemeExist(string name) => ThemesAll.Contains(name);
@@ -33,10 +32,10 @@ public class ThemingService(IJavaScriptService iJSRuntime, StateService appState
     /// Get current radzen theme name
     /// </summary>
     /// <returns>Theme name</returns>
-    public async Task<string?> GetTheme()
+    public async Task<string?> GetTheme(StateService? __state = null)
     {
         string? name;
-        try { name = __state.SiteOptions.Theme; }
+        try { name = __state!.SiteOptions.Theme; }
         catch { name = string.Empty; }
         if (!string.IsNullOrEmpty(name) && ThemeExist(name))
         {
@@ -57,7 +56,7 @@ public class ThemingService(IJavaScriptService iJSRuntime, StateService appState
     /// <param name="name">Themes name</param>
     /// <param name="saveLocal">Save to local storage</param>
     /// <returns>The success of theme change</returns>
-    public async Task<bool> SetTheme(string? name, bool saveLocal = false)
+    public async Task<bool> SetTheme(string? name, StateService? __state = null, bool saveLocal = false)
     {
         if (!ThemeExist(name!))
         {
@@ -65,10 +64,13 @@ public class ThemingService(IJavaScriptService iJSRuntime, StateService appState
         }
         name = CheckForDarkTheme(name!);
         bool success = await __js.SetTheme(name, this, "SetTheme");
-        __state.SiteOptions.Theme = name;
-        if (saveLocal && success)
+        if (__state != null)
         {
-            await __state.SaveAppOptions();
+            __state!.SiteOptions.Theme = name;
+            if (saveLocal && success)
+            {
+                await __state.SaveAppOptions();
+            }
         }
         return success;
     }
@@ -76,9 +78,9 @@ public class ThemingService(IJavaScriptService iJSRuntime, StateService appState
     /// <summary>
     /// Use this method if you'll use ThemesBasic list
     /// </summary>
-    public async Task UseIsDarkLightProperty()
+    public async Task UseIsDarkLightProperty(StateService? __state = null)
     {
-        string? name = await GetTheme();
+        string? name = await GetTheme(__state);
         IsDark = name!.Contains("dark");
     }
 

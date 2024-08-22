@@ -1,4 +1,7 @@
-﻿@using BlazorRadzenMls.Models
+﻿@using BlazorRadzenMls.CustomComponents
+@using BlazorRadzenMls.Models
+
+@inherits BaseComponent
 
 <RadzenPanelMenu Style="overflow: auto; max-height: calc(100vh - var(--heightHeaderFooter));" Multiple="@__state.SiteOptions.Menu.Multiple"
                  DisplayStyle="@__state.SiteOptions.Menu.MenuStyle" ShowArrow="@__state.SiteOptions.Menu.Arrow">
@@ -59,9 +62,7 @@
 
     protected override void OnInitialized()
     {
-
-        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+        base.OnInitialized();
     }
-    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }
