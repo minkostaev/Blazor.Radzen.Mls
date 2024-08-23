@@ -1,7 +1,11 @@
 /* /Layout/Footers/StickyFooter.razor.rz.scp.css */
-.td-footer[b-gh75424kph] {
-    /*height: var(--footer-fixed-height);*/
+.main-footer[b-gh75424kph] {
     box-shadow: 0px 1px 0px lightgray inset;
+}
+
+.lbl-footer[b-gh75424kph] {
+    text-align: right;
+    padding-right: 1rem;
 }
 /* /Layout/Headers/RdznMenuIcon.razor.rz.scp.css */
 .drop-down-panel[b-0gor0z7pg9] {
