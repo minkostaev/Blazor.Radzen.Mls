@@ -1,0 +1,39 @@
+﻿@using BlazorRadzenMls.Layout.Headers
+@using BlazorRadzenMls.Layout.Footers
+@using BlazorRadzenMls.Models
+
+@inherits LayoutComponentBase
+
+@* this is required for: Dialog, Notification, ContextMenu and Tooltip *@
+<RadzenComponents />
+
+<div @onclick="HideMenuPanel">
+
+    <div class="header-sticky">
+        <StickyHeader />
+    </div>
+
+    <div class="main-sticky">
+        @Body
+    </div>
+
+    <div class="footer-sticky">
+        <StickyFooter />
+    </div>
+
+</div>
+
+@code {
+
+    private async Task HideMenuPanel()
+    {
+        await __js.ShowMenuPanel("", AppValues.HtmlClassMenuIcon, "", this, "HideMenuPanel");
+    }
+
+    protected override void OnInitialized()
+    {
+        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+    }
+    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
+
+}

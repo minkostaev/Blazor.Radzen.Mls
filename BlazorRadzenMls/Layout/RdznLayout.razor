@@ -17,7 +17,8 @@
     <RadzenSidebar @bind-Expanded="@sidebarExpanded" Style="@__state.SiteOptions.Menu.SidebarWidth">
         <RdznMenuPanel />
     </RadzenSidebar>
-    <RadzenBody id="myRadzenBody">
+    @* <RadzenBody id="myRadzenBody"> *@
+    <RadzenBody>
         @* <div class="rz-p-4"> *@
             @Body
         @* </div> *@
@@ -37,12 +38,12 @@
     }
     //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await __js.ChangeSidebarToggle(menuToggleId, 33, this, "OnAfterRenderAsync");
-        }
-    }
+    // protected override async Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     if (firstRender)
+    //     {
+    //         await __js.ChangeSidebarToggle(menuToggleId, 33, this, "OnAfterRenderAsync");
+    //     }
+    // }
 
 }

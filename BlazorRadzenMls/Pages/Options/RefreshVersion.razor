@@ -1,5 +1,8 @@
 ﻿@page "/refresh"
 
+@inherits BaseComponent
+
+@using BlazorRadzenMls.CustomComponents
 @using BlazorRadzenMls.Models
 
 <RadzenLabel Text=@_currentVersion class="rz-color-success-dark" Style="font-weight: bold;" />
@@ -14,14 +17,13 @@
 
 @code {
 
-    private string _currentVersion => __ml["Current_version_is"] + ": " + __ver.VersionProject;
-    private string _updateVersion => __ml["Update_version_available"] + ": " + __ver.VersionWwwroot;
+    private string _currentVersion => "VersionProject: " + __ver.VersionProject;
+    private string _updateVersion => "VersionWwwroot: " + __ver.VersionWwwroot;
     private string _btnLablel => __ver.NeedUpdate ? __ml["Update"] : __ml["Refresh"];
 
-    protected override async void OnInitialized()
+    protected override void OnInitialized()
     {
-        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+        base.OnInitialized();
     }
-    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

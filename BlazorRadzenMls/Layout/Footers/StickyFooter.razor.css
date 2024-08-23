@@ -1,4 +1,8 @@
-﻿.td-footer {
-    /*height: var(--footer-fixed-height);*/
+﻿.main-footer {
     box-shadow: 0px 1px 0px lightgray inset;
+}
+
+.lbl-footer {
+    text-align: right;
+    padding-right: 1rem;
 }
