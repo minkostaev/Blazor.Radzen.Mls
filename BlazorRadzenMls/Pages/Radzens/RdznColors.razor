@@ -1,11 +1,13 @@
 ﻿@page "/color"
 
+<div class="rz-p-4">
 <RadzenRow>
     <RadzenColumn>
         <RadzenText TextStyle="TextStyle.H4" Style=@style>Choose T-Shirt color</RadzenText>
         <RadzenColorPicker @bind-Value=@color ShowHSV=true ShowRGBA=true ShowColors=true ShowButton=false Change="OnChange" />
     </RadzenColumn>
 </RadzenRow>
+</div>
 
 @code {
 

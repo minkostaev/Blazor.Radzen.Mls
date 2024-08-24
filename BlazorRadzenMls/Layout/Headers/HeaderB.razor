@@ -1,0 +1,40 @@
+﻿@using BlazorRadzenMls.Models
+
+
+<div class="rz-header" style="display: flex;">
+    <div style="flex: 1;">
+        <RdznMenuIcon Name="build" NavigateTo="@AppValues.PageOptions" Size="29" />
+        @* <RdznMenuIcon>
+            <RdznMenuPanel />
+        </RdznMenuIcon>
+
+        <RdznMenuIcon Name="build" ExpectRefresh="true" Size="30">
+            <RdznMenuOptions />
+        </RdznMenuIcon>
+
+        <RdznMenuIcon Name="home" NavigateTo="" Size="29" />
+        <RdznMenuIcon Name="build" NavigateTo="@AppValues.PageOptions" Size="29" />
+        <RdznMenuIcon Name="description" NavigateTo="@AppValues.GitHubMy" OnNewTab="true" Size="29" /> *@
+
+    </div>
+    <div>
+        @* add_shopping_cart *@
+
+        <RadzenSplitButton id="add_shopping_cart" Icon="add_shopping_cart" 
+                           Variant="Variant.Text" ButtonStyle="ButtonStyle.Info"
+                           >
+            <ChildContent>
+                <RadzenSplitButtonItem Text="Item1" Value="1" Icon="account_box" />
+                <RadzenSplitButtonItem Text="Item2" Value="2" Icon="account_balance_wallet" />
+            </ChildContent>
+        </RadzenSplitButton>
+
+        <RdznMenuProfile />
+
+        <RdznMenuProfile />
+    </div>
+</div>
+
+@code {
+
+}
