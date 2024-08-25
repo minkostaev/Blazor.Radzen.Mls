@@ -1,4 +1,6 @@
-﻿<RadzenPanelMenu Style="overflow: auto; max-height: calc(100vh - var(--heightHeaderFooter));"
+﻿@using BlazorRadzenMls.Layout.RdznProfileMenus
+
+<RadzenPanelMenu Style="overflow: auto; max-height: calc(100vh - var(--heightHeaderFooter));"
                  DisplayStyle="@__state.SiteOptions.Menu.MenuStyle"
                  Multiple="@__state.SiteOptions.Menu.Multiple"
                  ShowArrow="@__state.SiteOptions.Menu.Arrow">
@@ -21,6 +23,18 @@
                                  Style="@ThemeStyle(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))" />
         }
     </RadzenPanelMenuItem>
+
+
+
+
+    <RadzenPanelMenuItem Text="@txtTheme" Icon="@ThemeIcon(false)">
+        <RadzenPanelMenuItem Visible="false"/>
+        <RdznThemesButtons />
+    </RadzenPanelMenuItem>
+
+
+
+
 
     <RadzenPanelMenuItem Text="@txtLanguage" Icon="language">
         @foreach (var l in __ml.Languages)
@@ -105,7 +119,7 @@
         if (__state.SiteOptions.Language == language)
             return;
         await __ml.ChangeLanguage(language, true);
-        __state.RefreshPage("RdznMenuOptions.razor -> Language_ValueChanged");
+        __state.RefreshPage(this, "Language_ValueChanged");
     }
 
     private async Task Menu_Click(MenuItemDisplayStyle style)
@@ -113,7 +127,7 @@
         if (__state.SiteOptions.Menu.MenuStyle == style)
             return;
         __state.SiteOptions.Menu.MenuStyle = style;
-        __state.RefreshPage("RdznMenuOptions.razor -> Menu_Click");
+        __state.RefreshPage(this, "Menu_Click");
         await __state.SaveAppOptions();
     }
     private async Task MultipleArrows_Click(bool isArrows)
@@ -122,7 +136,7 @@
             __state.SiteOptions.Menu.Arrow = !__state.SiteOptions.Menu.Arrow;
         else
             __state.SiteOptions.Menu.Multiple = !__state.SiteOptions.Menu.Multiple;
-        __state.RefreshPage("RdznMenuOptions.razor -> MultipleArrows_Click");
+        __state.RefreshPage(this, "MultipleArrows_Click");
         await __state.SaveAppOptions();
     }
 

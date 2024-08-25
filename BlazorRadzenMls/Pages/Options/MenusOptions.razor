@@ -65,7 +65,7 @@
             _isText = false;
             _isIcon = false;
             appMenuStyle = MenuItemDisplayStyle.IconAndText;
-            __state.RefreshPage("MenusOptions.razor -> Menu text icon");
+            __state.RefreshPage(this, "Menu text icon");
         }
     }
     private bool _isText;
@@ -78,7 +78,7 @@
             _isText = true;
             _isIcon = false;
             appMenuStyle = MenuItemDisplayStyle.Text;
-            __state.RefreshPage("MenusOptions.razor -> Menu text");
+            __state.RefreshPage(this, "Menu text");
         }
     }
     private bool _isIcon;
@@ -91,19 +91,19 @@
             _isText = false;
             _isIcon = true;
             appMenuStyle = MenuItemDisplayStyle.Icon;
-            __state.RefreshPage("MenusOptions.razor -> Menu icon");
+            __state.RefreshPage(this, "Menu icon");
         }
     }
 
     private void ArrowsChange()
     {
         appMenuArrow = !appMenuArrow;
-        __state.RefreshPage("MenusOptions.razor -> Menu arrows");
+        __state.RefreshPage(this, "Menu arrows");
     }
     private void MultipleChange()
     {
         appMenuMultiple = !appMenuMultiple;
-        __state.RefreshPage("MenusOptions.razor -> Menu multiples");
+        __state.RefreshPage(this, "Menu multiples");
     }
 
     protected override void OnInitialized()

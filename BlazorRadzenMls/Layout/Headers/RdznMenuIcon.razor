@@ -5,8 +5,7 @@
         @ChildContent
     </div>
     <RadzenButton id="@menuToggleId" Icon="@Name" Click="@LinkOrMenu"
-                  Variant="Variant.Text" ButtonStyle="ButtonStyle.Info"
-                  Style="@buttonStyle" />
+                  Variant="Variant.Text" Style="@buttonStyle" />
 </div>
 
 @code {
@@ -36,7 +35,8 @@
             string result = "width: 50px; height: 50px; border-right: var(--rz-profile-menu-border);";
             if (ExpectRefresh && __ver.NeedUpdate)
                 return $"{result} color: {Colors.Warning};";
-            return result;
+            else
+                return $"{result} color: {AppValues.RdznMainColor};";
         }
     }
 

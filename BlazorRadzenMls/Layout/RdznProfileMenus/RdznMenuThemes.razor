@@ -1,0 +1,24 @@
+﻿@using BlazorRadzenMls.Models
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using BlazorRadzenMls.CustomComponents
+@inherits BaseComponent
+
+<RadzenProfileMenu>
+    <Template>
+        <RadzenIcon Icon="@isDarkIcon" IconColor="@Colors.Series8" Style="font-size: 30px; vertical-align: bottom;" />
+    </Template>
+    <ChildContent>
+        <RdznThemesButtons />
+    </ChildContent>
+</RadzenProfileMenu>
+
+@code {
+
+    private string isDarkIcon => (__theme.IsDark == true) ? "dark_mode" : "light_mode";
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+}

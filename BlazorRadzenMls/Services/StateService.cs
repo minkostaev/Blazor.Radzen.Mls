@@ -3,16 +3,19 @@
 using Blazored.LocalStorage;
 using BlazorRadzenMls.Layout;
 using BlazorRadzenMls.Models;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System;
 
 public class StateService
 {
     private readonly ILocalStorageService _localStorage;
-    public StateService(ILocalStorageService localStorage)
+    private readonly IWebAssemblyHostEnvironment _env;
+    public StateService(ILocalStorageService localStorage, IWebAssemblyHostEnvironment env)
     {
         _localStorage = localStorage;
+        _env = env;
         SiteOptions = new AppOptions();
-        CurrentLayoutType = (typeof(StickyLayout));
+        CurrentLayoutType = typeof(StickyLayout);
     }
 
     public AppOptions SiteOptions { get; set; }
@@ -27,9 +30,14 @@ public class StateService
     }
 
     public event EventHandler? RefreshEvent;
-    public void RefreshPage(string e)
+    public void RefreshPage(object? component, string? cMethod)
     {
-        RefreshEvent?.Invoke(e, EventArgs.Empty); Console.WriteLine(e);
+        string? razorComponent = component?.GetType().Name;
+        string? cSharpMethod = cMethod;
+        var e = $"Refresh event: {razorComponent}.razor -> {cSharpMethod}";
+        RefreshEvent?.Invoke(e, EventArgs.Empty);
+        if (_env.IsDevelopment())
+            Console.WriteLine(e);
     }
 
     public Type? CurrentLayoutType { get; set; }

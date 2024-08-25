@@ -1,5 +1,6 @@
 ﻿namespace BlazorRadzenMls.Models;
 
+using Radzen;
 using System.Reflection;
 
 public static class AppValues
@@ -30,6 +31,8 @@ public static class AppValues
     public static string GitHubDomain => ".github.io";
     public static string RenderDomain => ".onrender.com";
     public static string NetlifyDomain => ".netlify.app";
+
+    public static string RdznMainColor => Colors.Series8;
 
     ///public const string RolesAll = "admin, manager, user";
     ///public const string RolesManager = "admin, manager";

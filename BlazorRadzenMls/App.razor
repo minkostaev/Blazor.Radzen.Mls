@@ -52,17 +52,17 @@
             await __state.SaveAppOptions();
             if (string.IsNullOrEmpty(__state.SiteOptions.Page))
             {//update home page
-                __state.RefreshPage("App.razor -> __nav.LocationChanged");
+                __state.RefreshPage(this, "__nav.LocationChanged");
             }
         };
 
         __ver.DifferenceEvent += delegate
         {
-            __state.RefreshPage("App.razor -> OnInitializedAsync -> __ver.DifferenceEvent");
+            __state.RefreshPage(this, "__ver.DifferenceEvent");
             ShowNotificationUpdate();
         };
 
-        __state.RefreshPage("App.razor -> OnInitializedAsync");//await InvokeAsync(StateHasChanged);
+        __state.RefreshPage(this, "OnInitializedAsync");//await InvokeAsync(StateHasChanged);
     }
 
     private void ShowNotificationUpdate()
