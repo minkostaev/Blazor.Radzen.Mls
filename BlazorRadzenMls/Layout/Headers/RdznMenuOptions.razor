@@ -7,7 +7,7 @@
 
     <RadzenPanelMenuItem Text="МинцЪт" Image="images/icon-128.png" />
 
-    <RadzenPanelMenuItem Text="@txtTheme" Icon="@ThemeIcon(false)">
+    @* <RadzenPanelMenuItem Text="@txtTheme" Icon="@ThemeIcon(false)">
         <RadzenPanelMenuItem Text="@__ml["Light"]" Click="() => ThemeDark_Click(false)"
                              Icon="light_mode" IconColor="@IconColor(__theme.IsDark == false)"
                              Style="@ThemeStyle(__theme.IsDark == false)" />
@@ -22,12 +22,12 @@
                                  IconColor="@IconColor(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))"
                                  Style="@ThemeStyle(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))" />
         }
-    </RadzenPanelMenuItem>
+    </RadzenPanelMenuItem> *@
 
 
 
 
-    <RadzenPanelMenuItem Text="@txtTheme" Icon="@ThemeIcon(false)">
+    <RadzenPanelMenuItem Text="@txtTheme" Icon="@isDarkIcon">
         <RadzenPanelMenuItem Visible="false"/>
         <RdznThemesButtons />
     </RadzenPanelMenuItem>
@@ -82,9 +82,10 @@
 
 @code {
 
-    private string txtTheme => $"{__ml["Theme"]}: {AppStatic.FirstLetterToUpper(__state.SiteOptions.Theme)}";
-    private string ThemeIcon(bool selected) => selected ? "done" : "perm_media";
-    private string ThemeStyle(bool color) => color ? $"{IconColor(color)}; text-transform: capitalize;" : "text-transform: capitalize;";
+    private string isDarkIcon => (__theme.IsDark == true) ? "dark_mode" : "light_mode";
+    private string txtTheme => $"{__ml["Theme"]}: {AppStatic.FirstLetterToUpper(__theme.ThemeNameAlwaysLight(__state.SiteOptions.Theme))}";
+    //private string ThemeIcon(bool selected) => selected ? "done" : "perm_media";
+    //private string ThemeStyle(bool color) => color ? $"{IconColor(color)}; text-transform: capitalize;" : "text-transform: capitalize;";
 
     private string IconColor(bool color) => color ? "color: " + Colors.Info : string.Empty;
 
@@ -99,20 +100,20 @@
     private string clrIcon => __ver.NeedUpdate ? Colors.Warning : string.Empty;
     private string clrStyle => string.IsNullOrEmpty(clrIcon) ? string.Empty : "color: " + clrIcon;
 
-    private async Task Theme_Click(string? theme)
-    {
-        if (__state.SiteOptions.Theme == theme)
-            return;
-        await __theme.SetTheme(theme, __state, true);
-    }
-    private async Task ThemeDark_Click(bool isDark)
-    {
-        if (__theme.IsDark == isDark)
-            return;
-        string? name = await __theme.GetTheme(__state);
-        __theme.IsDark = isDark;
-        await __theme.SetTheme(name, __state, true);
-    }
+    // private async Task Theme_Click(string? theme)
+    // {
+    //     if (__state.SiteOptions.Theme == theme)
+    //         return;
+    //     await __theme.SetTheme(theme, __state, true);
+    // }
+    // private async Task ThemeDark_Click(bool isDark)
+    // {
+    //     if (__theme.IsDark == isDark)
+    //         return;
+    //     string? name = await __theme.GetTheme(__state);
+    //     __theme.IsDark = isDark;
+    //     await __theme.SetTheme(name, __state, true);
+    // }
 
     private async Task Language_Click(string? language)
     {

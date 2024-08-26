@@ -27,8 +27,8 @@
 
     private string ThemeIcon(bool selected) => selected ? "done" : "perm_media";
     private string IconColor(bool color) => color ? "color: " + Colors.Info : string.Empty;
-    private string ThemeStyle(bool color) => color ? $"{IconColor(color)}; text-transform: capitalize; display: block; width: 100%; text-align: left;" : "text-transform: capitalize; display: block; width: 100%; text-align: left;";
-
+    private string ThemeStyle(bool color) => color ? $"{IconColor(color)}; text-transform: capitalize; display: block; width: 100%;" : "text-transform: capitalize; display: block; width: 100%;";
+    // text-align: left;
     private string ThemeStyle2(bool color) => color ? $"{IconColor(color)}; text-transform: capitalize; width: 44%;" : "text-transform: capitalize; width: 44%;";
 
 

@@ -11,4 +11,5 @@ public interface IThemingService
     Task<bool> SetTheme(string? name, StateService? __state = null, bool saveLocal = false);
     Task UseIsDarkLightProperty(StateService? __state = null);
     string CheckForDarkTheme(string themeName);
+    string? ThemeNameAlwaysLight(string? themeName);
 }

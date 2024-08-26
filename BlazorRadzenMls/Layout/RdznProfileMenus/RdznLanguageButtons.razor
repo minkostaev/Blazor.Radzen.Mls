@@ -1,0 +1,36 @@
+﻿@foreach (var l in __ml.Languages)
+{
+    <RadzenButton Click="() => Language_Click(l.Value)"
+                  Variant="Variant.Text" ButtonStyle="ButtonStyle.Primary"
+                  Style="@IconColor(__state.SiteOptions.Language == l.Value)">
+        @if (IconDone(__state.SiteOptions.Language == l.Value) == string.Empty)
+        {
+            <RadzenImage AlternateText="lang flag" Style="@IconImageStyle"
+                         Path="@AppStatic.GetImagePath(__state.SiteOptions.Language == l.Value ? string.Empty : l.Value, __ml)" />
+        }
+        else
+        {
+            <RadzenIcon Icon="@IconDone(__state.SiteOptions.Language == l.Value)" Style="@IconImageStyle"
+                        IconColor="@IconColor(__state.SiteOptions.Language == l.Value)" />
+        }
+        @__ml[l.Value]
+    </RadzenButton>
+}
+
+@code {
+
+    private string IconImageStyle = "margin-right: 8px; height: var(--rz-panel-menu-icon-2nd-level-icon-size); width: var(--rz-panel-menu-icon-2nd-level-icon-size);";
+
+    private string IconColor(bool color) => color ? "display: block; width: 100%; color: " + Colors.Info : "display: block; width: 100%;";
+
+    private string IconDone(bool done) => done ? "done" : string.Empty;
+
+    private async Task Language_Click(string? language)
+    {
+        if (__state.SiteOptions.Language == language)
+            return;
+        await __ml.ChangeLanguage(language, true);
+        __state.RefreshPage(this, "Language_ValueChanged");
+    }
+
+}

@@ -1,16 +1,21 @@
-﻿<RadzenProfileMenu>
+﻿@using BlazorRadzenMls.CustomComponents
+@inherits BaseComponent
+
+<RadzenProfileMenu>
     <Template>
-        <RadzenIcon Icon="add_shopping_cart" IconColor="@Colors.Series8" Style="font-size: 30px; vertical-align: bottom;" />
+        <RadzenImage AlternateText="lang flag" Style="width: 30px; vertical-align: bottom;"
+                     Path="@AppStatic.GetImagePath(__state.SiteOptions.Language!, __ml)" />
     </Template>
     <ChildContent>
-
-        <RadzenProfileMenuItem Text="To Do" Icon="add_shopping_cart"></RadzenProfileMenuItem>
-        <RadzenProfileMenuItem Text="Item 1" Path="" Icon="home"></RadzenProfileMenuItem>
-        <RadzenProfileMenuItem Text="Item 2" Path="user" Icon="face"></RadzenProfileMenuItem>
-
+        <RdznLanguageButtons />
     </ChildContent>
 </RadzenProfileMenu>
 
 @code {
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
 
 }

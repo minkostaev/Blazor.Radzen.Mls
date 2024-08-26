@@ -114,6 +114,20 @@ public class ThemingService(IJavaScriptService iJSRuntime) : IThemingService
         return themeName;
     }
 
+    
+    public string? ThemeNameAlwaysLight(string? themeName)
+    {
+        if (IsDark == null || string.IsNullOrEmpty(themeName))
+        {
+            return themeName;
+        }
+        if (themeName == "dark")
+        {
+            return "default";
+        }
+        return themeName.Replace("-dark", "");
+    }
+
 }
 ///requirements: in index.html
 ///<link rel="stylesheet" href="_content/Radzen.Blazor/css/default-base.css"> - theme name
