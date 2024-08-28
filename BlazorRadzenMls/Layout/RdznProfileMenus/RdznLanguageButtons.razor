@@ -1,4 +1,7 @@
-﻿@foreach (var l in __ml.Languages)
+﻿@using BlazorRadzenMls.CustomComponents
+@inherits BaseComponent
+
+@foreach (var l in __ml.Languages)
 {
     <RadzenButton Click="() => Language_Click(l.Value)"
                   Variant="Variant.Text" ButtonStyle="ButtonStyle.Primary"
@@ -31,6 +34,11 @@
             return;
         await __ml.ChangeLanguage(language, true);
         __state.RefreshPage(this, "Language_ValueChanged");
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
     }
 
 }
