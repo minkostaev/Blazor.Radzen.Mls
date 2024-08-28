@@ -1,4 +1,6 @@
 ﻿@using BlazorRadzenMls.Layout.RdznProfileMenus
+@using BlazorRadzenMls.CustomComponents
+@inherits BaseComponent
 
 <RadzenPanelMenu Style="overflow: auto; max-height: calc(100vh - var(--heightHeaderFooter));"
                  DisplayStyle="@__state.SiteOptions.Menu.MenuStyle"
@@ -17,18 +19,6 @@
         <RdznLanguageButtons />
     </RadzenPanelMenuItem>
 
-    <RadzenPanelMenuItem Text="@txtLanguage" Icon="language">
-        @foreach (var l in __ml.Languages)
-        {
-            <RadzenPanelMenuItem Text="@__ml[l.Value]"
-                                 Image="@AppStatic.GetImagePath(__state.SiteOptions.Language == l.Value ? string.Empty : l.Value, __ml)"
-                                 Icon="@IconDone(__state.SiteOptions.Language == l.Value)"
-                                 IconColor="@IconColor(__state.SiteOptions.Language == l.Value)"
-                                 Click="() => Language_Click(l.Value)"
-                                 Style="@IconColor(__state.SiteOptions.Language == l.Value)" />
-        }
-    </RadzenPanelMenuItem>
-
     <RadzenPanelMenuItem Text="@__ml["Menu options"]" Icon="menu">
         <RadzenPanelMenuItem Text="@__ml["Icon and text"]" Icon="view_list"
                              IconColor="@MenuColor(MenuItemDisplayStyle.IconAndText)"
@@ -45,13 +35,13 @@
         <hr style="margin:0;" />
         <RadzenPanelMenuItem Text="@__ml["Show_arrows"]" Icon="assignment_returned"
                              Click="() => MultipleArrows_Click(true)"
-                             IconColor="@IconColor(__state.SiteOptions.Menu.Arrow)"
-                             Style="@IconColor(__state.SiteOptions.Menu.Arrow)" />
+                             IconColor="@AppStatic.IconColor(__state.SiteOptions.Menu.Arrow)"
+                             Style="@AppStatic.IconColorStyle(__state.SiteOptions.Menu.Arrow)" />
         <hr style="margin:0;" />
         <RadzenPanelMenuItem Text="@__ml["Open_multiples"]" Icon="list"
                              Click="() => MultipleArrows_Click(false)"
-                             IconColor="@IconColor(__state.SiteOptions.Menu.Multiple)"
-                             Style="@IconColor(__state.SiteOptions.Menu.Multiple)" />
+                             IconColor="@AppStatic.IconColor(__state.SiteOptions.Menu.Multiple)"
+                             Style="@AppStatic.IconColorStyle(__state.SiteOptions.Menu.Multiple)" />
     </RadzenPanelMenuItem>
 
     <RadzenPanelMenuItem Text="@txtVersion" IconColor="@clrIcon" Icon="info">
@@ -66,26 +56,15 @@
     private string isDarkIcon => (__theme.IsDark == true) ? "dark_mode" : "light_mode";
     private string txtTheme => $"{__ml["Theme"]}: {AppStatic.FirstLetterToUpper(__theme.ThemeNameAlwaysLight(__state.SiteOptions.Theme))}";
 
-    private string IconColor(bool color) => color ? "color: " + Colors.Info : string.Empty;
-
-    private string IconDone(bool done) => done ? "done" : string.Empty;
     private string txtLanguage => __ml["Language"] + ": " + __ml[__state.SiteOptions.Language];
 
-    private string MenuColor(MenuItemDisplayStyle style) => IconColor(style == __state.SiteOptions.Menu.MenuStyle);
+    private string MenuColor(MenuItemDisplayStyle style) => AppStatic.IconColorStyle(style == __state.SiteOptions.Menu.MenuStyle);
 
     private string txtVersion => __ml["Version"] + ": " + __ver.VersionProject;
     private string lblVersion => __ml["New_version"] + ": " + __ver.VersionWwwroot;
     private string btnReload => __ver.NeedUpdate ? __ml["Update"] + ": " + __ver.VersionWwwroot : __ml["Refresh"];
     private string clrIcon => __ver.NeedUpdate ? Colors.Warning : string.Empty;
     private string clrStyle => string.IsNullOrEmpty(clrIcon) ? string.Empty : "color: " + clrIcon;
-
-    private async Task Language_Click(string? language)
-    {
-        if (__state.SiteOptions.Language == language)
-            return;
-        await __ml.ChangeLanguage(language, true);
-        __state.RefreshPage(this, "Language_ValueChanged");
-    }
 
     private async Task Menu_Click(MenuItemDisplayStyle style)
     {
@@ -107,9 +86,7 @@
 
     protected override void OnInitialized()
     {
-        
-        __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
+        base.OnInitialized();
     }
-    //private void Refresh_Event(object? sender, EventArgs e) { StateHasChanged(); }
 
 }

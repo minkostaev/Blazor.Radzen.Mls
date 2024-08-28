@@ -5,7 +5,7 @@
 {
     <RadzenButton Click="() => Language_Click(l.Value)"
                   Variant="Variant.Text" ButtonStyle="ButtonStyle.Primary"
-                  Style="@IconColor(__state.SiteOptions.Language == l.Value)">
+                  Style="@BtnStyle(__state.SiteOptions.Language == l.Value)">
         @if (IconDone(__state.SiteOptions.Language == l.Value) == string.Empty)
         {
             <RadzenImage AlternateText="lang flag" Style="@IconImageStyle"
@@ -14,7 +14,7 @@
         else
         {
             <RadzenIcon Icon="@IconDone(__state.SiteOptions.Language == l.Value)" Style="@IconImageStyle"
-                        IconColor="@IconColor(__state.SiteOptions.Language == l.Value)" />
+                        IconColor="@AppStatic.IconColor(__state.SiteOptions.Language == l.Value)" />
         }
         @__ml[l.Value]
     </RadzenButton>
@@ -24,9 +24,10 @@
 
     private string IconImageStyle = "margin-right: 8px; height: var(--rz-panel-menu-icon-2nd-level-icon-size); width: var(--rz-panel-menu-icon-2nd-level-icon-size);";
 
-    private string IconColor(bool color) => color ? "display: block; width: 100%; color: " + Colors.Info : "display: block; width: 100%;";
+    private string BtnStyle(bool color) => color ? $"{btnStyle} color: {AppStatic.IconColor(color)}" : btnStyle;
+    private string btnStyle => "display: block; width: 100%;";
 
-    private string IconDone(bool done) => done ? "done" : string.Empty;
+    private string IconDone(bool isDone) => isDone ? "done" : string.Empty;
 
     private async Task Language_Click(string? language)
     {

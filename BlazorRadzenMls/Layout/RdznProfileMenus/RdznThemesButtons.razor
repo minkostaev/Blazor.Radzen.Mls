@@ -4,13 +4,13 @@
 <div style="text-align: center;">
     <RadzenButton Click="() => ThemeDark_Click(false)"
                   Variant="Variant.Text" ButtonStyle="ButtonStyle.Primary"
-                  Style="@ThemeStyle2(__theme.IsDark == false)">
-        <RadzenIcon Icon="light_mode" IconColor="@IconColor(__theme.IsDark == false)" />
+                  Style="@ThemeDarkStyle(__theme.IsDark == false)">
+        <RadzenIcon Icon="light_mode" IconColor="@AppStatic.IconColor(__theme.IsDark == false)" />
     </RadzenButton>
     <RadzenButton Click="() => ThemeDark_Click(true)"
                   Variant="Variant.Text" ButtonStyle="ButtonStyle.Primary"
-                  Style="@ThemeStyle2(__theme.IsDark == true)">
-        <RadzenIcon Icon="dark_mode" IconColor="@IconColor(__theme.IsDark == true)" />
+                  Style="@ThemeDarkStyle(__theme.IsDark == true)">
+        <RadzenIcon Icon="dark_mode" IconColor="@AppStatic.IconColor(__theme.IsDark == true)" />
     </RadzenButton>
 </div>
 <hr style="margin:0;" />
@@ -19,19 +19,19 @@
     <RadzenButton Text="@__ml[thm]" Click="() => Theme_Click(thm)"
                   Variant="Variant.Text" ButtonStyle="ButtonStyle.Primary"
                   Icon="@ThemeIcon(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))"
-                  IconColor="@IconColor(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))"
-                  Style="@ThemeStyle(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))" />
+                  IconColor="@AppStatic.IconColor(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))"
+                  Style="@ThemeListStyle(__state.SiteOptions.Theme == __theme.CheckForDarkTheme(thm))" />
 }
 
 @code {
 
     private string ThemeIcon(bool selected) => selected ? "done" : "perm_media";
-    private string IconColor(bool color) => color ? "color: " + Colors.Info : string.Empty;
-    private string ThemeStyle(bool color) => color ? $"{IconColor(color)}; {style}" : style;
+    
+    private string ThemeListStyle(bool color) => color ? $"{AppStatic.IconColorStyle(color)}; {style}" : style;
     private string style => "text-transform: capitalize; display: block; width: 100%;";
 
-    private string ThemeStyle2(bool color) => color ? $"{IconColor(color)}; text-transform: capitalize; width: 44%;" : "text-transform: capitalize; width: 44%;";
-
+    private string ThemeDarkStyle(bool color) => color ? $"{AppStatic.IconColorStyle(color)} {style2}" : style2;
+    private string style2 => "text-transform: capitalize; width: 44%;";
 
     private async Task Theme_Click(string? theme)
     {

@@ -1,9 +1,10 @@
-﻿@using BlazorRadzenMls.CustomComponents
+﻿@using BlazorRadzenMls.Models
+@using BlazorRadzenMls.CustomComponents
 @inherits BaseComponent
 
 <RadzenProfileMenu>
     <Template>
-        <RadzenIcon Icon="@isDarkIcon" IconColor="@Colors.Series8" Style="font-size: 30px; vertical-align: bottom;" />
+        <RadzenIcon Icon="@isDarkIcon" IconColor="@AppValues.RdznMainColor" Style="font-size: 30px; vertical-align: bottom;" />
     </Template>
     <ChildContent>
         <RdznThemesButtons />

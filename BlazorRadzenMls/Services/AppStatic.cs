@@ -155,6 +155,9 @@ public static class AppStatic
             await __ver.Reload();
     }
 
+    public static string IconColor(bool useColor) => useColor ? Colors.Success : string.Empty;//Info
+    public static string IconColorStyle(bool useColor) => useColor ? $"color: {IconColor(useColor)};" : string.Empty;
+
     ///public string ReplaceFirst(string text, string oldValue, string newValue)
     ///{
     ///    int position = text.IndexOf(oldValue);
