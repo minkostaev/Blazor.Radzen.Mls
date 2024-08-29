@@ -15,7 +15,7 @@ public class StateService
         _localStorage = localStorage;
         _env = env;
         SiteOptions = new AppOptions();
-        CurrentLayoutType = typeof(StickyLayout);
+        CurrentLayoutType = typeof(LayoutA);
     }
 
     public AppOptions SiteOptions { get; set; }
