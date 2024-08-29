@@ -15,19 +15,19 @@
     z-index: 666;
     margin-top: var(--headerHeight);
 }
-/* /Layout/StickyLayout.razor.rz.scp.css */
-.header-sticky[b-ualc49u5kx] {
+/* /Layout/LayoutA.razor.rz.scp.css */
+.header-sticky[b-1oigblzu3z] {
     position: sticky;
     top: 0;
     z-index: 999;
 }
 
-.main-sticky[b-ualc49u5kx] {
+.main-sticky[b-1oigblzu3z] {
     min-height: calc(100vh - var(--heightHeaderFooter));
     background-color: var(--rz-body-background-color);
 }
 
-.footer-sticky[b-ualc49u5kx] {
+.footer-sticky[b-1oigblzu3z] {
     --transparent-color: rgba(255, 0, 0, 0.5);/*it's temp (remove later)*/
 }
 /* /Pages/Apito/RdznGrdHdrTmpt.razor.rz.scp.css */
