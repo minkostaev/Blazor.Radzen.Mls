@@ -40,8 +40,8 @@
     protected override async Task OnInitializedAsync()
     {
         await __state.LoadAppOptions();
-        await __theme.UseIsDarkLightProperty(__state);
-        await __theme.SetTheme(__state.SiteOptions.Theme, __state);
+        await __theme.UseIsDarkLightProperty();
+        await __theme.SetTheme(__state.SiteOptions.Theme);
         await __ml.ChangeLanguage(__state.SiteOptions.Language);
 
         __nav.LocationChanged += async (object? sender, LocationChangedEventArgs e) =>
@@ -56,12 +56,12 @@
             }
         };
 
-        __ver.AutoUpdate = true;
-        // __ver.DifferenceEvent += delegate
-        // {
-        //     __state.RefreshPage(this, "__ver.DifferenceEvent");
-        //     ShowNotificationUpdate();
-        // };
+        __ver.DifferenceEvent += delegate
+        {
+            __ver.Reload();
+            // __state.RefreshPage(this, "__ver.DifferenceEvent");
+            // ShowNotificationUpdate();
+        };
 
         __state.RefreshPage(this, "OnInitializedAsync");//await InvokeAsync(StateHasChanged);
     }

@@ -34,8 +34,6 @@ public class VersioningService : IVersioningService
             {
                 DifferenceEvent?.Invoke(timer, EventArgs.Empty);
                 diffEventInvoked = true;
-                if (AutoUpdate)
-                    await Reload();
             }
         };
     }
@@ -54,11 +52,6 @@ public class VersioningService : IVersioningService
     /// Cached version numver
     /// </summary>
     public string VersionWwwroot { get; private set; }
-
-    /// <summary>
-    /// Force Reload of the app/site
-    /// </summary>
-    public bool AutoUpdate { get; set; }
 
     /// <summary>
     /// Is there differences in the versions (depends on CheckVersion methods)

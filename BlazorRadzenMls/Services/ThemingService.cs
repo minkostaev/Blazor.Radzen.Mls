@@ -8,8 +8,7 @@ public class ThemingService(IJavaScriptService iJSRuntime) : IThemingService
     private readonly IJavaScriptService __js = iJSRuntime;
 
     private string DefaultTheme => ThemesAll.FirstOrDefault()!;
-    private bool ThemeExist(string name) => ThemesAll.Contains(name);
-
+    
     /// <summary>
     /// All available radzen themes names
     /// </summary>
@@ -29,18 +28,19 @@ public class ThemingService(IJavaScriptService iJSRuntime) : IThemingService
     public bool? IsDark { get; set; }
 
     /// <summary>
+    /// Checking is the name of the theme whether is in the list
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public bool ThemeExist(string name) => ThemesAll.Contains(name);
+
+    /// <summary>
     /// Get current radzen theme name
     /// </summary>
     /// <returns>Theme name</returns>
-    public async Task<string?> GetTheme(StateService? __state = null)
+    public async Task<string> GetTheme()
     {
-        string? name;
-        try { name = __state!.SiteOptions.Theme; }
-        catch { name = string.Empty; }
-        if (!string.IsNullOrEmpty(name) && ThemeExist(name))
-        {
-            return name;
-        }
+        string name = string.Empty;
         name = await __js.GetTheme(this, "GetTheme");
         if (!string.IsNullOrEmpty(name) && ThemeExist(name))
         {
@@ -56,31 +56,23 @@ public class ThemingService(IJavaScriptService iJSRuntime) : IThemingService
     /// <param name="name">Themes name</param>
     /// <param name="saveLocal">Save to local storage</param>
     /// <returns>The success of theme change</returns>
-    public async Task<bool> SetTheme(string? name, StateService? __state = null, bool saveLocal = false)
+    public async Task<string> SetTheme(string? name)
     {
         if (!ThemeExist(name!))
         {
             name = DefaultTheme;
         }
         name = CheckForDarkTheme(name!);
-        bool success = await __js.SetTheme(name, this, "SetTheme");
-        if (__state != null)
-        {
-            __state!.SiteOptions.Theme = name;
-            if (saveLocal && success)
-            {
-                await __state.SaveAppOptions();
-            }
-        }
-        return success;
+        await __js.SetTheme(name, this, "SetTheme");
+        return name;
     }
 
     /// <summary>
     /// Use this method if you'll use ThemesBasic list
     /// </summary>
-    public async Task UseIsDarkLightProperty(StateService? __state = null)
+    public async Task UseIsDarkLightProperty()
     {
-        string? name = await GetTheme(__state);
+        string? name = await GetTheme();
         IsDark = name!.Contains("dark");
     }
 
@@ -114,7 +106,11 @@ public class ThemingService(IJavaScriptService iJSRuntime) : IThemingService
         return themeName;
     }
 
-    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="themeName"></param>
+    /// <returns></returns>
     public string? ThemeNameAlwaysLight(string? themeName)
     {
         if (IsDark == null || string.IsNullOrEmpty(themeName))

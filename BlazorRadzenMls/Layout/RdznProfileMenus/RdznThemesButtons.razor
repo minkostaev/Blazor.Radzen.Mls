@@ -26,7 +26,7 @@
 @code {
 
     private string ThemeIcon(bool selected) => selected ? "done" : "perm_media";
-    
+
     private string ThemeListStyle(bool color) => color ? $"{AppStatic.IconColorStyle(color)}; {style}" : style;
     private string style => "text-transform: capitalize; display: block; width: 100%;";
 
@@ -37,16 +37,20 @@
     {
         if (__state.SiteOptions.Theme == theme)
             return;
-        await __theme.SetTheme(theme, __state, true);
+        string name = await __theme.SetTheme(theme);
+        __state.SiteOptions.Theme = name;
+        await __state.SaveAppOptions();
         __state.RefreshPage(this, "Theme_Click");
     }
     private async Task ThemeDark_Click(bool isDark)
     {
         if (__theme.IsDark == isDark)
             return;
-        string? name = await __theme.GetTheme(__state);
+        string? name = __theme.ThemeExist(__state.SiteOptions.Theme!) ? __state.SiteOptions.Theme : await __theme.GetTheme();
         __theme.IsDark = isDark;
-        await __theme.SetTheme(name, __state, true);
+        await __theme.SetTheme(name);
+        __state.SiteOptions.Theme = name;
+        await __state.SaveAppOptions();
         __state.RefreshPage(this, "ThemeDark_Click");
     }
 

@@ -95,7 +95,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        theme = await __theme.GetTheme(__state);
+        theme = __theme.ThemeExist(__state.SiteOptions.Theme!) ? __state.SiteOptions.Theme : await __theme.GetTheme();
 
         jsLocation = await __js.GetLocation(this, "OnInitializedAsync");
 

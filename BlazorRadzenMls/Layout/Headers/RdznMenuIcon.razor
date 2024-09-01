@@ -1,6 +1,6 @@
 ﻿@using BlazorRadzenMls.Models
 
-<div style="display: inline;">
+<div style="@divStyle">
     <div id="@menuPanelId" class="@AppValues.HtmlClassMenuIcon" style="display: none;">
         @ChildContent
     </div>
@@ -32,13 +32,15 @@
     {
         get
         {//border-right: var(--rz-profile-menu-border);
-            string result = $"width: 50px; height: 50px; border-right: 1px solid {AppValues.RdznMainColor};";
+            string result = $"width: 50px; height: 50px;";
             if (ExpectRefresh && __ver.NeedUpdate)
                 return $"{result} color: {Colors.Warning};";
             else
                 return $"{result} color: {AppValues.RdznMainColor};";
         }
     }
+
+    private string divStyle => $"display: inline; border-right: 1px solid {AppValues.RdznMainColor};";
 
     private string menuToggleId = "menuToggle" + Guid.NewGuid().ToString();
     private string menuPanelId = "menuPanel" + Guid.NewGuid().ToString();

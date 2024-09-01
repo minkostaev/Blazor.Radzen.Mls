@@ -7,9 +7,10 @@ public interface IThemingService
     string[] ThemesAll { get; }
     string[] ThemesBasic { get; }
     bool? IsDark { get; set; }
-    Task<string?> GetTheme(StateService? __state = null);
-    Task<bool> SetTheme(string? name, StateService? __state = null, bool saveLocal = false);
-    Task UseIsDarkLightProperty(StateService? __state = null);
+    Task<string> GetTheme();
+    Task<string> SetTheme(string? name);
+    bool ThemeExist(string name);
+    Task UseIsDarkLightProperty();
     string CheckForDarkTheme(string themeName);
     string? ThemeNameAlwaysLight(string? themeName);
 }

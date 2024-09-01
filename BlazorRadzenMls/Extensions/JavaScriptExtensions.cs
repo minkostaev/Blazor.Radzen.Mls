@@ -140,6 +140,16 @@ public static class JavaScriptExtensions
 
     #endregion
 
+    public static async Task<bool?> IsOsDarkTheme(this IJavaScriptService js,
+        object thisComponent, string methodName = "")
+    {
+        js.DefineComponent(thisComponent, methodName);
+        var result = await js.InvokeAsync<bool?>("isOsDarkTheme");
+        if (result.Item1 && result.Item2 is bool theme)
+            return theme;
+        return null;
+    }
+
     #region Radzen
 
     public static async Task<string> GetTheme(this IJavaScriptService js,
