@@ -18,6 +18,16 @@ function setRadzenTheme(val) {
     }
 }
 
+function isOsDarkTheme() {
+    const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isLightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    if (isDarkMode == true)
+        return true;
+    if (isLightMode == true)
+        return false;
+    return null;
+}
+
 function removeBodyContentPadding() {
     let bodyDiv = document.getElementById('myRadzenBody');
     bodyDiv.style.padding = 0;
