@@ -107,10 +107,10 @@ public class ThemingService(IJavaScriptService iJSRuntime) : IThemingService
     }
 
     /// <summary>
-    /// 
+    /// Remove dark label from theme label
     /// </summary>
     /// <param name="themeName"></param>
-    /// <returns></returns>
+    /// <returns>Default theme label</returns>
     public string? ThemeNameAlwaysLight(string? themeName)
     {
         if (IsDark == null || string.IsNullOrEmpty(themeName))

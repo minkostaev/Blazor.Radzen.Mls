@@ -4,8 +4,15 @@
     <div id="@menuPanelId" class="@AppValues.HtmlClassMenuIcon" style="display: none;">
         @ChildContent
     </div>
-    <RadzenButton id="@menuToggleId" Icon="@Name" Click="@LinkOrMenu"
-                  Variant="Variant.Text" Style="@buttonStyle" />
+
+    @* display: flex *@
+    @* <div id="@menuPanelId" class="@AppValues.HtmlClassMenuIcon" style="display: none; justify-content: flex-end; position: absolute;">
+    @ChildContent
+    </div> *@
+
+    <RadzenButton id="@menuToggleId" Style="@buttonStyle"
+                  Icon="@Name" Click="@LinkOrMenu" Variant="Variant.Text" />
+    
 </div>
 
 @code {

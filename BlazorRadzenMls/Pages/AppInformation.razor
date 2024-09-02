@@ -48,6 +48,9 @@
     <br />
     <RadzenLabel Text="@__ml["Theme Name:"]" class="rz-color-success-dark" />
     <RadzenLabel Text="@theme" class="rz-color-primary" Style="font-weight: bold;" />
+    <br />
+    <RadzenLabel Text="@__ml["your OS Theme:"]" class="rz-color-success-dark" />
+    <RadzenLabel Text="@osTheme" class="rz-color-primary" Style="font-weight: bold;" />
 
     <br />
     <RadzenLabel Text="@__ml["location.hash:"]" class="rz-color-success-dark" />
@@ -90,6 +93,7 @@
 
     private string currentCulture => System.Globalization.CultureInfo.CurrentCulture.Name;
     private string? theme { get; set; }
+    private string? osTheme { get; set; }
     private JsLocation? jsLocation;
     private string? ip;
 
@@ -100,6 +104,12 @@
         jsLocation = await __js.GetLocation(this, "OnInitializedAsync");
 
         ip = await __js.GetIp(this, "OnInitializedAsync");
+
+        var osIsDark = await __js.IsOsDarkTheme(this, "");
+        if (osIsDark == true)
+            osTheme = "Dark";
+        else if (osIsDark == false)
+            osTheme = "Light";
 
         __state.RefreshEvent += delegate { StateHasChanged(); }; //Refresh_Event;
     }
