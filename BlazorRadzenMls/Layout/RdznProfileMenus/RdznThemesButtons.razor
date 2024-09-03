@@ -48,7 +48,7 @@
             return;
         string? name = __theme.ThemeExist(__state.SiteOptions.Theme!) ? __state.SiteOptions.Theme : await __theme.GetTheme();
         __theme.IsDark = isDark;
-        await __theme.SetTheme(name);
+        name = await __theme.SetTheme(name);
         __state.SiteOptions.Theme = name;
         await __state.SaveAppOptions();
         __state.RefreshPage(this, "ThemeDark_Click");
