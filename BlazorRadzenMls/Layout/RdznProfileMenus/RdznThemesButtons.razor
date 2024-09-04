@@ -27,31 +27,24 @@
 
     private string ThemeIcon(bool selected) => selected ? "done" : "perm_media";
 
-    private string ThemeListStyle(bool color) => color ? $"{AppStatic.IconColorStyle(color)}; {style}" : style;
-    private string style => "text-transform: capitalize; display: block; width: 100%;";
+    private string ThemeListStyle(bool color) => color ? $"{AppStatic.IconColorStyle(color)}; {styleVertical}" : styleVertical;
+    private string styleVertical => "text-transform: capitalize; display: block; width: 100%;";
 
-    private string ThemeDarkStyle(bool color) => color ? $"{AppStatic.IconColorStyle(color)} {style2}" : style2;
-    private string style2 => "text-transform: capitalize; width: 44%;";
+    private string ThemeDarkStyle(bool color) => color ? $"{AppStatic.IconColorStyle(color)} {styleHorizontal}" : styleHorizontal;
+    private string styleHorizontal => "text-transform: capitalize; width: 44%;";
 
+    private async Task ThemeDark_Click(bool isDark)
+    {
+        string? name = __theme.ThemeExist(__state.SiteOptions.Theme!) ? __state.SiteOptions.Theme : await __theme.GetTheme();
+        __theme.IsDark = isDark;
+        await Theme_Click(name);
+    }
     private async Task Theme_Click(string? theme)
     {
-        if (__state.SiteOptions.Theme == theme)
-            return;
         string name = await __theme.SetTheme(theme);
         __state.SiteOptions.Theme = name;
         await __state.SaveAppOptions();
         __state.RefreshPage(this, "Theme_Click");
-    }
-    private async Task ThemeDark_Click(bool isDark)
-    {
-        if (__theme.IsDark == isDark)
-            return;
-        string? name = __theme.ThemeExist(__state.SiteOptions.Theme!) ? __state.SiteOptions.Theme : await __theme.GetTheme();
-        __theme.IsDark = isDark;
-        name = await __theme.SetTheme(name);
-        __state.SiteOptions.Theme = name;
-        await __state.SaveAppOptions();
-        __state.RefreshPage(this, "ThemeDark_Click");
     }
 
     protected override void OnInitialized()

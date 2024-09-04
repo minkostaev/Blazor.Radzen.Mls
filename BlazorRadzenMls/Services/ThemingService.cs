@@ -83,9 +83,15 @@ public class ThemingService(IJavaScriptService iJSRuntime) : IThemingService
     /// <summary>
     /// Use this method if you'll use ThemesBasic list
     /// </summary>
-    public async Task UseIsDarkLightProperty()
+    public async Task UseIsDarkLightProperty(string? name = "")
     {
-        string? name = await GetTheme();
+        if (string.IsNullOrWhiteSpace(name))
+            name = await GetTheme();
+        else
+        {
+            if (!ThemeExist(name))
+                name = await DefaultTheme();
+        }
         IsDark = name!.Contains("dark");
     }
 

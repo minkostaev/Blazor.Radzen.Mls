@@ -10,7 +10,7 @@ public interface IThemingService
     Task<string> GetTheme();
     Task<string> SetTheme(string? name);
     bool ThemeExist(string name);
-    Task UseIsDarkLightProperty();
+    Task UseIsDarkLightProperty(string? name = "");
     string CheckForDarkTheme(string themeName);
     string? ThemeNameAlwaysLight(string? themeName);
 }

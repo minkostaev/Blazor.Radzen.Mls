@@ -40,7 +40,7 @@
     protected override async Task OnInitializedAsync()
     {
         await __state.LoadAppOptions();
-        await __theme.UseIsDarkLightProperty();
+        await __theme.UseIsDarkLightProperty(__state.SiteOptions.Theme);
         __state.SiteOptions.Theme = await __theme.SetTheme(__state.SiteOptions.Theme);
         await __ml.ChangeLanguage(__state.SiteOptions.Language);
 
