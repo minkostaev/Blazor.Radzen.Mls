@@ -8,21 +8,26 @@
         <RdznMenuIcon>
             <RdznMenuPanel />
         </RdznMenuIcon>
-
+        @* <div style="@verticalLineStyle"></div> *@
         <RdznMenuIcon Name="build" ExpectRefresh="true" Size="30">
             <RdznMenuOptions />
         </RdznMenuIcon>
-
+        @* <div style="@verticalLineStyle"></div> *@
         <RdznMenuIcon Name="home" NavigateTo="" Size="29" />
+        @* <div style="@verticalLineStyle"></div> *@
         <RdznMenuIcon Name="build" NavigateTo="@AppValues.PageOptions" Size="29" />
+        @* <div style="@verticalLineStyle"></div> *@
         <RdznMenuIcon Name="description" NavigateTo="@AppValues.GitHubMy" OnNewTab="true" Size="29" />
-
-        <RdznMenuIcon Name="build" ExpectRefresh="true" Size="30">
+        @* <div style="@verticalLineStyle"></div> *@
+        @* <RdznMenuIcon Name="build" ExpectRefresh="true" Size="30">
             <RdznMenuOptions />
-        </RdznMenuIcon>
-
+        </RdznMenuIcon> *@
+        @* <div style="@verticalLineStyle"></div> *@
     </div>
     <div>
+        @* <RdznMenuIcon ContentToRight="true">
+            <RdznMenuPanel />
+        </RdznMenuIcon> *@
         <RdznMenuUser />
     </div>
 </div>
@@ -30,6 +35,9 @@
 @code {
 
     private const string htmlIdHeader = "headerStickyLayout";
+
+    private string verticalLineStyle => $"display: inline-block; position: absolute; top: 10px; height: 30px; width: 1px; background-color: {AppValues.RdznMainColor};";
+
 
     // private void SidebarExpand()
     // {
