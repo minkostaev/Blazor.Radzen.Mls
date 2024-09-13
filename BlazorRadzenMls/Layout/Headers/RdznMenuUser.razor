@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+
+
+
+<RadzenPanelMenu Style="overflow: auto; max-height: calc(100vh - var(--heightHeaderFooter));"
+                 DisplayStyle="@__state.SiteOptions.Menu.MenuStyle"
+                 Multiple="@__state.SiteOptions.Menu.Multiple"
+                 ShowArrow="@__state.SiteOptions.Menu.Arrow">
+
+
+    <div>
+        <AuthorizeView>
+            <Authorized>
+                <RadzenPanelMenuItem Text="@userName" />
+                @* <RadzenText Text=@userName TextStyle="TextStyle.Body1" class="rz-color-primary"
+                            Style="margin: 10px; max-width: 300px; overflow: hidden; text-overflow: ellipsis;" /> *@
+                <RadzenButton Text="Logout" Click="SignOut" Icon="highlight_off" Style="width: 100%;" />
+            </Authorized>
+            <NotAuthorized>
+                <RadzenButton Text="Login" Click="SignIn" Icon="account_circle" Style="width: 100%;" />
+            </NotAuthorized>
+        </AuthorizeView>
+    </div>
+
+    <RadzenPanelMenuItem Text="Home" Path="" Icon="home">@* Home *@</RadzenPanelMenuItem>
+
+    <RadzenPanelMenuItem Text="" Icon="language">
+        <RadzenPanelMenuItem Visible="false"/>
+        
+    </RadzenPanelMenuItem>
+
+    <RadzenPanelMenuItem Text="" Icon="language">
+        <RadzenPanelMenuItem Visible="false" />
+        
+    </RadzenPanelMenuItem>
+
+    <RadzenPanelMenuItem Text="User" Path="user" Icon="face" />
+    @* <RadzenProfileMenuItem Text="@__ml["Options"]" Path="@AppValues.PageOptions" Icon="build"></RadzenProfileMenuItem> *@
+
+
+</RadzenPanelMenu>
+
+@code {
+
+    private bool isGravatar { get; set; }
+    private string? email { get; set; }
+
+    private string? userName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authstate = await __auth.GetAuthenticationStateAsync();
+        var user = authstate.User;
+        userName = user?.Identity?.Name;
+    }
+
+    private void SignIn() { __nav.NavigateToLogin("authentication/login"); }
+    private async Task SignOut()
+    {
+        await __js.SessionClear(this, "SignOut");
+        __nav.NavigateTo("authentication/logout");
+    }
+
+}

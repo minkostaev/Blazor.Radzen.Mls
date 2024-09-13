@@ -25,10 +25,11 @@
         @* <div style="@verticalLineStyle"></div> *@
     </div>
     <div>
-        @* <RdznMenuIcon ContentToRight="true">
-            <RdznMenuPanel />
-        </RdznMenuIcon> *@
-        <RdznMenuUser />
+        <RdznMenuIcon Name="account_box" ContentToRight="true">
+            <BlazorRadzenMls.Layout.Headers.RdznMenuUser />
+        </RdznMenuIcon>
+        
+        @* <RdznMenuUser /> *@
     </div>
 </div>
 
