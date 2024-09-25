@@ -10,13 +10,14 @@
 @if (dataImoti != null)
 {
     <RadzenDataGrid @ref="grid" Data="@dataImoti" TItem="ImotMongo" ValueChanged="@grid_ValueChanged"
-                    Render="@OnRender" RowDoubleClick="@OnDoubleClick"
+                    Render="@OnRender" RowDoubleClick="@OnDoubleClick" Page="@grid_PageChange"
                     PageSize="10" AllowPaging="true" AllowSorting="true" AllowAlternatingRows="false"
                     PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                     AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.CheckBoxList">
         <HeaderTemplate>
             @* <RdznGrdHdrTmpt /> *@
             @time
+            @Page
         </HeaderTemplate>
         <Columns>
             <RadzenDataGridColumn Property="@nameof(Imot.Label)" Title="Label" />
@@ -45,6 +46,17 @@ else
 </div>
 
 @code {
+
+    //todo
+    [SupplyParameterFromQuery(Name = "page")]
+    public int Page { get; set; }
+
+    public void grid_PageChange(PagerEventArgs e)
+    {
+        Page = e.PageIndex;
+        __nav.NavigateTo($"{__nav.Uri}?page={Page}", false);
+    }
+    //todo
 
     private bool isNew = true;
 
