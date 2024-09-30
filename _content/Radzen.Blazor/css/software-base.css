@@ -13366,6 +13366,7 @@ a:focus-visible .rz-fieldset-toggler {
 .rz-data-grid-data {
   overflow: auto;
   flex: 1;
+  outline: var(--rz-outline-normal);
   box-shadow: var(--rz-grid-data-border-shadow);
 }
 
@@ -14816,7 +14817,7 @@ a:focus-visible .rz-fieldset-toggler {
   border-radius: var(--rz-tabs-border-radius) 0 0 var(--rz-tabs-border-radius);
 }
 
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+@media screen and (forced-colors: active), (forced-colors: none) {
   .rz-tabview-panels {
     flex: auto;
   }
@@ -19303,6 +19304,9 @@ button.rz-colorpicker-trigger .rzi:before {
 }
 .rz-form-field-content > *, .rz-form-field-content > .rz-autocomplete, .rz-form-field-content > .rz-autocomplete.rz-state-disabled > .rz-inputtext, .rz-form-field-content input, .rz-form-field-content .rz-inputtext, .rz-form-field-content .rz-inputtext.rz-state-disabled, .rz-form-field-content .rz-datepicker.rz-state-disabled > .rz-inputtext {
   flex: 1;
+}
+.rz-form-field-content > input {
+  width: 100%;
 }
 .rz-form-field-content .rz-form-field-start,
 .rz-form-field-content .rz-form-field-end {
