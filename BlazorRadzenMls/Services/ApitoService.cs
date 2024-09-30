@@ -23,6 +23,7 @@ public class ApitoService : IApitoService
     public ApitoService(IHttpClientFactory httpClientFactory)
     {
         _httpClient = httpClientFactory.CreateClient("ApitoSomee");
+        ///_httpClient = httpClientFactory.CreateClient("ApitoRender");
     }
 
     public async Task<Response> GetMachinesLogs()

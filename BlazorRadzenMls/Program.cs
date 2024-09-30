@@ -29,6 +29,12 @@ builder.Services.AddHttpClient("ApitoSomee", client =>
     ///client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     ///client.Timeout = TimeSpan.FromMinutes(3);
 });///.AddHttpMessageHandler<LocalTokenHandler>();
+builder.Services.AddHttpClient("ApitoRender", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["Endpoints:ApitoRender"]!);
+    ///client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    ///client.Timeout = TimeSpan.FromMinutes(3);
+});///.AddHttpMessageHandler<LocalTokenHandler>();
 builder.Services.AddScoped<IApitoService, ApitoService>();
 
 builder.Services.AddExternalLibraries();//extension
