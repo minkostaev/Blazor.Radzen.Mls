@@ -8,6 +8,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using BlazorRadzenMls.Contracts;
 using Radzen;
+using Microsoft.AspNetCore.Components.Authorization;
 
 public static class AppStatic
 {
@@ -165,5 +166,12 @@ public static class AppStatic
     ///    text = text.Substring(0, position) + newValue + text.Substring(position + oldValue.Length);
     ///    return text;
     ///}
+
+    public static async Task<string?> GetLoggedEmail(AuthenticationStateProvider auth)
+    {
+        var authstate = await auth.GetAuthenticationStateAsync();
+        var user = authstate.User;
+        return user?.Identity?.Name;
+    }
 
 }

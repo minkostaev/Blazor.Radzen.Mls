@@ -11,4 +11,5 @@ public interface IApitoService
     Task<Response> GetMachinesLogs();
     Task<Response> DeleteMachinesLogs(string[]? ids);
     Task<Response> GetMachinesDetails();
+    Task<Response> PostEmail(string from, string name, string topic, string message);
 }

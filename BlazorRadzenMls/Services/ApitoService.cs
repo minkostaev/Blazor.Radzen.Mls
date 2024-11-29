@@ -16,6 +16,7 @@ public class ApitoService : IApitoService
     private const string EndpointMachinesLogs = "/machineslogs";
     private const string EndpointMachinesRecords = "/machinesrecords";
     private const string EndpointImoti = "/imoti";
+    private const string EndpointEmailresend = "/emailresend";
 
     private const HttpStatusCode HttpCodeJson = HttpStatusCode.Conflict;
 
@@ -214,5 +215,35 @@ public class ApitoService : IApitoService
 
         return result;
     }
+
+
+    public async Task<Response> PostEmail(string from, string name, string topic, string message)
+    {
+        var result = new Response();
+        var timer1 = AppStatic.TimerStart();
+
+        var email = new { from, name, topic, message, toUserToo = true };
+
+        HttpResponseMessage response = await _httpClient.PostAsJsonAsync(EndpointEmailresend, email);
+        
+        if (response == null)
+        {
+            result.Status = HttpStatusCode.InternalServerError;
+            return result;
+        }
+        else
+            result.Status = response.StatusCode;
+
+        result.RequestTime = AppStatic.TimerStop(timer1);
+
+        if (response.StatusCode == HttpStatusCode.Created)
+        {
+            result.Result = true;
+            return result;
+        }
+        else
+            return result;
+    }
+
 
 }

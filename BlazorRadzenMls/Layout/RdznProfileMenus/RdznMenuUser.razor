@@ -41,9 +41,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var authstate = await __auth.GetAuthenticationStateAsync();
-        var user = authstate.User;
-        userName = user?.Identity?.Name;
+        userName = await AppStatic.GetLoggedEmail(__auth);
     }
 
     private void SignIn() { __nav.NavigateToLogin("authentication/login"); }

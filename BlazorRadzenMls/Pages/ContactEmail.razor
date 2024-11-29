@@ -1,0 +1,86 @@
+﻿@page "/contactemail"
+
+@inject IApitoService _apito
+
+<div class="rz-p-4">
+
+    <RadzenText Text="@__ml["ContactEmail"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
+
+    <RadzenFieldset Text="Send">
+        <RadzenStack Gap="1rem">
+
+            <RadzenRow AlignItems="AlignItems.Center">
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="From" Component="From" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="9">
+                    <RadzenTextBox @bind-Value=From Style="width: 100%;" Name="From" />
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenRow AlignItems="AlignItems.Center">
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Name" Component="Name" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="9">
+                    <RadzenTextBox @bind-Value=Name Style="width: 100%;" Name="Name" />
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenRow AlignItems="AlignItems.Center">
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Topic" Component="Topic" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="9">
+                    <RadzenTextBox @bind-Value=Topic Style="width: 100%;" Name="Topic" />
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenRow AlignItems="AlignItems.Center">
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Message" Component="Message" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="9">
+                    <RadzenTextBox @bind-Value=Message Style="width: 100%;" Name="Message" />
+                </RadzenColumn>
+            </RadzenRow>
+
+            <RadzenRow AlignItems="AlignItems.Center">
+                <RadzenColumn Size="12" SizeMD="3" />
+                <RadzenColumn Size="12" SizeMD="9">
+                    <RadzenButton Text="Send" Disabled="@isSendReady" IsBusy="@isSendReady" Icon="flight_takeoff" Click="@Send" />
+                </RadzenColumn>
+            </RadzenRow>
+
+        </RadzenStack>
+    </RadzenFieldset>
+
+</div>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        From = await AppStatic.GetLoggedEmail(__auth);
+        var nameParts = From?.Split('@');
+        if (nameParts != null && nameParts.Length > 0)
+            Name = nameParts[0];
+    }
+
+    private bool isSendReady { get; set; }
+
+    private string? From { get; set; }
+    private string? Name { get; set; }
+    private string? Topic { get; set; }
+    private string? Message { get; set; }
+
+    private async Task Send()
+    {
+        isSendReady = true;
+        var result = await _apito.PostEmail(From!, Name!, Topic!, Message!);
+        if (result.Result != null)
+        {
+            Topic = string.Empty;
+            Message = string.Empty;
+        }
+        isSendReady = false;
+    }
+
+}
