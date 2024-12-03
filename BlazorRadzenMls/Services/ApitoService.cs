@@ -222,7 +222,16 @@ public class ApitoService : IApitoService
         var result = new Response();
         var timer1 = AppStatic.TimerStart();
 
-        var email = new { from, name, topic, message, toUserToo = true };
+        var email = new
+        {
+            from,
+            name,
+            topic,
+            message,
+            secondTopic = "Summary and confirmation on message you sent",
+            secondHeader = "<h3>You have send this message to us</h3>",
+            secondFooter = "<h4>We'll get back to you as soon as possible</h4>"
+        };
 
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(EndpointEmailresend, email);
         

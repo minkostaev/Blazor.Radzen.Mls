@@ -4,47 +4,47 @@
 
 <div class="rz-p-4">
 
-    <RadzenText Text="@__ml["ContactEmail"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
+    <RadzenText Text="@__ml["ContactUs"]" TextStyle="TextStyle.H4" class="rz-color-primary" />
 
-    <RadzenFieldset Text="Send">
+    <RadzenFieldset Text="@__ml["SendFeedback"]">
         <RadzenStack Gap="1rem">
 
             <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="From" Component="From" />
+                <RadzenColumn Size="12" SizeMD="2">
+                    <RadzenLabel Text="Name" Component="Name" class="rz-color-success-dark" />
                 </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="9">
-                    <RadzenTextBox @bind-Value=From Style="width: 100%;" Name="From" />
-                </RadzenColumn>
-            </RadzenRow>
-            <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Name" Component="Name" />
-                </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="9">
+                <RadzenColumn Size="12" SizeMD="10">
                     <RadzenTextBox @bind-Value=Name Style="width: 100%;" Name="Name" />
                 </RadzenColumn>
             </RadzenRow>
             <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Topic" Component="Topic" />
+                <RadzenColumn Size="12" SizeMD="2">
+                    <RadzenLabel Text="Email" Component="Email" class="rz-color-success-dark" />
                 </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="9">
+                <RadzenColumn Size="12" SizeMD="10">
+                    <RadzenTextBox @bind-Value=From Style="width: 100%;" Name="Email" />
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenRow AlignItems="AlignItems.Center">
+                <RadzenColumn Size="12" SizeMD="2">
+                    <RadzenLabel Text="Topic" Component="Topic" class="rz-color-success-dark" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="10">
                     <RadzenTextBox @bind-Value=Topic Style="width: 100%;" Name="Topic" />
                 </RadzenColumn>
             </RadzenRow>
             <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Message" Component="Message" />
+                <RadzenColumn Size="12" SizeMD="2">
+                    <RadzenLabel Text="Message" Component="Message" class="rz-color-success-dark" />
                 </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="9">
-                    <RadzenTextBox @bind-Value=Message Style="width: 100%;" Name="Message" />
+                <RadzenColumn Size="12" SizeMD="10">
+                    <RadzenHtmlEditor @bind-Value=Message style="height: 300px;" />
                 </RadzenColumn>
             </RadzenRow>
 
             <RadzenRow AlignItems="AlignItems.Center">
-                <RadzenColumn Size="12" SizeMD="3" />
-                <RadzenColumn Size="12" SizeMD="9">
+                <RadzenColumn Size="12" SizeMD="2" />
+                <RadzenColumn Size="12" SizeMD="10">
                     <RadzenButton Text="Send" Disabled="@isSendReady" IsBusy="@isSendReady" Icon="flight_takeoff" Click="@Send" />
                 </RadzenColumn>
             </RadzenRow>
