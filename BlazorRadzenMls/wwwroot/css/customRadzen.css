@@ -1,4 +1,6 @@
-﻿div.myRadzenToggleButton {
+﻿@import url('universalRadzen.css');
+
+div.myRadzenToggleButton {
     display: inline-block;
     margin-right: -3px;
     margin-bottom: 1px;

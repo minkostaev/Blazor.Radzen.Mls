@@ -9,7 +9,7 @@
     <ChildContent>
         @if (Selected != null)
         {
-            <div class="drop-down-panel">
+            <RadzenPanel class="rdzn-split-button-panel">
                 @foreach (var itm in Selected)
                 {
                     <RadzenText TextStyle="TextStyle.Body2"
@@ -18,7 +18,7 @@
                         <RadzenIcon Icon="done" IconColor="var(--rz-dropdown-open-background-color)" />
                     </RadzenText>
                 }
-            </div>
+            </RadzenPanel>
         }
     </ChildContent>
 </RadzenSplitButton>
@@ -26,7 +26,7 @@
 <RadzenSplitButton Text="@__ml["More"]" Icon="list" ButtonStyle="ButtonStyle.Info"
                    IsBusy="@BusyDelete" AlwaysOpenPopup="true">
     <ChildContent>
-        <div class="drop-down-panel">
+        <RadzenPanel class="rdzn-split-button-panel">
             <RadzenAccordion>
                 <Items>
                     <RadzenAccordionItem Text="@TimeText" Icon="alarm">
@@ -46,7 +46,7 @@
                     </div>
                 }
             }
-        </div>
+        </RadzenPanel>
     </ChildContent>
 </RadzenSplitButton>
 
