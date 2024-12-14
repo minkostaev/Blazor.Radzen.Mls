@@ -30,13 +30,6 @@
 .footer-sticky[b-1oigblzu3z] {
     --transparent-color: rgba(255, 0, 0, 0.5);/*it's temp (remove later)*/
 }
-/* /Pages/Apito/RdznGrdHdrTmpt.razor.rz.scp.css */
-.drop-down-panel[b-1l2jm1oo7y] {
-    width: 266px;
-    max-height: 300px;
-    overflow: auto;
-    padding: 10px;
-}
 /* /Pages/Learn/Upload/InputFiles.razor.rz.scp.css */
  .file-uploader[b-e0jcobmx42] {
      position: relative;

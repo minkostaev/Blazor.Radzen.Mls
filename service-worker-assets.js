@@ -1,12 +1,12 @@
 self.assetsManifest = {
-  "version": "9nlhXE4P",
+  "version": "pzJx89oI",
   "assets": [
     {
       "hash": "sha256-jPXovCzstGW9D/l8FmsZ6AP3w7uzsmNRJH16x3KW9+M=",
       "url": "404.html"
     },
     {
-      "hash": "sha256-4bJjRImgz3DIOAS6LtftQyrK55XvK03x1LP4PgRpSlI=",
+      "hash": "sha256-BmqhXjmGuLlCgqbbJkm6pOQrhZHCWlmsF3O9UcLQGoc=",
       "url": "BlazorRadzenMls.styles.css"
     },
     {
@@ -158,7 +158,7 @@ self.assetsManifest = {
       "url": "_framework/AKSoftware.Localization.MultiLanguages.wasm"
     },
     {
-      "hash": "sha256-GW+Wx5iMlEMN6MHNAcD6L554+Wqmb5n5c6vXwsMxENg=",
+      "hash": "sha256-LcUDI1Sz8HEeM49g9cewc36AOTwOFPA0zKnmAj0mQv0=",
       "url": "_framework/BlazorRadzenMls.wasm"
     },
     {
@@ -262,7 +262,7 @@ self.assetsManifest = {
       "url": "_framework/Microsoft.JSInterop.wasm"
     },
     {
-      "hash": "sha256-i93WROUTKv3v9CkdAanDXTxB31haj/VtrEwb0dG2zEw=",
+      "hash": "sha256-SUDU4J9HFhh9b2u00VkrhK7KRrEI/ut7V4CXitSriiQ=",
       "url": "_framework/Radzen.Blazor.wasm"
     },
     {
@@ -454,7 +454,7 @@ self.assetsManifest = {
       "url": "_framework/YamlDotNet.wasm"
     },
     {
-      "hash": "sha256-eWVmwmzuX/1DOU44ZmhjRvzLUsCksXJu/CwqH5GSLjc=",
+      "hash": "sha256-2Cv/vfmLwGDCdGeqQefwr6QhJ5naRgMOpM9ruFjEin4=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -518,7 +518,7 @@ self.assetsManifest = {
       "url": "css/customBlazor.css"
     },
     {
-      "hash": "sha256-jFb3ECMcBs0BW5BObN7u4NhJRUnBPKM+an38Tc2AJmo=",
+      "hash": "sha256-8SNYNqOYdO0YfkjOfbBQkwSwuJ/KvPj0mxxt6XwAPcw=",
       "url": "css/customRadzen.css"
     },
     {
@@ -550,6 +550,10 @@ self.assetsManifest = {
       "url": "css/loaders/load6.css"
     },
     {
+      "hash": "sha256-Qjl9V1y15a403+dn1zv+aIP8aFc5CbdZTZotQd04szw=",
+      "url": "css/universalRadzen.css"
+    },
+    {
       "hash": "sha256-YHqWJO2YeUxklrz5q7hdaUhRQklqVk4Qn9NDPXzRaCk=",
       "url": "css/variables.css"
     },
@@ -558,7 +562,7 @@ self.assetsManifest = {
       "url": "data/sample.pdf"
     },
     {
-      "hash": "sha256-kH7PgH1gvmE24tFBemH4Pvud4br4/9qZ439n0nyVaM8=",
+      "hash": "sha256-OHp+AHvOmDrLwgDy5pt5I1mXnVgGDzpIu6RlEPP1Yfw=",
       "url": "data/version.txt"
     },
     {
