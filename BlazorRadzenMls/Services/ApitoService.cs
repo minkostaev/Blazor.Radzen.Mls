@@ -20,11 +20,16 @@ public class ApitoService : IApitoService
 
     private const HttpStatusCode HttpCodeJson = HttpStatusCode.Conflict;
 
-    private readonly HttpClient _httpClient;
-    public ApitoService(IHttpClientFactory httpClientFactory)
+    private readonly StateService _state;
+    private readonly HttpClient _httpSomee;
+    private readonly HttpClient _httpRender;
+    private HttpClient _httpClient =>
+        _state.SiteOptions.ApitoId switch { 0 => _httpSomee, 1 => _httpRender, _ => _httpSomee, };
+    public ApitoService(IHttpClientFactory httpClientFactory, StateService state)
     {
-        _httpClient = httpClientFactory.CreateClient("ApitoSomee");
-        ///_httpClient = httpClientFactory.CreateClient("ApitoRender");
+        _state = state;
+        _httpSomee = httpClientFactory.CreateClient("ApitoSomee");
+        _httpRender = httpClientFactory.CreateClient("ApitoRender");
     }
 
     public async Task<Response> GetMachinesLogs()

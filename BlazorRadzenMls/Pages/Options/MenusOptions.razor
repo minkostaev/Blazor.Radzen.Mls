@@ -30,7 +30,19 @@
     </label>
 </div>
 
+<br />
+<div>
+    <RadzenRadioButtonList @bind-Value=@__state.SiteOptions.ApitoId TValue="int">
+        <Items>
+            <RadzenRadioButtonListItem Text="Somee" Value="0" />
+            <RadzenRadioButtonListItem Text="Render" Value="1" />
+        </Items>
+    </RadzenRadioButtonList>
+</div>
+
 @code {
+
+    //int value = __state.SiteOptions.ApitoId;
 
     private MenuItemDisplayStyle appMenuStyle
     {

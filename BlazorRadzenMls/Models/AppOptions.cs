@@ -15,5 +15,6 @@ public class AppOptions
     public string? Page { get; set; }
     public string? Language { get; set; }
     public string? Theme { get; set; }
+    public int ApitoId { get; set; }
     public MenuOptions Menu { get; set; }
 }
