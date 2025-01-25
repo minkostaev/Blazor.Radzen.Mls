@@ -1,4 +1,4 @@
-﻿@using BlazorRadzenMls.Models.TheMachine
+﻿@using Mintzat.Email.Models.TheMachine
 
 <RadzenPanelMenu Multiple="true">
 
@@ -97,7 +97,7 @@
 @code {
 
     [Parameter]
-    public MachineDb? Item { get; set; }
+    public MachineMongo? Item { get; set; }
 
     private string styl => "margin-top: -15px;";
     private string clas => "rz-background-color-primary-light";

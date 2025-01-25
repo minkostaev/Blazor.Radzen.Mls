@@ -3,7 +3,7 @@
 @attribute [Authorize]
 
 @using BlazorRadzenMls.Models
-@using BlazorRadzenMls.Models.TheMachine
+@using Mintzat.Email.Models.TheMachine
 
 @inject IApitoService _apito
 
@@ -11,7 +11,7 @@
 
 @if (dataLogs != null)
 {
-    <RadzenDataGrid @ref="grid" Data="@dataLogs" TItem="MachineDb" @bind-Value="selectedLogs"
+    <RadzenDataGrid @ref="grid" Data="@dataLogs" TItem="MachineMongo" @bind-Value="selectedLogs"
                     PageSize="10" AllowPaging="true" AllowSorting="true"
                     PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                     AllowFiltering="true" FilterMode="FilterMode.Advanced"
@@ -26,7 +26,7 @@
 
         </Template>
         <Columns>
-            <RadzenDataGridColumn Property="@nameof(MachineDb.Hash)" Title="User" />
+            <RadzenDataGridColumn Property="@nameof(MachineMongo.Hash)" Title="User" />
             <RadzenDataGridColumn Property="Client.User" Title="User" />
             <RadzenDataGridColumn Property="Client.Machine" Title="Machine" />
             <RadzenDataGridColumn Property="Client.Domain" Title="Desktop" />
@@ -41,16 +41,16 @@ else
 
 @code {
 
-    RadzenDataGrid<MachineDb>? grid;
-    private MachineDb[]? dataLogs;
-    private IList<MachineDb>? selectedLogs;
+    RadzenDataGrid<MachineMongo>? grid;
+    private MachineMongo[]? dataLogs;
+    private IList<MachineMongo>? selectedLogs;
 
     private string? time;
 
     protected override async Task OnInitializedAsync()
     {
         Response response = await _apito.GetMachinesDetails();
-        dataLogs = (MachineDb[]?)response.Result;
+        dataLogs = (MachineMongo[]?)response.Result;
 
         long total = response.RequestTime + response.DeserializeTime;
         time = $"[{response.RequestTime}ms {response.DeserializeTime}ms] {AppStatic.FormatMilliseconds(total)}";

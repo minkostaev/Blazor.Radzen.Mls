@@ -2,7 +2,7 @@
 
 using BlazorRadzenMls.Contracts;
 using BlazorRadzenMls.Models;
-using BlazorRadzenMls.Models.TheMachine;
+using Mintzat.Email.Models.TheMachine;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -108,7 +108,7 @@ public class ApitoService : IApitoService
 
         var timer = AppStatic.TimerStart();
 
-        try { result.Result = await response.Content.ReadFromJsonAsync<MachineDb[]>(); }
+        try { result.Result = await response.Content.ReadFromJsonAsync<MachineMongo[]>(); }
         catch { result.Status = HttpCodeJson; }
 
         result.DeserializeTime = AppStatic.TimerStop(timer);
