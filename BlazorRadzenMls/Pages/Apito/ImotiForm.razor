@@ -145,6 +145,7 @@
                         {
                             @if (SelectedImot != null && context?.User?.Identity?.Name == "rbsxkbgzpekhuwsufu@cazlp.com")
                             {
+                                @* <RadzenButton Text="Close" Icon="highlight_off" Click="@((args) => __dialog.Close(true))" /> *@
                                 <RadzenButton Text="Update" Icon="build" Click="() => Btn_Clicked(HttpMethod.Put)" />
                                 <RadzenButton Text="Delete" Icon="delete" ButtonStyle="ButtonStyle.Danger"
                                               Click="() => Btn_Clicked(HttpMethod.Delete)" />
@@ -221,11 +222,10 @@
         }
     }
 
-    private void Btn_Clicked(HttpMethod httpMethod)
+    private async Task Btn_Clicked(HttpMethod httpMethod)
     {
-        Method.InvokeAsync(httpMethod);
+        await Method.InvokeAsync(httpMethod);
         __dialog.Close(true);
-        //@((args) => dialogService.Close(true))
     }
 
 }
