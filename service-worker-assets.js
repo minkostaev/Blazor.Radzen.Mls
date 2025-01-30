@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "Cm20eSXy",
+  "version": "QiMtoufp",
   "assets": [
     {
       "hash": "sha256-jPXovCzstGW9D/l8FmsZ6AP3w7uzsmNRJH16x3KW9+M=",
@@ -158,7 +158,7 @@ self.assetsManifest = {
       "url": "_framework/AKSoftware.Localization.MultiLanguages.wasm"
     },
     {
-      "hash": "sha256-0o4bSq5wyvek+JyWN1V4VS1p6a0qIlMjD6ept0PNP1U=",
+      "hash": "sha256-N/whaSzBo2tzHEip8ZN5ZduSaRLrecQSsvCYpc8Z/KA=",
       "url": "_framework/BlazorRadzenMls.wasm"
     },
     {
@@ -166,35 +166,35 @@ self.assetsManifest = {
       "url": "_framework/Blazored.LocalStorage.wasm"
     },
     {
-      "hash": "sha256-GHHoLJMl7sXvm0ueqrHMNChrY7K1Tiio+wwipHdTKaI=",
+      "hash": "sha256-BqL9U73GKgBnmJrMw0wwHGgOMtzB/4T7TuGVoCxmsU4=",
       "url": "_framework/Microsoft.AspNetCore.Authorization.wasm"
     },
     {
-      "hash": "sha256-oeOiDIwZnjYrsvG3rV00V9mhspdRjPXCGmam/Cwyi7E=",
+      "hash": "sha256-giryqoPucXjzdcTYGNxSsxOrQo7HO85gpSavQHt+nDk=",
       "url": "_framework/Microsoft.AspNetCore.Components.Authorization.wasm"
     },
     {
-      "hash": "sha256-9lK9+Cd1oDQr1opNyWbGhFBhxdKFfu+DFPJatBN/BL8=",
+      "hash": "sha256-wxmpqpFnOjrny9rNUttQuX1UFh0p/1+Z0i8bFhswTvQ=",
       "url": "_framework/Microsoft.AspNetCore.Components.Forms.wasm"
     },
     {
-      "hash": "sha256-V5i2Zo8pNpDb1Xa/JOuRqDHQ4ukkYUTm5daLVbS2xRM=",
+      "hash": "sha256-WYWI02gxTGSmzvH0U9yp0zH/lTjUn5V0DZMOx2S6gb4=",
       "url": "_framework/Microsoft.AspNetCore.Components.Web.wasm"
     },
     {
-      "hash": "sha256-8l1AaqCd5dX76sbdG7RYFKAa2TmJdVDtV5QGuxobXCc=",
+      "hash": "sha256-uMlyJAJ2/niQ+Qf7tHsqEN8+96axeIe0JPmkGQq12/k=",
       "url": "_framework/Microsoft.AspNetCore.Components.WebAssembly.Authentication.wasm"
     },
     {
-      "hash": "sha256-gOdGEFZLndYv1fRY+CorfuyCltbF+s9PSEqkRVQceMg=",
+      "hash": "sha256-ZHtc1yfFLzgCOIHMgPcSjSq0SguFLiwnO0XzPWtl1k0=",
       "url": "_framework/Microsoft.AspNetCore.Components.WebAssembly.wasm"
     },
     {
-      "hash": "sha256-1PVGd9NsBJu1bC8L98n9BeRvM6C+dOF/E62Yhv2dtII=",
+      "hash": "sha256-wpC7H+jgfZ1ibhlxIvDuBteoa1Uf5awyKXG8Wds25OI=",
       "url": "_framework/Microsoft.AspNetCore.Components.wasm"
     },
     {
-      "hash": "sha256-7DyZZoBn/tjD5OACGHTZmF1p/nnIaI1KfCavcOl8l4I=",
+      "hash": "sha256-VBC/tvZ6xGaSToK9DIYC+12qjb2LIXjiIuNt3aD4Rxc=",
       "url": "_framework/Microsoft.AspNetCore.Metadata.wasm"
     },
     {
@@ -254,19 +254,19 @@ self.assetsManifest = {
       "url": "_framework/Microsoft.Extensions.Primitives.wasm"
     },
     {
-      "hash": "sha256-Jwrlf0VPydOWncfsAvk569TQrosh6ro1Xkc8HzvG2nQ=",
+      "hash": "sha256-RhVAz265IFi9sK3YF5C+qnevStoIPeRZ8rOqY/P0wc4=",
       "url": "_framework/Microsoft.JSInterop.WebAssembly.wasm"
     },
     {
-      "hash": "sha256-vUpuJairP35hJAIF8OGpId/Rroqs78wqmYnYEQYaV7w=",
+      "hash": "sha256-WGbGTB3D/zczJtNXdtnya8zyrIrXNo2z8ytoYdR1THc=",
       "url": "_framework/Microsoft.JSInterop.wasm"
     },
     {
-      "hash": "sha256-OiPwtZSN5sXlAz3YkTmtzaIp1NkEcCDLaE30XaBDJQU=",
+      "hash": "sha256-PG45esYqMP8CHHpGKSNL9yJtU1av6Rxyw7TQcbbpCiI=",
       "url": "_framework/Mintzat.Email.wasm"
     },
     {
-      "hash": "sha256-XWxxafRG+YIrxulVKCXIAExWGiOVHiShZOG/JJBt/ls=",
+      "hash": "sha256-tSWZedUNBfsj+PLJJq9cBEUc39pSDykUa7E0zGAKj88=",
       "url": "_framework/Radzen.Blazor.wasm"
     },
     {
@@ -334,7 +334,7 @@ self.assetsManifest = {
       "url": "_framework/System.IO.MemoryMappedFiles.wasm"
     },
     {
-      "hash": "sha256-VuKKRxe50n6MuSlUuKeQNroNxW5X01M/xwl0J0xZurs=",
+      "hash": "sha256-OqcWwk1g3pqQll9uU8TcFaIJhUA9oAncGcH29BG7huo=",
       "url": "_framework/System.Linq.Dynamic.Core.wasm"
     },
     {
@@ -466,7 +466,7 @@ self.assetsManifest = {
       "url": "_framework/YamlDotNet.wasm"
     },
     {
-      "hash": "sha256-DpCGBAje/MX2CVvFBSMoPPKgIDJSjQX85r7SJHzXxjE=",
+      "hash": "sha256-pCi5VWs1h9u+wSJfZe8w+bCOGYg/Q5/rgCtwryaNtNE=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -574,7 +574,7 @@ self.assetsManifest = {
       "url": "data/sample.pdf"
     },
     {
-      "hash": "sha256-iWPCujxbPXZJHFgtbRAreviw5G2hbKR7y++vPnpj4Y0=",
+      "hash": "sha256-Hkb2l1IpvU/bjILaSMLW7buUzc76DBepGSWj3zHuiG4=",
       "url": "data/version.txt"
     },
     {
