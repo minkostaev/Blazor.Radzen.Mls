@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "QiMtoufp",
+  "version": "rANoWNXX",
   "assets": [
     {
       "hash": "sha256-jPXovCzstGW9D/l8FmsZ6AP3w7uzsmNRJH16x3KW9+M=",
@@ -158,7 +158,7 @@ self.assetsManifest = {
       "url": "_framework/AKSoftware.Localization.MultiLanguages.wasm"
     },
     {
-      "hash": "sha256-N/whaSzBo2tzHEip8ZN5ZduSaRLrecQSsvCYpc8Z/KA=",
+      "hash": "sha256-mL2L7fMfk9CIQSTSqElPpYTfqSvvYruadFgkpSLA/sk=",
       "url": "_framework/BlazorRadzenMls.wasm"
     },
     {
@@ -466,7 +466,7 @@ self.assetsManifest = {
       "url": "_framework/YamlDotNet.wasm"
     },
     {
-      "hash": "sha256-pCi5VWs1h9u+wSJfZe8w+bCOGYg/Q5/rgCtwryaNtNE=",
+      "hash": "sha256-pG7tKOB2k1dntvA9t+ZMpgyFeSJt4PzTpJs+hOM+0dc=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -574,7 +574,7 @@ self.assetsManifest = {
       "url": "data/sample.pdf"
     },
     {
-      "hash": "sha256-Hkb2l1IpvU/bjILaSMLW7buUzc76DBepGSWj3zHuiG4=",
+      "hash": "sha256-vyhgwNYZKOF+9twOlBQSYrSJv7b0jAWY/fPaG+1hN2U=",
       "url": "data/version.txt"
     },
     {
