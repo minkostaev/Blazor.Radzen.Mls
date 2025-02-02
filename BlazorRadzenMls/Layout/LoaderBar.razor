@@ -1,0 +1,35 @@
+﻿@using System.Timers
+
+@if (isLoading)
+{
+    <div class="loader">Loading...</div>
+}
+else
+{
+    <RadzenButton Icon="autorenew" Click="() => __ver.Reload()" />
+}
+
+@code {
+
+    private bool isLoading = true;
+
+    private void TimerShowButton()
+    {
+        var timer = new Timer(50000) { Enabled = true };//50 sec
+        timer.Elapsed += delegate
+        {
+            isLoading = false;
+            StateHasChanged();
+            timer.Stop();
+        };
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            TimerShowButton();
+        }
+    }
+
+}

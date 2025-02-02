@@ -4,7 +4,7 @@
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@__state.CurrentLayoutType">
                 <Authorizing>
                     <RadzenLabel Text="Getting user information, please wait." class="rz-color-success-dark" />
-                    <div class="loader">Loading...</div>
+                    <LoaderBar />
                 </Authorizing>
                 <NotAuthorized>
                     NO USER
@@ -30,7 +30,7 @@
             </LayoutView>
         </NotFound>
         <Navigating>
-            <div class="loader">Loading...</div>
+            <LoaderBar />
         </Navigating>
     </Router>
 </CascadingAuthenticationState>
