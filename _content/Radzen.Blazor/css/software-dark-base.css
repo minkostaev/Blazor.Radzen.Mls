@@ -9726,7 +9726,7 @@ i.rzi {
   height: 0;
 }
 .rz-helper-hidden-accessible input {
-  width: 0;
+  width: 100%;
   height: 0;
   padding: 0;
   margin: 0;
@@ -11542,6 +11542,8 @@ input::placeholder {
   font-family: inherit;
   font-size: var(--rz-input-font-size);
   transition: var(--rz-input-transition);
+}
+.rz-colorpicker:not(.invalid), .rz-lookup-search input:not(.invalid), .rz-numeric:not(.invalid), .rz-datepicker > .rz-inputtext:not(.invalid), .rz-multiselect:not(.invalid), .rz-dropdown:not(.invalid), .mask:not(.invalid), .rz-textarea:not(.invalid), .rz-textbox:not(.invalid) {
   outline: none;
 }
 .rz-form-field-content > *, .rz-form-field-content > .rz-autocomplete, .rz-form-field-content > .rz-autocomplete.rz-state-disabled > .rz-inputtext, .rz-form-field-content input, .rz-form-field-content .rz-inputtext, .rz-form-field-content .rz-inputtext.rz-state-disabled, .rz-form-field-content .rz-datepicker.rz-state-disabled > .rz-inputtext {
@@ -12525,6 +12527,7 @@ ul.rz-profile-menu .rz-navigation-menu .rzi {
 
 .rz-checkbox-list-vertical {
   box-sizing: border-box;
+  border-radius: var(--rz-border-radius);
 }
 .rz-checkbox-list-vertical .rz-checkbox {
   display: flex;
@@ -12536,6 +12539,7 @@ ul.rz-profile-menu .rz-navigation-menu .rzi {
 
 .rz-checkbox-list-horizontal {
   box-sizing: border-box;
+  border-radius: var(--rz-border-radius);
 }
 .rz-checkbox-list-horizontal .rz-checkbox {
   display: inline-flex;
@@ -12560,6 +12564,7 @@ ul.rz-profile-menu .rz-navigation-menu .rzi {
   width: var(--rz-checkbox-width);
   min-width: var(--rz-checkbox-width);
   height: var(--rz-checkbox-height);
+  border-radius: var(--rz-checkbox-border-radius);
 }
 .rz-chkbox:focus {
   outline: var(--rz-outline-normal);
@@ -12707,6 +12712,7 @@ ul.rz-profile-menu .rz-navigation-menu .rzi {
 
 .rz-radio-button-list-vertical {
   box-sizing: border-box;
+  border-radius: var(--rz-border-radius);
 }
 .rz-radio-button-list-vertical .rz-radio-btn {
   display: flex;
@@ -12717,6 +12723,7 @@ ul.rz-profile-menu .rz-navigation-menu .rzi {
 
 .rz-radio-button-list-horizontal {
   box-sizing: border-box;
+  border-radius: var(--rz-border-radius);
 }
 .rz-radio-button-list-horizontal .rz-radio-btn {
   display: inline-flex;
@@ -13384,12 +13391,14 @@ a:focus-visible .rz-fieldset-toggler {
   display: inline-flex;
   font-size: var(--rz-rating-font-size);
   height: 1em;
+  border-radius: var(--rz-border-radius);
 }
 .rz-rating.rz-state-disabled .rzi {
   opacity: var(--rz-rating-disabled-opacity);
   color: var(--rz-rating-disabled-color);
 }
 .rz-rating a {
+  display: inline-flex;
   width: 1em;
   height: 1em;
   text-decoration: none;
@@ -13438,6 +13447,7 @@ a:focus-visible .rz-fieldset-toggler {
 .rz-security-code {
   box-sizing: border-box;
   display: inline-flex;
+  border-radius: var(--rz-input-border-radius);
 }
 
 .rz-security-code-wrapper {
@@ -13460,6 +13470,7 @@ a:focus-visible .rz-fieldset-toggler {
 .rz-selectbutton {
   box-sizing: border-box;
   display: inline-flex;
+  border-radius: var(--rz-selectbar-border-radius);
 }
 .rz-selectbutton.rz-selectbutton-horizontal {
   flex-direction: row;
@@ -13626,6 +13637,10 @@ a:focus-visible .rz-fieldset-toggler {
 .rz-datepicker {
   display: inline-block;
   position: relative;
+  border-radius: var(--rz-input-border-radius);
+}
+.rz-datepicker:has(> .rz-inputtext:not(:disabled):not(.rz-state-disabled):focus) {
+  outline: none;
 }
 .rz-datepicker .rz-readonly {
   cursor: pointer;
@@ -13969,6 +13984,7 @@ a:focus-visible .rz-fieldset-toggler {
 .rz-fileupload {
   box-sizing: border-box;
   display: inline-block;
+  border-radius: var(--rz-upload-button-bar-border-radius);
 }
 .rz-fileupload .rz-button {
   vertical-align: middle;
@@ -20923,7 +20939,7 @@ button.rz-colorpicker-trigger .rzi:before {
 .rz-variant-filled .rz-textarea ~ .rz-form-field-label, .rz-variant-flat .rz-textarea ~ .rz-form-field-label {
   transform: translate(0, 0.625rem);
 }
-.rz-form-field:not(.rz-floating-label) .rz-form-field-label, .rz-textbox:focus ~ .rz-form-field-label, .rz-textarea:focus ~ .rz-form-field-label, .rz-numeric:focus-within ~ .rz-form-field-label, .rz-autocomplete:focus-within ~ .rz-form-field-label, .rz-textbox:not(:placeholder-shown) ~ .rz-form-field-label, :not(.rz-state-empty) ~ .rz-form-field-label, .rz-variant-filled .rz-textarea:focus ~ .rz-form-field-label, .rz-variant-flat .rz-textarea:focus ~ .rz-form-field-label, .rz-variant-filled :not(.rz-state-empty) ~ .rz-form-field-label, .rz-variant-flat :not(.rz-state-empty) ~ .rz-form-field-label, .rz-radio-button-list-vertical ~ .rz-form-field-label, .rz-radio-button-list-horizontal ~ .rz-form-field-label, .rz-checkbox-list-vertical ~ .rz-form-field-label, .rz-checkbox-list-horizontal ~ .rz-form-field-label, .rz-chkbox ~ .rz-form-field-label, .rz-fileupload ~ .rz-form-field-label, .rz-state-empty:has(.rz-placeholder) ~ .rz-form-field-label {
+.rz-form-field:not(.rz-floating-label) .rz-form-field-label, .rz-textbox:focus ~ .rz-form-field-label, .rz-textarea:focus ~ .rz-form-field-label, .rz-numeric:focus-within ~ .rz-form-field-label, .rz-autocomplete:focus-within ~ .rz-form-field-label, .rz-textbox:not(:placeholder-shown) ~ .rz-form-field-label, :not(.rz-state-empty) ~ .rz-form-field-label, .rz-variant-filled .rz-textarea:focus ~ .rz-form-field-label, .rz-variant-flat .rz-textarea:focus ~ .rz-form-field-label, .rz-variant-filled :not(.rz-state-empty) ~ .rz-form-field-label, .rz-variant-flat :not(.rz-state-empty) ~ .rz-form-field-label, .rz-radio-button-list-vertical ~ .rz-form-field-label, .rz-radio-button-list-horizontal ~ .rz-form-field-label, .rz-checkbox-list-vertical ~ .rz-form-field-label, .rz-checkbox-list-horizontal ~ .rz-form-field-label, .rz-chkbox ~ .rz-form-field-label, .rz-fileupload ~ .rz-form-field-label, .rz-state-empty:has(.rz-placeholder) ~ .rz-form-field-label, .rz-form-field.rz-state-focused .rz-form-field-label {
   inset-inline-end: auto;
   inset-block-start: var(--rz-form-field-label-floating-top);
   padding-block-start: 0;
@@ -20935,13 +20951,13 @@ button.rz-colorpicker-trigger .rzi:before {
   line-height: 1rem;
   max-width: calc(100% - 1.5rem);
 }
-.rz-form-field:not(.rz-variant-outlined):not(.rz-floating-label) .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) *:focus ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) *:focus-within ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) :not(.rz-state-empty) ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-radio-button-list-vertical ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-radio-button-list-horizontal ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-checkbox-list-vertical ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-checkbox-list-horizontal ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-chkbox ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-fileupload ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-state-empty:has(.rz-placeholder) ~ .rz-form-field-label {
+.rz-form-field:not(.rz-variant-outlined):not(.rz-floating-label) .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) *:focus ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) *:focus-within ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) :not(.rz-state-empty) ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-radio-button-list-vertical ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-radio-button-list-horizontal ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-checkbox-list-vertical ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-checkbox-list-horizontal ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-chkbox ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-fileupload ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined) .rz-state-empty:has(.rz-placeholder) ~ .rz-form-field-label, .rz-form-field:not(.rz-variant-outlined).rz-state-focused .rz-form-field-label {
   background-color: inherit !important;
 }
 .invalid ~ .rz-form-field-label {
   color: var(--rz-danger) !important;
 }
-.rz-state-focused .rz-form-field-label, .rz-variant-filled.rz-state-focused .rz-form-field-label, .rz-variant-flat.rz-state-focused .rz-form-field-label {
+.rz-state-focused .rz-form-field-label, .rz-variant-filled.rz-state-focused .rz-form-field-label, .rz-variant-flat.rz-state-focused .rz-form-field-label, .rz-form-field.rz-state-focused .rz-form-field-label {
   color: var(--rz-form-field-label-focus-color);
 }
 .rz-textbox:focus ~ .rz-form-field-label, .rz-textarea:focus ~ .rz-form-field-label, .rz-numeric:focus-within ~ .rz-form-field-label, .rz-autocomplete:focus-within ~ .rz-form-field-label {
