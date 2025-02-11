@@ -27,6 +27,8 @@ public static class AppServicesExtensions
     }
     public static void AddOwnServices(this IServiceCollection services)
     {
+        services.AddTransient<AuthMessageHandler>();
+        services.AddScoped<IApitoService, ApitoService>();
         services.AddScoped<IJavaScriptService, JavaScriptService>();
         services.AddScoped<StateService>();
         services.AddScoped<LanguageService>();

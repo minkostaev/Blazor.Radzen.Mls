@@ -18,6 +18,8 @@ public class ApitoService : IApitoService
     private const string EndpointImoti = "/imoti";
     private const string EndpointEmailresend = "/emailresend";
 
+    private const string EndpointAaa = "/auth";
+
     private const HttpStatusCode HttpCodeJson = HttpStatusCode.Conflict;
 
     private readonly StateService _state;
@@ -103,9 +105,11 @@ public class ApitoService : IApitoService
     {
         var (response, result) = await AppStatic.GetResponse(_httpClient, EndpointMachinesDetails);
 
+        var (response2, result2) = await AppStatic.GetResponse(_httpClient, EndpointAaa);
+
         if (response == null)
             return result;
-
+         
         var timer = AppStatic.TimerStart();
 
         try { result.Result = await response.Content.ReadFromJsonAsync<MachineMongo[]>(); }
