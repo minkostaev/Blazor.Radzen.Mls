@@ -25,7 +25,7 @@ public class ApitoService : IApitoService
     private readonly StateService _state;
     private readonly HttpClient _httpSomee;
     private readonly HttpClient _httpRender;
-    private HttpClient _httpClient =>
+    private HttpClient ApitoClient =>
         _state.SiteOptions.ApitoId switch { 0 => _httpSomee, 1 => _httpRender, _ => _httpSomee, };
     public ApitoService(IHttpClientFactory httpClientFactory, StateService state)
     {
@@ -36,7 +36,7 @@ public class ApitoService : IApitoService
 
     public async Task<Response> GetMachinesLogs()
     {
-        var (response, result) = await AppStatic.GetResponse(_httpClient, EndpointMachinesLogs);
+        var (response, result) = await AppStatic.GetResponse(ApitoClient, EndpointMachinesLogs);
 
         if (response == null)
             return result;
@@ -69,7 +69,7 @@ public class ApitoService : IApitoService
             httpRequest = new HttpRequestMessage
             {
                 Method = HttpMethod.Delete,
-                RequestUri = new Uri(string.Concat(_httpClient.BaseAddress!.AbsoluteUri, EndpointMachinesLogs.AsSpan(1))),
+                RequestUri = new Uri(string.Concat(ApitoClient.BaseAddress!.AbsoluteUri, EndpointMachinesLogs.AsSpan(1))),
                 Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
             };
         }
@@ -80,7 +80,7 @@ public class ApitoService : IApitoService
         }
 
         HttpResponseMessage? httpResponse;
-        try { httpResponse = await _httpClient.SendAsync(httpRequest!); }
+        try { httpResponse = await ApitoClient.SendAsync(httpRequest!); }
         catch
         {
             result.Status = HttpStatusCode.InternalServerError;
@@ -103,9 +103,9 @@ public class ApitoService : IApitoService
 
     public async Task<Response> GetMachinesDetails()
     {
-        var (response, result) = await AppStatic.GetResponse(_httpClient, EndpointMachinesDetails);
+        var (response, result) = await AppStatic.GetResponse(ApitoClient, EndpointMachinesDetails);
 
-        var (response2, result2) = await AppStatic.GetResponse(_httpClient, EndpointAaa);
+        var (response2, result2) = await AppStatic.GetResponse(ApitoClient, EndpointAaa);
 
         if (response == null)
             return result;
@@ -122,7 +122,7 @@ public class ApitoService : IApitoService
 
     public async Task<Response> GetMachinesRecords()
     {
-        var (response, result) = await AppStatic.GetResponse(_httpClient, EndpointMachinesRecords);
+        var (response, result) = await AppStatic.GetResponse(ApitoClient, EndpointMachinesRecords);
 
         if (response == null)
             return result;
@@ -139,7 +139,7 @@ public class ApitoService : IApitoService
 
     public async Task<Response> GetImoti()
     {
-        var (response, result) = await AppStatic.GetResponse(_httpClient, EndpointImoti);
+        var (response, result) = await AppStatic.GetResponse(ApitoClient, EndpointImoti);
 
         if (response == null)
             return result;
@@ -160,12 +160,12 @@ public class ApitoService : IApitoService
 
         HttpResponseMessage response;
         if (!put)
-            response = await _httpClient.PostAsJsonAsync(EndpointImoti, item as Imot);
+            response = await ApitoClient.PostAsJsonAsync(EndpointImoti, item as Imot);
         else
         {
             string? id = item?.Id;
             Imot? imot = item;
-            response = await _httpClient.PutAsJsonAsync($"{EndpointImoti}/{id}", imot);
+            response = await ApitoClient.PutAsJsonAsync($"{EndpointImoti}/{id}", imot);
         }
 
         if (response == null)
@@ -203,7 +203,7 @@ public class ApitoService : IApitoService
         var timer = AppStatic.TimerStart();
 
         HttpResponseMessage? response = null;
-        try { response = await _httpClient.DeleteAsync($"{EndpointImoti}/{id}"); }
+        try { response = await ApitoClient.DeleteAsync($"{EndpointImoti}/{id}"); }
         catch { result.Status = HttpCodeJson; }
 
         if (response == null)
@@ -242,7 +242,7 @@ public class ApitoService : IApitoService
             secondFooter = "<h4>We'll get back to you as soon as possible</h4>"
         };
 
-        HttpResponseMessage response = await _httpClient.PostAsJsonAsync(EndpointEmailresend, email);
+        HttpResponseMessage response = await ApitoClient.PostAsJsonAsync(EndpointEmailresend, email);
         
         if (response == null)
         {

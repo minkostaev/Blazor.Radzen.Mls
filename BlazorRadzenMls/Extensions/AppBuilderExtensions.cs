@@ -8,6 +8,15 @@ public static class AppBuilderExtensions
 {
     public static void AddAuthentication(this WebAssemblyHostBuilder builder)
     {
+        string authConfig = AppStatic.GetAuth0(builder.HostEnvironment.BaseAddress);
+        string? audience = builder.Configuration[$"Authentication:{authConfig}:Audience"];
+        builder.Services.AddOidcAuthentication(options =>
+        {
+            builder.Configuration.Bind($"Authentication:{authConfig}", options.ProviderOptions);
+            options.ProviderOptions.ResponseType = "code";
+            if (!string.IsNullOrWhiteSpace(audience))
+                options.ProviderOptions.AdditionalProviderParameters.Add("audience", audience);
+        });
         ///builder.Services.AddOidcAuthentication(options =>
         ///{
         ///    options.ProviderOptions.Authority = builder.Configuration["Authentication:Auth0:Authority"];
@@ -17,15 +26,8 @@ public static class AppBuilderExtensions
         ///    options.ProviderOptions.DefaultScopes.Add("profile");
         ///    options.ProviderOptions.DefaultScopes.Add("email");
         ///});
-        builder.Services.AddOidcAuthentication(options =>
-        {
-            string authConfig = "Authentication:" + AppStatic.GetAuth0(builder.HostEnvironment.BaseAddress);
-            builder.Configuration.Bind(authConfig, options.ProviderOptions);//"Auth0"
-            options.ProviderOptions.ResponseType = "code";
-            options.ProviderOptions.AdditionalProviderParameters.Add("audience", builder.Configuration["Authentication:Auth0:Audience"]!);
-        });
     }
-    
+
     public static void AddHttpClients(this WebAssemblyHostBuilder builder)
     {
         builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
