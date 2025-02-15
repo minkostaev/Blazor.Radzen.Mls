@@ -30,18 +30,19 @@ public static class AppBuilderExtensions
 
     public static void AddHttpClients(this WebAssemblyHostBuilder builder)
     {
+        var jsonHeader = new MediaTypeWithQualityHeaderValue("application/json");
         builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
         builder.Services.AddHttpClient("ApitoSomee", client =>
         {
             client.BaseAddress = new Uri(builder.Configuration["Endpoints:ApitoSomee"]!);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Add(jsonHeader);
             client.Timeout = TimeSpan.FromMinutes(3);
         }).AddHttpMessageHandler<AuthMessageHandler>();
         builder.Services.AddHttpClient("ApitoRender", client =>
         {
             client.BaseAddress = new Uri(builder.Configuration["Endpoints:ApitoRender"]!);
-            ///client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            ///client.Timeout = TimeSpan.FromMinutes(3);
-        });///.AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+            client.DefaultRequestHeaders.Accept.Add(jsonHeader);
+            client.Timeout = TimeSpan.FromMinutes(3);
+        }).AddHttpMessageHandler<AuthMessageHandler>();
     }
 }

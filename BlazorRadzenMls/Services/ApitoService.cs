@@ -18,8 +18,6 @@ public class ApitoService : IApitoService
     private const string EndpointImoti = "/imoti";
     private const string EndpointEmailresend = "/emailresend";
 
-    private const string EndpointAaa = "/auth";
-
     private const HttpStatusCode HttpCodeJson = HttpStatusCode.Conflict;
 
     private readonly StateService _state;
@@ -104,8 +102,6 @@ public class ApitoService : IApitoService
     public async Task<Response> GetMachinesDetails()
     {
         var (response, result) = await AppStatic.GetResponse(ApitoClient, EndpointMachinesDetails);
-
-        var (response2, result2) = await AppStatic.GetResponse(ApitoClient, EndpointAaa);
 
         if (response == null)
             return result;
