@@ -134,33 +134,17 @@
                 <RadzenLabel Component="chBxNew" Text="New" Style="margin-left: 8px; vertical-align: middle;" />
             </RadzenColumn>
             <RadzenColumn Size="12" SizeMD="9">
-
-                <AuthorizeView>
-                    <Authorized>
-                        @if (IsNew)
-                        {
-                            <RadzenButton Text="Add" Icon="note_add" Click="() => Btn_Clicked(HttpMethod.Post)" />
-                        }
-                        else
-                        {
-                            @if (SelectedImot != null && context?.User?.Identity?.Name == "rbsxkbgzpekhuwsufu@cazlp.com")
-                            {
-                                @* <RadzenButton Text="Close" Icon="highlight_off" Click="@((args) => __dialog.Close(true))" /> *@
-                                <RadzenButton Text="Update" Icon="build" Click="() => Btn_Clicked(HttpMethod.Put)" />
-                                <RadzenButton Text="Delete" Icon="delete" ButtonStyle="ButtonStyle.Danger"
-                                              Click="() => Btn_Clicked(HttpMethod.Delete)" />
-                            }
-                            else
-                            {
-                                <p>only rbsxkbgzpekhuwsufu@cazlp.com can edit</p>
-                            }
-                        }
-                    </Authorized>
-                    <NotAuthorized>
-                        <a class="text-decoration-none" href="authentication/login">Register if you want to edit</a>
-                    </NotAuthorized>
-                </AuthorizeView>
-
+                @if (IsNew)
+                {
+                    <RadzenButton Text="Add" Icon="note_add" Click="() => Btn_Clicked(HttpMethod.Post)" />
+                }
+                else
+                {
+                    @* <RadzenButton Text="Close" Icon="highlight_off" Click="@((args) => __dialog.Close(true))" /> *@
+                    <RadzenButton Text="Update" Icon="build" Click="() => Btn_Clicked(HttpMethod.Put)" />
+                    <RadzenButton Text="Delete" Icon="delete" ButtonStyle="ButtonStyle.Danger"
+                                  Click="() => Btn_Clicked(HttpMethod.Delete)" />
+                }
             </RadzenColumn>
         </RadzenRow>
     </RadzenStack>
