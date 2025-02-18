@@ -18224,6 +18224,10 @@ a:focus-visible .rz-fieldset-toggler {
   text-decoration: none;
   cursor: pointer;
 }
+.rz-link .rz-link-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
 .rz-link .rz-link-text {
   text-decoration: var(--rz-link-text-decoration);
 }
@@ -18886,6 +18890,10 @@ button.rz-colorpicker-trigger .rzi:before {
 .rz-breadcrumb-item .rz-link {
   display: inline-flex;
   align-items: center;
+}
+.rz-breadcrumb-item .rz-link-disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .rz-alert {
