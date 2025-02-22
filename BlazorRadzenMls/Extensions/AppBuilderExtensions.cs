@@ -44,5 +44,11 @@ public static class AppBuilderExtensions
             client.DefaultRequestHeaders.Accept.Add(jsonHeader);
             client.Timeout = TimeSpan.FromMinutes(3);
         }).AddHttpMessageHandler<AuthMessageHandler>();
+        builder.Services.AddHttpClient("IpApi", client =>
+        {
+            client.BaseAddress = new Uri(builder.Configuration["Endpoints:IpApi"]!);
+            client.DefaultRequestHeaders.Accept.Add(jsonHeader);
+            client.Timeout = TimeSpan.FromMinutes(3);
+        });
     }
 }
