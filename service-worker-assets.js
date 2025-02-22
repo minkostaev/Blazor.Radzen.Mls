@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "b+trPsyl",
+  "version": "6VZSExDb",
   "assets": [
     {
       "hash": "sha256-jPXovCzstGW9D/l8FmsZ6AP3w7uzsmNRJH16x3KW9+M=",
@@ -158,7 +158,7 @@ self.assetsManifest = {
       "url": "_framework/AKSoftware.Localization.MultiLanguages.wasm"
     },
     {
-      "hash": "sha256-xCTIaL+kQN+cBWor3OF5SWhL0XFLF1EmKYBplQDmzv4=",
+      "hash": "sha256-U/8wasAnbezCoXdNomLLSs96ErXkxQcgFIBCzbsju+s=",
       "url": "_framework/BlazorRadzenMls.wasm"
     },
     {
@@ -274,7 +274,7 @@ self.assetsManifest = {
       "url": "_framework/Mintzat.Email.wasm"
     },
     {
-      "hash": "sha256-I+CpYg3ncbWD8mwvDYjeN5ggfrHVwtsYkr0waMbBuuA=",
+      "hash": "sha256-zNkRYyMgKu6lidhiVYPDBmkfUM7mVpGUkZHO4yeHM/g=",
       "url": "_framework/Radzen.Blazor.wasm"
     },
     {
@@ -518,7 +518,7 @@ self.assetsManifest = {
       "url": "_framework/YamlDotNet.wasm"
     },
     {
-      "hash": "sha256-FYs/mj8RFG+K9J1iXFmKIMeU4veC0BLHse3++ypPScc=",
+      "hash": "sha256-yBYc6kNXCxJsYrINGaS4AJTQJglXlytnEKyufJKN3Yc=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -666,7 +666,7 @@ self.assetsManifest = {
       "url": "appsettings.Development.json"
     },
     {
-      "hash": "sha256-Yy/eyuh3o+yRMCIo4/r3DP5x797Z1cdxG2EJ3uK2uHc=",
+      "hash": "sha256-grMKOof7kVDMAzCq4NXx6VZFQrA/kxY/Lkv8pCjLBYg=",
       "url": "appsettings.json"
     },
     {
@@ -730,7 +730,7 @@ self.assetsManifest = {
       "url": "data/sample.pdf"
     },
     {
-      "hash": "sha256-zWAWn3HsIPYcgJTSkZ8lVliXB4R9J8zOMAUR738JKwc=",
+      "hash": "sha256-ha21lJ56U5t1U7P/KpNWanqLl3NW7H9jsk8zudmT75w=",
       "url": "data/version.txt"
     },
     {
