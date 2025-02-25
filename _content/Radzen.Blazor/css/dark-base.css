@@ -14359,6 +14359,16 @@ a:focus-visible .rz-fieldset-toggler {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.rz-datatable-data td .rz-cell-data.rz-text-wrap,
+.rz-grid-table td .rz-cell-data.rz-text-wrap {
+  text-overflow: unset;
+  overflow: visible;
+}
+.rz-datatable-data td .rz-cell-data.rz-text-nowrap,
+.rz-grid-table td .rz-cell-data.rz-text-nowrap {
+  text-overflow: unset;
+  overflow: visible;
+}
 .rz-datatable-data td .rz-cell-data:has(.rz-chkbox), .rz-datatable-data td .rz-cell-data:has(.rz-button),
 .rz-grid-table td .rz-cell-data:has(.rz-chkbox),
 .rz-grid-table td .rz-cell-data:has(.rz-button) {
