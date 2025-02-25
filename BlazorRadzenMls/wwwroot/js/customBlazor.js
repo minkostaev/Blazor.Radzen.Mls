@@ -78,14 +78,13 @@ async function fetchText(path) {
     return resData;
 }
 
-async function getIp() {
-    //https://api.ipify.org
-    ///const response = await fetch('https://jsonip.com/');
-    ///const data = await response.json();
-    ///return data.ip;
-    const response = await fetch('https://api.ipify.org/');
-    const data = await response.text();
-    return data;
+let currentIp;
+async function getIp(forceRefresh) {
+    // to do https://api.ipify.org
+    if (currentIp == null || forceRefresh) {
+        currentIp = await fetchText('https://api.ipify.org/');
+    }
+    return currentIp;
 }
 
 function pdfToIframe(base64String, iframeId) {

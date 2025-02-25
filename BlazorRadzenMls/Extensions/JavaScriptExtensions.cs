@@ -55,10 +55,10 @@ public static class JavaScriptExtensions
     }
 
     public static async Task<string?> GetIp(this IJavaScriptService js,
-        object thisComponent, string methodName = "")
+        bool forceRefresh, object thisComponent, string methodName = "")
     {
         js.DefineComponent(thisComponent, methodName);
-        var result = await js.InvokeAsync<string>("getIp");
+        var result = await js.InvokeAsync<string>("getIp", forceRefresh);
         if (result.Item1 && result.Item2 is string ip)
             return ip;
         return null;

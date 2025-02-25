@@ -103,7 +103,7 @@
 
         jsLocation = await __js.GetLocation(this, "OnInitializedAsync");
 
-        ip = await __js.GetIp(this, "OnInitializedAsync");
+        ip = await __js.GetIp(false, this, "OnInitializedAsync");
 
         var osIsDark = await __js.IsOsDarkTheme(this, "");
         if (osIsDark == true)
