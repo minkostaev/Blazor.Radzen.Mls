@@ -13153,6 +13153,7 @@ a:focus-visible .rz-fieldset-toggler {
   padding-inline: var(--rz-input-padding-inline);
   background-color: transparent;
   color: var(--rz-input-value-color);
+  font-family: inherit;
   box-shadow: var(--rz-input-shadow);
   border: none;
   height: var(--rz-input-height);
@@ -13957,6 +13958,7 @@ a:focus-visible .rz-fieldset-toggler {
   height: 100%;
   border: none;
   background-color: transparent;
+  font-family: inherit;
   line-height: var(--rz-numeric-line-height);
   padding-block: var(--rz-numeric-input-padding-block);
   padding-inline: var(--rz-numeric-input-padding-inline);
@@ -16576,6 +16578,16 @@ a:focus-visible .rz-fieldset-toggler {
   min-width: 20rem;
   background-color: var(--rz-notification-container-background-color);
   margin: 1rem 0;
+}
+.rz-notification-item-wrapper > .rz-progressbar {
+  position: absolute;
+  inset-block-end: calc(1rem + var(--rz-notification-border-radius));
+  inset-inline: var(--rz-notification-border-radius);
+  --rz-progressbar-height: 0.25rem;
+  --rz-progressbar-border-radius: var(--rz-notification-border-radius);
+}
+.rz-notification-item-wrapper:has(> .rz-progressbar) .rz-notification-content {
+  margin-block-end: var(--rz-notification-border-radius);
 }
 
 .rz-notification-item {
@@ -20985,10 +20997,10 @@ button.rz-colorpicker-trigger .rzi:before {
   inset-block-start: var(--rz-form-field-label-textarea-top);
   transform: translate(0, 0);
 }
-.rz-variant-filled .rz-textarea ~ .rz-form-field-label, .rz-variant-flat .rz-textarea ~ .rz-form-field-label {
+.rz-form-field.rz-variant-filled .rz-textarea ~ .rz-form-field-label, .rz-form-field.rz-variant-flat .rz-textarea ~ .rz-form-field-label {
   transform: translate(0, 0.625rem);
 }
-.rz-form-field:not(.rz-floating-label) .rz-form-field-label, .rz-textbox:focus ~ .rz-form-field-label, .rz-textarea:focus ~ .rz-form-field-label, .rz-numeric:focus-within ~ .rz-form-field-label, .rz-autocomplete:focus-within ~ .rz-form-field-label, .rz-textbox:not(:placeholder-shown) ~ .rz-form-field-label, :not(.rz-state-empty) ~ .rz-form-field-label, .rz-variant-filled .rz-textarea:focus ~ .rz-form-field-label, .rz-variant-flat .rz-textarea:focus ~ .rz-form-field-label, .rz-variant-filled :not(.rz-state-empty) ~ .rz-form-field-label, .rz-variant-flat :not(.rz-state-empty) ~ .rz-form-field-label, .rz-radio-button-list-vertical ~ .rz-form-field-label, .rz-radio-button-list-horizontal ~ .rz-form-field-label, .rz-checkbox-list-vertical ~ .rz-form-field-label, .rz-checkbox-list-horizontal ~ .rz-form-field-label, .rz-chkbox ~ .rz-form-field-label, .rz-fileupload ~ .rz-form-field-label, .rz-state-empty:has(.rz-placeholder) ~ .rz-form-field-label, .rz-form-field.rz-state-focused .rz-form-field-label {
+.rz-form-field:not(.rz-floating-label) .rz-form-field-label, .rz-textbox:focus ~ .rz-form-field-label, .rz-textarea:focus ~ .rz-form-field-label, .rz-numeric:focus-within ~ .rz-form-field-label, .rz-autocomplete:focus-within ~ .rz-form-field-label, .rz-textbox:not(:placeholder-shown) ~ .rz-form-field-label, :not(.rz-state-empty) ~ .rz-form-field-label, .rz-form-field.rz-variant-filled .rz-textarea:focus ~ .rz-form-field-label, .rz-form-field.rz-variant-flat .rz-textarea:focus ~ .rz-form-field-label, .rz-form-field.rz-variant-filled :not(.rz-state-empty) ~ .rz-form-field-label, .rz-form-field.rz-variant-flat :not(.rz-state-empty) ~ .rz-form-field-label, .rz-radio-button-list-vertical ~ .rz-form-field-label, .rz-radio-button-list-horizontal ~ .rz-form-field-label, .rz-checkbox-list-vertical ~ .rz-form-field-label, .rz-checkbox-list-horizontal ~ .rz-form-field-label, .rz-chkbox ~ .rz-form-field-label, .rz-fileupload ~ .rz-form-field-label, .rz-state-empty:has(.rz-placeholder) ~ .rz-form-field-label, .rz-form-field.rz-state-focused .rz-form-field-label {
   inset-inline-end: auto;
   inset-block-start: var(--rz-form-field-label-floating-top);
   padding-block-start: 0;
@@ -21006,13 +21018,7 @@ button.rz-colorpicker-trigger .rzi:before {
 .invalid ~ .rz-form-field-label {
   color: var(--rz-danger) !important;
 }
-.rz-state-focused .rz-form-field-label, .rz-variant-filled.rz-state-focused .rz-form-field-label, .rz-variant-flat.rz-state-focused .rz-form-field-label, .rz-form-field.rz-state-focused .rz-form-field-label {
-  color: var(--rz-form-field-label-focus-color);
-}
-.rz-textbox:focus ~ .rz-form-field-label, .rz-textarea:focus ~ .rz-form-field-label, .rz-numeric:focus-within ~ .rz-form-field-label, .rz-autocomplete:focus-within ~ .rz-form-field-label {
-  color: var(--rz-form-field-label-focus-color);
-}
-.rz-variant-filled .rz-textbox:focus ~ .rz-form-field-label, .rz-variant-flat .rz-textbox:focus ~ .rz-form-field-label, .rz-variant-filled .rz-textarea:focus ~ .rz-form-field-label, .rz-variant-flat .rz-textarea:focus ~ .rz-form-field-label, .rz-variant-filled .rz-numeric:focus-within ~ .rz-form-field-label, .rz-variant-flat .rz-numeric:focus-within ~ .rz-form-field-label, .rz-variant-filled .rz-autocomplete:focus-within ~ .rz-form-field-label, .rz-variant-flat .rz-autocomplete:focus-within ~ .rz-form-field-label {
+.rz-state-focused .rz-form-field-label, .rz-form-field.rz-state-focused .rz-form-field-label, .rz-form-field.rz-variant-filled.rz-state-focused ~ .rz-form-field-label, .rz-form-field.rz-variant-flat.rz-state-focused ~ .rz-form-field-label, .rz-textbox:focus ~ .rz-form-field-label, .rz-textarea:focus ~ .rz-form-field-label, .rz-numeric:focus-within ~ .rz-form-field-label, .rz-autocomplete:focus-within ~ .rz-form-field-label, .rz-form-field.rz-variant-filled .rz-textbox:focus ~ .rz-form-field-label, .rz-form-field.rz-variant-flat .rz-textbox:focus ~ .rz-form-field-label {
   color: var(--rz-form-field-label-focus-color);
 }
 
