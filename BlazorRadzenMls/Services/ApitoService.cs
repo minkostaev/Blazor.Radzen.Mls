@@ -24,7 +24,7 @@ public class ApitoService : IApitoService
     private readonly HttpClient _httpSomee;
     private readonly HttpClient _httpRender;
     private HttpClient ApitoClient =>
-        _state.SiteOptions.ApitoId switch { 0 => _httpSomee, 1 => _httpRender, _ => _httpSomee, };
+        _state.SiteOptions.ApitoId switch { 0 => _httpRender, 1 => _httpSomee, _ => _httpRender, };
     public ApitoService(IHttpClientFactory httpClientFactory, StateService state)
     {
         _state = state;
