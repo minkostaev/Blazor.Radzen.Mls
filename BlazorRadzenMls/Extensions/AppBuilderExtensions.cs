@@ -26,7 +26,7 @@ public static class AppBuilderExtensions
         ///    options.ProviderOptions.DefaultScopes.Add("profile");
         ///    options.ProviderOptions.DefaultScopes.Add("email");
         ///});
-    }
+    }//maybe use https://www.keycloak.org/ in the future
 
     public static void AddHttpClients(this WebAssemblyHostBuilder builder)
     {
